@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #2C2C2C;
+  background-color: #F0FAF5;
+}
+
+body {
+  @apply bg-bg-main font-sans text-text-primary;
+  min-height: 100vh;
+}
+
+@layer utilities {
+  .peach-divider {
+    position: relative;
+  }
+
+  .peach-divider::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    width: 160px;
+    height: 6px;
+    background: linear-gradient(90deg, #FFB6C1, #A8D8EA, #7EC4A4);
+    border-radius: 999px;
+  }
+}
