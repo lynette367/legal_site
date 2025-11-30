@@ -100,6 +100,7 @@ export async function createPayPalOrder(
  */
 export async function capturePayPalOrder(orderId: string): Promise<PayPalCaptureOrderResult> {
   const request = new checkoutNodeJssdk.orders.OrdersCaptureRequest(orderId);
+  // @ts-expect-error - PayPal SDK types require payment_source but it's optional for capture
   request.requestBody({});
 
   try {

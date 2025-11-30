@@ -141,8 +141,8 @@ export function PricingContent() {
               PayPal（已集成）
             </span>
             {paymentChannels.map((method) => (
-              <span key={method} className="rounded-full bg-primary-lavender/20 px-4 py-1 text-sm text-text-lavender">
-                {method}（占位）
+              <span key={method.value} className="rounded-full bg-primary-lavender/20 px-4 py-1 text-sm text-text-lavender">
+                {method.label}（占位）
               </span>
             ))}
           </div>
