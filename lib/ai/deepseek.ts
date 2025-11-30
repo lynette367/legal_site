@@ -1,13 +1,23 @@
 import OpenAI from "openai";
 
 /**
- * DeepSeek API 客户端
+ * 获取 DeepSeek API 客户端（延迟初始化）
  * 使用 OpenAI SDK 兼容模式
+ * 延迟初始化以避免在构建阶段读取环境变量
  */
-export const deepseekClient = new OpenAI({
-  apiKey: process.env.DEEPSEEK_API_KEY,
-  baseURL: process.env.DEEPSEEK_API_BASE || "https://api.deepseek.com",
-});
+function getDeepSeekClient(): OpenAI {
+  const apiKey = process.env.DEEPSEEK_API_KEY;
+  const baseURL = process.env.DEEPSEEK_API_BASE || "https://api.deepseek.com";
+  
+  if (!apiKey) {
+    throw new Error("DEEPSEEK_API_KEY environment variable is not set");
+  }
+  
+  return new OpenAI({
+    apiKey,
+    baseURL,
+  });
+}
 
 /**
  * 调用 DeepSeek API 的通用函数
@@ -22,6 +32,9 @@ export async function callDeepSeek(
   temperature: number = 0.3
 ): Promise<string> {
   try {
+    // 延迟初始化客户端，只在函数调用时创建
+    const deepseekClient = getDeepSeekClient();
+    
     const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [];
 
     // 添加系统提示词
