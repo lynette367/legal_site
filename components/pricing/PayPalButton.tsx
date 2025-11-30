@@ -70,6 +70,16 @@ interface PayPalButtonProps {
 const toError = (error: unknown, fallbackMessage: string): Error =>
   error instanceof Error ? error : new Error(fallbackMessage);
 
+const getApiErrorMessage = (payload: unknown, fallback: string): string => {
+  if (payload && typeof payload === "object" && "error" in payload) {
+    const message = (payload as { error?: unknown }).error;
+    if (typeof message === "string" && message.trim().length > 0) {
+      return message;
+    }
+  }
+  return fallback;
+};
+
 /**
  * PayPal 支付按钮组件
  * 集成 PayPal JavaScript SDK
@@ -144,8 +154,7 @@ export function PayPalButton({ planId, onSuccess, onError }: PayPalButtonProps) 
 
             const data: PayPalCreateOrderResponse = await response.json();
             if (!response.ok || !data.success || !data.paypalOrderId) {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              throw new Error((data as any).error || 'Failed to create order');
+              throw new Error(getApiErrorMessage(data, 'Failed to create order'));
             }
 
             return data.paypalOrderId;
@@ -174,7 +183,7 @@ export function PayPalButton({ planId, onSuccess, onError }: PayPalButtonProps) 
 
             const result: PayPalCaptureResponse = await response.json();
             if (!response.ok || !result?.success) {
-              throw new Error(result.error || 'Failed to capture order');
+              throw new Error(getApiErrorMessage(result, 'Failed to capture order'));
             }
 
             onSuccess?.(result);
