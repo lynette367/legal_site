@@ -13,28 +13,39 @@ const SESSION_MAX_AGE = parseInt(process.env.SESSION_MAX_AGE || "604800", 10); /
 const VERIFICATION_TOKEN_MAX_AGE = 15 * 60; // 15 分钟（秒）
 
 /**
- * 自定义 Adapter：扩展 PrismaAdapter 以设置验证 token 过期时间为 15 分钟
+ * 自定义 Adapter：延迟初始化 PrismaAdapter，并设置验证 token 15 分钟过期
  */
-const baseAdapter = PrismaAdapter(prisma) as Adapter;
+let prismaAdapter: Adapter | null = null;
 
-const customAdapter: Adapter = {
-  ...baseAdapter,
-  async createVerificationToken(data) {
-    // 设置过期时间为 15 分钟后（而不是默认的 24 小时）
-    const expires = new Date(Date.now() + VERIFICATION_TOKEN_MAX_AGE * 1000);
-    
-    // 直接使用 Prisma 创建验证 token，使用自定义过期时间
-    const token = await prisma.verificationToken.create({
-      data: {
-        identifier: data.identifier,
-        token: data.token,
-        expires,
-      },
-    });
-    
-    return token;
+function getPrismaAdapter(): Adapter {
+  if (!prismaAdapter) {
+    prismaAdapter = PrismaAdapter(prisma) as Adapter;
+  }
+  return prismaAdapter;
+}
+
+const customAdapter: Adapter = new Proxy({} as Adapter, {
+  get(_target, prop, receiver) {
+    if (prop === 'createVerificationToken') {
+      return async function createVerificationToken(data: Parameters<
+        NonNullable<Adapter['createVerificationToken']>
+      >[0]) {
+        const expires = new Date(Date.now() + VERIFICATION_TOKEN_MAX_AGE * 1000);
+        return prisma.verificationToken.create({
+          data: {
+            identifier: data.identifier,
+            token: data.token,
+            expires,
+          },
+        });
+      };
+    }
+
+    const adapter = getPrismaAdapter();
+    const value = Reflect.get(adapter, prop, receiver);
+    return typeof value === 'function' ? value.bind(adapter) : value;
   },
-};
+});
 
 /**
  * NextAuth 配置
