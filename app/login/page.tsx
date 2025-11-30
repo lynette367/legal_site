@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { LoginPageContent } from "../../components/common/LoginPageContent";
-import { PageHero } from "../../components/ui/PageHero";
 
 export const metadata: Metadata = {
   title: "登录｜Panco 法律助手",

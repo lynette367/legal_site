@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
 
     // 使用 Credits
     try {
-      const updatedCredits = await UserCreditsService.useCredits(
+      const updatedCredits = await UserCreditsService.deductCredits(
         userId,
         amount,
         description
@@ -54,8 +54,10 @@ export async function POST(request: NextRequest) {
         },
         message: `成功消费 ${amount} Credits`,
       });
-    } catch (error: any) {
-      if (error.message === 'Credits 余额不足') {
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : '扣除 Credits 失败';
+      if (message === 'Credits 余额不足') {
         return NextResponse.json(
           { error: 'Credits 余额不足，请先充值' },
           { status: 400 }
@@ -63,12 +65,10 @@ export async function POST(request: NextRequest) {
       }
       throw error;
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Use credits error:', error);
-    return NextResponse.json(
-      { error: error.message || '消费 Credits 失败' },
-      { status: 500 }
-    );
+    const message =
+      error instanceof Error ? error.message : '消费 Credits 失败';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
-

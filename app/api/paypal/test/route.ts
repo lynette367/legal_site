@@ -21,15 +21,15 @@ export async function GET() {
     let sdkInstalled = false;
     let prismaInstalled = false;
     try {
-      require('@paypal/checkout-server-sdk');
+      await import('@paypal/checkout-server-sdk');
       sdkInstalled = true;
-    } catch (e) {
+    } catch {
       sdkInstalled = false;
     }
     try {
-      require('@prisma/client');
+      await import('@prisma/client');
       prismaInstalled = true;
-    } catch (e) {
+    } catch {
       prismaInstalled = false;
     }
 
@@ -93,15 +93,16 @@ export async function GET() {
         '请在 .env.local 中配置 PAYPAL_CLIENT_ID 和 PAYPAL_CLIENT_SECRET',
       ] : [],
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : '测试失败';
     return NextResponse.json(
       {
         status: 'error',
-        message: error.message || '测试失败',
-        error: error.toString(),
+        message,
+        error: error instanceof Error ? error.toString() : 'Unknown error',
       },
       { status: 500 }
     );
   }
 }
-

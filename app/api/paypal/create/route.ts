@@ -110,7 +110,7 @@ export async function POST(request: NextRequest) {
 
     // 获取支付链接
     const approveLink = paypalResult.links?.find(
-      (link: any) => link.rel === 'approve'
+      (link) => link.rel === 'approve'
     );
 
     return NextResponse.json({
@@ -125,12 +125,10 @@ export async function POST(request: NextRequest) {
         amount,
       },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Create PayPal order error:', error);
-    return NextResponse.json(
-      { error: error.message || '订单创建失败' },
-      { status: 500 }
-    );
+    const message =
+      error instanceof Error ? error.message : '订单创建失败';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
-

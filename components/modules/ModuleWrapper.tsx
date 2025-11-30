@@ -21,7 +21,7 @@ export function useAIModule() {
    */
   const callAIApi = async (
     apiEndpoint: string,
-    payload: Record<string, any>
+    payload: Record<string, unknown>
   ): Promise<{ success: boolean; message: string; answer?: string }> => {
     // 检查登录状态
     if (status === "loading") {
@@ -150,4 +150,3 @@ export function useAIModule() {
     consumeCreditsAndExecute, // 保留兼容性
   };
 }
-

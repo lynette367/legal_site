@@ -1,4 +1,5 @@
-import { NextAuthOptions } from "next-auth";
+import type { NextAuthOptions, Session } from "next-auth";
+import type { JWT } from "next-auth/jwt";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import EmailProvider from "next-auth/providers/email";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -7,7 +8,6 @@ import type { Adapter } from "next-auth/adapters";
 
 // Session 过期时间配置（7 天）
 const SESSION_MAX_AGE = parseInt(process.env.SESSION_MAX_AGE || "604800", 10); // 默认 7 天（秒）
-const SESSION_MAX_AGE_DAYS = SESSION_MAX_AGE / (24 * 60 * 60);
 
 // Magic Link 验证 token 过期时间（15 分钟）
 const VERIFICATION_TOKEN_MAX_AGE = 15 * 60; // 15 分钟（秒）
@@ -197,7 +197,7 @@ export const authOptions: NextAuthOptions = {
     },
     
     // JWT callback: 在创建或更新 JWT 时调用
-    async jwt({ token, user, account, profile, trigger }) {
+    async jwt({ token, user }) {
       const now = Math.floor(Date.now() / 1000);
       
       // 首次登录时，user 对象可用，设置过期时间
@@ -211,7 +211,7 @@ export const authOptions: NextAuthOptions = {
       // 检查 token 是否过期
       if (token.exp && token.exp < now) {
         // Token 已过期，返回 null 会导致 session 为 null
-        return null as any;
+        return null as unknown as JWT;
       }
       
       return token;
@@ -221,14 +221,14 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       // 如果 token 为 null 或过期，返回 null session（要求重新登录）
       if (!token) {
-        return null as any;
+        return null as unknown as Session;
       }
       
       // 检查 token 是否过期
       const now = Math.floor(Date.now() / 1000);
       if (token.exp && token.exp < now) {
         // Session 已过期，返回 null 要求重新登录
-        return null as any;
+        return null as unknown as Session;
       }
       
       // 正常情况，返回 session
@@ -254,4 +254,3 @@ export const authOptions: NextAuthOptions = {
   // 密钥
   secret: process.env.NEXTAUTH_SECRET,
 };
-

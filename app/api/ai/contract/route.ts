@@ -42,13 +42,15 @@ export async function POST(request: NextRequest) {
     // 3. 扣除 Credits（合同生成 = 3 Credits）
     const CREDITS_COST = 3;
     try {
-      await UserCreditsService.useCredits(
+      await UserCreditsService.deductCredits(
         userId,
         CREDITS_COST,
         `生成${contractType}`
       );
-    } catch (error: any) {
-      if (error.message === "Credits 余额不足") {
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : "扣除 Credits 失败";
+      if (message === "Credits 余额不足") {
         return NextResponse.json(
           { error: "Credits 余额不足，请先购买套餐" },
           { status: 402 }
@@ -74,15 +76,11 @@ ${requirements.trim()}
       contractType,
       creditsUsed: CREDITS_COST,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Contract API Error:", error);
-    return NextResponse.json(
-      {
-        error: error.message || "AI 调用失败，请稍后重试",
-      },
-      { status: 500 }
-    );
+    const message =
+      error instanceof Error ? error.message : "AI 调用失败，请稍后重试";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
-
 

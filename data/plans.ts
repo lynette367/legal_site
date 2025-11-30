@@ -7,6 +7,13 @@ export interface Plan {
   recommended?: boolean;
 }
 
+export type PaymentMethod = "paypal" | "wechat" | "alipay";
+
+export interface PaymentChannel {
+  label: string;
+  value: Exclude<PaymentMethod, "paypal">;
+}
+
 // 各功能扣费规则
 export const creditsCost = {
   legalQa: 1,      // AI 法律问答
@@ -49,7 +56,10 @@ export const plans: Plan[] = [
   },
 ];
 
-export const paymentChannels = ["微信 H5 支付", "支付宝 H5 支付"];
+export const paymentChannels: PaymentChannel[] = [
+  { label: "微信 H5 支付", value: "wechat" },
+  { label: "支付宝 H5 支付", value: "alipay" },
+];
 
 // 点数适用说明
 export const creditsNote = "点数适用所有功能，不同功能按复杂度扣除 1-3 点";

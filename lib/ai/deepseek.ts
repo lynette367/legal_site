@@ -46,11 +46,11 @@ export async function callDeepSeek(
     });
 
     return response.choices[0]?.message?.content || "未能生成回答";
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("DeepSeek API Error:", error);
-    throw new Error(
-      error.message || "DeepSeek API 调用失败，请稍后重试"
-    );
+    const message =
+      error instanceof Error ? error.message : "DeepSeek API 调用失败，请稍后重试";
+    throw new Error(message);
   }
 }
 
@@ -120,5 +120,4 @@ export const PROMPTS = {
 
 请客观分析，帮助用户做出理性决策。`,
 };
-
 

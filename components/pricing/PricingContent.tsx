@@ -2,14 +2,20 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { paymentChannels, plans, singleUse, creditsNote } from "../../data/plans";
-import { PayPalButton } from "./PayPalButton";
+import {
+  paymentChannels,
+  plans,
+  singleUse,
+  creditsNote,
+  PaymentMethod,
+} from "../../data/plans";
+import { PayPalButton, PayPalCaptureSuccess } from "./PayPalButton";
 
 export function PricingContent() {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<(typeof plans)[number] | null>(null);
-  const [paymentMethod, setPaymentMethod] = useState<"paypal" | "alipay" | "wechat">("paypal");
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("paypal");
   const [status, setStatus] = useState<string | null>(null);
 
   const openModal = (planId: string) => {
@@ -20,7 +26,7 @@ export function PricingContent() {
     setIsModalOpen(true);
   };
 
-  const handlePayPalSuccess = (data: any) => {
+  const handlePayPalSuccess = (data: PayPalCaptureSuccess) => {
     setStatus("支付成功！");
     setTimeout(() => {
       router.push(`/pricing/success?plan=${selectedPlan?.id}&credits=${data.credits?.remainingCredits || selectedPlan?.credits}`);
@@ -28,7 +34,7 @@ export function PricingContent() {
     }, 1000);
   };
 
-  const handlePayPalError = (error: any) => {
+  const handlePayPalError = (error: Error) => {
     setStatus(`支付失败: ${error.message || '未知错误'}`);
   };
 
@@ -177,17 +183,17 @@ export function PricingContent() {
                 />
                 <span className="text-sm text-text-primary font-semibold">PayPal 支付（真实集成）</span>
               </label>
-              {paymentChannels.map((method) => (
-                <label key={method} className="flex items-center gap-2 rounded-xl border border-border-lavender/70 bg-white/80 p-3 opacity-60">
+              {paymentChannels.map((channel) => (
+                <label key={channel.value} className="flex items-center gap-2 rounded-xl border border-border-lavender/70 bg-white/80 p-3 opacity-60">
                   <input
                     type="radio"
                     name="payment"
-                    value={method}
-                    checked={paymentMethod === method.toLowerCase() as any}
-                    onChange={() => setPaymentMethod(method.toLowerCase() as any)}
+                    value={channel.value}
+                    checked={paymentMethod === channel.value}
+                    onChange={() => setPaymentMethod(channel.value)}
                     className="accent-primary-lavender"
                   />
-                  <span className="text-sm text-text-primary">{method}（占位）</span>
+                  <span className="text-sm text-text-primary">{channel.label}（占位）</span>
                 </label>
               ))}
             </div>

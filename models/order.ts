@@ -91,7 +91,7 @@ export class InMemoryStore {
   }
 
   static useCredits() {
-    throw new Error('InMemoryStore 已废弃，请使用 Prisma: UserCreditsService.useCredits()');
+    throw new Error('InMemoryStore 已废弃，请使用 Prisma: UserCreditsService.deductCredits()');
   }
 
   static getUsageHistory() {

@@ -109,12 +109,10 @@ export async function POST(request: NextRequest) {
         payer: captureResult.payer,
       },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Capture PayPal order error:', error);
-    return NextResponse.json(
-      { error: error.message || '支付捕获失败' },
-      { status: 500 }
-    );
+    const message =
+      error instanceof Error ? error.message : '支付捕获失败';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
-

@@ -75,9 +75,9 @@ export class UserCreditsService {
   }
 
   /**
-   * 使用 Credits
+   * 扣除 Credits
    */
-  static async useCredits(userId: string, amount: number, description: string) {
+  static async deductCredits(userId: string, amount: number, description: string) {
     const user = await this.getUserCredits(userId);
 
     // 检查余额是否足够
@@ -117,4 +117,3 @@ export class UserCreditsService {
     });
   }
 }
-

@@ -34,13 +34,15 @@ export async function POST(request: NextRequest) {
 
     // 3. 扣除 Credits（1 次调用 = 1 Credit）
     try {
-      await UserCreditsService.useCredits(
+      await UserCreditsService.deductCredits(
         userId,
         1,
         "AI 法律问答"
       );
-    } catch (error: any) {
-      if (error.message === "Credits 余额不足") {
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : "扣除 Credits 失败";
+      if (message === "Credits 余额不足") {
         return NextResponse.json(
           { error: "Credits 余额不足，请先购买套餐" },
           { status: 402 }
@@ -61,15 +63,11 @@ export async function POST(request: NextRequest) {
       answer,
       creditsUsed: 1,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Legal QA API Error:", error);
-    return NextResponse.json(
-      {
-        error: error.message || "AI 调用失败，请稍后重试",
-      },
-      { status: 500 }
-    );
+    const message =
+      error instanceof Error ? error.message : "AI 调用失败，请稍后重试";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
-
 

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { moduleExamples } from "../../data/moduleExamples";
 import { useAIModule } from "./ModuleWrapper";
-import { ExampleShowcase, OutputBlock } from "../ui/ExampleShowcase";
+import { ExampleShowcase } from "../ui/ExampleShowcase";
 
 export function DisputeModule() {
   const example = moduleExamples.dispute;

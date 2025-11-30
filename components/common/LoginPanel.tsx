@@ -136,7 +136,7 @@ export function LoginPanel({ onClose }: LoginPanelProps) {
       </form>
 
       <div className="mt-6 text-center text-xs text-text-primary/60">
-        <p>点击"发送登录邮件"即表示您同意我们的</p>
+        <p>点击“发送登录邮件”即表示您同意我们的</p>
         <p className="mt-1">
           <a href="/terms" className="text-primary-lavender hover:underline">
             服务条款

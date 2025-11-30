@@ -2,11 +2,73 @@
 
 import { useEffect, useState } from "react";
 
+type JsonObject = Record<string, unknown>;
+
+interface PayPalCreateOrderSuccess {
+  success: true;
+  paypalOrderId: string;
+}
+
+interface PayPalApiError {
+  success?: false;
+  error?: string;
+}
+
+type PayPalCreateOrderResponse = PayPalCreateOrderSuccess | PayPalApiError;
+
+export interface PayPalCaptureSuccess {
+  success: true;
+  credits?: {
+    totalCredits: number;
+    usedCredits: number;
+    remainingCredits: number;
+    [key: string]: unknown;
+  };
+  order?: JsonObject;
+  captureDetails?: JsonObject;
+}
+
+type PayPalCaptureResponse = PayPalCaptureSuccess | PayPalApiError;
+
+interface PayPalApproveData {
+  orderID: string;
+}
+
+interface PayPalButtonsInstance {
+  render: (selector: string) => void;
+}
+
+interface PayPalButtonsOptions {
+  style?: {
+    layout?: "vertical" | "horizontal";
+    color?: "blue" | "gold" | "silver" | "white" | "black";
+    shape?: "rect" | "pill";
+    label?: "paypal" | "checkout" | "buynow" | "pay";
+  };
+  createOrder: () => Promise<string>;
+  onApprove: (data: PayPalApproveData) => Promise<void>;
+  onCancel?: (data: PayPalApproveData) => void;
+  onError?: (error: Error) => void;
+}
+
+interface PayPalNamespace {
+  Buttons: (options: PayPalButtonsOptions) => PayPalButtonsInstance;
+}
+
+declare global {
+  interface Window {
+    paypal?: PayPalNamespace;
+  }
+}
+
 interface PayPalButtonProps {
   planId: string;
-  onSuccess?: (data: any) => void;
-  onError?: (error: any) => void;
+  onSuccess?: (data: PayPalCaptureSuccess) => void;
+  onError?: (error: Error) => void;
 }
+
+const toError = (error: unknown, fallbackMessage: string): Error =>
+  error instanceof Error ? error : new Error(fallbackMessage);
 
 /**
  * PayPal 支付按钮组件
@@ -21,7 +83,9 @@ export function PayPalButton({ planId, onSuccess, onError }: PayPalButtonProps) 
     // 加载 PayPal SDK
     const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
     if (!clientId) {
-      console.error('PayPal Client ID not configured');
+      const error = new Error('PayPal Client ID not configured');
+      console.error(error.message);
+      onError?.(error);
       return;
     }
 
@@ -32,14 +96,17 @@ export function PayPalButton({ planId, onSuccess, onError }: PayPalButtonProps) 
       setSdkReady(true);
     };
     script.onerror = () => {
-      console.error('Failed to load PayPal SDK');
-      onError?.({ message: 'Failed to load PayPal SDK' });
+      const error = new Error('Failed to load PayPal SDK');
+      console.error(error.message);
+      onError?.(error);
     };
 
     document.body.appendChild(script);
 
     return () => {
-      document.body.removeChild(script);
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
     };
   }, [onError]);
 
@@ -50,7 +117,7 @@ export function PayPalButton({ planId, onSuccess, onError }: PayPalButtonProps) 
     const container = document.getElementById('paypal-button-container');
     if (!container || container.children.length > 0) return;
 
-    const paypal = (window as any).paypal;
+    const paypal = window.paypal;
     if (!paypal) return;
 
     paypal
@@ -75,22 +142,23 @@ export function PayPalButton({ planId, onSuccess, onError }: PayPalButtonProps) 
               }),
             });
 
-            const data = await response.json();
-            if (!response.ok || !data.success) {
+            const data: PayPalCreateOrderResponse = await response.json();
+            if (!response.ok || !data.success || !data.paypalOrderId) {
               throw new Error(data.error || 'Failed to create order');
             }
 
             return data.paypalOrderId;
-          } catch (error: any) {
-            console.error('Error creating order:', error);
-            onError?.(error);
-            throw error;
+          } catch (error: unknown) {
+            const err = toError(error, 'Failed to create order');
+            console.error('Error creating order:', err);
+            onError?.(err);
+            throw err;
           } finally {
             setIsLoading(false);
           }
         },
         // 批准后捕获订单
-        onApprove: async (data: any) => {
+        onApprove: async (data: PayPalApproveData) => {
           setIsLoading(true);
           try {
             const response = await fetch('/api/paypal/capture', {
@@ -103,28 +171,30 @@ export function PayPalButton({ planId, onSuccess, onError }: PayPalButtonProps) 
               }),
             });
 
-            const result = await response.json();
-            if (!response.ok || !result.success) {
+            const result: PayPalCaptureResponse = await response.json();
+            if (!response.ok || !result?.success) {
               throw new Error(result.error || 'Failed to capture order');
             }
 
             onSuccess?.(result);
-          } catch (error: any) {
-            console.error('Error capturing order:', error);
-            onError?.(error);
+          } catch (error: unknown) {
+            const err = toError(error, 'Failed to capture order');
+            console.error('Error capturing order:', err);
+            onError?.(err);
           } finally {
             setIsLoading(false);
           }
         },
         // 取消支付
-        onCancel: (data: any) => {
+        onCancel: (data: PayPalApproveData) => {
           console.log('Payment cancelled:', data);
           setIsLoading(false);
         },
         // 错误处理
-        onError: (err: any) => {
-          console.error('PayPal error:', err);
-          onError?.(err);
+        onError: (err: Error | unknown) => {
+          const error = toError(err, 'PayPal error');
+          console.error('PayPal error:', error);
+          onError?.(error);
           setIsLoading(false);
         },
       })
@@ -150,4 +220,3 @@ export function PayPalButton({ planId, onSuccess, onError }: PayPalButtonProps) 
     </div>
   );
 }
-

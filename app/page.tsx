@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { paymentChannels, plans, singleUse, creditsNote } from "../data/plans";
+import { paymentChannels, plans, creditsNote } from "../data/plans";
 
 export const metadata: Metadata = {
   title: "Panco 法律助手｜AI 法律问答、纠纷方案、法律文书生成、合同生成",
@@ -134,8 +134,8 @@ export default function HomePage() {
               PayPal（已集成）
             </span>
             {paymentChannels.map((method) => (
-              <span key={method} className="rounded-full bg-primary-lavender/20 px-4 py-1 text-sm text-text-lavender">
-                {method}
+              <span key={method.value} className="rounded-full bg-primary-lavender/20 px-4 py-1 text-sm text-text-lavender">
+                {method.label}
               </span>
             ))}
           </div>

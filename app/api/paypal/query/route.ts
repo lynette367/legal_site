@@ -87,12 +87,10 @@ export async function GET(request: NextRequest) {
       order: orderRecord,
       paypalDetails,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Query order error:', error);
-    return NextResponse.json(
-      { error: error.message || '查询订单失败' },
-      { status: 500 }
-    );
+    const message =
+      error instanceof Error ? error.message : '查询订单失败';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
-

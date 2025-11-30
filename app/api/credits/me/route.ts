@@ -32,12 +32,10 @@ export async function GET() {
         lastUpdated: credits.updatedAt,
       },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Get credits error:', error);
-    return NextResponse.json(
-      { error: error.message || '获取 Credits 失败' },
-      { status: 500 }
-    );
+    const message =
+      error instanceof Error ? error.message : '获取 Credits 失败';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
-

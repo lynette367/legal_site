@@ -1,4 +1,4 @@
-import NextAuth, { DefaultSession } from "next-auth";
+import { DefaultSession } from "next-auth";
 
 /**
  * 扩展 NextAuth 类型定义
@@ -30,4 +30,3 @@ declare module "next-auth/jwt" {
     exp?: number; // 过期时间（Expiration Time）
   }
 }
-
