@@ -1,7 +1,6 @@
 {
   "/page": "app/page.js",
-  "/help/page": "app/help/page.js",
-  "/knowledge/page": "app/knowledge/page.js",
-  "/news/page": "app/news/page.js",
-  "/contracts/[id]/page": "app/contracts/[id]/page.js"
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/api/credits/me/route": "app/api/credits/me/route.js"
 }

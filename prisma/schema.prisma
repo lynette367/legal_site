@@ -1,0 +1,120 @@
+// Prisma Schema for PayPal Payment System
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// 用户模型（集成 NextAuth）
+model User {
+  id               String    @id @default(cuid())
+  name             String?
+  email            String?   @unique
+  emailVerified    DateTime?
+  password         String?   // 可选，邮箱登录时为 null
+  image            String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  // Credits 系统
+  totalCredits     Int       @default(0)  // 总充值 credits
+  usedCredits      Int       @default(0)  // 已使用 credits
+  remainingCredits Int       @default(0)  // 剩余 credits
+
+  // 关联关系
+  orders           Order[]
+  usageRecords     CreditUsageRecord[]
+  accounts         Account[]
+  sessions         Session[]
+
+  @@index([email])
+}
+
+// NextAuth Account 模型
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+// NextAuth Session 模型
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// NextAuth VerificationToken 模型
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// 订单模型
+model Order {
+  id            String   @id @default(cuid())
+  userId        String
+  planId        String
+  planName      String
+  credits       Int
+  amount        Float
+  currency      String
+  paypalOrderId String?  @unique
+  status        String   // pending, completed, failed, cancelled
+  capturedAt    DateTime?
+  errorMessage  String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // 关联用户
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([paypalOrderId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+// Credits 使用记录
+model CreditUsageRecord {
+  id          String   @id @default(cuid())
+  userId      String
+  orderId     String?
+  amount      Int      // 正数为充值，负数为消费
+  type        String   // purchase, usage, refund, adjustment
+  description String
+  createdAt   DateTime @default(now())
+
+  // 关联用户
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([createdAt])
+  @@index([type])
+}
+
