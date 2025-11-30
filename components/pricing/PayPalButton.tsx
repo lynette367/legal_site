@@ -144,7 +144,7 @@ export function PayPalButton({ planId, onSuccess, onError }: PayPalButtonProps) 
 
             const data: PayPalCreateOrderResponse = await response.json();
             if (!response.ok || !data.success || !data.paypalOrderId) {
-              throw new Error(data.error || 'Failed to create order');
+              throw new Error((data as any).error || 'Failed to create order');
             }
 
             return data.paypalOrderId;
