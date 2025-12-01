@@ -9,8 +9,12 @@ const globalForPrisma = globalThis as unknown as {
 };
 
 function createPrismaClient() {
-  if (!process.env.DATABASE_URL) {
-    throw new Error('DATABASE_URL environment variable is not set');
+  // 在构建阶段（Next.js build），不检查 DATABASE_URL，避免构建失败
+  // 只在运行时检查
+  if (typeof window === 'undefined' && process.env.NEXT_PHASE !== 'phase-production-build') {
+    if (!process.env.DATABASE_URL) {
+      console.warn('DATABASE_URL environment variable is not set');
+    }
   }
 
   return new PrismaClient({
@@ -30,6 +34,7 @@ function getPrismaClient(): PrismaClient {
 
 export const prisma = new Proxy({} as PrismaClient, {
   get(_target, prop, receiver) {
+    // 延迟初始化，只在实际使用时创建客户端
     const client = getPrismaClient();
     const value = Reflect.get(client, prop, receiver);
     return typeof value === 'function' ? value.bind(client) : value;

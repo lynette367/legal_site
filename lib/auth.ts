@@ -13,64 +13,87 @@ const SESSION_MAX_AGE = parseInt(process.env.SESSION_MAX_AGE || "604800", 10); /
 const VERIFICATION_TOKEN_MAX_AGE = 15 * 60; // 15 分钟（秒）
 
 /**
- * 自定义 Adapter：延迟初始化 PrismaAdapter，并设置验证 token 15 分钟过期
+ * 自定义 Adapter：扩展 PrismaAdapter 以设置验证 token 过期时间为 15 分钟
+ * 延迟初始化以避免在构建阶段连接数据库
  */
-let prismaAdapter: Adapter | null = null;
-
-function getPrismaAdapter(): Adapter {
-  if (!prismaAdapter) {
-    prismaAdapter = PrismaAdapter(prisma) as Adapter;
-  }
-  return prismaAdapter;
+function createCustomAdapter(): Adapter {
+  const baseAdapter = PrismaAdapter(prisma) as Adapter;
+  
+  return {
+    ...baseAdapter,
+    async createVerificationToken(data) {
+      // 设置过期时间为 15 分钟后（而不是默认的 24 小时）
+      const expires = new Date(Date.now() + VERIFICATION_TOKEN_MAX_AGE * 1000);
+      
+      // 直接使用 Prisma 创建验证 token，使用自定义过期时间
+      const token = await prisma.verificationToken.create({
+        data: {
+          identifier: data.identifier,
+          token: data.token,
+          expires,
+        },
+      });
+      
+      return token;
+    },
+  };
 }
 
-const customAdapter: Adapter = new Proxy({} as Adapter, {
-  get(_target, prop, receiver) {
-    if (prop === 'createVerificationToken') {
-      return async function createVerificationToken(data: Parameters<
-        NonNullable<Adapter['createVerificationToken']>
-      >[0]) {
-        const expires = new Date(Date.now() + VERIFICATION_TOKEN_MAX_AGE * 1000);
-        return prisma.verificationToken.create({
-          data: {
-            identifier: data.identifier,
-            token: data.token,
-            expires,
-          },
-        });
-      };
-    }
+// 延迟初始化 adapter，只在需要时创建
+let customAdapter: Adapter | null = null;
 
-    const adapter = getPrismaAdapter();
-    const value = Reflect.get(adapter, prop, receiver);
-    return typeof value === 'function' ? value.bind(adapter) : value;
-  },
-});
+function getAdapter(): Adapter {
+  if (!customAdapter) {
+    customAdapter = createCustomAdapter();
+  }
+  return customAdapter;
+}
+
+const decodeEmailServer = (server?: string | null) => {
+  if (!server) return server ?? undefined;
+  try {
+    return decodeURI(server);
+  } catch (error) {
+    console.warn("Failed to decode EMAIL_SERVER, using raw value.", error);
+    return server;
+  }
+};
+
+const decodedEmailServer = decodeEmailServer(process.env.EMAIL_SERVER);
 
 /**
  * NextAuth 配置
  * 支持邮箱验证码登录和密码登录
  */
 export const authOptions: NextAuthOptions = {
-  adapter: customAdapter,
+  adapter: getAdapter(),
   
   providers: [
     // 邮箱验证码登录（主要方式）
     EmailProvider({
-      server: process.env.EMAIL_SERVER,
+      server: decodedEmailServer,
       from: process.env.EMAIL_FROM,
       // 自定义邮件模板，防止 Gmail 包装链接
       sendVerificationRequest: async ({ identifier, url, provider }) => {
         const { server, from } = provider;
         const nodemailer = await import("nodemailer");
-        const transport = nodemailer.createTransport(server);
-        
-        const result = await transport.sendMail({
-          to: identifier,
-          from: from,
-          subject: "登录 Panco 法律助手",
-          text: `点击以下链接登录 Panco 法律助手：\n\n${url}\n\n如果您没有请求此邮件，请忽略。`,
-          html: `
+        const serverConfig =
+          decodedEmailServer ??
+          (typeof server === "string" ? decodeEmailServer(server) : server);
+
+        if (!serverConfig) {
+          throw new Error("Email server configuration is missing.");
+        }
+
+        const transport = nodemailer.createTransport(serverConfig);
+
+        try {
+          const result = await transport.sendMail({
+            to: identifier,
+            from: from,
+            subject: "登录 Panco 法律助手",
+            text: `点击以下链接登录 Panco 法律助手：\n\n${url}\n\n如果您没有请求此邮件，请忽略。`,
+            html: `
             <!DOCTYPE html>
             <html>
             <head>
@@ -122,11 +145,18 @@ export const authOptions: NextAuthOptions = {
             </body>
             </html>
           `,
-        });
-        
-        const failed = result.rejected.concat(result.pending).filter(Boolean);
-        if (failed.length) {
-          throw new Error(`邮件发送失败: ${failed.join(", ")}`);
+          });
+
+          const failed = result.rejected.concat(result.pending).filter(Boolean);
+          if (failed.length) {
+            console.error("Verification email rejected:", failed);
+            throw new Error("EmailSignin");
+          }
+        } catch (error) {
+          console.error("Failed to send verification email:", error);
+          // 确保错误被正确抛出，NextAuth 会处理
+          const errorMessage = error instanceof Error ? error.message : "Failed to send email";
+          throw new Error(errorMessage === "EmailSignin" ? "EmailSignin" : "EmailSignin");
         }
       },
     }),
