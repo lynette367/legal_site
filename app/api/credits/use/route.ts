@@ -8,15 +8,15 @@ import { UserCreditsService } from '@/lib/prisma';
 
 /**
  * POST /api/credits/use
- * 消费用户 Credits（AI 功能调用）
+ * Consume user Credits (AI feature calls)
  */
 export async function POST(request: NextRequest) {
   try {
-    // 验证用户登录状态
+    // Verify authentication
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.id) {
       return NextResponse.json(
-        { error: '未登录，请先登录' },
+        { error: 'Not authenticated. Please sign in.' },
         { status: 401 }
       );
     }
@@ -25,22 +25,22 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { amount, description } = body;
 
-    // 验证参数
+    // Validate params
     if (!amount || amount <= 0) {
       return NextResponse.json(
-        { error: '无效的 Credits 数量' },
+        { error: 'Invalid Credits amount' },
         { status: 400 }
       );
     }
 
     if (!description) {
       return NextResponse.json(
-        { error: '缺少使用描述' },
+        { error: 'Usage description is required' },
         { status: 400 }
       );
     }
 
-    // 使用 Credits
+    // Deduct Credits
     try {
       const updatedCredits = await UserCreditsService.deductCredits(
         userId,
@@ -55,14 +55,14 @@ export async function POST(request: NextRequest) {
           usedCredits: updatedCredits.usedCredits,
           remainingCredits: updatedCredits.remainingCredits,
         },
-        message: `成功消费 ${amount} Credits`,
+        message: `Successfully used ${amount} Credits`,
       });
     } catch (error: unknown) {
       const message =
-        error instanceof Error ? error.message : '扣除 Credits 失败';
-      if (message === 'Credits 余额不足') {
+        error instanceof Error ? error.message : 'Failed to deduct Credits';
+      if (message.toLowerCase().includes('insufficient')) {
         return NextResponse.json(
-          { error: 'Credits 余额不足，请先充值' },
+          { error: 'Insufficient Credits. Please recharge first.' },
           { status: 400 }
         );
       }
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
   } catch (error: unknown) {
     console.error('Use credits error:', error);
     const message =
-      error instanceof Error ? error.message : '消费 Credits 失败';
+      error instanceof Error ? error.message : 'Failed to use Credits';
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

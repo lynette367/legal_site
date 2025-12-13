@@ -14,52 +14,52 @@ export interface PaymentChannel {
   value: Exclude<PaymentMethod, "paypal">;
 }
 
-// 各功能扣费规则
+// Credit cost per feature
 export const creditsCost = {
-  legalQa: 1,      // AI 法律问答
-  explain: 1,      // 条款解释
-  dispute: 2,      // 纠纷方案生成
-  document: 3,     // 文书生成
-  contract: 3,     // 合同生成
+  legalQa: 1,      // AI legal Q&A
+  explain: 1,      // Clause explanation
+  dispute: 2,      // Dispute plan generation
+  document: 3,     // Document drafting
+  contract: 3,     // Contract generation
 };
 
 export const singleUse = [
-  { label: "AI 问答", detail: "每次调用扣 1 点", cost: 1 },
-  { label: "条款解释", detail: "每次调用扣 1 点", cost: 1 },
-  { label: "纠纷方案", detail: "每次调用扣 2 点", cost: 2 },
-  { label: "文书生成", detail: "每次调用扣 3 点", cost: 3 },
-  { label: "合同生成", detail: "每次调用扣 3 点", cost: 3 },
+  { label: "AI Q&A", detail: "Each call deducts 1 credit", cost: 1 },
+  { label: "Clause explanation", detail: "Each call deducts 1 credit", cost: 1 },
+  { label: "Dispute plan", detail: "Each call deducts 2 credits", cost: 2 },
+  { label: "Document drafting", detail: "Each call deducts 3 credits", cost: 3 },
+  { label: "Contract generation", detail: "Each call deducts 3 credits", cost: 3 },
 ];
 
 export const plans: Plan[] = [
   {
     id: "basic",
-    name: "基础点数包",
-    description: "适合临时法律咨询用户。可完成约 12 次问答或 6 次纠纷方案或 4 次文书生成。",
+    name: "Starter credits pack",
+    description: "For ad-hoc legal questions. About 12 Q&A calls or 6 dispute plans or 4 document drafts.",
     credits: 12,
     price: "¥9.9",
   },
   {
     id: "standard",
-    name: "常用点数包",
-    description: "最推荐：适合个人、小微企业用户，可完成约 45 次问答或 22 次纠纷方案或 15 次文书生成。",
+    name: "Popular credits pack",
+    description: "Best value for individuals and small teams: about 45 Q&A calls or 22 dispute plans or 15 document drafts.",
     credits: 45,
     price: "¥29.9",
     recommended: true,
   },
   {
     id: "pro",
-    name: "专业点数包",
-    description: "适合律师、法务、HR 等高频使用者，可完成约 120 次问答或 60 次纠纷方案或 40 次文书/合同生成。",
+    name: "Pro credits pack",
+    description: "For heavy users like lawyers, legal ops, or HR: about 120 Q&A calls, 60 dispute plans, or 40 document/contract drafts.",
     credits: 120,
     price: "¥59.9",
   },
 ];
 
 export const paymentChannels: PaymentChannel[] = [
-  { label: "微信 H5 支付", value: "wechat" },
-  { label: "支付宝 H5 支付", value: "alipay" },
+  { label: "WeChat H5 Pay", value: "wechat" },
+  { label: "Alipay H5 Pay", value: "alipay" },
 ];
 
-// 点数适用说明
-export const creditsNote = "点数适用所有功能，不同功能按复杂度扣除 1-3 点";
+// Credit usage notes
+export const creditsNote = "Credits work across all features; each call deducts 1-3 credits based on complexity.";

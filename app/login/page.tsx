@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { LoginPageContent } from "../../components/common/LoginPageContent";
 
 export const metadata: Metadata = {
-  title: "登录｜Panco 法律助手",
-  description: "登录后才能使用 Panco 法律助手，所有调用需扣费且无免费次数。",
+  title: "Log In | Panco Legal Assistant",
+  description: "Sign in to use Panco Legal Assistant. All calls are billed with no free quota.",
 };
 
 export default function LoginPage() {

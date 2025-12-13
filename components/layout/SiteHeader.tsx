@@ -6,13 +6,13 @@ import { useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 
 const navLinks = [
-  { href: "/", label: "首页" },
-  { href: "/legal-qa", label: "AI 问答" },
-  { href: "/dispute", label: "纠纷方案" },
-  { href: "/documents", label: "文书生成" },
-  { href: "/contracts", label: "合同生成" },
-  { href: "/explain", label: "条款解释" },
-  { href: "/pricing", label: "购买套餐" },
+  { href: "/", label: "Home" },
+  { href: "/legal-qa", label: "AI Q&A" },
+  { href: "/dispute", label: "Dispute plans" },
+  { href: "/documents", label: "Document drafting" },
+  { href: "/contracts", label: "Contract drafting" },
+  { href: "/explain", label: "Clause explanation" },
+  { href: "/pricing", label: "Pricing" },
 ];
 
 export function SiteHeader() {
@@ -32,7 +32,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border-lavender/70 bg-bg-main/80 backdrop-blur-lg">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link href="/" className="text-xl font-semibold text-text-lavender">
-          Panco 法律助手
+          Panco Legal Assistant
         </Link>
         <nav className="hidden items-center gap-2 lg:flex">
           {navLinks.map((link) => (
@@ -46,21 +46,21 @@ export function SiteHeader() {
             href={isLoggedIn ? "/dashboard" : "/login"}
             className="rounded-full border border-border-lavender bg-white/80 px-4 py-2 text-sm font-medium text-text-primary transition hover:border-primary-lavender hover:bg-white"
           >
-            {isLoggedIn ? "用户中心" : "登录"}
+            {isLoggedIn ? "Dashboard" : "Log in"}
           </Link>
           {isLoggedIn && (
             <button
               onClick={() => signOut({ callbackUrl: "/" })}
               className="rounded-full border border-red-200 bg-red-50 px-4 py-2 text-sm font-medium text-red-600 transition hover:bg-red-100 hover:border-red-300"
             >
-              退出
+              Sign out
             </button>
           )}
         </div>
         <button
           className="rounded-full border border-border-lavender p-2 text-text-primary lg:hidden"
           onClick={() => setIsOpen((prev) => !prev)}
-          aria-label="展开导航"
+          aria-label="Toggle navigation"
         >
           <span className="block h-0.5 w-5 bg-text-primary" />
           <span className="mt-1 block h-0.5 w-5 bg-text-primary" />
@@ -80,7 +80,7 @@ export function SiteHeader() {
               onClick={() => setIsOpen(false)}
               className="flex-1 rounded-full border border-border-lavender bg-white/80 px-4 py-2 text-center text-sm font-medium text-text-primary"
             >
-              {isLoggedIn ? "用户中心" : "登录"}
+              {isLoggedIn ? "Dashboard" : "Log in"}
             </Link>
             {isLoggedIn && (
               <button
@@ -90,7 +90,7 @@ export function SiteHeader() {
                 }}
                 className="flex-1 rounded-full border border-red-200 bg-red-50 px-4 py-2 text-center text-sm font-medium text-red-600"
               >
-                退出
+                Sign out
               </button>
             )}
           </div>

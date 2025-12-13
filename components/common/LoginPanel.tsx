@@ -8,8 +8,8 @@ interface LoginPanelProps {
 }
 
 /**
- * 登录面板组件
- * 仅用于未登录用户发送登录邮件
+ * Login panel component
+ * For sending sign-in emails when the user is not authenticated
  */
 export function LoginPanel({ onClose }: LoginPanelProps) {
   const [email, setEmail] = useState("");
@@ -20,9 +20,9 @@ export function LoginPanel({ onClose }: LoginPanelProps) {
   const handleEmailLogin = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // 验证邮箱格式
+    // Validate email format
     if (!email || !email.includes("@")) {
-      setError("请输入有效的邮箱地址");
+      setError("Please enter a valid email address.");
       return;
     }
     
@@ -31,7 +31,7 @@ export function LoginPanel({ onClose }: LoginPanelProps) {
     setMessage("");
 
     try {
-      console.log("[LoginPanel] 开始登录流程，邮箱:", email);
+      console.log("[LoginPanel] Starting sign-in flow, email:", email);
       
       const result = await signIn("email", {
         email: email.trim().toLowerCase(),
@@ -39,25 +39,25 @@ export function LoginPanel({ onClose }: LoginPanelProps) {
         callbackUrl: "/dashboard",
       });
 
-      console.log("[LoginPanel] signIn 结果:", result);
+      console.log("[LoginPanel] signIn result:", result);
 
       if (result?.error) {
-        console.error("[LoginPanel] 登录错误:", result.error);
+        console.error("[LoginPanel] Sign-in error:", result.error);
         if (result.error === "EmailSignin") {
-          setError("邮件发送失败，请检查邮箱配置或稍后重试");
+          setError("Email delivery failed. Please check SMTP settings or try again.");
         } else if (result.error === "Configuration") {
-          setError("服务器配置错误，请联系管理员");
+          setError("Server configuration error. Please contact the administrator.");
         } else {
-          setError(`登录失败: ${result.error}`);
+          setError(`Sign-in failed: ${result.error}`);
         }
       } else if (result?.ok) {
-        setMessage("✅ 验证邮件已发送！请检查您的邮箱（包括垃圾邮件文件夹）。");
+        setMessage("✅ Verification email sent! Please check your inbox, including the spam folder.");
       } else {
-        setError("登录请求失败，请稍后重试");
+        setError("Sign-in request failed. Please try again later.");
       }
     } catch (err) {
-      console.error("[LoginPanel] 登录异常:", err);
-      setError("网络错误，请检查网络连接后重试");
+      console.error("[LoginPanel] Sign-in exception:", err);
+      setError("Network error. Please check your connection and retry.");
     } finally {
       setIsLoading(false);
     }
@@ -66,19 +66,19 @@ export function LoginPanel({ onClose }: LoginPanelProps) {
   return (
     <div className="w-full max-w-md rounded-3xl border border-border-lavender bg-bg-card p-8 shadow-soft">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-text-primary">登录 / 注册</h2>
+        <h2 className="text-2xl font-bold text-text-primary">Sign in / Register</h2>
         <p className="mt-2 text-sm text-text-primary/70">
-          使用邮箱登录，首次登录将自动注册
+          Sign in with your email; the first login will auto-create an account.
         </p>
         <p className="mt-1 text-sm text-text-primary/60">
-          请通过邮件中的登录链接完成登录。
+          Complete sign-in through the magic link sent to your inbox.
         </p>
       </div>
 
       <form onSubmit={handleEmailLogin} className="space-y-4">
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-text-primary mb-2">
-            邮箱地址
+            Email address
           </label>
           <input
             id="email"
@@ -127,23 +127,23 @@ export function LoginPanel({ onClose }: LoginPanelProps) {
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                 />
               </svg>
-              发送中...
+              Sending...
             </>
           ) : (
-            "发送登录邮件"
+            "Send sign-in email"
           )}
         </button>
       </form>
 
       <div className="mt-6 text-center text-xs text-text-primary/60">
-        <p>点击“发送登录邮件”即表示您同意我们的</p>
+        <p>By clicking &quot;Send sign-in email&quot; you agree to our</p>
         <p className="mt-1">
           <a href="/terms" className="text-primary-lavender hover:underline">
-            服务条款
+            Terms of Service
           </a>
-          {" 和 "}
+          {" and "}
           <a href="/privacy" className="text-primary-lavender hover:underline">
-            隐私政策
+            Privacy Policy
           </a>
         </p>
       </div>
@@ -153,7 +153,7 @@ export function LoginPanel({ onClose }: LoginPanelProps) {
           onClick={onClose}
           className="mt-4 w-full rounded-full border border-border-lavender px-6 py-3 font-semibold text-text-primary transition hover:bg-gray-50"
         >
-          取消
+          Cancel
         </button>
       )}
     </div>

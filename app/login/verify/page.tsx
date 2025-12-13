@@ -2,19 +2,19 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "验证邮件已发送｜Panco 法律助手",
-  description: "请检查您的邮箱以完成登录",
+  title: "Verification Email Sent | Panco Legal Assistant",
+  description: "Check your inbox to complete sign-in.",
 };
 
 /**
- * 邮箱验证请求页面
- * 用户提交邮箱后显示此页面
+ * Email verification request page
+ * Shown after the user submits an email address
  */
 export default function VerifyRequestPage() {
   return (
     <div className="flex min-h-[60vh] items-center justify-center px-4">
       <div className="w-full max-w-md rounded-3xl border border-border-lavender bg-bg-card p-8 shadow-soft text-center">
-        {/* 邮件图标 */}
+        {/* Mail icon */}
         <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-primary-lavender to-primary-lavender-dark">
           <svg
             className="h-10 w-10 text-white"
@@ -33,19 +33,18 @@ export default function VerifyRequestPage() {
         </div>
 
         <h1 className="mb-4 text-2xl font-bold text-text-primary">
-          验证邮件已发送
+          Verification email sent
         </h1>
 
         <p className="mb-6 text-text-primary/70">
-          我们已向您的邮箱发送了一封登录邮件。
+          We just sent a sign-in email to your inbox.
           <br />
-          请点击邮件中的链接完成登录。
+          Click the link in the message to complete login.
         </p>
 
         <div className="mb-6 rounded-xl bg-amber-50 border border-amber-200 p-4">
           <p className="text-sm text-amber-700">
-            <strong>提示：</strong>如果没有收到邮件，请检查垃圾邮件文件夹。
-            邮件可能需要几分钟才能到达。
+            <strong>Tip:</strong> If the message is missing, check your spam folder. Delivery can take a few minutes.
           </p>
         </div>
 
@@ -54,18 +53,17 @@ export default function VerifyRequestPage() {
             href="/login"
             className="block w-full rounded-full border border-border-lavender px-6 py-3 font-semibold text-text-primary transition hover:bg-gray-50"
           >
-            返回登录页面
+            Back to login
           </Link>
 
           <Link
             href="/"
             className="block text-sm text-primary-lavender hover:underline"
           >
-            返回首页
+            Back to home
           </Link>
         </div>
       </div>
     </div>
   );
 }
-

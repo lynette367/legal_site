@@ -9,58 +9,58 @@ import { callDeepSeek, PROMPTS } from "@/lib/ai/deepseek";
 
 /**
  * POST /api/ai/legal-qa
- * 法律问答 AI 接口
+ * Legal Q&A AI endpoint
  */
 export async function POST(request: NextRequest) {
   try {
-    // 1. 验证用户登录
+    // 1. Verify authentication
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {
       return NextResponse.json(
-        { error: "未登录，请先登录" },
+        { error: "Not authenticated. Please sign in." },
         { status: 401 }
       );
     }
 
     const userId = session.user.id;
 
-    // 2. 解析请求参数
+    // 2. Parse payload
     const body = await request.json();
     const { query } = body;
 
     if (!query || typeof query !== "string" || query.trim().length === 0) {
       return NextResponse.json(
-        { error: "缺少参数：query（法律问题）" },
+        { error: "Missing parameter: query (legal question)" },
         { status: 400 }
       );
     }
 
-    // 3. 扣除 Credits（1 次调用 = 1 Credit）
+    // 3. Deduct Credits (1 call = 1 Credit)
     try {
       await UserCreditsService.deductCredits(
         userId,
         1,
-        "AI 法律问答"
+        "AI legal Q&A"
       );
     } catch (error: unknown) {
       const message =
-        error instanceof Error ? error.message : "扣除 Credits 失败";
-      if (message === "Credits 余额不足") {
+        error instanceof Error ? error.message : "Failed to deduct Credits";
+      if (message.toLowerCase().includes("insufficient")) {
         return NextResponse.json(
-          { error: "Credits 余额不足，请先购买套餐" },
+          { error: "Insufficient Credits. Please purchase a plan first." },
           { status: 402 }
         );
       }
       throw error;
     }
 
-    // 4. 调用 DeepSeek API
+    // 4. Call DeepSeek API
     const answer = await callDeepSeek(
-      `用户问题：${query.trim()}`,
+      `User question: ${query.trim()}`,
       PROMPTS.LEGAL_QA
     );
 
-    // 5. 返回结果
+    // 5. Return result
     return NextResponse.json({
       success: true,
       answer,
@@ -69,8 +69,7 @@ export async function POST(request: NextRequest) {
   } catch (error: unknown) {
     console.error("Legal QA API Error:", error);
     const message =
-      error instanceof Error ? error.message : "AI 调用失败，请稍后重试";
+      error instanceof Error ? error.message : "AI request failed. Please try again.";
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
-

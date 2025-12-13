@@ -3,8 +3,8 @@ import { DisputeModule } from "../../components/modules/DisputeModule";
 import { PageHero } from "../../components/ui/PageHero";
 
 export const metadata: Metadata = {
-  title: "Panco 法律助手｜AI 纠纷方案生成（结构化行动计划与证据清单）",
-  description: "AI 法律助手自动生成纠纷解决方案，提供结构化行动计划、证据清单与法律风险分析。适用于消费维权、劳动纠纷、商事争议等各类法律纠纷解决。",
+  title: "Panco Legal Assistant | AI Dispute Plans (Action steps and evidence lists)",
+  description: "Generate dispute solutions with structured action plans, evidence checklists, and legal risk analysis. Suitable for consumer protection, employment issues, and commercial disputes.",
 };
 
 export default function DisputePage() {
@@ -12,9 +12,9 @@ export default function DisputePage() {
     <div className="space-y-10">
       <PageHero
         overline="Module 02"
-        title="AI 纠纷方案生成"
-        description="输入纠纷经过即可获得可执行的行动计划，包括行动路径、证据准备与风险点，适合消费维权和合同争议。"
-        highlights={["行动路径", "证据列表", "风险提示", "扣费后调用"]}
+        title="AI dispute plan generator"
+        description="Describe the dispute to receive an actionable plan covering steps, evidence prep, and risk points. Works for consumer and contract disputes."
+        highlights={["Action path", "Evidence list", "Risk alerts", "Billed usage"]}
       />
       <DisputeModule />
     </div>

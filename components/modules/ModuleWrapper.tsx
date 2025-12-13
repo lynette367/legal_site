@@ -5,8 +5,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 /**
- * AI 模块通用逻辑包装器
- * 处理 Credits 消费和用户认证
+ * Shared logic wrapper for AI modules
+ * Handles credit consumption and authentication
  */
 export function useAIModule() {
   const router = useRouter();
@@ -14,29 +14,29 @@ export function useAIModule() {
   const [isProcessing, setIsProcessing] = useState(false);
 
   /**
-   * 调用 AI API（自动扣除 Credits）
-   * @param apiEndpoint - AI API 端点路径（如 "/api/ai/legal-qa"）
-   * @param payload - 请求参数
-   * @returns AI 生成的内容和状态信息
+   * Call an AI API (credits are deducted server-side)
+   * @param apiEndpoint - AI API endpoint path (e.g., "/api/ai/legal-qa")
+   * @param payload - Request payload
+   * @returns AI content and status info
    */
   const callAIApi = async (
     apiEndpoint: string,
     payload: Record<string, unknown>
   ): Promise<{ success: boolean; message: string; answer?: string }> => {
-    // 检查登录状态
+    // Check auth status
     if (status === "loading") {
-      return { success: false, message: "正在加载用户信息..." };
+      return { success: false, message: "Loading user info..." };
     }
 
     if (!session) {
       router.push("/login");
-      return { success: false, message: "请先登录" };
+      return { success: false, message: "Please sign in first." };
     }
 
     setIsProcessing(true);
 
     try {
-      // 调用 AI API（会自动扣除 Credits）
+      // Call AI API (server deducts credits)
       const response = await fetch(apiEndpoint, {
         method: "POST",
         headers: {
@@ -50,49 +50,49 @@ export function useAIModule() {
       if (!response.ok) {
         if (response.status === 401) {
           router.push("/login");
-          return { success: false, message: "请先登录" };
+          return { success: false, message: "Please sign in first." };
         }
         if (response.status === 402) {
           return {
             success: false,
-            message: "Credits 余额不足，请先充值",
+            message: "Insufficient credits. Please purchase more.",
           };
         }
-        return { success: false, message: data.error || "AI 调用失败" };
+        return { success: false, message: data.error || "AI request failed." };
       }
 
       if (data.success) {
         return {
           success: true,
-          message: "AI 生成成功",
+          message: "AI response generated.",
           answer: data.answer,
         };
       }
 
-      return { success: false, message: "AI 调用失败" };
+      return { success: false, message: "AI request failed." };
     } catch (error) {
       console.error("AI API error:", error);
-      return { success: false, message: "网络错误，请稍后重试" };
+      return { success: false, message: "Network error. Please try again." };
     } finally {
       setIsProcessing(false);
     }
   };
 
   /**
-   * 兼容旧的 consumeCreditsAndExecute（用于不需要 AI 的模块）
-   * @deprecated 建议使用 callAIApi
+   * Backward-compatible helper for non-AI modules
+   * @deprecated Prefer using callAIApi
    */
   const consumeCreditsAndExecute = async (
     description: string,
     onSuccess: () => void
   ): Promise<{ success: boolean; message: string }> => {
     if (status === "loading") {
-      return { success: false, message: "正在加载用户信息..." };
+      return { success: false, message: "Loading user info..." };
     }
 
     if (!session) {
       router.push("/login");
-      return { success: false, message: "请先登录" };
+      return { success: false, message: "Please sign in first." };
     }
 
     setIsProcessing(true);
@@ -114,29 +114,29 @@ export function useAIModule() {
       if (!response.ok) {
         if (response.status === 401) {
           router.push("/login");
-          return { success: false, message: "请先登录" };
+          return { success: false, message: "Please sign in first." };
         }
-        if (response.status === 400 && data.error?.includes("余额不足")) {
+        if (response.status === 400 && data.error?.includes("balance")) {
           return {
             success: false,
-            message: "Credits 余额不足，请先充值",
+            message: "Insufficient credits. Please purchase more.",
           };
         }
-        return { success: false, message: data.error || "扣费失败" };
+        return { success: false, message: data.error || "Billing failed." };
       }
 
       if (data.success) {
         onSuccess();
         return {
           success: true,
-          message: `已扣除 1 次调用，剩余 ${data.credits.remainingCredits} Credits`,
+          message: `Deducted 1 credit. Remaining: ${data.credits.remainingCredits} credits.`,
         };
       }
 
-      return { success: false, message: "扣费失败" };
+      return { success: false, message: "Billing failed." };
     } catch (error) {
       console.error("Credits consumption error:", error);
-      return { success: false, message: "网络错误，请稍后重试" };
+      return { success: false, message: "Network error. Please try again." };
     } finally {
       setIsProcessing(false);
     }
@@ -147,6 +147,6 @@ export function useAIModule() {
     isLoggedIn: !!session,
     isProcessing,
     callAIApi,
-    consumeCreditsAndExecute, // 保留兼容性
+    consumeCreditsAndExecute, // Compatibility helper
   };
 }

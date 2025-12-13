@@ -9,61 +9,61 @@ import { callDeepSeek, PROMPTS } from "@/lib/ai/deepseek";
 
 /**
  * POST /api/ai/explain
- * 条款解释 AI 接口
+ * Clause explanation AI endpoint
  */
 export async function POST(request: NextRequest) {
   try {
-    // 1. 验证用户登录
+    // 1. Verify authentication
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {
       return NextResponse.json(
-        { error: "未登录，请先登录" },
+        { error: "Not authenticated. Please sign in." },
         { status: 401 }
       );
     }
 
     const userId = session.user.id;
 
-    // 2. 解析请求参数
+    // 2. Parse payload
     const body = await request.json();
     const { clause } = body;
 
     if (!clause || typeof clause !== "string" || clause.trim().length === 0) {
       return NextResponse.json(
-        { error: "缺少参数：clause（合同条款）" },
+        { error: "Missing parameter: clause (contract clause)" },
         { status: 400 }
       );
     }
 
-    // 3. 扣除 Credits
+    // 3. Deduct Credits
     try {
       await UserCreditsService.deductCredits(
         userId,
         1,
-        "合同条款解释"
+        "Contract clause explanation"
       );
     } catch (error: unknown) {
       const message =
-        error instanceof Error ? error.message : "扣除 Credits 失败";
-      if (message === "Credits 余额不足") {
+        error instanceof Error ? error.message : "Failed to deduct Credits";
+      if (message.toLowerCase().includes("insufficient")) {
         return NextResponse.json(
-          { error: "Credits 余额不足，请先购买套餐" },
+          { error: "Insufficient Credits. Please purchase a plan first." },
           { status: 402 }
         );
       }
       throw error;
     }
 
-    // 4. 调用 DeepSeek API
-    const prompt = `请解释以下合同条款：
+    // 4. Call DeepSeek API
+    const prompt = `Explain the following contract clause in detail:
 
 ${clause.trim()}
 
-请详细说明这个条款的含义、法律效力和可能的风险。`;
+Describe its meaning, legal effect, and potential risks.`;
 
     const answer = await callDeepSeek(prompt, PROMPTS.EXPLAIN);
 
-    // 5. 返回结果
+    // 5. Return result
     return NextResponse.json({
       success: true,
       answer,
@@ -72,8 +72,7 @@ ${clause.trim()}
   } catch (error: unknown) {
     console.error("Explain API Error:", error);
     const message =
-      error instanceof Error ? error.message : "AI 调用失败，请稍后重试";
+      error instanceof Error ? error.message : "AI request failed. Please try again.";
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
-

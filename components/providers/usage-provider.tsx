@@ -31,10 +31,10 @@ export function UsageProvider({ children }: { children: React.ReactNode }) {
 
   const consumeCredit = useCallback(() => {
     if (!isLoggedIn) {
-      return { success: false, message: "请先登录账户以使用 Panco 法律助手" };
+      return { success: false, message: "Please sign in to use Panco Legal Assistant." };
     }
     if (credits <= 0) {
-      return { success: false, message: "没有可用次数，请前往套餐页充值" };
+      return { success: false, message: "No credits available. Please purchase more on the pricing page." };
     }
     setCredits((prev) => Math.max(prev - 1, 0));
     return { success: true };
@@ -63,7 +63,7 @@ export function UsageProvider({ children }: { children: React.ReactNode }) {
 export function useUsage() {
   const ctx = useContext(UsageContext);
   if (!ctx) {
-    throw new Error("useUsage 必须在 UsageProvider 中使用");
+    throw new Error("useUsage must be used within a UsageProvider");
   }
   return ctx;
 }

@@ -1,9 +1,9 @@
 import OpenAI from "openai";
 
 /**
- * 获取 DeepSeek API 客户端（延迟初始化）
- * 使用 OpenAI SDK 兼容模式
- * 延迟初始化以避免在构建阶段读取环境变量
+ * Get DeepSeek API client (lazy init)
+ * Uses OpenAI SDK compatibility mode
+ * Lazy init avoids reading env vars during build
  */
 function getDeepSeekClient(): OpenAI {
   const apiKey = process.env.DEEPSEEK_API_KEY;
@@ -20,11 +20,11 @@ function getDeepSeekClient(): OpenAI {
 }
 
 /**
- * 调用 DeepSeek API 的通用函数
- * @param prompt - 用户提示词
- * @param systemPrompt - 系统提示词（可选）
- * @param temperature - 温度参数，默认 0.3
- * @returns AI 生成的内容
+ * General DeepSeek API caller
+ * @param prompt - User prompt
+ * @param systemPrompt - System prompt (optional)
+ * @param temperature - Sampling temperature, defaults to 0.3
+ * @returns AI generated content
  */
 export async function callDeepSeek(
   prompt: string,
@@ -32,12 +32,12 @@ export async function callDeepSeek(
   temperature: number = 0.3
 ): Promise<string> {
   try {
-    // 延迟初始化客户端，只在函数调用时创建
+    // Lazy init client; only create on invocation
     const deepseekClient = getDeepSeekClient();
     
     const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [];
 
-    // 添加系统提示词
+    // Add system prompt
     if (systemPrompt) {
       messages.push({
         role: "system",
@@ -45,7 +45,7 @@ export async function callDeepSeek(
       });
     }
 
-    // 添加用户消息
+    // Add user message
     messages.push({
       role: "user",
       content: prompt,
@@ -58,79 +58,68 @@ export async function callDeepSeek(
       max_tokens: 4000,
     });
 
-    return response.choices[0]?.message?.content || "未能生成回答";
+    return response.choices[0]?.message?.content || "Unable to generate a response.";
   } catch (error: unknown) {
     console.error("DeepSeek API Error:", error);
     const message =
-      error instanceof Error ? error.message : "DeepSeek API 调用失败，请稍后重试";
+      error instanceof Error ? error.message : "DeepSeek API request failed. Please try again.";
     throw new Error(message);
   }
 }
 
 /**
- * Prompt 模板
+ * Prompt templates
  */
 export const PROMPTS = {
-  LEGAL_QA: `你是一名专业的法律顾问助手。请根据用户的法律问题提供：
-1. 问题性质分类（如劳动纠纷、合同纠纷、消费者权益等）
-2. 主要风险点提示
-3. 建议的解决步骤
-4. 相关注意事项
+  LEGAL_QA: `You are a professional legal advisor. For each user question, provide:
+1) Issue classification (e.g., labor, contract, consumer)
+2) Key risk points
+3) Recommended steps to resolve
+4) Practical cautions
+Respond in a structured, clear format with minimal legal jargon.`,
 
-请用结构化、专业但易懂的语言回答，避免过于复杂的法律术语。`,
+  DISPUTE: `You are a legal expert skilled at dispute analysis. For the described dispute, provide:
+1) Dispute type
+2) Rights and obligations of each party
+3) Practical resolution paths (negotiation, mediation, arbitration, litigation, etc.)
+4) Evidence checklist to prepare
+5) Potential legal risks
+6) Next-step recommendations
+Return a structured plan that is easy to follow.`,
 
-  DISPUTE: `你是一名法律专家，擅长分析纠纷并提供解决方案。请根据用户描述的纠纷情况，提供：
-1. 纠纷类型判断
-2. 双方权利义务分析
-3. 可行的解决路径（协商、调解、仲裁、诉讼等）
-4. 需要收集的证据清单
-5. 潜在风险提示
-6. 下一步行动建议
+  DOCUMENT: `You are a legal drafting specialist. Generate a formal legal document draft based on the provided details.
+Requirements:
+1) Use a standard legal document format and clear section headers
+2) Include necessary legal references when appropriate
+3) Present facts and reasoning clearly and logically
+4) State claims or requests precisely
+5) Maintain professional tone and formatting
+Remind the user that this is a draft and should be reviewed and finalized with a licensed attorney.`,
 
-请输出结构化的方案，便于用户理解和执行。`,
+  CONTRACT: `You are a contract drafting expert. Generate a contract draft that includes:
+1) Contract title and optional numbering
+2) Placeholders for party information
+3) Core clauses (rights and obligations, subject matter, price/payment, term, confidentiality, etc.)
+4) Breach and remedies
+5) Dispute resolution mechanism
+6) Any other essential provisions for the contract type
+Use precise, professional language in a standard contract structure. Remind the user to adapt the draft to the actual deal and have counsel review before signing.`,
 
-  DOCUMENT: `你是一名法律文书起草专家。请根据用户提供的信息生成正式的法律文书草稿。
+  EXPLAIN: `You are a contract lawyer. Provide a detailed explanation of the clause:
+1) Plain-language meaning
+2) Legal effect
+3) Impact on each party's rights and obligations
+4) Potential risks or unfair terms
+5) Recommended negotiation or mitigation steps
+Keep the explanation clear and practical.`,
 
-要求：
-1. 使用标准的法律文书格式
-2. 包含必要的法律条款引用
-3. 事实陈述清晰、有逻辑
-4. 诉讼请求或主张明确
-5. 格式规范、语言专业
-
-请注意：这是草稿，用户需根据实际情况修改完善，并建议咨询专业律师审核。`,
-
-  CONTRACT: `你是一名合同起草专家。请根据用户需求生成合同草稿。
-
-合同应包含：
-1. 合同标题和编号（建议）
-2. 双方基本信息（留空待填）
-3. 合同主要条款（权利义务、标的、价款、期限等）
-4. 违约责任
-5. 争议解决方式
-6. 其他必要条款
-
-请使用标准的合同格式，语言严谨专业。提醒用户这是草稿，需要根据实际情况修改并经专业律师审核后再签署。`,
-
-  EXPLAIN: `你是一名合同法律专家，擅长解释合同条款。请对用户提供的合同条款进行详细解释：
-1. 条款的字面含义
-2. 法律效力分析
-3. 对各方的权利义务影响
-4. 潜在风险点
-5. 是否有不公平条款
-6. 建议的应对方式
-
-请用通俗易懂的语言解释，帮助用户理解条款的真实含义和影响。`,
-
-  LAWSUIT: `你是一名诉讼律师助手。请根据用户提供的案情分析诉讼可行性：
-1. 案件类型和管辖法院
-2. 诉讼时效分析
-3. 胜诉可能性评估
-4. 需要的证据材料
-5. 预计的诉讼成本和时间
-6. 风险提示
-7. 是否建议走诉讼程序
-
-请客观分析，帮助用户做出理性决策。`,
+  LAWSUIT: `You are a litigation assistant. Assess the feasibility of litigation based on the facts provided:
+1) Case type and likely jurisdiction
+2) Statute of limitations considerations
+3) Probability of success (qualitative)
+4) Evidence required
+5) Estimated cost and timeline
+6) Key risks
+7) Whether litigation is advisable versus alternatives
+Provide an objective analysis to support a rational decision.`,
 };
-

@@ -14,20 +14,20 @@ export function ExplainModule() {
   const [analysis, setAnalysis] = useState<string | null>(null);
 
   const handleUseExample = () => {
-    setClause("乙方应承担由此产生的一切法律责任");
+    setClause("Party B shall bear all legal liability arising therefrom.");
   };
 
   const handleGenerate = async () => {
     if (!verified) {
-      setStatus("请完成行为验证后继续。");
+      setStatus("Complete the verification checkbox to continue.");
       return;
     }
     if (!clause.trim()) {
-      setStatus("请粘贴需要解释的条款。");
+      setStatus("Please paste the clause that needs interpretation.");
       return;
     }
 
-    setStatus("正在解释条款...");
+    setStatus("Generating clause analysis...");
     setAnalysis(null);
 
     const result = await callAIApi("/api/ai/explain", {
@@ -35,7 +35,7 @@ export function ExplainModule() {
     });
 
     if (result.success && result.answer) {
-      setStatus("✅ 条款解释已生成，已扣除 1 点");
+      setStatus("✅ Clause explanation generated. 1 credit deducted.");
       setAnalysis(result.answer);
     } else {
       setStatus(`❌ ${result.message}`);
@@ -44,25 +44,25 @@ export function ExplainModule() {
 
   return (
     <div className="space-y-10">
-      <ExampleShowcase inputExample={example.input} outputBlocks={example.output} title="示例条款解释" />
+      <ExampleShowcase inputExample={example.input} outputBlocks={example.output} title="Sample clause explanation" />
       <section className="rounded-3xl border border-border-lavender bg-bg-card p-8 shadow-soft">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div>
-            <h2 className="text-2xl font-semibold text-text-primary">粘贴条款 · 获取解释</h2>
-            <p className="text-sm text-text-primary/70">输出条款定义、风险点、建议与注意事项。</p>
+            <h2 className="text-2xl font-semibold text-text-primary">Paste a clause · Get an explanation</h2>
+            <p className="text-sm text-text-primary/70">Returns the clause meaning, risk points, recommendations, and key notes.</p>
           </div>
           <p className="rounded-full border border-border-lavender/80 px-4 py-1 text-xs font-semibold text-text-lavender">
-            支持中文/中英双语条款
+            Supports English and bilingual clauses
           </p>
         </div>
         <div className="mt-6 space-y-4">
           <label className="text-sm font-semibold text-text-primary" htmlFor="clause-input">
-            粘贴条款
+            Paste clause
           </label>
           <textarea
             id="clause-input"
             className="min-h-[180px] w-full rounded-2xl border border-border-lavender/80 bg-white/80 p-4 text-sm outline-none focus:border-primary-lavender"
-            placeholder="例如：乙方应承担由此产生的一切法律责任"
+            placeholder="Example: Party B shall bear all legal liability arising therefrom."
             value={clause}
             onChange={(event) => setClause(event.target.value)}
           />
@@ -71,7 +71,7 @@ export function ExplainModule() {
             onClick={handleUseExample}
             className="text-sm text-text-lavender hover:text-primary-lavender-dark underline transition-colors"
           >
-            使用示例问题
+            Use example clause
           </button>
           <label className="flex items-center gap-3 text-sm text-text-primary/80">
             <input
@@ -80,19 +80,19 @@ export function ExplainModule() {
               checked={verified}
               onChange={(event) => setVerified(event.target.checked)}
             />
-            我确认本条款来源合法并同意扣除 1 点。
+            I confirm the clause source is legitimate and agree to deduct 1 credit.
           </label>
           <button
             onClick={handleGenerate}
             className="w-full rounded-full bg-primary-lavender px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary-lavender-dark disabled:opacity-50"
             disabled={!verified || isProcessing}
           >
-            {isProcessing ? "处理中..." : "解释条款"}
+            {isProcessing ? "Processing..." : "Explain clause"}
           </button>
           {status && <p className="text-sm text-text-lavender">{status}</p>}
           {analysis && (
             <div className="rounded-2xl border border-border-lavender/70 bg-white/90 p-5">
-              <p className="text-sm font-semibold text-text-lavender mb-4">AI 条款解释</p>
+              <p className="text-sm font-semibold text-text-lavender mb-4">AI clause explanation</p>
               <div className="prose prose-sm max-w-none">
                 <div className="whitespace-pre-wrap text-text-primary bg-white rounded-xl p-4 border border-border-lavender/50">
                   {analysis}

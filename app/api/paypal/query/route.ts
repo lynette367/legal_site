@@ -9,15 +9,15 @@ import { prisma, UserCreditsService } from '@/lib/prisma';
 
 /**
  * GET /api/paypal/query?orderId=xxx
- * 查询订单详情（需要登录，只能查询自己的订单）
+ * Query order details (requires authentication; user can only view their own orders)
  */
 export async function GET(request: NextRequest) {
   try {
-    // 验证用户登录状态
+    // Verify authentication
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.id) {
       return NextResponse.json(
-        { error: '未登录，请先登录' },
+        { error: 'Not authenticated. Please sign in.' },
         { status: 401 }
       );
     }
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
     const orderId = searchParams.get('orderId');
     const paypalOrderId = searchParams.get('paypalOrderId');
 
-    // 如果没有指定查询参数，返回用户所有订单
+    // If no query params, return all user orders
     if (!orderId && !paypalOrderId) {
       const orders = await prisma.order.findMany({
         where: { userId },
@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    // 查询单个订单
+    // Query a single order
     let orderRecord;
     if (orderId) {
       orderRecord = await prisma.order.findUnique({
@@ -63,20 +63,20 @@ export async function GET(request: NextRequest) {
 
     if (!orderRecord) {
       return NextResponse.json(
-        { error: '订单不存在' },
+        { error: 'Order not found' },
         { status: 404 }
       );
     }
 
-    // 验证订单归属
+    // Validate order ownership
     if (orderRecord.userId !== userId) {
       return NextResponse.json(
-        { error: '无权查看此订单' },
+        { error: 'You are not authorized to view this order' },
         { status: 403 }
       );
     }
 
-    // 如果有 PayPal Order ID，获取 PayPal 端的订单详情
+    // If PayPal Order ID exists, fetch PayPal order details
     let paypalDetails = null;
     if (orderRecord.paypalOrderId) {
       const paypalResult = await getPayPalOrderDetails(orderRecord.paypalOrderId);
@@ -93,7 +93,7 @@ export async function GET(request: NextRequest) {
   } catch (error: unknown) {
     console.error('Query order error:', error);
     const message =
-      error instanceof Error ? error.message : '查询订单失败';
+      error instanceof Error ? error.message : 'Failed to query order';
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

@@ -1,16 +1,15 @@
 import { PrismaClient } from '@prisma/client';
 
 /**
- * Prisma 客户端单例
- * 采用懒加载，避免在构建阶段读取 DATABASE_URL
+ * Prisma client singleton
+ * Lazily loaded to avoid reading DATABASE_URL during build
  */
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
 
 function createPrismaClient() {
-  // 在构建阶段（Next.js build），不检查 DATABASE_URL，避免构建失败
-  // 只在运行时检查
+  // Skip DATABASE_URL checks during build to avoid failures; check at runtime instead
   if (typeof window === 'undefined' && process.env.NEXT_PHASE !== 'phase-production-build') {
     if (!process.env.DATABASE_URL) {
       console.warn('DATABASE_URL environment variable is not set');
@@ -34,7 +33,7 @@ function getPrismaClient(): PrismaClient {
 
 export const prisma = new Proxy({} as PrismaClient, {
   get(_target, prop, receiver) {
-    // 延迟初始化，只在实际使用时创建客户端
+    // Lazy init: create client only when first accessed
     const client = getPrismaClient();
     const value = Reflect.get(client, prop, receiver);
     return typeof value === 'function' ? value.bind(client) : value;
@@ -42,18 +41,18 @@ export const prisma = new Proxy({} as PrismaClient, {
 });
 
 /**
- * 用户 Credits 操作工具
+ * User Credits helper
  */
 export class UserCreditsService {
   /**
-   * 获取用户 Credits 信息
+   * Get user Credits info
    */
   static async getUserCredits(userId: string) {
     let user = await prisma.user.findUnique({
       where: { id: userId },
     });
 
-    // 如果用户不存在，创建新用户
+    // Create user if not found
     if (!user) {
       user = await prisma.user.create({
         data: {
@@ -69,12 +68,12 @@ export class UserCreditsService {
   }
 
   /**
-   * 增加 Credits（购买套餐）
+   * Add Credits (purchase)
    */
   static async addCredits(userId: string, amount: number, orderId?: string) {
     const user = await this.getUserCredits(userId);
 
-    // 更新用户 credits
+    // Update user credits
     const updatedUser = await prisma.user.update({
       where: { id: userId },
       data: {
@@ -83,14 +82,14 @@ export class UserCreditsService {
       },
     });
 
-    // 创建使用记录
+    // Create usage record
     await prisma.creditUsageRecord.create({
       data: {
         userId,
         orderId,
         amount,
         type: 'purchase',
-        description: `购买套餐充值 ${amount} credits`,
+        description: `Purchased package: +${amount} credits`,
       },
     });
 
@@ -98,17 +97,17 @@ export class UserCreditsService {
   }
 
   /**
-   * 扣除 Credits
+   * Deduct Credits
    */
   static async deductCredits(userId: string, amount: number, description: string) {
     const user = await this.getUserCredits(userId);
 
-    // 检查余额是否足够
+    // Check balance
     if (user.remainingCredits < amount) {
-      throw new Error('Credits 余额不足');
+      throw new Error('Insufficient Credits');
     }
 
-    // 更新用户 credits
+    // Update user credits
     const updatedUser = await prisma.user.update({
       where: { id: userId },
       data: {
@@ -117,7 +116,7 @@ export class UserCreditsService {
       },
     });
 
-    // 创建使用记录
+    // Create usage record
     await prisma.creditUsageRecord.create({
       data: {
         userId,
@@ -131,7 +130,7 @@ export class UserCreditsService {
   }
 
   /**
-   * 获取用户使用历史
+   * Get user usage history
    */
   static async getUsageHistory(userId: string) {
     return await prisma.creditUsageRecord.findMany({

@@ -1,8 +1,8 @@
 import checkoutNodeJssdk from '@paypal/checkout-server-sdk';
 
 /**
- * PayPal 客户端配置
- * 支持 sandbox 与 live 模式
+ * PayPal client configuration
+ * Supports sandbox and live modes
  */
 export function paypalClient() {
   const Environment = process.env.PAYPAL_MODE === 'live'
@@ -18,4 +18,3 @@ export function paypalClient() {
 
   return client;
 }
-

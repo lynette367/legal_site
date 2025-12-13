@@ -81,16 +81,16 @@ const getApiErrorMessage = (payload: unknown, fallback: string): string => {
 };
 
 /**
- * PayPal 支付按钮组件
- * 集成 PayPal JavaScript SDK
- * 注意：需要用户已登录，userId 从 session 中自动获取
+ * PayPal payment button component
+ * Integrates the PayPal JavaScript SDK
+ * Note: requires the user to be signed in; userId is pulled from the session
  */
 export function PayPalButton({ planId, onSuccess, onError }: PayPalButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [sdkReady, setSdkReady] = useState(false);
 
   useEffect(() => {
-    // 加载 PayPal SDK
+    // Load PayPal SDK
     const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
     if (!clientId) {
       const error = new Error('PayPal Client ID not configured');
@@ -123,7 +123,7 @@ export function PayPalButton({ planId, onSuccess, onError }: PayPalButtonProps) 
   useEffect(() => {
     if (!sdkReady) return;
 
-    // 渲染 PayPal 按钮
+    // Render PayPal button
     const container = document.getElementById('paypal-button-container');
     if (!container || container.children.length > 0) return;
 
@@ -138,7 +138,7 @@ export function PayPalButton({ planId, onSuccess, onError }: PayPalButtonProps) 
           shape: 'rect',
           label: 'paypal',
         },
-        // 创建订单（userId 从 session 中自动获取）
+        // Create order (userId is derived from the session)
         createOrder: async () => {
           setIsLoading(true);
           try {
@@ -167,7 +167,7 @@ export function PayPalButton({ planId, onSuccess, onError }: PayPalButtonProps) 
             setIsLoading(false);
           }
         },
-        // 批准后捕获订单
+        // Capture order after approval
         onApprove: async (data: PayPalApproveData) => {
           setIsLoading(true);
           try {
@@ -195,12 +195,12 @@ export function PayPalButton({ planId, onSuccess, onError }: PayPalButtonProps) 
             setIsLoading(false);
           }
         },
-        // 取消支付
+        // Cancelled payment
         onCancel: (data: PayPalApproveData) => {
           console.log('Payment cancelled:', data);
           setIsLoading(false);
         },
-        // 错误处理
+        // Error handling
         onError: (err: Error | unknown) => {
           const error = toError(err, 'PayPal error');
           console.error('PayPal error:', error);
@@ -214,7 +214,7 @@ export function PayPalButton({ planId, onSuccess, onError }: PayPalButtonProps) 
   if (!sdkReady) {
     return (
       <div className="flex items-center justify-center py-4">
-        <div className="text-sm text-text-primary/70">加载 PayPal...</div>
+        <div className="text-sm text-text-primary/70">Loading PayPal...</div>
       </div>
     );
   }
@@ -224,7 +224,7 @@ export function PayPalButton({ planId, onSuccess, onError }: PayPalButtonProps) 
       <div id="paypal-button-container"></div>
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-white/80">
-          <div className="text-sm text-text-primary">处理中...</div>
+          <div className="text-sm text-text-primary">Processing...</div>
         </div>
       )}
     </div>

@@ -6,21 +6,21 @@ import { prisma } from '@/lib/prisma';
 
 /**
  * GET /api/paypal/test
- * 测试接口 - 返回系统状态和配置信息
+ * Test endpoint - returns system status and configuration details
  */
 export async function GET() {
   try {
-    // 检查环境变量配置
+    // Check env configuration
     const config = {
-      clientId: process.env.PAYPAL_CLIENT_ID ? '已配置 ✅' : '未配置 ❌',
-      clientSecret: process.env.PAYPAL_CLIENT_SECRET ? '已配置 ✅' : '未配置 ❌',
-      mode: process.env.PAYPAL_MODE || '未设置（将使用 sandbox）',
-      appUrl: process.env.NEXT_PUBLIC_APP_URL || '未设置',
-      publicClientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ? '已配置 ✅' : '未配置 ❌',
-      databaseUrl: process.env.DATABASE_URL ? '已配置 ✅' : '未配置 ❌',
+      clientId: process.env.PAYPAL_CLIENT_ID ? 'Configured ✅' : 'Not configured ❌',
+      clientSecret: process.env.PAYPAL_CLIENT_SECRET ? 'Configured ✅' : 'Not configured ❌',
+      mode: process.env.PAYPAL_MODE || 'Not set (will use sandbox)',
+      appUrl: process.env.NEXT_PUBLIC_APP_URL || 'Not set',
+      publicClientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ? 'Configured ✅' : 'Not configured ❌',
+      databaseUrl: process.env.DATABASE_URL ? 'Configured ✅' : 'Not configured ❌',
     };
 
-    // 检查依赖
+    // Check dependencies
     let sdkInstalled = false;
     let prismaInstalled = false;
     try {
@@ -36,7 +36,7 @@ export async function GET() {
       prismaInstalled = false;
     }
 
-    // 统计数据（从 Prisma 数据库获取）
+    // Stats from Prisma
     const totalOrders = await prisma.order.count();
     const completedOrders = await prisma.order.count({ where: { status: 'completed' } });
     const pendingOrders = await prisma.order.count({ where: { status: 'pending' } });
@@ -57,7 +57,7 @@ export async function GET() {
 
     return NextResponse.json({
       status: 'ok',
-      message: 'PayPal 集成测试接口（Prisma 版本）',
+      message: 'PayPal integration test endpoint (Prisma)',
       timestamp: new Date().toISOString(),
       environment: {
         nodeEnv: process.env.NODE_ENV || 'development',
@@ -65,11 +65,11 @@ export async function GET() {
       },
       configuration: config,
       dependencies: {
-        paypalSdk: sdkInstalled ? '已安装 ✅' : '未安装 ❌',
-        prisma: prismaInstalled ? '已安装 ✅' : '未安装 ❌',
+        paypalSdk: sdkInstalled ? 'Installed ✅' : 'Not installed ❌',
+        prisma: prismaInstalled ? 'Installed ✅' : 'Not installed ❌',
       },
       database: {
-        status: '已连接 ✅',
+        status: 'Connected ✅',
         type: 'SQLite (dev) / PostgreSQL (prod)',
       },
       statistics: stats,
@@ -80,25 +80,25 @@ export async function GET() {
         test: '/api/paypal/test',
       },
       documentation: [
-        'PAYPAL-SETUP.md - 快速设置指南',
-        'README-PAYPAL.md - 完整集成文档',
-        'INTEGRATION-CHECKLIST.md - 集成清单',
+        'PAYPAL-SETUP.md - Quick setup guide',
+        'README-PAYPAL.md - Full integration docs',
+        'INTEGRATION-CHECKLIST.md - Integration checklist',
       ],
       nextSteps: [
-        '1. 配置 .env.local 文件中的 PayPal 凭证',
-        '2. 访问 /pricing 页面测试支付流程',
-        '3. 使用 PayPal Sandbox 测试账户进行支付',
-        '4. 查看订单和 Credits 变化',
+        '1. Configure PayPal credentials in .env.local',
+        '2. Visit /pricing to test the payment flow',
+        '3. Pay with a PayPal Sandbox test account',
+        '4. Review order records and Credits balance',
       ],
-      warnings: config.clientId === '未配置 ❌' ? [
-        '⚠️ PayPal Client ID 未配置',
-        '⚠️ PayPal Client Secret 未配置',
-        '请在 .env.local 中配置 PAYPAL_CLIENT_ID 和 PAYPAL_CLIENT_SECRET',
+      warnings: config.clientId === 'Not configured ❌' ? [
+        '⚠️ PayPal Client ID is not configured',
+        '⚠️ PayPal Client Secret is not configured',
+        'Please configure PAYPAL_CLIENT_ID and PAYPAL_CLIENT_SECRET in .env.local',
       ] : [],
     });
   } catch (error: unknown) {
     const message =
-      error instanceof Error ? error.message : '测试失败';
+      error instanceof Error ? error.message : 'Test failed';
     return NextResponse.json(
       {
         status: 'error',

@@ -10,15 +10,15 @@ import { plans } from '@/data/plans';
 
 /**
  * POST /api/paypal/create
- * 创建 PayPal 订单（需要登录）
+ * Create a PayPal order (requires authentication)
  */
 export async function POST(request: NextRequest) {
   try {
-    // 验证用户登录状态
+    // Verify authentication
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.id) {
       return NextResponse.json(
-        { error: '未登录，请先登录' },
+        { error: 'Not authenticated. Please sign in.' },
         { status: 401 }
       );
     }
@@ -27,34 +27,34 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { planId } = body;
 
-    // 验证必需参数
+    // Validate required params
     if (!planId) {
       return NextResponse.json(
-        { error: '缺少必需参数: planId' },
+        { error: 'Missing required parameter: planId' },
         { status: 400 }
       );
     }
 
-    // 查找套餐信息
+    // Find plan info
     const plan = plans.find(p => p.id === planId);
     if (!plan) {
       return NextResponse.json(
-        { error: '套餐不存在' },
+        { error: 'Plan not found' },
         { status: 404 }
       );
     }
 
-    // 提取价格数字（去掉 ¥ 符号）
+    // Extract numeric price (strip currency symbol)
     const priceMatch = plan.price.match(/[\d.]+/);
     if (!priceMatch) {
       return NextResponse.json(
-        { error: '套餐价格格式错误' },
+        { error: 'Plan price format error' },
         { status: 400 }
       );
     }
     const amount = priceMatch[0];
 
-    // 确保用户存在
+    // Ensure user exists
     let user = await prisma.user.findUnique({ where: { id: userId } });
     if (!user) {
       user = await prisma.user.create({
@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // 创建内部订单记录（使用 Prisma）
+    // Create internal order record (Prisma)
     const order = await prisma.order.create({
       data: {
         userId,
@@ -75,12 +75,12 @@ export async function POST(request: NextRequest) {
         planName: plan.name,
         credits: plan.credits,
         amount: parseFloat(amount),
-        currency: 'USD', // PayPal 建议使用 USD，您可以根据需要修改
+        currency: 'USD', // PayPal recommends USD; adjust as needed
         status: 'pending',
       },
     });
 
-    // 创建 PayPal 订单
+    // Create PayPal order
     const paypalResult = await createPayPalOrder(
       amount,
       'USD',
@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
     );
 
     if (!paypalResult.success) {
-      // 更新订单状态为失败
+      // Update order status to failed
       await prisma.order.update({
         where: { id: order.id },
         data: {
@@ -98,12 +98,12 @@ export async function POST(request: NextRequest) {
       });
 
       return NextResponse.json(
-        { error: paypalResult.error || 'PayPal 订单创建失败' },
+        { error: paypalResult.error || 'Failed to create PayPal order' },
         { status: 500 }
       );
     }
 
-    // 更新订单记录，保存 PayPal Order ID
+    // Update order with PayPal Order ID
     const updatedOrder = await prisma.order.update({
       where: { id: order.id },
       data: {
@@ -111,7 +111,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // 获取支付链接
+    // Retrieve approval link
     const approveLink = paypalResult.links?.find(
       (link) => link.rel === 'approve'
     );
@@ -131,7 +131,7 @@ export async function POST(request: NextRequest) {
   } catch (error: unknown) {
     console.error('Create PayPal order error:', error);
     const message =
-      error instanceof Error ? error.message : '订单创建失败';
+      error instanceof Error ? error.message : 'Failed to create order';
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

@@ -40,7 +40,7 @@ export type PayPalCaptureOrderResult = PayPalCaptureOrderSuccess | PayPalErrorRe
 export type PayPalGetOrderResult = PayPalGetOrderSuccess | PayPalErrorResponse;
 
 /**
- * 创建 PayPal 订单
+ * Create a PayPal order
  */
 export async function createPayPalOrder(
   amount: string,
@@ -61,7 +61,7 @@ export async function createPayPalOrder(
       },
     ],
     application_context: {
-      brand_name: 'Panco 法律助手',
+      brand_name: 'Panco Legal Assistant',
       landing_page: 'NO_PREFERENCE',
       user_action: 'PAY_NOW',
       return_url: `${process.env.NEXT_PUBLIC_APP_URL}/pricing/success`,
@@ -96,7 +96,7 @@ export async function createPayPalOrder(
 }
 
 /**
- * 捕获（完成）PayPal 订单支付
+ * Capture (complete) a PayPal order
  */
 export async function capturePayPalOrder(orderId: string): Promise<PayPalCaptureOrderResult> {
   const request = new checkoutNodeJssdk.orders.OrdersCaptureRequest(orderId);
@@ -132,7 +132,7 @@ export async function capturePayPalOrder(orderId: string): Promise<PayPalCapture
 }
 
 /**
- * 查询 PayPal 订单详情
+ * Get PayPal order details
  */
 export async function getPayPalOrderDetails(orderId: string): Promise<PayPalGetOrderResult> {
   const request = new checkoutNodeJssdk.orders.OrdersGetRequest(orderId);

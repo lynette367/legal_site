@@ -9,70 +9,70 @@ import { callDeepSeek, PROMPTS } from "@/lib/ai/deepseek";
 
 /**
  * POST /api/ai/contract
- * 合同生成 AI 接口
+ * Contract generation AI endpoint
  */
 export async function POST(request: NextRequest) {
   try {
-    // 1. 验证用户登录
+    // 1. Verify authentication
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {
       return NextResponse.json(
-        { error: "未登录，请先登录" },
+        { error: "Not authenticated. Please sign in." },
         { status: 401 }
       );
     }
 
     const userId = session.user.id;
 
-    // 2. 解析请求参数
+    // 2. Parse payload
     const body = await request.json();
     const { contractType, requirements } = body;
 
     if (!contractType || !requirements) {
       return NextResponse.json(
-        { error: "缺少参数：contractType（合同类型）和 requirements（需求描述）" },
+        { error: "Missing parameters: contractType and requirements" },
         { status: 400 }
       );
     }
 
     if (typeof requirements !== "string" || requirements.trim().length === 0) {
       return NextResponse.json(
-        { error: "需求描述不能为空" },
+        { error: "Requirements description cannot be empty" },
         { status: 400 }
       );
     }
 
-    // 3. 扣除 Credits（合同生成 = 3 Credits）
+    // 3. Deduct Credits (contract generation = 3 Credits)
     const CREDITS_COST = 3;
     try {
       await UserCreditsService.deductCredits(
         userId,
         CREDITS_COST,
-        `生成${contractType}`
+        `Generate ${contractType}`
       );
     } catch (error: unknown) {
       const message =
-        error instanceof Error ? error.message : "扣除 Credits 失败";
-      if (message === "Credits 余额不足") {
+        error instanceof Error ? error.message : "Failed to deduct Credits";
+      if (message.toLowerCase().includes("insufficient")) {
         return NextResponse.json(
-          { error: "Credits 余额不足，请先购买套餐" },
+          { error: "Insufficient Credits. Please purchase a plan first." },
           { status: 402 }
         );
       }
       throw error;
     }
 
-    // 4. 调用 DeepSeek API
-    const prompt = `请生成一份${contractType}。
+    // 4. Call DeepSeek API
+    const prompt = `Draft a ${contractType} based on the requirements below.
 
-用户需求：
+Requirements:
 ${requirements.trim()}
 
-请按照标准的合同格式输出，包含所有必要条款。`;
+Use a standard contract structure and include all essential clauses.`;
 
     const answer = await callDeepSeek(prompt, PROMPTS.CONTRACT);
 
-    // 5. 返回结果
+    // 5. Return result
     return NextResponse.json({
       success: true,
       answer,
@@ -82,8 +82,7 @@ ${requirements.trim()}
   } catch (error: unknown) {
     console.error("Contract API Error:", error);
     const message =
-      error instanceof Error ? error.message : "AI 调用失败，请稍后重试";
+      error instanceof Error ? error.message : "AI request failed. Please try again.";
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
-
