@@ -130,7 +130,7 @@ export function UserCenterPanel() {
           <p>• Q&amp;A / clause explanation: 1 credit</p>
           <p>• Dispute plan: 2 credits</p>
           <p>• Document or contract draft: 3 credits</p>
-          <p className="mt-2">⭐ Recommended: Popular credits pack ¥29.9 / 45 credits</p>
+          <p className="mt-2">⭐ Recommended: Popular credits pack $29.99 / 150 credits</p>
         </div>
 
         <button

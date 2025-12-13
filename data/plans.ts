@@ -35,24 +35,24 @@ export const plans: Plan[] = [
   {
     id: "basic",
     name: "Starter credits pack",
-    description: "For ad-hoc legal questions. About 12 Q&A calls or 6 dispute plans or 4 document drafts.",
-    credits: 12,
-    price: "¥9.9",
+    description: "For occasional legal questions or quick clause explanations.\nAbout 40 Q&A calls, 20 dispute plans, or 13 document drafts.",
+    credits: 40,
+    price: "$9.99",
   },
   {
     id: "standard",
     name: "Popular credits pack",
-    description: "Best value for individuals and small teams: about 45 Q&A calls or 22 dispute plans or 15 document drafts.",
-    credits: 45,
-    price: "¥29.9",
+    description: "Best value for individuals and small teams.\nAbout 150 Q&A calls, 75 dispute plans, or 50 document drafts.",
+    credits: 150,
+    price: "$29.99",
     recommended: true,
   },
   {
     id: "pro",
     name: "Pro credits pack",
-    description: "For heavy users like lawyers, legal ops, or HR: about 120 Q&A calls, 60 dispute plans, or 40 document/contract drafts.",
-    credits: 120,
-    price: "¥59.9",
+    description: "Designed for heavy users such as lawyers, founders, or HR teams.\nAbout 360 Q&A calls, 180 dispute plans, or 120 document/contract drafts.",
+    credits: 360,
+    price: "$59.99",
   },
 ];
 
