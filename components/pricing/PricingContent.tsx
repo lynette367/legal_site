@@ -2,26 +2,18 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import {
-  paymentChannels,
-  plans,
-  singleUse,
-  creditsNote,
-  PaymentMethod,
-} from "../../data/plans";
+import { plans, singleUse, creditsNote } from "../../data/plans";
 import { PayPalButton, PayPalCaptureSuccess } from "./PayPalButton";
 
 export function PricingContent() {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<(typeof plans)[number] | null>(null);
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("paypal");
   const [status, setStatus] = useState<string | null>(null);
 
   const openModal = (planId: string) => {
     const plan = plans.find((item) => item.id === planId) ?? null;
     setSelectedPlan(plan);
-    setPaymentMethod("paypal");
     setStatus(null);
     setIsModalOpen(true);
   };
@@ -36,15 +28,6 @@ export function PricingContent() {
 
   const handlePayPalError = (error: Error) => {
     setStatus(`Payment failed: ${error.message || 'Unknown error'}`);
-  };
-
-  const handleTraditionalPay = () => {
-    if (!selectedPlan) return;
-    setStatus("Calling payment API (placeholder)...");
-    setTimeout(() => {
-      router.push(`/pricing/success?plan=${selectedPlan.id}&credits=${selectedPlan.credits}`);
-      setIsModalOpen(false);
-    }, 600);
   };
 
   return (
@@ -134,17 +117,15 @@ export function PricingContent() {
         <div className="mt-8 rounded-2xl border border-border-lavender/80 bg-white/90 p-5">
           <p className="text-sm font-semibold text-text-lavender">Payment methods</p>
           <p className="mt-2 text-sm text-text-primary/70">
-            PayPal is integrated; WeChat/Alipay H5 options are shown as UI placeholders.
+            PayPal is integrated. More payment methods coming soon.
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             <span className="rounded-full bg-blue-500/20 px-4 py-1 text-sm text-blue-600 font-semibold">
               PayPal (integrated)
             </span>
-            {paymentChannels.map((method) => (
-              <span key={method.value} className="rounded-full bg-primary-lavender/20 px-4 py-1 text-sm text-text-lavender">
-                {method.label} (placeholder)
-              </span>
-            ))}
+            <span className="rounded-full bg-primary-lavender/10 px-4 py-1 text-sm text-text-lavender">
+              More methods coming soon
+            </span>
           </div>
         </div>
       </section>
@@ -177,67 +158,31 @@ export function PricingContent() {
                   type="radio"
                   name="payment"
                   value="paypal"
-                  checked={paymentMethod === "paypal"}
-                  onChange={() => setPaymentMethod("paypal")}
+                  checked
+                  readOnly
                   className="accent-blue-500"
                 />
                 <span className="text-sm text-text-primary font-semibold">PayPal payment (live integration)</span>
               </label>
-              {paymentChannels.map((channel) => (
-                <label key={channel.value} className="flex items-center gap-2 rounded-xl border border-border-lavender/70 bg-white/80 p-3 opacity-60">
-                  <input
-                    type="radio"
-                    name="payment"
-                    value={channel.value}
-                    checked={paymentMethod === channel.value}
-                    onChange={() => setPaymentMethod(channel.value)}
-                    className="accent-primary-lavender"
-                  />
-                  <span className="text-sm text-text-primary">{channel.label} (placeholder)</span>
-                </label>
-              ))}
+              <p className="text-xs text-text-primary/60 pl-1">More payment methods coming soon.</p>
             </div>
             
-            {paymentMethod === "paypal" ? (
-              <>
-                <p className="mt-3 text-xs text-text-primary/70">
-                  Pay securely with PayPal using cards or a PayPal account.
-                </p>
-                <div className="mt-5">
-                  <PayPalButton
-                    planId={selectedPlan.id}
-                    onSuccess={handlePayPalSuccess}
-                    onError={handlePayPalError}
-                  />
-                </div>
-                <button
-                  onClick={() => setIsModalOpen(false)}
-                  className="mt-3 w-full rounded-full border border-border-lavender px-4 py-2 text-sm font-semibold text-text-primary"
-                >
-                  Cancel
-                </button>
-              </>
-            ) : (
-              <>
-                <p className="mt-3 text-xs text-text-primary/70">
-                  Placeholder payment flow only. After confirming, you will be redirected to the success page and credits will be added.
-                </p>
-                <div className="mt-5 flex gap-3">
-                  <button
-                    onClick={() => setIsModalOpen(false)}
-                    className="flex-1 rounded-full border border-border-lavender px-4 py-2 text-sm font-semibold text-text-primary"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={handleTraditionalPay}
-                    className="flex-1 rounded-full bg-primary-lavender px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary-lavender-dark"
-                  >
-                    Proceed to pay
-                  </button>
-                </div>
-              </>
-            )}
+            <p className="mt-3 text-xs text-text-primary/70">
+              Pay securely with PayPal using cards or a PayPal account.
+            </p>
+            <div className="mt-5">
+              <PayPalButton
+                planId={selectedPlan.id}
+                onSuccess={handlePayPalSuccess}
+                onError={handlePayPalError}
+              />
+            </div>
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="mt-3 w-full rounded-full border border-border-lavender px-4 py-2 text-sm font-semibold text-text-primary"
+            >
+              Cancel
+            </button>
             {status && <p className="mt-2 text-sm text-text-lavender">{status}</p>}
           </div>
         </div>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { paymentChannels, plans, creditsNote } from "../data/plans";
+import { plans, creditsNote } from "../data/plans";
 
 export const metadata: Metadata = {
   title: "Panco Legal Assistant | AI Legal Q&A, Dispute Plans, Documents, Contracts",
@@ -128,16 +128,14 @@ export default function HomePage() {
 
         <div className="mt-6 rounded-2xl border border-border-lavender/80 bg-white/80 p-5">
           <p className="text-sm font-semibold text-text-lavender">Payment methods</p>
-          <p className="mt-2 text-sm text-text-primary/80">Supports PayPal plus WeChat/Alipay H5 flows</p>
+          <p className="mt-2 text-sm text-text-primary/80">PayPal is integrated. More payment methods coming soon.</p>
           <div className="mt-4 flex flex-wrap gap-3">
             <span className="rounded-full bg-blue-500/20 px-4 py-1 text-sm text-blue-600 font-semibold">
               PayPal (live integration)
             </span>
-            {paymentChannels.map((method) => (
-              <span key={method.value} className="rounded-full bg-primary-lavender/20 px-4 py-1 text-sm text-text-lavender">
-                {method.label}
-              </span>
-            ))}
+            <span className="rounded-full bg-primary-lavender/10 px-4 py-1 text-sm text-text-lavender">
+              More methods coming soon
+            </span>
           </div>
         </div>
       </section>

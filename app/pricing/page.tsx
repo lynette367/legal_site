@@ -13,7 +13,7 @@ export default function PricingPage() {
       <PageHero
         overline="Pricing"
         title="Purchase bundles or pay per use"
-        description="Zero free credits. Each legal Q&A, dispute plan, document, or contract request is billed server-side."
+        description="Each legal Q&A, dispute plan, document, or contract request is billed server-side."
         highlights={["Per use", "Bundles", "Unified payment"]}
       />
       <PricingContent />

@@ -1,16 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { moduleExamples } from "../../data/moduleExamples";
 import { useAIModule } from "./ModuleWrapper";
-import { ExampleShowcase } from "../ui/ExampleShowcase";
 
 export function DisputeModule() {
-  const example = moduleExamples.dispute;
   const { callAIApi, isProcessing } = useAIModule();
   const [situation, setSituation] = useState("");
   const [verified, setVerified] = useState(false);
-  const [status, setStatus] = useState<string | null>(null);
+  const [panelMessage, setPanelMessage] = useState("Your answer will appear here.");
   const [plan, setPlan] = useState<string | null>(null);
 
   const handleUseExample = () => {
@@ -19,32 +16,34 @@ export function DisputeModule() {
 
   const handleGenerate = async () => {
     if (!verified) {
-      setStatus("Please complete the verification checkbox to proceed.");
+      setPlan(null);
+      setPanelMessage("Please complete the verification checkbox to proceed.");
       return;
     }
     if (!situation.trim()) {
-      setStatus("Please describe the dispute so an action plan can be generated.");
+      setPlan(null);
+      setPanelMessage("Please describe the dispute so an action plan can be generated.");
       return;
     }
 
-    setStatus("Requesting an AI-generated dispute plan...");
     setPlan(null);
+    setPanelMessage("Processing…\nAnalyzing your request…");
 
     const result = await callAIApi("/api/ai/dispute", {
       situation: situation.trim(),
     });
 
     if (result.success && result.answer) {
-      setStatus("✅ Dispute plan generated. 2 credits deducted.");
       setPlan(result.answer);
+      setPanelMessage("");
     } else {
-      setStatus(`❌ ${result.message}`);
+      setPlan(null);
+      setPanelMessage(`❌ ${result.message}`);
     }
   };
 
   return (
     <div className="space-y-10">
-      <ExampleShowcase inputExample={example.input} outputBlocks={example.output} title="Sample dispute plan" />
       <section className="rounded-3xl border border-border-lavender bg-bg-card p-8 shadow-soft">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div>
@@ -65,11 +64,13 @@ export function DisputeModule() {
             placeholder="Example: Bought a phone online that was refurbished; the seller refuses a refund."
             value={situation}
             onChange={(event) => setSituation(event.target.value)}
+            disabled={isProcessing}
           />
           <button
             type="button"
             onClick={handleUseExample}
-            className="text-sm text-text-lavender hover:text-primary-lavender-dark underline transition-colors"
+            className="text-sm text-text-lavender hover:text-primary-lavender-dark underline transition-colors disabled:opacity-60"
+            disabled={isProcessing}
           >
             Use example prompt
           </button>
@@ -79,6 +80,7 @@ export function DisputeModule() {
               className="h-4 w-4 accent-primary-lavender"
               checked={verified}
               onChange={(event) => setVerified(event.target.checked)}
+              disabled={isProcessing}
             />
             I confirm this description is accurate and agree to deduct 2 credits to generate the plan.
           </label>
@@ -89,17 +91,14 @@ export function DisputeModule() {
           >
             {isProcessing ? "Processing..." : "Generate dispute plan"}
           </button>
-          {status && <p className="text-sm text-text-lavender">{status}</p>}
-          {plan && (
-            <div className="rounded-2xl border border-border-lavender/70 bg-white/90 p-5">
-              <p className="text-sm font-semibold text-text-lavender mb-4">AI-generated dispute plan</p>
-              <div className="prose prose-sm max-w-none">
-                <div className="whitespace-pre-wrap text-text-primary">
-                  {plan}
-                </div>
+          <div className="rounded-2xl border border-border-lavender/70 bg-white/90 p-5">
+            <p className="text-sm font-semibold text-text-lavender mb-4">AI-generated dispute plan</p>
+            <div className="prose prose-sm max-w-none">
+              <div className="whitespace-pre-wrap text-text-primary rounded-xl bg-primary-lavender/10 p-4 text-sm leading-relaxed">
+                {plan ? plan : <p className="whitespace-pre-line text-text-primary/70">{panelMessage}</p>}
               </div>
             </div>
-          )}
+          </div>
         </div>
       </section>
     </div>

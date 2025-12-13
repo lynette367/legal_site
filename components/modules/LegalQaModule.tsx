@@ -1,30 +1,29 @@
 "use client";
 
 import { useState } from "react";
-import { moduleExamples } from "../../data/moduleExamples";
 import { useAIModule } from "./ModuleWrapper";
-import { ExampleShowcase } from "../ui/ExampleShowcase";
 
 export function LegalQaModule() {
-  const example = moduleExamples.legalQa;
   const { callAIApi, isProcessing } = useAIModule();
   const [question, setQuestion] = useState("");
   const [verified, setVerified] = useState(false);
-  const [status, setStatus] = useState<string | null>(null);
+  const [panelMessage, setPanelMessage] = useState("Your answer will appear here.");
   const [response, setResponse] = useState<string | null>(null);
 
   const handleGenerate = async () => {
     if (!verified) {
-      setStatus("Complete the human verification to confirm this request.");
+      setResponse(null);
+      setPanelMessage("Complete the human verification to confirm this request.");
       return;
     }
     if (!question.trim()) {
-      setStatus("Please enter a legal question so the AI can classify it and flag risks.");
+      setResponse(null);
+      setPanelMessage("Please enter a legal question so the AI can classify it and flag risks.");
       return;
     }
 
-    setStatus("Requesting an AI-generated answer...");
     setResponse(null);
+    setPanelMessage("Processing…\nGenerating legal insights…");
 
     // Call AI API (credits deducted server-side)
     const result = await callAIApi("/api/ai/legal-qa", {
@@ -32,10 +31,11 @@ export function LegalQaModule() {
     });
 
     if (result.success && result.answer) {
-      setStatus("✅ AI response generated. 1 credit deducted.");
       setResponse(result.answer);
+      setPanelMessage("");
     } else {
-      setStatus(`❌ ${result.message}`);
+      setResponse(null);
+      setPanelMessage(`❌ ${result.message}`);
     }
   };
 
@@ -45,7 +45,6 @@ export function LegalQaModule() {
 
   return (
     <div className="space-y-10">
-      <ExampleShowcase inputExample={example.input} outputBlocks={example.output} title="Sample answer" />
       <section className="rounded-3xl border border-border-lavender bg-bg-card p-8 shadow-soft">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div>
@@ -66,11 +65,13 @@ export function LegalQaModule() {
             placeholder="Example: The company is forcing me to extend probation. Is that lawful?"
             value={question}
             onChange={(event) => setQuestion(event.target.value)}
+            disabled={isProcessing}
           />
           <button
             type="button"
             onClick={handleUseExample}
-            className="text-sm text-text-lavender hover:text-primary-lavender-dark underline transition-colors"
+            className="text-sm text-text-lavender hover:text-primary-lavender-dark underline transition-colors disabled:opacity-60"
+            disabled={isProcessing}
           >
             Use example question
           </button>
@@ -80,6 +81,7 @@ export function LegalQaModule() {
               className="h-4 w-4 accent-primary-lavender"
               checked={verified}
               onChange={(event) => setVerified(event.target.checked)}
+              disabled={isProcessing}
             />
             I confirm this request is made by a human and agree to deduct 1 credit.
           </label>
@@ -90,17 +92,16 @@ export function LegalQaModule() {
           >
             {isProcessing ? "Processing..." : "Generate legal answer"}
           </button>
-          {status && <p className="text-sm text-text-lavender">{status}</p>}
-          {response && (
-            <div className="rounded-2xl border border-border-lavender/70 bg-white/90 p-5">
-              <p className="text-sm font-semibold text-text-lavender">AI legal answer</p>
-              <div className="mt-4 prose prose-sm max-w-none">
-                <div className="rounded-xl bg-primary-lavender/10 p-4 text-sm text-text-primary whitespace-pre-wrap leading-relaxed">
-                  {response}
-                </div>
-              </div>
+          <div className="rounded-2xl border border-border-lavender/70 bg-white/90 p-5">
+            <p className="text-sm font-semibold text-text-lavender">AI legal answer</p>
+            <div className="mt-4 rounded-xl bg-primary-lavender/10 p-4 text-sm text-text-primary whitespace-pre-wrap leading-relaxed">
+              {response ? (
+                response
+              ) : (
+                <p className="whitespace-pre-line text-text-primary/70">{panelMessage}</p>
+              )}
             </div>
-          )}
+          </div>
         </div>
       </section>
     </div>

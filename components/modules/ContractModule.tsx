@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { moduleExamples } from "../../data/moduleExamples";
 import { useAIModule } from "./ModuleWrapper";
-import { ExampleShowcase } from "../ui/ExampleShowcase";
 
 const contractTypes = [
   { value: "Residential lease", label: "Residential lease" },
@@ -12,18 +10,12 @@ const contractTypes = [
   { value: "NDA", label: "NDA confidentiality agreement" },
 ];
 
-const conversation = [
-  { role: "User", content: "I need a labor contract with monthly payments and commercial insurance." },
-  { role: "Panco AI", content: "Understood. I will include payment schedule, insurance obligations, breach terms, and dispute resolution clauses." },
-];
-
 export function ContractModule() {
-  const example = moduleExamples.contracts;
   const { callAIApi, isProcessing } = useAIModule();
   const [contractType, setContractType] = useState(contractTypes[0].value);
   const [requirements, setRequirements] = useState("");
   const [verified, setVerified] = useState(false);
-  const [status, setStatus] = useState<string | null>(null);
+  const [panelMessage, setPanelMessage] = useState("Your answer will appear here.");
   const [draft, setDraft] = useState<string | null>(null);
 
   const handleUseExample = () => {
@@ -32,16 +24,18 @@ export function ContractModule() {
 
   const handleGenerate = async () => {
     if (!verified) {
-      setStatus("Please complete the verification checkbox first.");
+      setDraft(null);
+      setPanelMessage("Please complete the verification checkbox first.");
       return;
     }
     if (!requirements.trim()) {
-      setStatus("Enter the contract requirements such as term, payment method, and confidentiality clauses.");
+      setDraft(null);
+      setPanelMessage("Enter the contract requirements such as term, payment method, and confidentiality clauses.");
       return;
     }
 
-    setStatus(`Generating ${contractType}...`);
     setDraft(null);
+    setPanelMessage("Processing…\nAnalyzing your request…");
 
     const result = await callAIApi("/api/ai/contract", {
       contractType,
@@ -49,16 +43,16 @@ export function ContractModule() {
     });
 
     if (result.success && result.answer) {
-      setStatus(`✅ ${contractType} created. 3 credits deducted.`);
       setDraft(result.answer);
+      setPanelMessage("");
     } else {
-      setStatus(`❌ ${result.message}`);
+      setDraft(null);
+      setPanelMessage(`❌ ${result.message}`);
     }
   };
 
   return (
     <div className="space-y-10">
-      <ExampleShowcase inputExample={example.input} outputBlocks={example.output} title="Sample contract structure" />
       <section className="rounded-3xl border border-border-lavender bg-bg-card p-8 shadow-soft">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div>
@@ -79,6 +73,7 @@ export function ContractModule() {
               className="w-full rounded-full border border-border-lavender/80 bg-white/80 px-4 py-3 text-sm outline-none focus:border-primary-lavender"
               value={contractType}
               onChange={(event) => setContractType(event.target.value)}
+              disabled={isProcessing}
             >
               {contractTypes.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -95,11 +90,13 @@ export function ContractModule() {
               placeholder="Example: Residential lease; I am the landlord; three months deposit and one month rent upfront."
               value={requirements}
               onChange={(event) => setRequirements(event.target.value)}
+              disabled={isProcessing}
             />
             <button
               type="button"
               onClick={handleUseExample}
-              className="text-sm text-text-lavender hover:text-primary-lavender-dark underline transition-colors"
+              className="text-sm text-text-lavender hover:text-primary-lavender-dark underline transition-colors disabled:opacity-60"
+              disabled={isProcessing}
             >
               Use example prompt
             </button>
@@ -109,6 +106,7 @@ export function ContractModule() {
                 className="h-4 w-4 accent-primary-lavender"
                 checked={verified}
                 onChange={(event) => setVerified(event.target.checked)}
+                disabled={isProcessing}
               />
               I confirm the information is complete and agree to deduct 3 credits to generate the contract draft.
             </label>
@@ -119,30 +117,14 @@ export function ContractModule() {
             >
               {isProcessing ? "Processing..." : `Generate ${contractType}`}
             </button>
-            {status && <p className="text-sm text-text-lavender">{status}</p>}
-          </div>
-          <div className="space-y-4">
-            <div className="rounded-2xl border border-border-lavender/80 bg-white/90 p-5">
-              <p className="text-sm font-semibold text-text-lavender">Sample conversation</p>
-              <div className="mt-3 space-y-3">
-                {conversation.map((msg, index) => (
-                  <div key={`${msg.role}-${index}`} className="rounded-xl bg-primary-lavender/10 p-3 text-sm">
-                    <p className="font-semibold text-text-lavender">{msg.role}</p>
-                    <p className="mt-1 text-text-primary">{msg.content}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            {draft && (
-              <div className="rounded-2xl border border-border-lavender/70 bg-white/90 p-5">
-                <p className="text-sm font-semibold text-text-lavender mb-4">AI-generated {contractType}</p>
-                <div className="prose prose-sm max-w-none">
-                  <div className="whitespace-pre-wrap text-text-primary bg-white rounded-xl p-4 border border-border-lavender/50">
-                    {draft}
-                  </div>
+            <div className="rounded-2xl border border-border-lavender/70 bg-white/90 p-5">
+              <p className="text-sm font-semibold text-text-lavender mb-4">AI-generated {contractType}</p>
+              <div className="prose prose-sm max-w-none">
+                <div className="whitespace-pre-wrap text-text-primary bg-white rounded-xl p-4 border border-border-lavender/50 text-sm leading-relaxed">
+                  {draft ? draft : <p className="whitespace-pre-line text-text-primary/70">{panelMessage}</p>}
                 </div>
               </div>
-            )}
+            </div>
           </div>
         </div>
       </section>
