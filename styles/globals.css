@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #2C2C2C;
+  background-color: #F8F6FC;
+}
+
+body {
+  @apply bg-bg-main font-sans text-text-primary antialiased;
+  min-height: 100vh;
+}
+
+.gradient-border {
+  background: linear-gradient(120deg, rgba(200, 182, 226, 0.35), rgba(181, 160, 213, 0.65));
+}

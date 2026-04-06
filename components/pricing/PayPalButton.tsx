@@ -1,0 +1,232 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+type JsonObject = Record<string, unknown>;
+
+interface PayPalCreateOrderSuccess {
+  success: true;
+  paypalOrderId: string;
+}
+
+interface PayPalApiError {
+  success?: false;
+  error?: string;
+}
+
+type PayPalCreateOrderResponse = PayPalCreateOrderSuccess | PayPalApiError;
+
+export interface PayPalCaptureSuccess {
+  success: true;
+  credits?: {
+    totalCredits: number;
+    usedCredits: number;
+    remainingCredits: number;
+    [key: string]: unknown;
+  };
+  order?: JsonObject;
+  captureDetails?: JsonObject;
+}
+
+type PayPalCaptureResponse = PayPalCaptureSuccess | PayPalApiError;
+
+interface PayPalApproveData {
+  orderID: string;
+}
+
+interface PayPalButtonsInstance {
+  render: (selector: string) => void;
+}
+
+interface PayPalButtonsOptions {
+  style?: {
+    layout?: "vertical" | "horizontal";
+    color?: "blue" | "gold" | "silver" | "white" | "black";
+    shape?: "rect" | "pill";
+    label?: "paypal" | "checkout" | "buynow" | "pay";
+  };
+  createOrder: () => Promise<string>;
+  onApprove: (data: PayPalApproveData) => Promise<void>;
+  onCancel?: (data: PayPalApproveData) => void;
+  onError?: (error: Error) => void;
+}
+
+interface PayPalNamespace {
+  Buttons: (options: PayPalButtonsOptions) => PayPalButtonsInstance;
+}
+
+declare global {
+  interface Window {
+    paypal?: PayPalNamespace;
+  }
+}
+
+interface PayPalButtonProps {
+  planId: string;
+  onSuccess?: (data: PayPalCaptureSuccess) => void;
+  onError?: (error: Error) => void;
+}
+
+const toError = (error: unknown, fallbackMessage: string): Error =>
+  error instanceof Error ? error : new Error(fallbackMessage);
+
+const getApiErrorMessage = (payload: unknown, fallback: string): string => {
+  if (payload && typeof payload === "object" && "error" in payload) {
+    const message = (payload as { error?: unknown }).error;
+    if (typeof message === "string" && message.trim().length > 0) {
+      return message;
+    }
+  }
+  return fallback;
+};
+
+/**
+ * PayPal payment button component
+ * Integrates the PayPal JavaScript SDK
+ * Note: requires the user to be signed in; userId is pulled from the session
+ */
+export function PayPalButton({ planId, onSuccess, onError }: PayPalButtonProps) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [sdkReady, setSdkReady] = useState(false);
+
+  useEffect(() => {
+    // Load PayPal SDK
+    const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
+    if (!clientId) {
+      const error = new Error('PayPal Client ID not configured');
+      console.error(error.message);
+      onError?.(error);
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=USD`;
+    script.async = true;
+    script.onload = () => {
+      setSdkReady(true);
+    };
+    script.onerror = () => {
+      const error = new Error('Failed to load PayPal SDK');
+      console.error(error.message);
+      onError?.(error);
+    };
+
+    document.body.appendChild(script);
+
+    return () => {
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+    };
+  }, [onError]);
+
+  useEffect(() => {
+    if (!sdkReady) return;
+
+    // Render PayPal button
+    const container = document.getElementById('paypal-button-container');
+    if (!container || container.children.length > 0) return;
+
+    const paypal = window.paypal;
+    if (!paypal) return;
+
+    paypal
+      .Buttons({
+        style: {
+          layout: 'vertical',
+          color: 'blue',
+          shape: 'rect',
+          label: 'paypal',
+        },
+        // Create order (userId is derived from the session)
+        createOrder: async () => {
+          setIsLoading(true);
+          try {
+            const response = await fetch('/api/paypal/create', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                planId,
+              }),
+            });
+
+            const data: PayPalCreateOrderResponse = await response.json();
+            if (!response.ok || !data.success || !data.paypalOrderId) {
+              throw new Error(getApiErrorMessage(data, 'Failed to create order'));
+            }
+
+            return data.paypalOrderId;
+          } catch (error: unknown) {
+            const err = toError(error, 'Failed to create order');
+            console.error('Error creating order:', err);
+            onError?.(err);
+            throw err;
+          } finally {
+            setIsLoading(false);
+          }
+        },
+        // Capture order after approval
+        onApprove: async (data: PayPalApproveData) => {
+          setIsLoading(true);
+          try {
+            const response = await fetch('/api/paypal/capture', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                paypalOrderId: data.orderID,
+              }),
+            });
+
+            const result: PayPalCaptureResponse = await response.json();
+            if (!response.ok || !result?.success) {
+              throw new Error(getApiErrorMessage(result, 'Failed to capture order'));
+            }
+
+            onSuccess?.(result);
+          } catch (error: unknown) {
+            const err = toError(error, 'Failed to capture order');
+            console.error('Error capturing order:', err);
+            onError?.(err);
+          } finally {
+            setIsLoading(false);
+          }
+        },
+        // Cancelled payment
+        onCancel: (data: PayPalApproveData) => {
+          console.log('Payment cancelled:', data);
+          setIsLoading(false);
+        },
+        // Error handling
+        onError: (err: Error | unknown) => {
+          const error = toError(err, 'PayPal error');
+          console.error('PayPal error:', error);
+          onError?.(error);
+          setIsLoading(false);
+        },
+      })
+      .render('#paypal-button-container');
+  }, [sdkReady, planId, onSuccess, onError]);
+
+  if (!sdkReady) {
+    return (
+      <div className="flex items-center justify-center py-4">
+        <div className="text-sm text-text-primary/70">Loading PayPal...</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative">
+      <div id="paypal-button-container"></div>
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-white/80">
+          <div className="text-sm text-text-primary">Processing...</div>
+        </div>
+      )}
+    </div>
+  );
+}
