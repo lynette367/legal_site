@@ -70,7 +70,7 @@ export default function HomePage() {
             href="/legal-qa"
             className="rounded-xl border border-border-lavender bg-white px-8 py-4 text-lg font-semibold text-text-primary transition hover:border-primary-lavender hover:bg-bg-card"
           >
-            Try Free AI Answers
+            Try Free AI Assistant
           </Link>
         </div>
       </section>
