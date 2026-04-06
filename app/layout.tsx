@@ -21,8 +21,12 @@ export const metadata: Metadata = {
     url: "https://panco.com",
     siteName: "Panco",
     locale: "en_US",
-    type: "website",
   },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

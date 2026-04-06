@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import LegalAIModule from "@/components/modules/LegalAIModule";
 
@@ -22,7 +21,11 @@ export const metadata = {
     title: "California AI Compliance Helper",
     images: ['/og-image.png'],
   },
-  viewport: 'width=device-width, initial-scale=1',
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
 };
 
 const modules = [
@@ -70,7 +73,7 @@ export default function HomePage() {
             href="/legal-qa"
             className="rounded-xl border border-border-lavender bg-white px-8 py-4 text-lg font-semibold text-text-primary transition hover:border-primary-lavender hover:bg-bg-card"
           >
-            Try Free AI Assistant
+            Try Free AI Legal Assistant
           </Link>
         </div>
       </section>

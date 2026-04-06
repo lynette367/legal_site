@@ -38,11 +38,12 @@ Please generate the CCPA-compliant notification letter and risk analysis.`;
       success: true,
       data: result
     };
-  } catch (error: any) {
-    console.error("CCPA Report Generation Error:", error);
+  } catch (error) {
+    const err = error as Error;
+    console.error("CCPA Report Generation Error:", err);
     return {
       success: false,
-      error: error.message || "Failed to generate AI report. Please check your API key."
+      error: err.message || "Failed to generate AI report. Please check your API key."
     };
   }
 }

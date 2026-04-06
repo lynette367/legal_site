@@ -21,8 +21,14 @@ export default function CCPACheckerClient() {
   const [activeTab, setActiveTab] = useState('draft');
   const [confidence, setConfidence] = useState(0);
   
+  interface AnalysisPoint {
+    severity: 'High' | 'Medium' | 'Low';
+    title: string;
+    description: string;
+  }
+  
   // Phase 2: Real AI Data
-  const [realData, setRealData] = useState<{ letter: string; analysis: any[] } | null>(null);
+  const [realData, setRealData] = useState<{ letter: string; analysis: AnalysisPoint[] } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   // Phase 1 Mock Results
@@ -53,8 +59,9 @@ export default function CCPACheckerClient() {
       } else {
         setError(response.error || "Failed to generate report.");
       }
-    } catch (e: any) {
-      setError(e.message || "An unexpected error occurred.");
+    } catch (e) {
+      const err = e as Error;
+      setError(err.message || "An unexpected error occurred.");
     }
   }, [answers]);
 
@@ -280,7 +287,7 @@ export default function CCPACheckerClient() {
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 gap-4">
                     {isPaid && realData ? (
-                      realData.analysis.map((point: any, idx: number) => (
+                      realData.analysis.map((point: AnalysisPoint, idx: number) => (
                         <div key={idx} className={`flex items-start gap-4 p-4 rounded-xl border ${point.severity === 'High' ? 'border-red-50 bg-red-50/30' : 'border-amber-50 bg-amber-50/30'}`}>
                           <span className="text-xl">{point.severity === 'High' ? '⚖️' : '⚠️'}</span>
                           <div>
@@ -295,7 +302,7 @@ export default function CCPACheckerClient() {
                           <span className="text-xl">⚖️</span>
                           <div>
                             <p className="font-bold text-gray-900">Section 1798.82 Violation Risdk</p>
-                            <p className="text-sm text-gray-600 mt-1">Notification timing may exceed 'without unreasonable delay' criteria.</p>
+                            <p className="text-sm text-gray-600 mt-1">Notification timing may exceed &apos;without unreasonable delay&apos; criteria.</p>
                           </div>
                         </div>
                         <div className="flex items-start gap-4 p-4 rounded-xl border border-amber-50 bg-amber-50/30">

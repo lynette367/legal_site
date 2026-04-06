@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import CCPACheckerClient from './CCPACheckerClient';
 
@@ -73,21 +74,23 @@ export default function CCPACheckerPage() {
       />
 
       {/* Main Interactive Client Component */}
-      <CCPACheckerClient />
+      <Suspense fallback={<div className="text-center py-20">Loading Compliance Tools...</div>}>
+        <CCPACheckerClient />
+      </Suspense>
 
       {/* Trust Indicators Section */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center pt-8 border-t border-gray-100">
         <div className="space-y-2">
           <p className="text-2xl font-bold">1798.82</p>
           <p className="text-xs font-bold text-text-lavender uppercase">Regulatory Standard</p>
-          <p className="text-sm text-text-primary/60 italic">"Notification without unreasonable delay"</p>
+          <p className="text-sm text-text-primary/60 italic">&quot;Notification without unreasonable delay&quot;</p>
         </div>
         <div className="space-y-2">
           <div className="flex justify-center gap-1">
              {[1,2,3,4,5].map(i => <span key={i} className="text-amber-400 text-lg">★</span>)}
           </div>
           <p className="text-xs font-bold text-text-lavender uppercase">Startup Trust</p>
-          <p className="text-sm text-text-primary/60">"Compliance in 3 minutes vs 3 weeks"</p>
+          <p className="text-sm text-text-primary/60">&quot;Compliance in 3 minutes vs 3 weeks&quot;</p>
         </div>
         <div className="space-y-2">
           <div className="flex justify-center items-center h-8 text-xl">🛡️</div>
@@ -141,7 +144,7 @@ export default function CCPACheckerPage() {
             <tbody className="divide-y divide-gray-100">
               <tr>
                 <td className="px-8 py-6 font-semibold">Data Breach Notification</td>
-                <td className="px-8 py-6 text-sm text-gray-600">"Without unreasonable delay"</td>
+                <td className="px-8 py-6 text-sm text-gray-600">&quot;Without unreasonable delay&quot;</td>
                 <td className="px-8 py-6 text-sm">Generate letter via Panco</td>
               </tr>
               <tr>
@@ -180,7 +183,7 @@ export default function CCPACheckerPage() {
               How long do you have to notify users under CCPA?
             </h3>
             <p className="text-text-primary/70 pl-8 leading-relaxed">
-              California law requires notification "without unreasonable delay" and "immediately following discovery" of the breach. In practice, this often means within days, not months.
+              California law requires notification &quot;without unreasonable delay&quot; and &quot;immediately following discovery&quot; of the breach. In practice, this often means within days, not months.
             </p>
           </div>
           <div className="space-y-2">
