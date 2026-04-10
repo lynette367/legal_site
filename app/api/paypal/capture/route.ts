@@ -111,6 +111,7 @@ export async function POST(request: NextRequest) {
         status: captureResult.status,
         payer: captureResult.payer,
       },
+      ccpaPaid: true,
     });
   } catch (error: unknown) {
     console.error('Capture PayPal order error:', error);

@@ -65,6 +65,7 @@ interface PayPalButtonProps {
   planId: string;
   onSuccess?: (data: PayPalCaptureSuccess) => void;
   onError?: (error: Error) => void;
+  redirectUrl?: string;
 }
 
 const toError = (error: unknown, fallbackMessage: string): Error =>
@@ -85,7 +86,7 @@ const getApiErrorMessage = (payload: unknown, fallback: string): string => {
  * Integrates the PayPal JavaScript SDK
  * Note: requires the user to be signed in; userId is pulled from the session
  */
-export function PayPalButton({ planId, onSuccess, onError }: PayPalButtonProps) {
+export function PayPalButton({ planId, onSuccess, onError, redirectUrl }: PayPalButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [sdkReady, setSdkReady] = useState(false);
 
@@ -187,6 +188,10 @@ export function PayPalButton({ planId, onSuccess, onError }: PayPalButtonProps) 
             }
 
             onSuccess?.(result);
+            
+            if (redirectUrl) {
+              window.location.href = redirectUrl;
+            }
           } catch (error: unknown) {
             const err = toError(error, 'Failed to capture order');
             console.error('Error capturing order:', err);
@@ -209,7 +214,7 @@ export function PayPalButton({ planId, onSuccess, onError }: PayPalButtonProps) 
         },
       })
       .render('#paypal-button-container');
-  }, [sdkReady, planId, onSuccess, onError]);
+  }, [sdkReady, planId, onSuccess, onError, redirectUrl]);
 
   if (!sdkReady) {
     return (

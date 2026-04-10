@@ -10,7 +10,6 @@ const navLinks = [
   { href: "/legal-qa", label: "Instant Answers" },
   { href: "/explain", label: "Risk Detector" },
   { href: "/documents", label: "Smart Drafting" },
-  { href: "https://boi.pancothink.com", label: "BOI Filing", highlight: true },
   { href: "/pricing", label: "Pricing" },
 ];
 

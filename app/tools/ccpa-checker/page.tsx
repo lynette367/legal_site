@@ -5,6 +5,7 @@ import CCPACheckerClient from './CCPACheckerClient';
 export const metadata: Metadata = {
   title: "Free CCPA Compliance Checker & Data Breach Letter Generator | Panco",
   description: "Instant CCPA compliance check for California startups. Generate data breach notification letters in minutes. No hourly legal fees.",
+  keywords: "CCPA compliance checker, data breach notification, California privacy law, CCPA 2026 update, startup compliance",
   alternates: {
     canonical: 'https://pancothink.com/tools/ccpa-checker',
   },
@@ -200,6 +201,21 @@ export default function CCPACheckerPage() {
 
       <div className="text-center pb-8 opacity-40 text-xs font-mono uppercase tracking-widest">
         Legal Reference: California CCPA Section 1798.82 & 1798.150
+      </div>
+      
+      <div className="text-center py-8 border-t border-gray-100">
+        <p className="text-lg font-medium text-text-primary mb-4">
+          Need to update your privacy policy after your audit?
+        </p>
+        <a 
+          href="/tools/ccpa-generator" 
+          className="inline-block px-6 py-3 bg-primary-lavender text-white font-bold rounded-xl hover:bg-primary-lavender-dark transition-all"
+        >
+          Use our CCPA Privacy Policy Generator
+        </a>
+        <p className="text-sm text-text-primary/60 mt-2">
+          Create a fully compliant policy in minutes
+        </p>
       </div>
     </div>
   );
