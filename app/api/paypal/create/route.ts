@@ -1,18 +1,20 @@
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { createPayPalOrder } from '@/lib/paypal/orders';
 import { prisma } from '@/lib/prisma';
-import { plans } from '@/data/plans';
+
+const CONTRACT_PRICE = '4.99';
+const CONTRACT_DESCRIPTION = 'CA Freelancer Contract Generation - 1 time';
 
 /**
  * POST /api/paypal/create
- * Create a PayPal order (requires authentication)
+ * Create a PayPal order for contract generation (requires authentication)
  */
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
     // Verify authentication
     const session = await getServerSession(authOptions);
@@ -24,35 +26,6 @@ export async function POST(request: NextRequest) {
     }
 
     const userId = session.user.id;
-    const body = await request.json();
-    const { planId } = body;
-
-    // Validate required params
-    if (!planId) {
-      return NextResponse.json(
-        { error: 'Missing required parameter: planId' },
-        { status: 400 }
-      );
-    }
-
-    // Find plan info
-    const plan = plans.find(p => p.id === planId);
-    if (!plan) {
-      return NextResponse.json(
-        { error: 'Plan not found' },
-        { status: 404 }
-      );
-    }
-
-    // Extract numeric price (strip currency symbol)
-    const priceMatch = plan.price.match(/[\d.]+/);
-    if (!priceMatch) {
-      return NextResponse.json(
-        { error: 'Plan price format error' },
-        { status: 400 }
-      );
-    }
-    const amount = priceMatch[0];
 
     // Ensure user exists
     let user = await prisma.user.findUnique({ where: { id: userId } });
@@ -60,9 +33,7 @@ export async function POST(request: NextRequest) {
       user = await prisma.user.create({
         data: {
           id: userId,
-          totalCredits: 0,
-          usedCredits: 0,
-          remainingCredits: 0,
+          remainingContracts: 0,
         },
       });
     }
@@ -71,20 +42,16 @@ export async function POST(request: NextRequest) {
     const order = await prisma.order.create({
       data: {
         userId,
-        planId: plan.id,
-        planName: plan.name,
-        credits: plan.credits,
-        amount: parseFloat(amount),
-        currency: 'USD', // PayPal recommends USD; adjust as needed
+        amount: parseFloat(CONTRACT_PRICE),
         status: 'pending',
       },
     });
 
     // Create PayPal order
     const paypalResult = await createPayPalOrder(
-      amount,
+      CONTRACT_PRICE,
       'USD',
-      `${plan.name} - ${plan.credits} credits`
+      CONTRACT_DESCRIPTION
     );
 
     if (!paypalResult.success) {
@@ -93,7 +60,6 @@ export async function POST(request: NextRequest) {
         where: { id: order.id },
         data: {
           status: 'failed',
-          errorMessage: paypalResult.error,
         },
       });
 
@@ -121,12 +87,7 @@ export async function POST(request: NextRequest) {
       orderId: updatedOrder.id,
       paypalOrderId: paypalResult.orderId,
       approveUrl: approveLink?.href,
-      plan: {
-        id: plan.id,
-        name: plan.name,
-        credits: plan.credits,
-        amount,
-      },
+      amount: CONTRACT_PRICE,
     });
   } catch (error: unknown) {
     console.error('Create PayPal order error:', error);

@@ -7,7 +7,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  
 }
 
 // 用户模型（集成 NextAuth）
@@ -21,14 +21,11 @@ model User {
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
 
-  // Credits 系统
-  totalCredits     Int       @default(0)  // 总充值 credits
-  usedCredits      Int       @default(0)  // 已使用 credits
-  remainingCredits Int       @default(0)  // 剩余 credits
+  // 合同次数（0 = 无次数，需要购买）
+  remainingContracts Int     @default(0)
 
   // 关联关系
   orders           Order[]
-  usageRecords     CreditUsageRecord[]
   accounts         Account[]
   sessions         Session[]
 
@@ -80,17 +77,10 @@ model VerificationToken {
 model Order {
   id            String   @id @default(cuid())
   userId        String
-  planId        String
-  planName      String
-  credits       Int
-  amount        Float
-  currency      String
   paypalOrderId String?  @unique
-  status        String   // pending, completed, failed, cancelled
-  capturedAt    DateTime?
-  errorMessage  String?
+  amount        Float
+  status        String   // pending, completed, failed
   createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
 
   // 关联用户
   user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -99,23 +89,5 @@ model Order {
   @@index([paypalOrderId])
   @@index([status])
   @@index([createdAt])
-}
-
-// Credits 使用记录
-model CreditUsageRecord {
-  id          String   @id @default(cuid())
-  userId      String
-  orderId     String?
-  amount      Int      // 正数为充值，负数为消费
-  type        String   // purchase, usage, refund, adjustment
-  description String
-  createdAt   DateTime @default(now())
-
-  // 关联用户
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
-  @@index([createdAt])
-  @@index([type])
 }
 

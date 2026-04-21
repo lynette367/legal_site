@@ -5,11 +5,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { capturePayPalOrder } from '@/lib/paypal/orders';
-import { prisma, UserCreditsService } from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 
 /**
  * POST /api/paypal/capture
- * Capture (complete) a PayPal order payment and add credits (requires authentication)
+ * Capture (complete) a PayPal order payment and add contract count (requires authentication)
  */
 export async function POST(request: NextRequest) {
   try {
@@ -70,7 +70,6 @@ export async function POST(request: NextRequest) {
         where: { id: orderRecord.id },
         data: {
           status: 'failed',
-          errorMessage: captureResult.error,
         },
       });
 
@@ -80,38 +79,37 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Payment succeeded, update order status
-    const updatedOrder = await prisma.order.update({
+    // Payment succeeded, update order status and add contract count
+    await prisma.order.update({
       where: { id: orderRecord.id },
       data: {
         status: 'completed',
-        capturedAt: new Date(),
       },
     });
 
-    // Add credits for the user (Prisma)
-    const userCredits = await UserCreditsService.addCredits(
-      orderRecord.userId,
-      orderRecord.credits,
-      orderRecord.id
-    );
+    // Add 1 contract to the user
+    const updatedUser = await prisma.user.update({
+      where: { id: orderRecord.userId },
+      data: {
+        remainingContracts: {
+          increment: 1,
+        },
+      },
+    });
 
     return NextResponse.json({
       success: true,
-      order: updatedOrder,
-      credits: {
-        userId: userCredits.id,
-        totalCredits: userCredits.totalCredits,
-        usedCredits: userCredits.usedCredits,
-        remainingCredits: userCredits.remainingCredits,
-        lastUpdated: userCredits.updatedAt,
+      order: {
+        id: orderRecord.id,
+        amount: orderRecord.amount,
+        status: 'completed',
       },
+      remainingContracts: updatedUser.remainingContracts,
       captureDetails: {
         captureId: captureResult.captureId,
         status: captureResult.status,
         payer: captureResult.payer,
       },
-      ccpaPaid: true,
     });
   } catch (error: unknown) {
     console.error('Capture PayPal order error:', error);

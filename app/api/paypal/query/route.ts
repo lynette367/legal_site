@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { getPayPalOrderDetails } from '@/lib/paypal/orders';
-import { prisma, UserCreditsService } from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 
 /**
  * GET /api/paypal/query?orderId=xxx
@@ -33,19 +33,16 @@ export async function GET(request: NextRequest) {
         where: { userId },
         orderBy: { createdAt: 'desc' },
       });
-      
-      const userCredits = await UserCreditsService.getUserCredits(userId);
-      
+
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: { remainingContracts: true },
+      });
+
       return NextResponse.json({
         success: true,
         orders,
-        credits: {
-          userId: userCredits.id,
-          totalCredits: userCredits.totalCredits,
-          usedCredits: userCredits.usedCredits,
-          remainingCredits: userCredits.remainingCredits,
-          lastUpdated: userCredits.updatedAt,
-        },
+        remainingContracts: user?.remainingContracts ?? 0,
       });
     }
 

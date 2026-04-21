@@ -4,15 +4,16 @@ export const fetchCache = "force-no-store";
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { UserCreditsService } from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
+
+const FREE_ACCESS_EMAIL = "yqying95@gmail.com";
 
 /**
  * GET /api/credits/me
- * Retrieve current user's Credits info
+ * Retrieve current user's contract credits info
  */
 export async function GET() {
   try {
-    // Verify authentication
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.id) {
       return NextResponse.json(
@@ -22,23 +23,37 @@ export async function GET() {
     }
 
     const userId = session.user.id;
+    const userEmail = session.user.email?.toLowerCase();
 
-    // Fetch user Credits
-    const credits = await UserCreditsService.getUserCredits(userId);
+    if (userEmail === FREE_ACCESS_EMAIL.toLowerCase()) {
+      return NextResponse.json({
+        success: true,
+        remainingContracts: -1,
+        isDeveloper: true,
+      });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { remainingContracts: true },
+    });
+
+    if (!user) {
+      return NextResponse.json({
+        success: true,
+        remainingContracts: 0,
+      });
+    }
 
     return NextResponse.json({
       success: true,
-      credits: {
-        totalCredits: credits.totalCredits,
-        usedCredits: credits.usedCredits,
-        remainingCredits: credits.remainingCredits,
-        lastUpdated: credits.updatedAt,
-      },
+      remainingContracts: user.remainingContracts,
+      isDeveloper: false,
     });
   } catch (error: unknown) {
-    console.error('Get credits error:', error);
+    console.error('Get contracts error:', error);
     const message =
-      error instanceof Error ? error.message : 'Failed to fetch Credits';
+      error instanceof Error ? error.message : 'Failed to fetch contracts';
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

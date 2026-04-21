@@ -7,9 +7,8 @@ import { useSession, signOut } from "next-auth/react";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/legal-qa", label: "Instant Answers" },
-  { href: "/explain", label: "Risk Detector" },
-  { href: "/documents", label: "Smart Drafting" },
+  { href: "/tools/sb988-contract-generator", label: "SB 988 Center" },
+  { href: "/tools/sb988-late-payment-calculator", label: "Penalty Calculator" },
   { href: "/pricing", label: "Pricing" },
 ];
 
@@ -35,7 +34,7 @@ export function SiteHeader() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link href="/" className="flex flex-col leading-tight">
           <span className="text-xl font-bold text-text-lavender uppercase tracking-tight">Panco</span>
-          <span className="text-[10px] font-bold text-text-lavender/60 uppercase tracking-[0.2em]">California AI</span>
+          <span className="text-[10px] font-bold text-text-lavender/60 uppercase tracking-[0.2em]">CA FREELANCER LEGAL AI</span>
         </Link>
         <nav className="hidden items-center gap-2 lg:flex">
           {navLinks.map((link) => (
