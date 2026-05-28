@@ -1,8 +1,10 @@
 import type { MetadataRoute } from "next";
+import { professions } from "@/data/professions";
 
 const baseUrl = "https://panco-ai-legal-assistant.example.com";
 
-const routes = [
+// Existing static routes
+const staticRoutes = [
   "",
   "/legal-qa",
   "/dispute",
@@ -15,9 +17,14 @@ const routes = [
   "/dashboard",
 ];
 
+// Dynamic guide routes based on professions
+const guideRoutes = professions.map((p) => `/guides/${p.slug}`);
+
+const allRoutes = [...staticRoutes, ...guideRoutes];
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date().toISOString();
-  return routes.map((path) => ({
+  return allRoutes.map((path) => ({
     url: `${baseUrl}${path}`,
     lastModified: now,
     changeFrequency: "weekly",
