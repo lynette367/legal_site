@@ -1,5 +1,6 @@
 // TypeScript
 
+import SB988PenaltyCalculator from "@/components/tools/SB988PenaltyCalculator";
 import { professions } from "@/data/professions";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -26,6 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: pageUrl,
     },
+    keywords: currentProfession.keywords,
     openGraph: {
       title: title,
       description: description,
@@ -83,18 +85,18 @@ export default function GuidePage({ params }: Props) {
 
       <div className="max-w-4xl mx-auto px-4 py-8 flex flex-col md:flex-row gap-8">
         <main className="flex-1">
-          {/* H1 标签：全站唯一，直击主关键词 */}
+          {/* H1 标题 */}
           <h1 className="text-3xl font-bold mb-4">
-            California SB 988 Compliance Guide & Contract Template for {currentProfession?.name}
+            California SB 988 Compliance Guide & Contract Template for {currentProfession.name}
           </h1>
           
-          {/* H2 标签：合规痛点层级 */}
-          <h2 className="text-xl font-semibold mt-6 mb-3">Why {currentProfession?.name} Need SB 988 Protection</h2>
-          <p className="text-gray-700 leading-relaxed">
-            As a freelance {currentProfession?.name.toLowerCase()} operating in California, you are heavily protected under the Freelance Worker Protection Act. Whenever your compensation reaches or exceeds $250, certain contract clauses become legally mandatory.
+          {/* 🌟 1. 迎合谷歌 YMYL 审核的深度行业痛点段落 */}
+          <h2 className="text-xl font-semibold mt-6 mb-3">Why {currentProfession.name} Need SB 988 Protection</h2>
+          <p className="text-gray-700 leading-relaxed text-sm">
+            As a freelance {currentProfession.name.toLowerCase()} operating in California, common financial risks include <span className="font-medium text-red-600">{currentProfession.painPoint}</span>. The California Freelance Worker Protection Act (SB 988) was explicitly designed to eliminate these hazards by enforcing strict contract terms whenever your compensation reaches or exceeds $250.
           </p>
 
-          {/* 核心话题核心渗透：三大要钱指标（客观事实，绕过 YMYL 审核） */}
+          {/* 三大硬性指标卡片 */}
           <section className="bg-yellow-50 border-l-4 border-yellow-500 p-4 my-6">
             <h3 className="font-semibold text-lg text-yellow-800">⚠️ Mandatory Protections Breakdown:</h3>
             <ul className="list-disc list-inside mt-2 text-yellow-700 space-y-2 text-sm">
@@ -104,23 +106,25 @@ export default function GuidePage({ params }: Props) {
             </ul>
           </section>
 
-          {/* H2 标签：落实“模板与指南”双剑合璧 */}
-          <h2 className="text-xl font-semibold mt-8 mb-3">Copy-Paste Free {currentProfession?.ctaTitle}</h2>
+          {/* 🌟 2. 完美的动态合同复制区域 */}
+          <h2 className="text-xl font-semibold mt-8 mb-3">Copy-Paste Free {currentProfession.ctaTitle}</h2>
           <section className="border p-6 rounded-lg bg-white shadow-sm">
             <p className="text-gray-600 mb-4 text-sm">
-              Review and copy this basic statutory text. It contains the strict boilerplate language required by the State of California.
+              Review and copy this basic statutory text. It contains the strict boilerplate language required by the State of California specifically tailored for {currentProfession.name.toLowerCase()}.
             </p>
+            
+            {/* 绑定刚在 data/professions.ts 里扩充的 baseTemplate */}
             <textarea 
               readOnly 
-              className="w-full h-48 p-3 bg-gray-50 border rounded text-xs font-mono focus:outline-none"
-              value={`// California SB 988 Compliant Agreement for ${currentProfession?.name}\n// Minimum Protection Provisions Enforced\n\nThis Agreement is entered into by and between the Freelancer (${currentProfession?.name}) and the Client...\n\n1. COMPENSATION: Total value shall be $250 or more. Payment must be cleared within 30 days of project completion pursuant to California Civil Code.`}
+              className="w-full h-56 p-3 bg-gray-50 border rounded text-xs font-mono focus:outline-none leading-relaxed"
+              value={currentProfession.baseTemplate}
             />
             
-            {/* 向上导流：漏斗终点指向我们的付费 AI 工具 */}
+            {/* 漏斗转化按钮（指向付费 AI 站） */}
             <div className="mt-4">
               <Link 
                 className="inline-block bg-blue-600 text-white px-5 py-2.5 rounded font-medium text-sm hover:bg-blue-700 transition" 
-                href={`/tools/sb988-contract-generator?role=${currentProfession?.slug}`}
+                href={`/tools/sb988-contract-generator?role=${currentProfession.slug}`}
               >
                 Customize via Smart AI Generator (DeepSeek Powered) →
               </Link>
@@ -140,10 +144,24 @@ export default function GuidePage({ params }: Props) {
             </div>
           </div>
 
+          {/* 🚀 文章末尾的强力向上链 */}
+          <section className="mt-12 p-6 bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-xl shadow-md">
+            <h3 className="text-lg font-bold mb-2">Already Facing a Late Payment Issue?</h3>
+            <p className="text-xs text-gray-300 mb-4 leading-relaxed">
+              Don't let clients violate your SB 988 rights. If your overdue invoice is $250 or more, use our specialized California Freelance Late Payment Calculator to generate a formal statutory demand letter.
+            </p>
+            <Link 
+              href="/tools/sb988-late-payment-calculator"
+              className="inline-block bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-xs font-bold transition shadow-sm"
+            >
+              Demand 2x Double Damages Now →
+            </Link>
+          </section>
+
           {/* 横向互链：织紧网状结构 */}
           {nextProfession && (
             <footer className="mt-12 pt-4 border-t text-sm text-gray-500">
-              Are you scouting compliance rules for other industries? Read our guide for{' '}
+              Are you working in other fields? Check our guide for{' '}
               <Link className="text-blue-500 underline font-medium hover:text-blue-600" href={`/guides/${nextProfession.slug}`}>
                 {nextProfession.name}
               </Link>.
@@ -151,19 +169,24 @@ export default function GuidePage({ params }: Props) {
           )}
         </main>
 
-        {/* 纵向输血内链：给最高权重计算器疯狂喂流 */}
-        <aside className="w-full md:w-64 shrink-0">
-          <div className="border border-red-200 bg-red-50 p-5 rounded md:sticky md:top-4">
-            <h4 className="font-bold text-red-800 text-sm mb-2">Is a CA Client Ghosting Your Invoice?</h4>
+        {/* 2. 右侧侧边栏：直接嵌入活生生的计算器组件，而不是纯文本链接！ */}
+        <aside className="w-full md:w-80 shrink-0">
+          <div className="border border-red-200 bg-red-50 p-5 rounded md:sticky md:top-4 shadow-sm">
+            <h4 className="font-bold text-red-800 text-sm mb-2">
+              Is a CA Client Ghosting Your Invoice?
+            </h4>
             <p className="text-xs text-red-700 mb-4 leading-relaxed">
-              If your invoice is $250+ and has been unpaid for over 30 days, do not lose your money. 
+              Under SB 988, if your {currentProfession.name.toLowerCase()} contract is $250+ and 30+ days overdue, calculate your 2x statutory penalty instantly below:
             </p>
-            <Link 
-              className="block text-center bg-red-600 text-white py-2 rounded text-xs font-bold shadow hover:bg-red-700 transition" 
-              href="/tools/sb988-late-payment-calculator"
-            >
-              Calculate Your 2x Statutory Penalty →
-            </Link>
+            
+            {/* 🚀 这里就是解耦出来的核心组件 */}
+            <div className="bg-white p-3 rounded border border-red-100 shadow-inner">
+              <SB988PenaltyCalculator />
+            </div>
+            
+            <p className="text-[10px] text-gray-400 mt-3 text-center">
+              *Calculated pursuant to California Civil Code (SB 988).
+            </p>
           </div>
         </aside>
       </div>

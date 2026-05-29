@@ -1,4 +1,4 @@
-import SB988PenaltyCalculator from './SB988PenaltyCalculator';
+import SB988PenaltyCalculator from '@/components/tools/SB988PenaltyCalculator';
 
 export const metadata = {
   title: 'Calculate your double damages under CA SB 988',
