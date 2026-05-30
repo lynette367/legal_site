@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://pancothink.com";
   const pageUrl = `${siteUrl}/guides/${params.slug}`;
-  const title = `Free CA SB 988 Contract Template for ${currentProfession.name}`;
-  const description = `Get a California SB 988 compliant contract template tailored for ${currentProfession.name}. Protect your rights with mandatory 30-day payment & 2x penalty clauses.`;
+  const title = currentProfession.seoTitle || `Free CA SB 988 Contract Template for ${currentProfession.name}`;
+  const description = currentProfession.seoDesc || `Get a California SB 988 compliant contract template tailored for ${currentProfession.name}. Protect your rights with mandatory 30-day payment & 2x penalty clauses.`;
 
   return {
     title: title,

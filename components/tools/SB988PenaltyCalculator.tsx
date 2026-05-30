@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 
 interface FormData {
   projectAmount: string;
@@ -29,7 +30,7 @@ const SB988PenaltyCalculator: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (formData.projectAmount && formData.daysLate) {
       const amount = parseFloat(formData.projectAmount);
       const days = parseInt(formData.daysLate);
@@ -119,7 +120,7 @@ const SB988PenaltyCalculator: React.FC = () => {
         {showResult && (
           <div className="mt-8 border-t border-gray-200 pt-6">
             <h3 className="text-xl font-bold text-text-primary mb-4">Calculation Results</h3>
-            
+
             <div className="space-y-3">
               <div className="flex justify-between">
                 <span className="text-text-primary/70">Original Project Amount:</span>
@@ -141,7 +142,7 @@ const SB988PenaltyCalculator: React.FC = () => {
 
             <div className="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-700">
               <p className="text-sm">
-                <strong>Legal Note:</strong> This calculator provides an estimate based on SB 988 guidelines. 
+                <strong>Legal Note:</strong> This calculator provides an estimate based on SB 988 guidelines.
                 Actual penalties may vary based on specific circumstances. For accurate legal advice, consult with an attorney.
               </p>
             </div>
@@ -151,12 +152,12 @@ const SB988PenaltyCalculator: React.FC = () => {
               <p className="text-text-primary/70 mb-4">
                 Use our SB 988 Contract Generator to create legally compliant contracts that include clear payment terms and penalty clauses.
               </p>
-              <a 
-                href="/tools/sb988-contract-generator" 
+              <Link
+                href="/tools/sb988-contract-generator"
                 className="inline-block px-6 py-3 bg-primary-lavender text-white font-medium rounded-md hover:bg-primary-lavender/90 focus:outline-none focus:ring-2 focus:ring-primary-lavender focus:ring-offset-2"
               >
                 Create a Contract
-              </a>
+              </Link>
             </div>
           </div>
         )}
