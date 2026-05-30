@@ -1,6 +1,8 @@
 // TypeScript
 
+
 import SB988PenaltyCalculator from "@/components/tools/SB988PenaltyCalculator";
+import CopyCard from "@/components/CopyCard";
 import { professions } from "@/data/professions";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -113,12 +115,7 @@ export default function GuidePage({ params }: Props) {
               Review and copy this basic statutory text. It contains the strict boilerplate language required by the State of California specifically tailored for {currentProfession.name.toLowerCase()}.
             </p>
             
-            {/* 绑定刚在 data/professions.ts 里扩充的 baseTemplate */}
-            <textarea 
-              readOnly 
-              className="w-full h-56 p-3 bg-gray-50 border rounded text-xs font-mono focus:outline-none leading-relaxed"
-              value={currentProfession.baseTemplate}
-            />
+            <CopyCard contractSnippet={currentProfession.contractSnippet} />
             
             {/* 漏斗转化按钮（指向付费 AI 站） */}
             <div className="mt-4">
@@ -148,7 +145,7 @@ export default function GuidePage({ params }: Props) {
           <section className="mt-12 p-6 bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-xl shadow-md">
             <h3 className="text-lg font-bold mb-2">Already Facing a Late Payment Issue?</h3>
             <p className="text-xs text-gray-300 mb-4 leading-relaxed">
-              Don't let clients violate your SB 988 rights. If your overdue invoice is $250 or more, use our specialized California Freelance Late Payment Calculator to generate a formal statutory demand letter.
+              Don&apos;t let clients violate your SB 988 rights. If your overdue invoice is $250 or more, use our specialized California Freelance Late Payment Calculator to generate a formal statutory demand letter.
             </p>
             <Link 
               href="/tools/sb988-late-payment-calculator"
