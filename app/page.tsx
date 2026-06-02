@@ -50,7 +50,7 @@ export default function HomePage() {
             href="/tools/sb988-contract-generator"
             className="rounded-xl bg-primary-lavender px-8 py-4 text-base font-bold text-white shadow-lg shadow-primary-lavender/25 transition-all hover:bg-primary-lavender-dark hover:-translate-y-0.5 active:translate-y-0"
           >
-            Start Free AI Generator
+            Start Free Contract Generator
           </Link>
           <Link
             href="/tools/sb988-late-payment-calculator"
