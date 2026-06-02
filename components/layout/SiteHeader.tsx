@@ -7,8 +7,9 @@ import { useSession, signOut } from "next-auth/react";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/tools/sb988-contract-generator", label: "SB 988 Center" },
+  { href: "/tools/sb988-contract-generator", label: "SB 988 Contracts" },
   { href: "/tools/sb988-late-payment-calculator", label: "Penalty Calculator" },
+  { href: "/guides", label: "Guides" },
   { href: "/pricing", label: "Pricing" },
 ];
 
@@ -26,7 +27,7 @@ export function SiteHeader() {
     return `rounded-full px-4 py-2 text-sm font-medium transition-colors ${isActive
       ? "bg-primary-lavender/20 text-text-lavender"
       : "text-text-primary hover:bg-primary-lavender/15"
-    }`;
+      }`;
   };
 
   return (

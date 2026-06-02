@@ -51,6 +51,7 @@ export default function GuidePage({ params }: Props) {
 
   if (!currentProfession) {
     notFound();
+    return null; // Ensure TypeScript knows we exit early
   }
 
   // 2. 注入 JSON-LD Schema (FAQPage)，让谷歌搜索结果直接展示 FAQ 列表，截爆长尾流量

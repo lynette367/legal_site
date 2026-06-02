@@ -146,6 +146,11 @@ const SB988PenaltyCalculator: React.FC = () => {
                 Actual penalties may vary based on specific circumstances. For accurate legal advice, consult with an attorney.
               </p>
             </div>
+<div className="mt-6">
+  <Link href="/guides/sb988-small-claims-guide" className="inline-block w-full px-6 py-4 bg-red-600 text-white font-bold rounded-md text-center hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+    🚨 What is your next legal step? Click here to view your 3-Step Small Claims Court Action Roadmap →
+  </Link>
+</div>
 
             <div className="mt-6">
               <h4 className="font-semibold text-text-primary mb-2">Prevent Late Payments with Our Contract Generator</h4>

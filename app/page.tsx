@@ -58,6 +58,12 @@ export default function HomePage() {
           >
             Calculate Claims Penalty
           </Link>
+          <Link
+            href="/guides/sb988-small-claims-guide"
+            className="rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-base px-8 py-4 shadow-lg transition-all"
+          >
+            Client Refusing To Pay?
+          </Link>
         </div>
       </section>
 

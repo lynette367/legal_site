@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 
 interface FormData {
@@ -597,6 +598,16 @@ Use professional legal language, proper formatting, and ensure the contract is r
                 )}
               </div>
             </div>
+{version === 'free' && isGenerated && (
+  <div className="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-md">
+    <p className="text-sm font-medium mb-2">
+      Your contract is now CA SB 988 compliant. But what if your client still refuses to pay? 84% of freelancers experience payment disputes.
+    </p>
+    <Link href="/guides/sb988-small-claims-guide" className="inline-block w-full px-6 py-4 bg-red-600 text-white font-bold rounded-md text-center hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+      🚨 What is your next legal step? Click here to view your 3‑Step Small Claims Court Action Roadmap →
+    </Link>
+  </div>
+)}
           </div>
 
           {version === 'free' && (
