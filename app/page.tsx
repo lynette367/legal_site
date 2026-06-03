@@ -1,6 +1,7 @@
 // app/page.tsx
 import Link from "next/link";
-import { professions } from "@/data/professions"; // Ensure profession array is imported
+import { professions } from "@/data/professions";
+import { allSeoPages } from "@/data/seoPages";
 
 export const metadata = {
   title: "[PancoLegal] | California SB 988 Compliance AI | Freelance Contract & Payment Protection",
@@ -24,10 +25,43 @@ export const metadata = {
 
 export const viewport = { width: "device-width", initialScale: 1 };
 
+// Pick representative seed pages for homepage spotlight
+// 4 pipes × 1 each = 4 cards, nicely balanced
+const PIPE_SPOTLIGHTS = [
+  "california-freelance-contract-requirements-2026",   // employer
+  "california-tech-contractor-agreement-template",     // industry
+  "client-refuses-to-pay-freelance-invoice-california",// freelancer
+  "is-email-valid-contract-freelance-work-california", // faq
+] as const;
+
+const PIPE_COLORS: Record<string, string> = {
+  employer: "#e85d26",
+  industry: "#059669",
+  freelancer: "#2563eb",
+  faq: "#7c3aed",
+};
+
+const PIPE_LABELS: Record<string, string> = {
+  employer: "Employer Compliance",
+  industry: "Industry Template",
+  freelancer: "Freelancer Rights",
+  faq: "Legal FAQ",
+};
+
 export default function HomePage() {
+  // Resolve spotlight pages at build time (server component)
+  const spotlightPages = PIPE_SPOTLIGHTS
+    .map((slug) => allSeoPages.find((p) => p.slug === slug))
+    .filter(Boolean);
+
+  // For the "browse all" row: pick 6 formula pages (diverse industry × painpoint)
+  const browseMore = allSeoPages
+    .filter((p) => p.painPipeType === "industry" || p.painPipeType === "freelancer")
+    .slice(4, 10); // skip seeds already spotlighted
+
   return (
     <div className="space-y-24 pb-24 bg-gray-50/50">
-      {/* 1. Hero Section */}
+      {/* 1. Hero Section — unchanged */}
       <section className="mx-auto max-w-4xl pt-16 text-center px-4">
         <div className="inline-flex items-center gap-2 rounded-full bg-primary-lavender/10 px-4 py-1.5 text-sm font-semibold text-text-lavender mb-6 border border-primary-lavender/20 animate-fade-in">
           <span className="relative flex h-2 w-2">
@@ -67,7 +101,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. Industry Cards */}
+      {/* 2. Industry Cards — unchanged */}
       <section className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-12">
           <span className="text-xs font-bold uppercase tracking-widest text-primary-lavender bg-primary-lavender/10 px-3 py-1 rounded-full">
@@ -77,7 +111,7 @@ export default function HomePage() {
             Find Your Industry Contract Template
           </h2>
           <p className="text-base text-text-primary/70 mt-2 max-w-xl mx-auto">
-            Don’t use generic, uninspired agreements. Select your field to access 100% compliant, industry‑specific contractual blueprints.
+            Don&apos;t use generic, uninspired agreements. Select your field to access 100% compliant, industry‑specific contractual blueprints.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -118,7 +152,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3. Resource Center */}
+      {/* 3. Resource Center — unchanged */}
       <section className="relative py-20 bg-[#d1d1f6] text-gray-900 rounded-[2.5rem] max-w-6xl mx-auto overflow-hidden px-6 shadow-xl">
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary-lavender/10 rounded-full blur-3xl pointer-events-none"></div>
         <div className="max-w-4xl mx-auto relative z-10">
@@ -141,6 +175,101 @@ export default function HomePage() {
               <div className="mb-4 inline-block rounded-lg bg-primary-lavender/2">
                 <span className="text-gray-900 font-bold">Tools</span>
               </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════════
+          4. SB 988 Legal Guide Hub  ← NEW SECTION
+          Purpose: pass PageRank from homepage to /freelance-contract cluster
+          Google treats homepage links as highest-trust internal signals
+      ═══════════════════════════════════════════════════════════════════════ */}
+      <section className="max-w-6xl mx-auto px-6">
+        {/* Section header */}
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+          <div>
+            <span className="text-xs font-bold uppercase tracking-widest text-primary-lavender bg-primary-lavender/10 px-3 py-1 rounded-full">
+              California SB 988 Legal Guides
+            </span>
+            <h2 className="text-3xl md:text-4xl font-black text-text-primary mt-3 tracking-tight">
+              Know Your Rights. Get Paid.
+            </h2>
+            <p className="text-base text-text-primary/70 mt-2 max-w-lg">
+              100+ guides for California freelancers and employers — covering contracts, late payments, demand letters, and more.
+            </p>
+          </div>
+          {/* Hub link — the most SEO-critical anchor on this page */}
+          <Link
+            href="/freelance-contract"
+            className="shrink-0 inline-flex items-center gap-1.5 text-sm font-bold text-primary-lavender border border-primary-lavender/30 rounded-xl px-5 py-2.5 hover:bg-primary-lavender/5 transition-colors"
+          >
+            Browse all guides
+            <span>→</span>
+          </Link>
+        </div>
+
+        {/* 4 spotlight cards — one per pipe type */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
+          {spotlightPages.map((page) => {
+            if (!page) return null;
+            const color = PIPE_COLORS[page.painPipeType] ?? "#6b7280";
+            const label = PIPE_LABELS[page.painPipeType] ?? page.painPipeType;
+            return (
+              <Link
+                key={page.slug}
+                href={`/freelance-contract/${page.slug}`}
+                className="group flex flex-col gap-3 bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-gray-300 hover:-translate-y-0.5 transition-all duration-200"
+              >
+                {/* Pipe label */}
+                <span
+                  className="self-start text-[10px] font-bold uppercase tracking-widest rounded px-2 py-0.5 border"
+                  style={{ color, borderColor: `${color}40`, backgroundColor: `${color}0d` }}
+                >
+                  {label}
+                </span>
+                {/* H1 of the target page — exact keyword match for Google */}
+                <h3 className="text-base font-bold text-gray-900 group-hover:text-primary-lavender transition-colors leading-snug">
+                  {page.h1}
+                </h3>
+                <p className="text-xs text-gray-500 leading-relaxed flex-1">
+                  {page.heroSubtitle.length > 100
+                    ? page.heroSubtitle.slice(0, 100) + "…"
+                    : page.heroSubtitle}
+                </p>
+                <span className="text-xs font-bold text-primary-lavender flex items-center gap-1 mt-auto group-hover:gap-2 transition-all">
+                  {page.primaryCta} <span>→</span>
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Secondary row: 6 formula pages as compact text links */}
+        {/* These give Google additional anchor text diversity from homepage */}
+        <div className="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-5">
+          <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">
+            More California Freelance Guides
+          </p>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-2.5">
+            {browseMore.map((page) => (
+              <li key={page.slug}>
+                <Link
+                  href={`/freelance-contract/${page.slug}`}
+                  className="text-sm text-gray-700 hover:text-primary-lavender font-medium transition-colors leading-snug flex items-start gap-1.5"
+                >
+                  <span className="text-gray-300 mt-0.5 shrink-0">›</span>
+                  <span className="line-clamp-2">{page.h1}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-5 pt-4 border-t border-gray-200">
+            <Link
+              href="/freelance-contract"
+              className="text-sm font-bold text-primary-lavender hover:underline"
+            >
+              View all 100+ guides for California freelancers →
             </Link>
           </div>
         </div>

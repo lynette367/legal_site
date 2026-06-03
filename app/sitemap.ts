@@ -1,28 +1,53 @@
 import type { MetadataRoute } from "next";
 import { professions } from "@/data/professions";
+import { allSeoSlugs } from "@/data/seoPages";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://pancothink.com";
   const now = new Date().toISOString();
 
-  // High-value core pages (removing old, irrelevant, or private routes)
+  // ── Original static routes (unchanged) ───────────────────────────────────
   const staticRoutes = [
-    "",
-    "/tools/sb988-late-payment-calculator",
-    "/tools/sb988-contract-generator",
-    "/tools/freelancer-contract-review",
-    "/pricing"
+    { path: "", freq: "daily", pri: 1.0 },
+    { path: "/tools/sb988-late-payment-calculator", freq: "weekly", pri: 0.9 },
+    { path: "/tools/sb988-contract-generator", freq: "weekly", pri: 0.9 },
+    { path: "/tools/freelancer-contract-review", freq: "weekly", pri: 0.9 },
+    { path: "/pricing", freq: "weekly", pri: 0.8 },
+  ] as const;
+
+  // ── Original guide routes (unchanged) ────────────────────────────────────
+  const guideRoutes = professions.map((p) => ({
+    path: `/guides/${p.slug}`,
+    freq: "weekly" as const,
+    pri: 0.8,
+  }));
+
+  // ── NEW: Programmatic SEO hub + slug pages ────────────────────────────────
+  const seoHubRoute = {
+    path: "/freelance-contract",
+    freq: "weekly" as const,
+    pri: 0.85,
+  };
+
+  // First 20 slugs = hand-crafted seeds → higher priority
+  const SEED_COUNT = 20;
+  const seoSlugRoutes = allSeoSlugs.map((slug, i) => ({
+    path: `/freelance-contract/${slug}`,
+    freq: "monthly" as const,
+    pri: i < SEED_COUNT ? 0.75 : 0.6,
+  }));
+
+  const allRoutes = [
+    ...staticRoutes,
+    ...guideRoutes,
+    seoHubRoute,
+    ...seoSlugRoutes,
   ];
 
-  // Dynamic guide routes based on professions
-  const guideRoutes = professions.map((p) => `/guides/${p.slug}`);
-
-  const allRoutes = [...staticRoutes, ...guideRoutes];
-
-  return allRoutes.map((path) => ({
+  return allRoutes.map(({ path, freq, pri }) => ({
     url: `${baseUrl}${path}`,
     lastModified: now,
-    changeFrequency: path === "" ? "daily" : "weekly",
-    priority: path === "" ? 1 : path.startsWith("/tools/") ? 0.9 : 0.8,
+    changeFrequency: freq,
+    priority: pri,
   }));
 }
