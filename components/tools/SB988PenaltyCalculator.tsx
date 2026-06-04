@@ -8,7 +8,13 @@ interface FormData {
   daysLate: string;
 }
 
-const SB988PenaltyCalculator: React.FC = () => {
+interface PenaltyCalculatorProps {
+  mode?: 'freelancer' | 'business';
+  scenario?: string;
+  onLinkToGenerator?: () => void;
+}
+
+const SB988PenaltyCalculator: React.FC<PenaltyCalculatorProps> = ({ mode = 'freelancer', scenario, onLinkToGenerator }) => {
   const [formData, setFormData] = useState<FormData>({
     projectAmount: '',
     daysLate: '',
@@ -64,12 +70,28 @@ const SB988PenaltyCalculator: React.FC = () => {
   return (
     <div className="bg-white rounded-lg shadow-lg p-8">
       <form onSubmit={handleSubmit} className="space-y-6">
-        <h2 className="text-2xl font-bold text-text-primary mb-6">Calculate Your Potential Penalties</h2>
+        {/* Context Banners */}
+        {scenario === 'invoice-overdue-30' && (
+          <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-md text-red-950 text-sm">
+            <p className="font-bold mb-1">📢 Invoice Overdue Protection Mode</p>
+            <p>Under CA SB 988, clients have a strict 30-day window to pay you. If they are late, you are legally entitled to double damages. Stop chasing them with nice emails—calculate the exact statutory penalty they owe you right now.</p>
+          </div>
+        )}
+        {scenario === 'avoid-250-trap' && (
+          <div className="p-4 bg-blue-50 border-l-4 border-blue-600 rounded-md text-blue-950 text-sm">
+            <p className="font-bold mb-1">🛡️ Corporate Liability Simulator Active</p>
+            <p>If you hire a freelancer for a project cumulative of $250 or more across 4 months, you must use a formal agreement. Run our liability simulator to see the catastrophic statutory fines your business faces if a freelancer takes you to court over late payments.</p>
+          </div>
+        )}
+
+        <h2 className="text-2xl font-bold text-text-primary mb-6">
+          {mode === 'business' ? 'Corporate Liability & Penalty Simulator' : 'Calculate Your Potential Penalties'}
+        </h2>
 
         {/* Project Amount */}
         <div className="space-y-2">
           <label htmlFor="projectAmount" className="block text-sm font-medium text-text-primary">
-            Project Amount ($)
+            {mode === 'business' ? 'Cumulative Project Amount ($)' : 'Project Amount ($)'}
           </label>
           <input
             type="number"
@@ -77,7 +99,7 @@ const SB988PenaltyCalculator: React.FC = () => {
             name="projectAmount"
             value={formData.projectAmount}
             onChange={handleInputChange}
-            placeholder="Enter project amount"
+            placeholder={mode === 'business' ? "Enter total freelance payments" : "Enter project amount"}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-lavender focus:border-primary-lavender"
             required
           />
@@ -86,7 +108,7 @@ const SB988PenaltyCalculator: React.FC = () => {
         {/* Days Late */}
         <div className="space-y-2">
           <label htmlFor="daysLate" className="block text-sm font-medium text-text-primary">
-            Days Late
+            {mode === 'business' ? 'Days Payment Overdue' : 'Days Late'}
           </label>
           <input
             type="number"
@@ -94,7 +116,7 @@ const SB988PenaltyCalculator: React.FC = () => {
             name="daysLate"
             value={formData.daysLate}
             onChange={handleInputChange}
-            placeholder="Enter number of days late"
+            placeholder={mode === 'business' ? "Enter number of overdue days" : "Enter number of days late"}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-lavender focus:border-primary-lavender"
             required
           />
@@ -105,7 +127,7 @@ const SB988PenaltyCalculator: React.FC = () => {
             type="submit"
             className="flex-1 px-6 py-3 bg-primary-lavender text-white font-medium rounded-md hover:bg-primary-lavender/90 focus:outline-none focus:ring-2 focus:ring-primary-lavender focus:ring-offset-2"
           >
-            Calculate Penalties
+            {mode === 'business' ? 'Simulate Corporate Liability' : 'Calculate Penalties'}
           </button>
           <button
             type="button"
@@ -119,7 +141,9 @@ const SB988PenaltyCalculator: React.FC = () => {
         {/* Results */}
         {showResult && (
           <div className="mt-8 border-t border-gray-200 pt-6">
-            <h3 className="text-xl font-bold text-text-primary mb-4">Calculation Results</h3>
+            <h3 className="text-xl font-bold text-text-primary mb-4">
+              {mode === 'business' ? 'Corporate Liability Exposure' : 'Calculation Results'}
+            </h3>
 
             <div className="space-y-3">
               <div className="flex justify-between">
@@ -135,35 +159,59 @@ const SB988PenaltyCalculator: React.FC = () => {
                 <span className="font-medium">${calculation.doubleDamages.toFixed(2)}</span>
               </div>
               <div className="border-t border-gray-200 pt-3 flex justify-between font-bold">
-                <span>Total Amount Owed:</span>
+                <span>{mode === 'business' ? 'Total Corporate Exposure:' : 'Total Amount Owed:'}</span>
                 <span className="text-primary-lavender">${calculation.totalAmount.toFixed(2)}</span>
               </div>
             </div>
 
             <div className="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-700">
               <p className="text-sm">
-                <strong>Legal Note:</strong> This calculator provides an estimate based on SB 988 guidelines.
-                Actual penalties may vary based on specific circumstances. For accurate legal advice, consult with an attorney.
+                <strong>Legal Note:</strong> {mode === 'business' 
+                  ? 'Under CA SB 988, cumulative projects of $250+ across 4 months require a formal written contract. Non-compliance exposes your business to double damages, a statutory $1,000 fine for refusing a contract, plus plaintiff attorney fees.'
+                  : 'This calculator provides an estimate based on SB 988 guidelines. Actual penalties may vary. Under CA SB 988, clients have a strict 30-day window to pay you.'}
               </p>
             </div>
-<div className="mt-6">
-  <Link href="/guides/sb988-small-claims-guide" className="inline-block w-full px-6 py-4 bg-red-600 text-white font-bold rounded-md text-center hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
-    🚨 What is your next legal step? Click here to view your 3-Step Small Claims Court Action Roadmap →
-  </Link>
-</div>
 
-            <div className="mt-6">
-              <h4 className="font-semibold text-text-primary mb-2">Prevent Late Payments with Our Contract Generator</h4>
-              <p className="text-text-primary/70 mb-4">
-                Use our SB 988 Contract Generator to create legally compliant contracts that include clear payment terms and penalty clauses.
-              </p>
-              <Link
-                href="/tools/sb988-contract-generator"
-                className="inline-block px-6 py-3 bg-primary-lavender text-white font-medium rounded-md hover:bg-primary-lavender/90 focus:outline-none focus:ring-2 focus:ring-primary-lavender focus:ring-offset-2"
-              >
-                Create a Contract
-              </Link>
-            </div>
+            {mode === 'business' ? (
+              <div className="mt-6 space-y-4">
+                <div className="p-4 bg-red-50 border-l-4 border-red-500 text-red-700">
+                  <p className="text-sm font-semibold">
+                    🚨 WARNING FOR CLIENTS / BUSINESSES:
+                  </p>
+                  <p className="text-xs mt-1">
+                    If a freelancer files a lawsuit, California courts mandate double damages. You cannot contract out of this requirement. Ensure your onboarding agreements are 100% compliant.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={onLinkToGenerator}
+                  className="w-full px-6 py-4 bg-primary-lavender text-white font-bold rounded-md text-center hover:bg-primary-lavender-dark transition-all focus:outline-none focus:ring-2 focus:ring-primary-lavender focus:ring-offset-2"
+                >
+                  🛡️ Generate A Compliant CA Business-to-Freelancer Contract Now
+                </button>
+              </div>
+            ) : (
+              <>
+                <div className="mt-6">
+                  <Link href="/guides/sb988-small-claims-guide" className="inline-block w-full px-6 py-4 bg-red-600 text-white font-bold rounded-md text-center hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                    🚨 What is your next legal step? Click here to view your 3-Step Small Claims Court Action Roadmap →
+                  </Link>
+                </div>
+
+                <div className="mt-6">
+                  <h4 className="font-semibold text-text-primary mb-2">Prevent Late Payments with Our Contract Generator</h4>
+                  <p className="text-text-primary/70 mb-4">
+                    Use our SB 988 Contract Generator to create legally compliant contracts that include clear payment terms and penalty clauses.
+                  </p>
+                  <Link
+                    href="/tools/sb988-contract-generator"
+                    className="inline-block px-6 py-3 bg-primary-lavender text-white font-medium rounded-md hover:bg-primary-lavender/90 focus:outline-none focus:ring-2 focus:ring-primary-lavender focus:ring-offset-2"
+                  >
+                    Create a Contract
+                  </Link>
+                </div>
+              </>
+            )}
           </div>
         )}
 

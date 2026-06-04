@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { professions } from "@/data/professions";
 import { allSeoPages } from "@/data/seoPages";
+import LightweightScenarioEngine from "@/components/tools/LightweightScenarioEngine";
+import { Suspense } from "react";
 
 export const metadata = {
   title: "[PancoLegal] | California SB 988 Compliance AI | Freelance Contract & Payment Protection",
@@ -61,14 +63,14 @@ export default function HomePage() {
 
   return (
     <div className="space-y-24 pb-24 bg-gray-50/50">
-      {/* 1. Hero Section — unchanged */}
+      {/* 1. Hero Section & Lightweight Scenario Engine */}
       <section className="mx-auto max-w-4xl pt-16 text-center px-4">
         <div className="inline-flex items-center gap-2 rounded-full bg-primary-lavender/10 px-4 py-1.5 text-sm font-semibold text-text-lavender mb-6 border border-primary-lavender/20 animate-fade-in">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-lavender opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-lavender"></span>
           </span>
-          California Freelancer Legal Protection (2026 Legal Sync)
+          California Freelance Legal Protection (2026 Legal Sync)
         </div>
         <h1 className="text-4xl font-black tracking-tight text-text-primary sm:text-6xl mb-6 leading-none">
           Secure Your Freelance Business <br />
@@ -77,28 +79,12 @@ export default function HomePage() {
           </span>
         </h1>
         <p className="mx-auto max-w-2xl text-lg text-text-primary/70 leading-relaxed mb-10">
-          AI-powered contracts and late‑payment enforcement tools built for the Freelance Worker Protection Act. Ensure you collect double damages when clients ghost your invoices.
+          Draft legally mandated contracts, monitor pay deadlines, and estimate statutory double damages. Select your scenario below to access our standalone compliance tools.
         </p>
-        <div className="flex flex-wrap justify-center gap-4">
-          <Link
-            href="/tools/sb988-contract-generator"
-            className="rounded-xl bg-primary-lavender px-8 py-4 text-base font-bold text-white shadow-lg shadow-primary-lavender/25 transition-all hover:bg-primary-lavender-dark hover:-translate-y-0.5 active:translate-y-0"
-          >
-            Start Free Contract Generator
-          </Link>
-          <Link
-            href="/tools/sb988-late-payment-calculator"
-            className="rounded-xl border border-gray-300 bg-white px-8 py-4 text-base font-bold text-gray-700 shadow-sm transition-all hover:bg-gray-50 hover:-translate-y-0.5"
-          >
-            Calculate Claims Penalty
-          </Link>
-          <Link
-            href="/guides/sb988-small-claims-guide"
-            className="rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-base px-8 py-4 shadow-lg transition-all"
-          >
-            Client Refusing To Pay?
-          </Link>
-        </div>
+
+        <Suspense fallback={<div className="text-center py-8 text-slate-500">Loading Scenario Selector...</div>}>
+          <LightweightScenarioEngine />
+        </Suspense>
       </section>
 
       {/* 2. Industry Cards — unchanged */}
@@ -152,28 +138,53 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3. Resource Center — unchanged */}
-      <section className="relative py-20 bg-[#d1d1f6] text-gray-900 rounded-[2.5rem] max-w-6xl mx-auto overflow-hidden px-6 shadow-xl">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-primary-lavender/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="max-w-4xl mx-auto relative z-10">
-          <div className="text-center mb-12">
-            <span className="bg-white/10 text-amber-400 text-[11px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider">
-              Core Interactive Apps
-            </span>
-            <h2 className="text-3xl font-black mt-2">
-              SB 988 Central Enforcement Hub
-            </h2>
-            <p className="text-base text-gray-400 mt-2">
-              Powerful functional utilities ensuring strict operational compliance with California labor standards.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {/* 3. Central Compliance Tools Index */}
+      <section className="max-w-6xl mx-auto px-6">
+        <div className="bg-slate-50 border border-slate-200 rounded-3xl p-8 md:p-12 shadow-sm text-center">
+          <span className="bg-primary-lavender/10 text-primary-lavender text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
+            Standalone Compliance Suite
+          </span>
+          <h2 className="text-3xl font-black text-slate-900 mt-3 tracking-tight">
+            SB 988 Central Enforcement Hub
+          </h2>
+          <p className="text-sm text-slate-500 mt-2 max-w-lg mx-auto leading-relaxed">
+            Direct access to our standalone interactive utilities built for California Freelance Worker Protection Act standards.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
             <Link
               href="/tools/sb988-contract-generator"
-              className="group rounded-xl border border-gray-200 bg-[#fbfbfe] p-6 transition-all hover:bg-white hover:border-primary-lavender"
+              className="group bg-white p-6 rounded-2xl border border-gray-200 hover:border-primary-lavender hover:-translate-y-0.5 hover:shadow-md transition-all text-left"
             >
-              <div className="mb-4 inline-block rounded-lg bg-primary-lavender/2">
-                <span className="text-gray-900 font-bold">Tools</span>
+              <span className="text-2xl">📝</span>
+              <h3 className="font-bold text-gray-900 mt-3 group-hover:text-primary-lavender transition-colors">Contract Generator</h3>
+              <p className="text-xs text-gray-500 mt-1 leading-relaxed">Generate ironclad, SB 988-compliant freelance agreements in 30 seconds.</p>
+              <div className="text-xs font-bold text-primary-lavender mt-4 flex items-center gap-1">
+                Open Generator <span>→</span>
+              </div>
+            </Link>
+
+            <Link
+              href="/tools/sb988-late-payment-calculator"
+              className="group bg-white p-6 rounded-2xl border border-gray-200 hover:border-primary-lavender hover:-translate-y-0.5 hover:shadow-md transition-all text-left"
+            >
+              <span className="text-2xl">🧮</span>
+              <h3 className="font-bold text-gray-900 mt-3 group-hover:text-primary-lavender transition-colors">Penalty Calculator</h3>
+              <p className="text-xs text-gray-500 mt-1 leading-relaxed">Calculate double damages, late fees, and simulate corporate legal exposure.</p>
+              <div className="text-xs font-bold text-primary-lavender mt-4 flex items-center gap-1">
+                Open Calculator <span>→</span>
+              </div>
+            </Link>
+
+            <Link
+              href="/guides/sb988-small-claims-guide"
+              className="group bg-white p-6 rounded-2xl border border-gray-200 hover:border-primary-lavender hover:-translate-y-0.5 hover:shadow-md transition-all text-left"
+            >
+              <span className="text-2xl">⚖️</span>
+              <h3 className="font-bold text-gray-900 mt-3 group-hover:text-primary-lavender transition-colors">Litigation Blueprint</h3>
+              <p className="text-xs text-gray-500 mt-1 leading-relaxed">Step-by-step small claims roadmap to sue non-paying clients without a lawyer.</p>
+              <div className="text-xs font-bold text-primary-lavender mt-4 flex items-center gap-1">
+                Open Roadmap <span>→</span>
               </div>
             </Link>
           </div>

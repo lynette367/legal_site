@@ -10,12 +10,27 @@ export const metadata = {
     },
 };
 
-export default function SmallClaimsGuidePage() {
+interface PageProps {
+    searchParams?: {
+        scenario?: string;
+    };
+}
+
+export default function SmallClaimsGuidePage({ searchParams }: PageProps) {
     const currentUpdatedDate = "May 30, 2026";
+    const scenario = searchParams?.scenario;
 
     return (
         <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8 font-sans">
             <div className="max-w-4xl mx-auto">
+
+                {/* Scenario Context Banner */}
+                {scenario === 'fully-protected-250' && (
+                    <div className="mb-8 p-5 rounded-xl border-l-4 bg-red-50 border-red-500 text-red-950 animate-fadeIn">
+                        <p className="font-bold mb-1">📢 Protected Over $250 CA Law Sync Active</p>
+                        <p className="text-sm">Yes, California law mandates a written contract for anything over $250. If your client broke this rule, you have immense leverage. Read our step-by-step statutory enforcement blueprint to see how to hold them accountable.</p>
+                    </div>
+                )}
 
                 {/* 1. 信任构建：权威头部（让气炸了的用户瞬间冷静，确信找对了地方） */}
                 <header className="mb-10 text-center md:text-left">

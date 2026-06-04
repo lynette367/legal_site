@@ -10,8 +10,17 @@ export const metadata = {
   },
 };
 
-export default function SB988LatePaymentCalculatorPage() {
+interface PageProps {
+  searchParams: {
+    scenario?: string;
+    mode?: string;
+  };
+}
+
+export default function SB988LatePaymentCalculatorPage({ searchParams }: PageProps) {
   const currentYear = "2026";
+  const scenario = searchParams?.scenario;
+  const mode = searchParams?.mode === 'business' || scenario === 'avoid-250-trap' ? 'business' : 'freelancer';
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans">
@@ -29,7 +38,7 @@ export default function SB988LatePaymentCalculatorPage() {
 
         {/* 2. 核心交互区：依然顶在首屏，不耽误不耐烦的消费者一秒钟 */}
         <main className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-10">
-          <SB988PenaltyCalculator /> {/*[cite: 7] */}
+          <SB988PenaltyCalculator mode={mode} scenario={scenario} />
         </main>
 
         {/* 3. 🚨 底部：SEO 加厚层 + 完美内链（Google 蜘蛛的肥肉，算完账用户的救生圈） */}

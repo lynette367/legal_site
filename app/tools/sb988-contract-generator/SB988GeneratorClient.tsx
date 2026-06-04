@@ -281,6 +281,19 @@ Requirements: Generate a comprehensive SB 988 compliant contract for a freelance
 
       {!isGenerated ? (
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Scenario Warning Banners */}
+          {searchParams.get('scenario') === 'refuses-written-contract' && (
+            <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-md text-red-950 text-sm">
+              <p className="font-bold mb-1">🛡️ Freelancer Contract Protection Active</p>
+              <p>Working without a contract in California for projects over $250 leaves you completely unprotected. Protect your IP and guarantee your pay. Generate an ironclad, SB 988-compliant freelance agreement in 30 seconds.</p>
+            </div>
+          )}
+          {searchParams.get('scenario') === 'hire-contractor-safely' && (
+            <div className="p-4 bg-blue-50 border-l-4 border-blue-600 rounded-md text-blue-950 text-sm">
+              <p className="font-bold mb-1">🛡️ Corporate Onboarding Framework Active</p>
+              <p>California&apos;s Freelance Worker Protection Act enforces harsh fines on businesses that use generic web templates. Ensure your onboarding agreements pass state labor audits seamlessly. Generate a compliant contractor framework now.</p>
+            </div>
+          )}
           {/* Profession Tabs */}
           <div className="flex flex-wrap gap-2 p-1 bg-gray-100 rounded-lg max-w-max mb-4">
             {professions.map((p) => {

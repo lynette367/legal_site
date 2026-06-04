@@ -1,168 +1,328 @@
-// app/freelance-contract/page.tsx
-// Hub page: /freelance-contract
-// Lists all 100 programmatic SEO pages, grouped by pipe type
-// Provides strong internal linking for Google crawl budget
+// app/freelance-contract/page.tsx  — Hub index page
+// Scenario-driven navigation: users pick their situation, not a keyword
 
 import type { Metadata } from "next";
 import Link from "next/link";
 import { allSeoPages, type SeoPage } from "@/data/seoPages";
-import { DM_Serif_Display } from "next/font/google";
-
-const dmSerif = DM_Serif_Display({
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "California Freelance Contract Hub | SB 988 Legal Tools | PancoLegal",
   description:
-    "Complete guide to California freelance contracts under SB 988. Browse 100+ guides for employers and freelancers: contract templates, late payment rights, demand letters, and more.",
-  alternates: { canonical: "/freelance-contract" },
+    "Find the right California SB 988 legal guide for your situation — contract templates, late payment rights, demand letters, and employer compliance tools. 100+ guides.",
+  alternates: { canonical: "https://pancothink.com/freelance-contract" },
 };
 
-const PIPE_ORDER: SeoPage["painPipeType"][] = [
-  "employer",
-  "industry",
-  "freelancer",
-  "faq",
+// ── Scenario cards shown at top — high-intent entry points ──────────────────
+const SCENARIOS = [
+  {
+    emoji: "😤",
+    title: "Client won't pay my invoice",
+    sub: "Calculate your double damages and generate a formal demand letter.",
+    href: "/freelance-contract/client-refuses-to-pay-freelance-invoice-california",
+    badge: "Freelancer",
+    badgeBg: "bg-blue-50",
+    badgeText: "text-blue-700",
+    accent: "border-blue-200 hover:border-blue-400",
+  },
+  {
+    emoji: "📝",
+    title: "I need a California-compliant contract",
+    sub: "Generate an SB 988 contract for your specific industry in 60 seconds.",
+    href: "/freelance-contract/california-tech-contractor-agreement-template",
+    badge: "Industry",
+    badgeBg: "bg-emerald-50",
+    badgeText: "text-emerald-700",
+    accent: "border-emerald-200 hover:border-emerald-400",
+  },
+  {
+    emoji: "🏢",
+    title: "I hire freelancers and need to stay compliant",
+    sub: "Understand SB 988 obligations and avoid double-damage liability.",
+    href: "/freelance-contract/california-freelance-contract-requirements-2026",
+    badge: "Employer",
+    badgeBg: "bg-orange-50",
+    badgeText: "text-orange-700",
+    accent: "border-orange-200 hover:border-orange-400",
+  },
+  {
+    emoji: "❓",
+    title: "I have a legal question about SB 988",
+    sub: "Get plain-English answers to common California freelance law questions.",
+    href: "/freelance-contract/is-email-valid-contract-freelance-work-california",
+    badge: "Legal FAQ",
+    badgeBg: "bg-purple-50",
+    badgeText: "text-purple-700",
+    accent: "border-purple-200 hover:border-purple-400",
+  },
 ];
 
-const PIPE_META: Record<
-  SeoPage["painPipeType"],
-  { title: string; desc: string; bgLight: string; textDark: string; borderCol: string; emoji: string }
-> = {
-  employer: {
-    title: "Employer Compliance",
-    desc: "For California businesses hiring freelancers — avoid double-damage liability and SB 988 violations.",
-    bgLight: "bg-orange-50",
-    textDark: "text-orange-600",
-    borderCol: "border-orange-500",
-    emoji: "🏢",
-  },
-  industry: {
-    title: "Industry-Specific Templates",
-    desc: "Contract templates built for your profession — tech contractors, designers, copywriters, photographers, and more.",
-    bgLight: "bg-emerald-50",
-    textDark: "text-emerald-600",
-    borderCol: "border-emerald-500",
-    emoji: "🎯",
-  },
-  freelancer: {
-    title: "Freelancer Rights & Collections",
-    desc: "Tools for freelancers pursuing late invoices, generating demand letters, and calculating double damages.",
-    bgLight: "bg-blue-50",
-    textDark: "text-blue-600",
-    borderCol: "border-blue-500",
+// ── Pipe section config ──────────────────────────────────────────────────────
+const PIPE_SECTIONS: {
+  type: SeoPage["painPipeType"];
+  emoji: string;
+  title: string;
+  desc: string;
+  badgeBg: string;
+  badgeText: string;
+  border: string;
+  accentLine: string;
+}[] = [
+  {
+    type: "freelancer",
     emoji: "⚡",
+    title: "Freelancer Rights & Collections",
+    desc: "Client late? Refusing to pay? Use SB 988 to claim double damages and draft demand letters.",
+    badgeBg: "bg-blue-50", badgeText: "text-blue-700", border: "border-blue-100", accentLine: "bg-blue-500",
   },
-  faq: {
+  {
+    type: "employer",
+    emoji: "🏢",
+    title: "Employer Compliance",
+    desc: "Hiring freelancers in California? SB 988 mandates written contracts and 30-day payment windows.",
+    badgeBg: "bg-orange-50", badgeText: "text-orange-700", border: "border-orange-100", accentLine: "bg-orange-500",
+  },
+  {
+    type: "industry",
+    emoji: "🎯",
+    title: "Industry-Specific Templates",
+    desc: "Contracts tailored to your profession — tech, design, copywriting, photography, consulting, and more.",
+    badgeBg: "bg-emerald-50", badgeText: "text-emerald-700", border: "border-emerald-100", accentLine: "bg-emerald-500",
+  },
+  {
+    type: "faq",
+    emoji: "📖",
     title: "California Freelance FAQ",
-    desc: "Answers to the most common SB 988 questions — written contract rules, payment deadlines, email contracts, and more.",
-    bgLight: "bg-purple-50",
-    textDark: "text-purple-600",
-    borderCol: "border-purple-500",
-    emoji: "❓",
+    desc: "Plain-English answers to the most Googled SB 988 questions — $250 threshold, email contracts, and more.",
+    badgeBg: "bg-purple-50", badgeText: "text-purple-700", border: "border-purple-100", accentLine: "bg-purple-500",
   },
-};
+];
 
 export default function FreelanceContractHub() {
-  const byPipe = PIPE_ORDER.reduce(
-    (acc, pipe) => {
-      acc[pipe] = allSeoPages.filter((p) => p.painPipeType === pipe);
+  const byPipe = PIPE_SECTIONS.reduce(
+    (acc, s) => {
+      acc[s.type] = allSeoPages.filter((p) => p.painPipeType === s.type);
       return acc;
     },
     {} as Record<SeoPage["painPipeType"], SeoPage[]>
   );
 
+  const totalPages = allSeoPages.length;
+
   return (
-    <div className="space-y-12 pb-16">
-      {/* ── Hero ── */}
-      <section className="bg-bg-card border border-border-lavender rounded-3xl p-8 md:p-12 shadow-soft">
-        <div className="max-w-3xl">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-lavender/10 px-3.5 py-1 text-xs font-semibold text-text-lavender mb-4 border border-primary-lavender/20">
+    <div className="bg-bg-main min-h-screen">
+
+      {/* ══ HERO ══════════════════════════════════════════════════════════════ */}
+      <section className="bg-white border-b border-gray-100">
+        <div className="max-w-5xl mx-auto px-6 py-16 md:py-20">
+          <nav className="flex items-center gap-2 text-xs text-gray-400 mb-6">
+            <Link href="/" className="hover:text-primary-lavender transition-colors">Home</Link>
+            <span>›</span>
+            <span className="text-gray-500">CA Legal Guides</span>
+          </nav>
+          <span className="inline-block text-[11px] font-bold uppercase tracking-widest text-primary-lavender bg-primary-lavender/10 px-3 py-1 rounded-full mb-5">
             California SB 988 Legal Hub
           </span>
-          <h1 className={`${dmSerif.className} text-3xl md:text-5xl font-normal text-text-primary mb-4 leading-tight`}>
-            California Freelance Contract Guides
+          <h1 className="text-4xl md:text-5xl font-black text-text-primary leading-tight tracking-tight mb-5">
+            California Freelance<br className="hidden md:block" /> Contract Guides
           </h1>
-          <p className="text-sm md:text-base text-text-primary/70 leading-relaxed mb-6 max-w-2xl">
-            Everything California employers and freelancers need to stay
-            compliant under SB 988 — the Freelance Worker Protection Act.
-            Browse {allSeoPages.length} guides below.
+          <p className="text-lg text-gray-600 leading-relaxed max-w-2xl mb-8">
+            {totalPages}+ guides covering everything California freelancers and employers
+            need under <strong>SB 988</strong> — the Freelance Worker Protection Act.
+            Find your situation below.
           </p>
-          <div className="flex flex-wrap gap-2">
-            <span className="text-xs font-semibold bg-bg-main border border-border-lavender/50 text-text-lavender px-3 py-1.5 rounded-full shadow-xs">✅ Written contracts explained</span>
-            <span className="text-xs font-semibold bg-bg-main border border-border-lavender/50 text-text-lavender px-3 py-1.5 rounded-full shadow-xs">✅ Double damages calculator</span>
-            <span className="text-xs font-semibold bg-bg-main border border-border-lavender/50 text-text-lavender px-3 py-1.5 rounded-full shadow-xs">✅ Demand letter generator</span>
-            <span className="text-xs font-semibold bg-bg-main border border-border-lavender/50 text-text-lavender px-3 py-1.5 rounded-full shadow-xs">✅ Industry templates</span>
+
+          {/* Stats */}
+          <div className="flex flex-wrap gap-4">
+            {[
+              { v: "$250+", l: "triggers written contract" },
+              { v: "30 days", l: "max payment window" },
+              { v: "2×",  l: "late payment damages" },
+              { v: `${totalPages}+`, l: "legal guides" },
+            ].map((s) => (
+              <div key={s.l} className="bg-gray-50 border border-gray-200 rounded-xl px-5 py-3 text-center min-w-[110px]">
+                <div className="text-xl font-black text-primary-lavender">{s.v}</div>
+                <div className="text-[11px] text-gray-500 mt-0.5">{s.l}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ── Pipes ── */}
-      <div className="space-y-8">
-        {PIPE_ORDER.map((pipe) => {
-          const meta = PIPE_META[pipe];
-          const pages = byPipe[pipe];
-          if (!pages.length) return null;
-
-          return (
-            <section key={pipe} className="bg-bg-card border border-border-lavender rounded-3xl p-6 md:p-8 shadow-soft">
-              <div className={`flex items-start gap-4 border-l-4 ${meta.borderCol} pl-4 mb-6`}>
-                <span className="text-3xl leading-none mt-1">{meta.emoji}</span>
-                <div>
-                  <h2 className={`${dmSerif.className} text-xl md:text-2xl font-normal text-text-primary`}>
-                    {meta.title}
-                  </h2>
-                  <p className="text-xs md:text-sm text-text-primary/60 mt-1">{meta.desc}</p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {pages.map((p) => (
-                  <Link
-                    key={p.slug}
-                    href={`/freelance-contract/${p.slug}`}
-                    className="group flex flex-col justify-between p-5 bg-bg-main/40 border border-border-lavender/50 rounded-2xl hover:bg-white hover:border-primary-lavender hover:shadow-soft transition-all duration-200"
-                  >
-                    <div>
-                      <h3 className="text-sm font-semibold text-text-primary group-hover:text-text-lavender transition-colors duration-200">
-                        {p.h1}
-                      </h3>
-                      <p className="text-xs text-text-primary/60 mt-1.5 leading-relaxed">
-                        {p.heroSubtitle.length > 90
-                          ? p.heroSubtitle.slice(0, 90) + "…"
-                          : p.heroSubtitle}
-                      </p>
-                    </div>
-                    <span className="inline-flex items-center gap-1 text-xs font-bold text-text-lavender mt-4 group-hover:gap-1.5 transition-all">
-                      Read Guide <span>→</span>
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </section>
-          );
-        })}
-      </div>
-
-      {/* ── Bottom CTA ── */}
-      <section className="bg-gradient-to-br from-text-lavender to-primary-lavender text-white rounded-3xl p-8 md:p-12 text-center shadow-soft">
-        <h2 className={`${dmSerif.className} text-2xl md:text-4xl font-normal text-white mb-4`}>
-          Ready to generate your California-compliant contract?
-        </h2>
-        <p className="text-xs md:text-sm text-white/80 max-w-lg mx-auto mb-6 leading-relaxed">
-          Use PancoLegal&apos;s AI tools to create SB 988-compliant
-          contracts, demand letters, and dispute plans in under 60 seconds.
+      {/* ══ SCENARIO PICKER ════════════════════════════════════════════════════ */}
+      <section className="max-w-5xl mx-auto px-6 py-14">
+        <p className="text-xs font-bold uppercase tracking-widest text-primary-lavender mb-2">
+          Find Your Situation
         </p>
-        <div className="flex flex-wrap justify-center gap-4">
-          <Link href="/tools" className="rounded-xl bg-white px-6 py-3 text-sm font-bold text-text-lavender shadow-md transition-all hover:bg-bg-main hover:-translate-y-0.5">
-            Open Legal Tools →
-          </Link>
-          <Link href="/pricing" className="rounded-xl border border-white/30 bg-transparent px-6 py-3 text-sm font-bold text-white transition-all hover:bg-white/10 hover:-translate-y-0.5">
-            View Pricing
-          </Link>
+        <h2 className="text-2xl md:text-3xl font-black text-text-primary mb-8">
+          What brings you here today?
+        </h2>
+
+        <div className="grid sm:grid-cols-2 gap-4">
+          {SCENARIOS.map((s) => (
+            <Link
+              key={s.href}
+              href={s.href}
+              className={`group bg-white border-2 rounded-2xl p-6 flex gap-4 transition-all hover:-translate-y-0.5 hover:shadow-soft ${s.accent}`}
+            >
+              <span className="text-3xl shrink-0 mt-0.5">{s.emoji}</span>
+              <div>
+                <span className={`inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded mb-2 ${s.badgeBg} ${s.badgeText}`}>
+                  {s.badge}
+                </span>
+                <h3 className="text-base font-black text-text-primary group-hover:text-primary-lavender transition-colors leading-snug mb-1">
+                  {s.title}
+                </h3>
+                <p className="text-sm text-gray-500 leading-relaxed">{s.sub}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ══ TOOLS STRIP ════════════════════════════════════════════════════════ */}
+      <section className="bg-text-primary">
+        <div className="max-w-5xl mx-auto px-6 py-10">
+          <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-6">
+            Core AI Tools
+          </p>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {[
+              {
+                icon: "📋",
+                title: "SB 988 Contract Generator",
+                sub: "Generate a California-compliant freelance contract in 60 seconds.",
+                href: "/tools/sb988-contract-generator",
+                cta: "Generate Contract",
+              },
+              {
+                icon: "💰",
+                title: "Late Payment Calculator",
+                sub: "Enter your invoice amount and days overdue — see your double damages.",
+                href: "/tools/sb988-late-payment-calculator",
+                cta: "Calculate Damages",
+              },
+              {
+                icon: "🔍",
+                title: "Contract Review",
+                sub: "Upload or paste your contract. AI flags every missing SB 988 clause.",
+                href: "/tools/freelancer-contract-review",
+                cta: "Review Contract",
+              },
+            ].map((tool) => (
+              <Link
+                key={tool.href}
+                href={tool.href}
+                className="group bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-lavender/40 rounded-xl p-5 transition-all flex flex-col gap-3"
+              >
+                <span className="text-2xl">{tool.icon}</span>
+                <div className="flex-1">
+                  <h3 className="text-sm font-bold text-white mb-1 group-hover:text-primary-lavender transition-colors">
+                    {tool.title}
+                  </h3>
+                  <p className="text-xs text-gray-500 leading-relaxed">{tool.sub}</p>
+                </div>
+                <span className="text-xs font-bold text-primary-lavender mt-auto">
+                  {tool.cta} →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══ GUIDE SECTIONS ═════════════════════════════════════════════════════ */}
+      {PIPE_SECTIONS.map((section) => {
+        const pages = byPipe[section.type];
+        if (!pages?.length) return null;
+
+        // Show first 6 prominently, rest collapsed
+        const featured = pages.slice(0, 6);
+        const rest = pages.slice(6);
+
+        return (
+          <section key={section.type} className="max-w-5xl mx-auto px-6 py-14 border-b border-gray-100 last:border-0">
+            {/* Section header */}
+            <div className={`flex gap-3 items-start mb-8 border-l-4 pl-4 ${section.accentLine}`}>
+              <span className="text-2xl mt-0.5">{section.emoji}</span>
+              <div>
+                <h2 className="text-xl font-black text-text-primary">{section.title}</h2>
+                <p className="text-sm text-gray-500 mt-1 leading-relaxed">{section.desc}</p>
+              </div>
+            </div>
+
+            {/* Featured grid */}
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+              {featured.map((page) => (
+                <Link
+                  key={page.slug}
+                  href={`/freelance-contract/${page.slug}`}
+                  className={`group bg-white border rounded-xl p-5 hover:border-primary-lavender hover:shadow-soft hover:-translate-y-0.5 transition-all flex flex-col gap-2 ${section.border}`}
+                >
+                  <span className={`self-start text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${section.badgeBg} ${section.badgeText}`}>
+                    {section.type === "faq" ? "FAQ" : section.type}
+                  </span>
+                  <h3 className="text-sm font-bold text-text-primary group-hover:text-primary-lavender transition-colors leading-snug flex-1">
+                    {page.h1}
+                  </h3>
+                  <span className="text-xs font-bold text-primary-lavender mt-auto">
+                    Read guide →
+                  </span>
+                </Link>
+              ))}
+            </div>
+
+            {/* Remaining as compact list */}
+            {rest.length > 0 && (
+              <div className="bg-gray-50 border border-gray-200 rounded-xl px-5 py-4">
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
+                  {rest.length} more guides
+                </p>
+                <ul className="grid sm:grid-cols-2 gap-y-2 gap-x-6">
+                  {rest.map((page) => (
+                    <li key={page.slug}>
+                      <Link
+                        href={`/freelance-contract/${page.slug}`}
+                        className="text-sm text-gray-600 hover:text-primary-lavender transition-colors flex items-start gap-1.5 leading-snug"
+                      >
+                        <span className="text-gray-300 shrink-0 mt-0.5">›</span>
+                        <span className="line-clamp-1">{page.h1}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </section>
+        );
+      })}
+
+      {/* ══ BOTTOM CTA ═════════════════════════════════════════════════════════ */}
+      <section className="bg-text-primary">
+        <div className="max-w-5xl mx-auto px-6 py-16 text-center">
+          <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+            Ready to protect your work?
+          </h2>
+          <p className="text-gray-400 text-base leading-relaxed max-w-md mx-auto mb-8">
+            Generate your first SB 988-compliant contract or demand letter in under 60 seconds.
+            No subscription required to start.
+          </p>
+          <div className="flex flex-wrap gap-3 justify-center">
+            <Link
+              href="/tools/sb988-contract-generator"
+              className="inline-flex items-center gap-2 bg-primary-lavender hover:bg-primary-lavender-dark text-white font-bold px-8 py-4 rounded-xl shadow-lg transition-all hover:-translate-y-0.5"
+            >
+              Generate My Contract →
+            </Link>
+            <Link
+              href="/pricing"
+              className="inline-flex items-center bg-white/10 hover:bg-white/20 text-white font-semibold px-8 py-4 rounded-xl transition-all"
+            >
+              View Credit Packs
+            </Link>
+          </div>
+          <p className="text-gray-600 text-xs mt-5">
+            Starter pack from $9.99 · Credits never expire · Used by CA freelancers since 2024
+          </p>
         </div>
       </section>
     </div>
