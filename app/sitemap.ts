@@ -3,7 +3,14 @@ import { professions } from "@/data/professions";
 import { allSeoSlugs } from "@/data/seoPages";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://pancothink.com";
+  // Vercel's actual env var key is NEXT_PUBLIC_APP_URL (confirmed in dashboard).
+  // Read both possible names so this survives either naming, and hardcode
+  // the correct www host as the final fallback so it never silently
+  // regresses to the bare domain (which costs an extra 308 redirect hop).
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    process.env.NEXT_PUBLIC_APP_URL ||
+    "https://www.pancothink.com";
   const now = new Date().toISOString();
 
   // ── Original static routes (unchanged) ───────────────────────────────────

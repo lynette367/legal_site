@@ -8,11 +8,11 @@ import { Suspense } from "react";
 export const metadata = {
   title: "[PancoLegal] | California SB 988 Compliance AI | Freelance Contract & Payment Protection",
   description: "Protect your freelance income under CA SB 988. Use our AI to draft mandatory contracts for projects over $250, track payment deadlines, and calculate 2x late payment penalties. The only AI legal tool built specifically for the California Freelance Worker Protection Act.",
-  alternates: { canonical: "https://pancothink.com" },
+  alternates: { canonical: "https://www.pancothink.com" },
   openGraph: {
     title: "[PancoLegal] | California SB 988 Compliance AI | Freelance Contract & Payment Protection",
     description: "Protect your freelance income under CA SB 988. Use our AI to draft mandatory contracts for projects over $250, track payment deadlines, and calculate 2x late payment penalties. The only AI legal tool built specifically for the California Freelance Worker Protection Act.",
-    url: "https://pancothink.com",
+    url: "https://www.pancothink.com",
     siteName: "Panco",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
     locale: "en-US",
