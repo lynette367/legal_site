@@ -6,21 +6,21 @@ import LightweightScenarioEngine from "@/components/tools/LightweightScenarioEng
 import { Suspense } from "react";
 
 export const metadata = {
-  title: "[PancoLegal] | California SB 988 Compliance AI | Freelance Contract & Payment Protection",
-  description: "Protect your freelance income under CA SB 988. Use our AI to draft mandatory contracts for projects over $250, track payment deadlines, and calculate 2x late payment penalties. The only AI legal tool built specifically for the California Freelance Worker Protection Act.",
+  title: "CA Freelance Worker Protection Act Contract Generator", // 56 characters
+  description: "Create compliant contracts under the California Freelance Worker Protection Act (SB 988). Free tools for contracts over $250 and late fee calculation.", // 154 characters
   alternates: { canonical: "https://www.pancothink.com" },
   openGraph: {
-    title: "[PancoLegal] | California SB 988 Compliance AI | Freelance Contract & Payment Protection",
-    description: "Protect your freelance income under CA SB 988. Use our AI to draft mandatory contracts for projects over $250, track payment deadlines, and calculate 2x late payment penalties. The only AI legal tool built specifically for the California Freelance Worker Protection Act.",
+    title: "CA Freelance Worker Protection Act Contract Generator",
+    description: "Create compliant contracts under the California Freelance Worker Protection Act (SB 988). Free tools for contracts over $250 and late fee calculation.",
     url: "https://www.pancothink.com",
-    siteName: "Panco",
+    siteName: "PancoLegal",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
     locale: "en-US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "[PancoLegal] | California SB 988 Compliance AI | Freelance Contract & Payment Protection",
+    title: "CA Freelance Worker Protection Act Contract Generator",
     images: ["/og-image.png"],
   },
 };
