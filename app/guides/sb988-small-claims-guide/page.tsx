@@ -6,7 +6,7 @@ export const metadata = {
     title: "California SB 988 Small Claims Court Guide: Sue for Non-Payment (2026)",
     description: "Step-by-step enforcement protocol under California SB 988. Learn how to file Form SC-100, issue a 10-day demand letter, and claim 2x double damages without a lawyer.",
     alternates: {
-        canonical: 'https://pancothink.com/guides/sb988-small-claims-guide',
+        canonical: 'https://www.pancothink.com/guides/sb988-small-claims-guide',
     },
 };
 

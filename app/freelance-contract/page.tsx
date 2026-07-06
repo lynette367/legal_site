@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "California Freelance Contract Hub | SB 988 Legal Tools | PancoLegal",
   description:
     "Find the right California SB 988 legal guide for your situation — contract templates, late payment rights, demand letters, and employer compliance tools. 100+ guides.",
-  alternates: { canonical: "https://pancothink.com/freelance-contract" },
+  alternates: { canonical: "https://www.pancothink.com/freelance-contract" },
 };
 
 // ── Scenario cards shown at top — high-intent entry points ──────────────────

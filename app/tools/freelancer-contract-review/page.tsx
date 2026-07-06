@@ -6,12 +6,12 @@ export const metadata: Metadata = {
   description: "Instantly detect risky clauses in freelancer and independent contractor agreements. Protect your rights as a freelancer or client in California.",
   keywords: "freelancer contract review, independent contractor agreement, California AB5, contract risk detection, freelance legal protection",
   alternates: {
-    canonical: 'https://pancothink.com/tools/freelancer-contract-review',
+    canonical: 'https://www.pancothink.com/tools/freelancer-contract-review',
   },
   openGraph: {
     title: "Freelancer Contract Review | California Independent Contractor Tool",
     description: "Instantly detect risky clauses in freelancer and independent contractor agreements.",
-    url: 'https://pancothink.com/tools/freelancer-contract-review',
+    url: 'https://www.pancothink.com/tools/freelancer-contract-review',
     siteName: 'Panco',
     images: [{ url: '/og-image.png', width: 1200, height: 630 }],
     locale: 'en_US',

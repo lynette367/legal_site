@@ -30,6 +30,11 @@ const nextConfig = {
         destination: '/tools/sb988-contract-generator',
         permanent: true,
       },
+      {
+        source: '/tools/california-freelance-legal-templates',
+        destination: '/freelance-contract',
+        permanent: true,
+      },
     ]
   },
 }

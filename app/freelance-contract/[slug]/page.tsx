@@ -26,12 +26,12 @@ export async function generateMetadata({
     title: page.metaTitle,
     description: page.metaDesc,
     alternates: {
-      canonical: `https://pancothink.com/freelance-contract/${page.slug}`,
+      canonical: `https://www.pancothink.com/freelance-contract/${page.slug}`,
     },
     openGraph: {
       title: page.metaTitle,
       description: page.metaDesc,
-      url: `https://pancothink.com/freelance-contract/${page.slug}`,
+      url: `https://www.pancothink.com/freelance-contract/${page.slug}`,
       type: "website",
     },
   };

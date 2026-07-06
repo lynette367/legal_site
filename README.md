@@ -103,29 +103,42 @@ npm run dev
 ## 📁 项目结构
 
 ```
-legal-law-site/
-├── app/
-│   ├── api/                    # API 路由
-│   │   ├── auth/              # NextAuth 认证
-│   │   ├── credits/           # Credits 管理
-│   │   ├── paypal/            # PayPal 支付
-│   │   └── ai/                # AI 服务
-│   ├── (pages)/               # 页面路由
-│   └── providers.tsx          # SessionProvider
-├── components/
-│   ├── common/                # 通用组件
-│   ├── modules/               # AI 模块组件
-│   ├── pricing/               # 支付组件
-│   └── layout/                # 布局组件
-├── lib/
-│   ├── auth.ts                # NextAuth 配置
-│   ├── prisma.ts              # Prisma 客户端
-│   ├── ai/deepseek.ts         # DeepSeek 客户端
-│   └── paypal/                # PayPal 工具
-├── prisma/
-│   ├── schema.prisma          # 数据库架构
-│   └── migrations/            # 迁移历史
-└── middleware.ts              # 路由保护
+panco.com/
+├── app/                        # Next.js App Router 路由与页面
+│   ├── api/                    # API 路由 (auth, credits, paypal, ai 等)
+│   ├── dashboard/              # 用户控制中心
+│   ├── freelance-contract/     # 场景化 SEO 导航与专题页
+│   ├── guides/                 # 加州 SB 988 行业指南页
+│   ├── login/                  # 登录校验模块
+│   ├── pricing/                # 价格与套餐页面
+│   ├── tools/                  # 法律工具（合同生成、违约金计算、合同审查）
+│   ├── layout.tsx              # 全局 Layout 模版
+│   ├── page.tsx                # 首页
+│   └── providers.tsx          # Session & PayPal Provider 注入
+├── components/                 # 页面组件
+│   ├── common/                # 通用公用组件
+│   ├── guides/                # 法律指南专属组件
+│   ├── layout/                # 页面布局组件 (Header/Footer)
+│   ├── modules/               # AI 核心业务模块
+│   ├── pricing/               # 支付与方案购买组件
+│   ├── providers/             # 注入全局状态与 Context
+│   ├── tools/                 # 各个法律工具的具体客户端组件
+│   ├── ui/                    # 基础原子 UI 库
+│   ├── CopyCard.tsx           # 合同文本复制卡片组件
+│   └── ScenarioTool.tsx       # 场景生成工具核心容器
+├── data/                       # 核心业务数据源（静态生成配置）
+│   ├── plans.ts               # 套餐定价与 Credits 配置
+│   ├── professions.ts         # 指南页面对应的职业列表与元数据
+│   └── seoPages.ts            # 100+ 场景化 SEO 页面的大纲与模板配置
+├── lib/                        # 工具函数与集成服务
+│   ├── auth.ts                # NextAuth 核心配置
+│   ├── prisma.ts              # Prisma 数据库连接实例
+│   ├── ai/                    # DeepSeek 客户端实现
+│   └── paypal/                # PayPal SDK 包装与辅助工具
+├── prisma/                     # 数据库配置层
+│   ├── schema.prisma          # Prisma 数据模型与关系定义
+│   └── migrations/            # SQL 数据库迁移历史
+└── middleware.ts              # Next.js 中间件（实现 API 级保护与页面身份阻拦）
 ```
 
 ---

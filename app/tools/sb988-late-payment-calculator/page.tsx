@@ -6,7 +6,7 @@ export const metadata = {
   title: 'California SB 988 Late Payment & Double Damages Calculator (2026)', //
   description: 'Calculate your statutory 2x double damages and attorney fees under the California Freelance Worker Protection Act (SB 988). Free compliance enforcement tool.', //[cite: 7]
   alternates: {
-    canonical: 'https://pancothink.com/tools/sb988-late-payment-calculator', //[cite: 7]
+    canonical: 'https://www.pancothink.com/tools/sb988-late-payment-calculator', //[cite: 7]
   },
 };
 
