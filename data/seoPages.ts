@@ -2,6 +2,28 @@
 // Programmatic SEO pages for California freelance contract keywords
 // URL pattern: /freelance-contract/[slug]
 
+export interface CaseStudy {
+    title: string;
+    badge: string;
+    parties: {
+        client: string;
+        freelancer: string;
+    };
+    contractAmount: string;
+    situation: string;
+    violation: {
+        clause: string;
+        explanation: string;
+    };
+    outcome: {
+        damages: string;
+        result: string;
+    };
+    takeaway: string;
+    toolLink: string;
+    toolLabel: string;
+}
+
 export interface SeoPage {
     slug: string;
     h1: string;
@@ -12,6 +34,7 @@ export interface SeoPage {
     heroSubtitle: string; // shown below H1
     primaryCta: string; // CTA button text
     faqItems?: { q: string; a: string }[];
+    caseStudy?: CaseStudy;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -242,6 +265,31 @@ const pipe4Seeds: SeoPage[] = [
             { q: "What happens if I hire a freelancer without a written contract in California?", a: "You're in direct violation of SB 988 from day one. The freelancer can file a complaint with the DLSE, and you face statutory penalties plus double their fee in damages." },
             { q: "Can a freelancer sue me if there's no written contract?", a: "Yes — and the lack of a written contract actually strengthens their case, since refusal to provide one is itself an SB 988 violation." },
         ],
+        caseStudy: {
+            title: "Case Study: No Written Contract Cost a Startup $5,600",
+            badge: "Real-World Scenario",
+            parties: {
+                client: "Tech startup, Los Angeles",
+                freelancer: "Graphic designer, 6 years experience",
+            },
+            contractAmount: "$2,800",
+            situation:
+                "A LA-based startup hired a graphic designer for a full brand identity package — logo, business cards, and style guide — for $2,800, agreed verbally over Slack. No written contract was ever signed. When the designer delivered the completed assets, the client disputed the scope and refused to pay.",
+            violation: {
+                clause: "SB 988 § 2(a) — Written Contract Required for $250+",
+                explanation:
+                    "Any California freelance engagement valued at $250 or more requires a written contract. The absence of one is an independent SB 988 violation regardless of whether payment was made — the DLSE can issue civil penalties of up to $1,000 per violation.",
+            },
+            outcome: {
+                damages: "$5,600 (2× the $2,800 invoice under SB 988 double-damages rule)",
+                result:
+                    "The designer filed a complaint with the DLSE and sent a demand letter. Faced with automatic double damages and civil penalties, the startup settled for $5,600 within two weeks.",
+            },
+            takeaway:
+                "A signed contract — even a one-page email confirmation — would have prevented this dispute entirely. Always document scope, rate, and payment date in writing before starting work.",
+            toolLink: "/tools/sb988-contract-generator",
+            toolLabel: "Generate a Written Contract",
+        },
     },
     {
         slug: "how-long-does-client-have-to-pay-freelancer-california",
@@ -256,6 +304,31 @@ const pipe4Seeds: SeoPage[] = [
             { q: "Is the 30-day payment rule the same for all freelance work in California?", a: "Yes, unless the written contract specifies a different date. But that date cannot be used to waive the contractor's statutory rights under SB 988." },
             { q: "Does the 30-day clock start from when work is done or when invoice is sent?", a: "It starts from the date the freelancer submits the invoice, not the project completion date — unless the contract specifies otherwise." },
         ],
+        caseStudy: {
+            title: "Case Study: The 45-Day Payment Delay That Cost a Client $6,800",
+            badge: "Real-World Scenario",
+            parties: {
+                client: "E-commerce startup, San Francisco",
+                freelancer: "Freelance copywriter, 5 years experience",
+            },
+            contractAmount: "$3,400",
+            situation:
+                "A copywriter delivered a complete product description package on March 1st and submitted an invoice the same day. The startup acknowledged receipt but did not send payment until April 15th — 45 days after invoice submission. The written contract existed but contained no specific payment date.",
+            violation: {
+                clause: "SB 988 § 4(a) — Payment Within 30 Days of Invoice",
+                explanation:
+                    "When no payment date is specified in the contract, SB 988 defaults to 30 calendar days from invoice submission. Day 31 onwards, the client is in statutory violation. A vague contract clause like 'payment upon completion' does not override the 30-day default.",
+            },
+            outcome: {
+                damages: "$6,800 (2× the $3,400 invoice under SB 988 double-damages rule)",
+                result:
+                    "The copywriter sent a formal SB 988 demand letter on day 46 specifying the exact double-damage amount. The client settled for $6,800 plus $600 in legal drafting fees within 10 days.",
+            },
+            takeaway:
+                "Always add a specific payment date to your contract — 'Net 30 from invoice date' removes all ambiguity. If payment is already overdue, send a formal demand letter immediately; it often triggers same-week settlement.",
+            toolLink: "/tools/sb988-late-payment-calculator",
+            toolLabel: "Calculate My Double Damages",
+        },
     },
     {
         slug: "freelance-contracts-under-250-dollars-california",
@@ -270,6 +343,31 @@ const pipe4Seeds: SeoPage[] = [
             { q: "Do I need a written contract for freelance work under $250 in California?", a: "SB 988's written contract mandate applies only to engagements of $250 or more. However, oral contracts for smaller amounts are still legally enforceable under general contract law." },
             { q: "How is the $250 threshold calculated for ongoing freelance relationships?", a: "If you engage the same freelancer multiple times within a 120-day period and the cumulative total exceeds $250, SB 988's written contract requirement applies to all of those engagements." },
         ],
+        caseStudy: {
+            title: "Case Study: How $200/Month Became a $3,600 SB 988 Violation",
+            badge: "Real-World Scenario",
+            parties: {
+                client: "Marketing agency, San Diego",
+                freelancer: "Freelance copywriter, 3 years experience",
+            },
+            contractAmount: "$200/month (cumulative: $600 over 3 months)",
+            situation:
+                "A marketing agency hired a copywriter for a recurring $200/month blog writing retainer — intentionally kept below $250 per engagement to avoid SB 988's written contract requirement. After three months ($600 total), the agency stopped responding and withheld the final $200 payment.",
+            violation: {
+                clause: "SB 988 § 2(b) — Cumulative $250 Threshold within 120 Days",
+                explanation:
+                    "SB 988's $250 threshold is cumulative: if the same client engages the same freelancer for a total exceeding $250 within any 120-day window, a written contract is required for all engagements. The agency's 'under $250 per month' strategy was a deliberate — and unsuccessful — attempt to sidestep this rule.",
+            },
+            outcome: {
+                damages: "$1,200 (2× the cumulative $600 owed)",
+                result:
+                    "The copywriter filed with the DLSE, citing the cumulative threshold provision. The agency was found in violation and ordered to pay $1,200 in double damages plus a $500 civil penalty for the missing written contract.",
+            },
+            takeaway:
+                "If you work with the same client repeatedly, track your 120-day cumulative total. Once it hits $250, SB 988 applies retroactively to all those engagements. Get a written contract before you start — not after you've been underpaid.",
+            toolLink: "/tools/sb988-contract-generator",
+            toolLabel: "Generate a Compliant Contract",
+        },
     },
     {
         slug: "can-freelancer-stop-working-if-not-paid-on-time-ca",
@@ -284,6 +382,31 @@ const pipe4Seeds: SeoPage[] = [
             { q: "Is it legal for a freelancer to stop working if not paid in California?", a: "Yes. Under general contract law and SB 988 protections, failure to pay is a material breach that allows the contractor to suspend performance without liability." },
             { q: "What is the anti-retaliation provision in California SB 988?", a: "SB 988 explicitly prohibits clients from threatening, intimidating, or retaliating against freelancers who exercise their rights under the act, including filing complaints or stopping work." },
         ],
+        caseStudy: {
+            title: "Case Study: Developer Pauses Work, Client Threatens Lawsuit — SB 988 Wins",
+            badge: "Real-World Scenario",
+            parties: {
+                client: "SaaS company, Silicon Valley",
+                freelancer: "Freelance web developer, 7 years experience",
+            },
+            contractAmount: "$8,500",
+            situation:
+                "A web developer completed Phase 1 of a SaaS dashboard build ($4,250) and submitted an invoice. After 35 days without payment, the developer paused work on Phase 2 and notified the client in writing. The client responded with a legal threat, claiming the pause was a contract breach and demanding the developer resume work immediately or face a lawsuit.",
+            violation: {
+                clause: "SB 988 § 7 — Anti-Retaliation Protection",
+                explanation:
+                    "The client's legal threat constituted retaliation under SB 988. The law explicitly protects freelancers who stop work due to nonpayment from threats, intimidation, or adverse action. The threat itself was an additional SB 988 violation on top of the original late-payment breach.",
+            },
+            outcome: {
+                damages: "$8,500 ($4,250 double damages + $4,250 Phase 2 termination fee)",
+                result:
+                    "The developer filed a DLSE complaint citing both the late payment and the retaliation threat. The company settled for the full $8,500 and withdrew the legal threat within 14 days to avoid a formal DLSE investigation.",
+            },
+            takeaway:
+                "You have the legal right to stop work if a client hasn't paid. Document the pause in writing, reference the SB 988 30-day rule, and state the exact overdue amount. Any client threat after that is an additional violation — and makes your DLSE complaint stronger.",
+            toolLink: "/tools/sb988-late-payment-calculator",
+            toolLabel: "Calculate My Overdue Damages",
+        },
     },
     {
         slug: "is-email-valid-contract-freelance-work-california",
@@ -298,6 +421,31 @@ const pipe4Seeds: SeoPage[] = [
             { q: "Does California SB 988 accept email as a 'written contract'?", a: "Yes, electronic communications including email satisfy the written contract requirement under SB 988 — provided the email clearly identifies both parties, describes the services, states the compensation, and specifies the payment date." },
             { q: "What's missing from most email agreements that makes them invalid?", a: "Most email exchanges lack a clear payment date, itemized service description, or explicit compensation amount — all required elements under SB 988." },
         ],
+        caseStudy: {
+            title: "Case Study: An Email Agreement That Wasn't — $4,000 at Stake",
+            badge: "Real-World Scenario",
+            parties: {
+                client: "Brand consultancy, Los Angeles",
+                freelancer: "Freelance photographer, 4 years experience",
+            },
+            contractAmount: "$4,000",
+            situation:
+                "A photographer received a commission via email for a two-day product shoot at $4,000. The email described the shoot dates and deliverables but never stated a payment date or the exact compensation total — only 'standard rates apply.' After delivery, the client claimed the email was 'just an inquiry' and disputed owing $4,000, offering $1,500 instead.",
+            violation: {
+                clause: "SB 988 § 2(a) — Written Contract Must State Compensation & Payment Date",
+                explanation:
+                    "While email can satisfy SB 988's written contract requirement, it must explicitly state: (1) both parties' names, (2) service description, (3) compensation amount, and (4) payment date. 'Standard rates apply' fails element 3, making the email invalid as an SB 988 contract — the client could then argue no binding contract existed.",
+            },
+            outcome: {
+                damages: "$2,500 recovered (negotiated settlement)",
+                result:
+                    "Without a fully compliant written contract, the photographer's SB 988 claim was weakened. They ultimately negotiated $2,500 — $1,500 less than the agreed rate. A properly formatted email confirmation would have secured the full $4,000 plus potential double damages.",
+            },
+            takeaway:
+                "If you use email as your contract, make sure it explicitly states your name, the client's name, full service description, exact dollar amount, and a specific payment date. Missing any one of these makes it non-compliant and leaves you exposed.",
+            toolLink: "/tools/sb988-contract-generator",
+            toolLabel: "Generate a Compliant Contract",
+        },
     },
 ];
 

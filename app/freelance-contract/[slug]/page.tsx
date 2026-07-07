@@ -7,7 +7,7 @@ import Link from "next/link";
 import { seoPageBySlug, allSeoSlugs, type SeoPage } from "@/data/seoPages";
 import { professions } from "@/data/professions";
 import { plans } from "@/data/plans";
-import ScenarioTool from "@/components/ScenarioTool";
+import CaseStudyPanel from "@/components/CaseStudyPanel";
 
 // ── Static generation ──────────────────────────────────────────────────────
 export async function generateStaticParams() {
@@ -42,40 +42,44 @@ const PIPE_META: Record<
   SeoPage["painPipeType"],
   { label: string; badgeBg: string; badgeText: string; border: string }
 > = {
-  employer:   { label: "Employer Compliance", badgeBg: "bg-orange-50",  badgeText: "text-orange-700",  border: "border-orange-200" },
-  freelancer: { label: "Freelancer Rights",   badgeBg: "bg-blue-50",    badgeText: "text-blue-700",    border: "border-blue-200"   },
-  industry:   { label: "Industry Template",   badgeBg: "bg-emerald-50", badgeText: "text-emerald-700", border: "border-emerald-200" },
-  faq:        { label: "Legal FAQ",           badgeBg: "bg-purple-50",  badgeText: "text-purple-700",  border: "border-purple-200"  },
+  employer: { label: "Employer Compliance", badgeBg: "bg-orange-50", badgeText: "text-orange-700", border: "border-orange-200" },
+  freelancer: { label: "Freelancer Rights", badgeBg: "bg-blue-50", badgeText: "text-blue-700", border: "border-blue-200" },
+  industry: { label: "Industry Template", badgeBg: "bg-emerald-50", badgeText: "text-emerald-700", border: "border-emerald-200" },
+  faq: { label: "Legal FAQ", badgeBg: "bg-purple-50", badgeText: "text-purple-700", border: "border-purple-200" },
 };
 
 // ── Scenario copy per pipe type ────────────────────────────────────────────
 const SCENARIO_COPY: Record<
   SeoPage["painPipeType"],
-  { headline: string; sub: string; placeholder: string; ctaLabel: string }
+  { headline: string; sub: string; placeholder: string; ctaLabel: string; toolLink: string }
 > = {
   employer: {
     headline: "Scan Your Freelance Contract for SB 988 Violations",
     sub: "Paste your current agreement or describe the engagement. Our AI flags every missing clause that exposes you to double-damage liability.",
-    placeholder: "Paste your freelance contract or describe your situation…\n\nExample: \"We verbally agreed on a $1,500 logo design project. No written contract was signed. Payment was due 45 days after delivery.\"",
+    placeholder: "Paste your freelance contract or describe your situation…",
     ctaLabel: "Scan for Compliance Gaps →",
+    toolLink: "/tools/freelancer-contract-review",
   },
   freelancer: {
-    headline: "Describe What Happened — We'll Tell You What You're Owed",
+    headline: "Describe What Happened — We’ll Tell You What You’re Owed",
     sub: "Paste your invoice, contract, or just explain the situation in plain English. Our AI calculates your SB 988 damages and drafts your demand letter.",
-    placeholder: "Describe your unpaid invoice situation…\n\nExample: \"I delivered a 10-page website for $3,200 on March 1st. Client has not paid after 45 days. They said they'd pay 'soon' over text.\"",
+    placeholder: "Describe your unpaid invoice situation…",
     ctaLabel: "Calculate My Damages & Draft Letter →",
+    toolLink: "/tools/sb988-late-payment-calculator",
   },
   industry: {
     headline: "Get Your SB 988-Compliant Contract in 60 Seconds",
     sub: "Tell us about your project — scope, rate, timeline. Our AI generates a California-compliant contract with all mandatory clauses pre-filled.",
-    placeholder: "Describe your project details…\n\nExample: \"I'm a graphic designer in LA. Client wants a brand identity package — logo, business cards, and brand guide. Budget: $2,800. Timeline: 6 weeks.\"",
+    placeholder: "Describe your project details…",
     ctaLabel: "Generate My Contract →",
+    toolLink: "/tools/sb988-contract-generator",
   },
   faq: {
     headline: "Ask Your SB 988 Legal Question",
     sub: "Type your situation or question in plain English. Our AI gives you a clear legal analysis based on California SB 988 case law.",
-    placeholder: "Ask your legal question…\n\nExample: \"My client sent a revised payment schedule after I completed the work, cutting my fee by 20%. Is this legal under California law?\"",
+    placeholder: "Ask your legal question…",
     ctaLabel: "Get Legal Analysis →",
+    toolLink: "/tools/sb988-contract-generator",
   },
 };
 
@@ -204,10 +208,10 @@ export default function SeoLandingPage({
                   California SB 988 · Effective Jan 1, 2025
                 </p>
                 {[
-                  { value: "$250+",   label: "Minimum contract value that triggers SB 988" },
+                  { value: "$250+", label: "Minimum contract value that triggers SB 988" },
                   { value: "30 days", label: "Maximum payment window from invoice date" },
-                  { value: "2×",      label: "Statutory damages on late payments" },
-                  { value: "4 yrs",   label: "Statute of limitations for written contracts" },
+                  { value: "2×", label: "Statutory damages on late payments" },
+                  { value: "4 yrs", label: "Statute of limitations for written contracts" },
                 ].map((s, i) => (
                   <div
                     key={s.label}
@@ -222,43 +226,70 @@ export default function SeoLandingPage({
           </div>
         </section>
 
-        {/* ══ 2. SCENARIO TOOL — Interactive AI Engine ════════════════════════
-            This is the conversion core. Client component handles the textarea
-            interaction and routes to the right tool with pre-filled context.
+        {/* ══ 2. TOOL CTA / CASE STUDY ════════════════════════════════════════
+            faq pipe → static rich-text Case Study panel
+            all other pipes → static CTA directing to the correct tool
         ════════════════════════════════════════════════════════════════════ */}
-        <section className="max-w-5xl mx-auto px-6 py-14">
-          <div className="text-center mb-8">
-            <p className="text-xs font-bold uppercase tracking-widest text-primary-lavender mb-2">
-              AI-Powered Legal Tool
-            </p>
-            <h2 className="text-2xl md:text-3xl font-black text-text-primary">
-              {scenario.headline}
-            </h2>
-            <p className="text-gray-500 text-sm leading-relaxed mt-2 max-w-xl mx-auto">
-              {scenario.sub}
-            </p>
-          </div>
+        {page.painPipeType === "faq" && page.caseStudy ? (
+          <section className="max-w-5xl mx-auto px-6 py-14">
+            <div className="text-center mb-8">
+              <p className="text-xs font-bold uppercase tracking-widest text-primary-lavender mb-2">
+                SB 988 Case Analysis
+              </p>
+              <h2 className="text-2xl md:text-3xl font-black text-text-primary">
+                See How SB 988 Plays Out in the Real World
+              </h2>
+              <p className="text-gray-500 text-sm leading-relaxed mt-2 max-w-xl mx-auto">
+                Understanding the law is one thing — seeing how it applies in actual disputes makes it real.
+                Here&apos;s a scenario that mirrors the situation on this page.
+              </p>
+            </div>
+            <CaseStudyPanel caseStudy={page.caseStudy} />
+          </section>
+        ) : (
+          <section className="max-w-5xl mx-auto px-6 py-14">
+            <div className="max-w-3xl mx-auto bg-white border border-gray-200 rounded-2xl shadow-soft overflow-hidden">
+              {/* Header */}
+              <div className="px-7 py-6 border-b border-gray-100 bg-gray-50 flex items-start gap-3">
+                <span className="text-2xl mt-0.5">⚖️</span>
+                <div>
+                  <p className="text-sm font-black text-text-primary leading-snug mb-1">{scenario.headline}</p>
+                  <p className="text-xs text-gray-500 leading-relaxed">{scenario.sub}</p>
+                </div>
+              </div>
+              {/* Feature list */}
+              <div className="px-7 py-6 border-b border-gray-100">
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {[
+                    { icon: "⚡", text: "Results in under 60 seconds" },
+                    { icon: "📋", text: "All 4 SB 988 mandatory clauses included" },
+                    { icon: "🔒", text: "Your data is never stored" },
+                    { icon: "✅", text: "Reviewed against California SB 988" },
+                  ].map((f) => (
+                    <div key={f.text} className="flex items-center gap-2.5">
+                      <span className="text-base leading-none">{f.icon}</span>
+                      <span className="text-sm text-gray-700 font-medium">{f.text}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* CTA */}
+              <div className="px-7 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                  <p className="text-xs text-gray-500 mb-0.5">Free to start — no account required</p>
+                  <p className="text-xs text-gray-400">Starter pack from $9.99 · No subscription</p>
+                </div>
+                <Link
+                  href={scenario.toolLink}
+                  className="shrink-0 inline-flex items-center gap-2 bg-primary-lavender hover:bg-primary-lavender-dark text-white font-bold text-sm px-7 py-3.5 rounded-xl transition-all hover:-translate-y-0.5 whitespace-nowrap shadow-sm"
+                >
+                  {scenario.ctaLabel}
+                </Link>
+              </div>
+            </div>
+          </section>
+        )}
 
-          {/* Client component handles textarea + routing */}
-          <ScenarioTool
-            pipeType={page.painPipeType}
-            placeholder={scenario.placeholder}
-            ctaLabel={scenario.ctaLabel}
-
-          />
-
-          {/* Trust row */}
-          <div className="flex flex-wrap justify-center gap-6 mt-8 text-xs text-gray-400">
-            {[
-              "✅ No account needed to preview",
-              "🔒 Your text is never stored",
-              "⚡ Results in under 10 seconds",
-              "📋 Covers all 4 SB 988 mandatory clauses",
-            ].map((t) => (
-              <span key={t}>{t}</span>
-            ))}
-          </div>
-        </section>
 
         {/* ══ 3. SB 988 PLAIN-ENGLISH EXPLAINER ══════════════════════════════ */}
         <section className="bg-white border-y border-gray-100">
@@ -370,70 +401,12 @@ export default function SeoLandingPage({
                   href="/tools/sb988-contract-generator"
                   className="inline-flex items-center gap-1.5 bg-primary-lavender hover:bg-primary-lavender-dark text-white font-bold text-xs px-4 py-2.5 rounded-lg transition-all"
                 >
-                  Generate Complete Contract — 3 credits →
+                  Generate Complete Contract →
                 </Link>
               </div>
             </div>
           </section>
         )}
-
-        {/* ══ 5. PRICING — Remove friction, show value ════════════════════════ */}
-        <section className="bg-white border-y border-gray-100">
-          <div className="max-w-5xl mx-auto px-6 py-14">
-            <div className="text-center mb-10">
-              <p className="text-xs font-bold uppercase tracking-widest text-primary-lavender mb-2">
-                Simple Credit Pricing
-              </p>
-              <h2 className="text-2xl md:text-3xl font-black text-text-primary">
-                One credit balance, every SB 988 tool
-              </h2>
-              <p className="text-sm text-gray-500 mt-2">
-                No subscription. Buy credits, use them on any tool. Most users start with the Starter pack.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-5">
-              {plans.map((plan) => (
-                <div
-                  key={plan.id}
-                  className={`rounded-2xl border p-6 flex flex-col gap-4 relative ${
-                    plan.recommended
-                      ? "border-primary-lavender shadow-lg ring-1 ring-primary-lavender/20"
-                      : "border-gray-200"
-                  }`}
-                >
-                  {plan.recommended && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary-lavender text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-                      Most Popular
-                    </span>
-                  )}
-                  <div>
-                    <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">
-                      {plan.name}
-                    </p>
-                    <p className="text-3xl font-black text-text-primary">{plan.price}</p>
-                    <p className="text-sm text-primary-lavender font-bold mt-0.5">
-                      {plan.credits} credits
-                    </p>
-                  </div>
-                  <p className="text-xs text-gray-500 leading-relaxed flex-1">
-                    {plan.description}
-                  </p>
-                  <Link
-                    href="/pricing"
-                    className={`text-center text-sm font-bold py-3 px-4 rounded-xl transition-all ${
-                      plan.recommended
-                        ? "bg-primary-lavender hover:bg-primary-lavender-dark text-white"
-                        : "border border-gray-300 hover:border-primary-lavender text-gray-700 hover:text-primary-lavender"
-                    }`}
-                  >
-                    Get Started →
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* ══ 6. FAQ ══════════════════════════════════════════════════════════ */}
         {page.faqItems && page.faqItems.length > 0 && (
