@@ -59,37 +59,42 @@ const INDUSTRY_LINKS = [
 
 const FAQS = [
   {
-    q: 'Who is required to provide a written contract under SB 988?',
-    a: 'The hiring party (your client) is legally required to provide the written contract. However, in practice, many freelancers draft the contract themselves to ensure it contains all SB 988-required clauses. Either way, both parties must sign before work begins.',
+    q: 'What should I do if a long-time client ghosted me and won\'t pay the final invoice in California?',
+    a: (
+      <>
+        Even with a long-term client, you have legal rights under the California SB 988 (Freelance Worker Protection Act). If the project value is $250 or more over 12 months, the law requires payment within 30 days of completing the work. If they ghost you, you can take them to small claims court or file a complaint with the Labor Commissioner. To prevent this, never rely on past trust—always use our <Link href="/tools/sb988-contract-generator#generator-form" className="text-primary-lavender hover:underline font-semibold">Free SB 988 Contract Generator</Link> to legally lock in your payment terms before the next milestone.
+      </>
+    ),
   },
   {
-    q: 'Does SB 988 apply to projects under $250?',
-    a: 'The written contract mandate applies to any single freelance engagement worth $250 or more, or multiple engagements with the same client totaling $250 within any 120-day period. Below that threshold, written contracts are not legally required — but still strongly recommended.',
+    q: 'Is an email or verbal agreement legally binding for freelance work in California?',
+    a: (
+      <>
+        While an email agreement can technically form a basic contract, California&apos;s SB 988 mandates that any freelance work worth $250 or more MUST have a written contract signed by both parties. If your client refuses to sign a formal contract and relies only on email, they are violating California law. Protect yourself instantly by pasting your email terms into our <Link href="/tools/sb988-contract-generator#generator-form" className="text-primary-lavender hover:underline font-semibold">SB 988 Compliant Contract Builder</Link> to generate a legal, print-ready PDF agreement in under 2 minutes.
+      </>
+    ),
   },
   {
-    q: 'What happens if my client pays late?',
-    a: 'Under SB 988, a client who misses the payment deadline owes you statutory damages equal to the unpaid amount — effectively doubling your recovery — plus reasonable attorney fees and court costs. You can pursue this through the California Labor Commissioner or Small Claims Court.',
+    q: 'What is the legal standard for "Net 30" payment terms for California freelancers?',
+    a: (
+      <>
+        In the freelance industry, clients often abuse &quot;Net 30&quot; to drag out payments. However, under California&apos;s Freelance Worker Protection Act, if no specific date is defined, payment is strictly due no later than 30 days after the completion of services. If a client triggers a late payment beyond this limit, they risk severe statutory penalties. Use our <Link href="/tools/sb988-late-payment-calculator" className="text-primary-lavender hover:underline font-semibold">SB 988 Late Fee Calculator</Link> to see exactly how much double damages they might owe you for missing the deadline.
+      </>
+    ),
   },
   {
-    q: 'Can a contract waive my SB 988 rights?',
-    a: 'No. Any contractual clause that attempts to waive a freelancer\'s rights under SB 988 is void and unenforceable under California law. Your statutory protections cannot be signed away.',
+    q: 'Should I include a late fee clause in my freelance contract, and is it enforceable in California?',
+    a: 'Yes, absolutely. Including a late fee is not just a professional boundary—it\'s backed by California law. Under SB 988, if a client fails to pay on time, a freelancer can sue for double damages, plus attorneys\' fees and costs. Having a strict late fee clause in your written agreement acts as an ironclad deterrent. Our free tool automatically injects enforceable California-compliant late payment clauses into every contract you create.',
   },
   {
-    q: 'Does SB 988 cover freelancers working remotely outside California?',
-    a: 'Yes — if the hiring party is a California-based business or individual, SB 988 applies regardless of where the freelancer physically works. The client\'s location, not yours, determines whether the law applies.',
+    q: 'How do I legally protect my work with a "Kill Fee" if a California client cancels the project mid-way?',
+    a: (
+      <>
+        A &quot;Kill Fee&quot; (or cancellation fee) protects your booked time from being wasted. Under California&apos;s SB 988, your written contract must clearly itemize all services provided and how the rate is calculated. If a client cancels, they are legally obligated to pay for all work completed up to that date based on the contract terms. Our <Link href="/tools/sb988-contract-generator#generator-form" className="text-primary-lavender hover:underline font-semibold">Contract AI Tool</Link> includes a specialized, customisable cancellation clause that ensures you get paid for your sweat and time, even if the client pulls the plug early.
+      </>
+    ),
   },
-  {
-    q: 'Is an email chain a valid written contract under SB 988?',
-    a: 'An email can qualify if it clearly identifies both parties, describes the services, states the total compensation, and specifies the payment date. In practice, most email exchanges omit at least one of these required elements, which is why a purpose-built contract template is safer.',
-  },
-  {
-    q: 'What if my client refuses to sign the contract?',
-    a: 'Refusal to provide or sign a written contract is itself a violation of SB 988. You can file a complaint with the California Division of Labor Standards Enforcement (DLSE). The client faces a separate $1,000 penalty for each refusal.',
-  },
-  {
-    q: 'Can I use this generator for any profession?',
-    a: 'Yes. This tool supports graphic designers, web developers, copywriters, photographers, video editors, consultants, UX designers, and marketing freelancers. Select your profession using the role selector in the form and the contract language adjusts accordingly.',
-  },
+
 ];
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
@@ -314,7 +319,7 @@ export default function SB988ContractGeneratorPage() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
               href="#top"
-              
+
               className="inline-flex items-center justify-center gap-2 bg-primary-lavender text-white font-bold px-6 py-3 rounded-xl hover:bg-primary-lavender-dark transition-colors text-sm"
             >
               Generate My Contract ↑
