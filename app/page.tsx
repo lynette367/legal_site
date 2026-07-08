@@ -151,7 +151,7 @@ export default function HomePage() {
             Direct access to our standalone interactive utilities built for California Freelance Worker Protection Act standards.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
             <Link
               href="/tools/sb988-contract-generator"
               className="group bg-white p-6 rounded-2xl border border-gray-200 hover:border-primary-lavender hover:-translate-y-0.5 hover:shadow-md transition-all text-left"
@@ -177,6 +177,18 @@ export default function HomePage() {
             </Link>
 
             <Link
+              href="/tools/sb988-demand-letter-generator"
+              className="group bg-white p-6 rounded-2xl border border-gray-200 hover:border-primary-lavender hover:-translate-y-0.5 hover:shadow-md transition-all text-left"
+            >
+              <span className="text-2xl">✉️</span>
+              <h3 className="font-bold text-gray-900 mt-3 group-hover:text-primary-lavender transition-colors">Demand Letter Generator</h3>
+              <p className="text-xs text-gray-500 mt-1 leading-relaxed">Draft a formal SB 988 payment demand letter citing double damages — ready to send.</p>
+              <div className="text-xs font-bold text-primary-lavender mt-4 flex items-center gap-1">
+                Generate Letter <span>→</span>
+              </div>
+            </Link>
+
+            <Link
               href="/guides/sb988-small-claims-guide"
               className="group bg-white p-6 rounded-2xl border border-gray-200 hover:border-primary-lavender hover:-translate-y-0.5 hover:shadow-md transition-all text-left"
             >
@@ -188,6 +200,7 @@ export default function HomePage() {
               </div>
             </Link>
           </div>
+
         </div>
       </section>
 

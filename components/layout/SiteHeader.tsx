@@ -9,7 +9,7 @@ const navLinks = [
   { href: "/", label: "Home" },
   { href: "/tools/sb988-contract-generator", label: "CA Contract Generator" },
   { href: "/tools/sb988-late-payment-calculator", label: "Late Fee Calculator" },
-  { href: "/guides", label: "Guides" },
+  { href: "/tools/sb988-demand-letter-generator", label: "Demand Letter Generator" },
   { href: "/pricing", label: "Pricing" },
 ];
 

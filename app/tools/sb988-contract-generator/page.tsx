@@ -150,7 +150,25 @@ export default function SB988ContractGeneratorPage() {
         </Suspense>
       </section>
 
-      {/* ── How it works ── */}
+      {/* ── Cross-link: Demand Letter Generator ── */}
+      <section className="max-w-4xl mx-auto px-6 mb-12">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-orange-50 border border-orange-200 rounded-2xl px-7 py-5">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-widest text-orange-600 mb-1">Already sent a contract and still haven&apos;t been paid?</p>
+            <p className="text-sm text-orange-900 font-semibold leading-snug">
+              Generate a formal SB 988 demand letter — cites the 30-day rule &amp; double damages — and send it today.
+            </p>
+          </div>
+          <Link
+            href="/tools/sb988-demand-letter-generator"
+            className="shrink-0 inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold text-sm px-6 py-3 rounded-xl transition-all whitespace-nowrap"
+          >
+            ✉️ Write Demand Letter →
+          </Link>
+        </div>
+      </section>
+
+
       <section className="max-w-4xl mx-auto px-6 mb-20">
         <div className="mb-8">
           <span className="text-xs font-bold uppercase tracking-widest text-primary-lavender bg-primary-lavender/10 px-3 py-1 rounded-full">

@@ -61,11 +61,11 @@ const SCENARIO_COPY: Record<
     toolLink: "/tools/freelancer-contract-review",
   },
   freelancer: {
-    headline: "Describe What Happened — We’ll Tell You What You’re Owed",
-    sub: "Paste your invoice, contract, or just explain the situation in plain English. Our AI calculates your SB 988 damages and drafts your demand letter.",
+    headline: "Client Won't Pay? Draft Your SB 988 Demand Letter",
+    sub: "Paste your invoice or describe the situation. Our AI generates a formal California demand letter citing the 30-day rule and double-damage remedy — ready to send in minutes.",
     placeholder: "Describe your unpaid invoice situation…",
-    ctaLabel: "Calculate My Damages & Draft Letter →",
-    toolLink: "/tools/sb988-late-payment-calculator",
+    ctaLabel: "Generate My Demand Letter →",
+    toolLink: "/tools/sb988-demand-letter-generator",
   },
   industry: {
     headline: "Get Your SB 988-Compliant Contract in 60 Seconds",
@@ -492,6 +492,12 @@ export default function SeoLandingPage({
                 className="inline-flex items-center gap-2 bg-primary-lavender hover:bg-primary-lavender-dark text-white font-bold px-8 py-4 rounded-xl shadow-lg transition-all hover:-translate-y-0.5"
               >
                 {page.primaryCta} →
+              </Link>
+              <Link
+                href="/tools/sb988-demand-letter-generator"
+                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-8 py-4 rounded-xl transition-all"
+              >
+                ✉️ Generate Demand Letter
               </Link>
               <Link
                 href="/tools/sb988-late-payment-calculator"
