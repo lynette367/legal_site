@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { seoPageBySlug, allSeoSlugs, type SeoPage } from "@/data/seoPages";
 import { professions } from "@/data/professions";
-import { plans } from "@/data/plans";
+import { plans, creditsNote } from "@/data/plans";
 import CaseStudyPanel from "@/components/CaseStudyPanel";
 
 // ── Static generation ──────────────────────────────────────────────────────
@@ -407,6 +407,64 @@ export default function SeoLandingPage({
             </div>
           </section>
         )}
+
+        {/* ══ 5. PRICING — Credits Packs ══════════════════════════════════════ */}
+        <section className="bg-gray-50 border-y border-gray-100">
+          <div className="max-w-5xl mx-auto px-6 py-14">
+            <div className="text-center mb-10">
+              <p className="text-xs font-bold uppercase tracking-widest text-primary-lavender mb-2">
+                Pricing
+              </p>
+              <h2 className="text-2xl md:text-3xl font-black text-text-primary">
+                Choose Your Credits Pack
+              </h2>
+              <p className="text-gray-500 text-sm leading-relaxed mt-2 max-w-xl mx-auto">
+                Credits work across all features — use them for Q&A, document drafting, contract generation, and dispute plans.
+              </p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-6">
+              {plans.map((plan) => (
+                <div
+                  key={plan.id}
+                  className={`relative rounded-2xl border p-6 transition-all hover:shadow-soft ${
+                    plan.recommended
+                      ? "border-primary-lavender bg-white ring-2 ring-primary-lavender/20"
+                      : "border-gray-200 bg-white"
+                  }`}
+                >
+                  {plan.recommended && (
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary-lavender text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+                      Recommended
+                    </span>
+                  )}
+                  <div className="text-center mb-5">
+                    <h3 className="text-lg font-bold text-text-primary mb-1">{plan.name}</h3>
+                    <p className="text-sm text-gray-500 leading-relaxed whitespace-pre-line">{plan.description}</p>
+                  </div>
+                  <div className="border-t border-gray-100 pt-5">
+                    <div className="flex items-baseline justify-center gap-1">
+                      <span className="text-gray-400 text-sm">$</span>
+                      <span className="text-4xl font-black text-text-primary">{plan.price.replace("$", "")}</span>
+                    </div>
+                    <p className="text-xs text-gray-400 text-center mt-2">{plan.credits} credits</p>
+                    <button
+                      className={`w-full mt-4 font-bold text-sm py-3 rounded-xl transition-all ${
+                        plan.recommended
+                          ? "bg-primary-lavender hover:bg-primary-lavender-dark text-white"
+                          : "bg-gray-100 hover:bg-gray-200 text-text-primary"
+                      }`}
+                    >
+                      Get Started →
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="text-center text-xs text-gray-400 mt-6">
+              {creditsNote}
+            </p>
+          </div>
+        </section>
 
         {/* ══ 6. FAQ ══════════════════════════════════════════════════════════ */}
         {page.faqItems && page.faqItems.length > 0 && (
