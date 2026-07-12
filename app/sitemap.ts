@@ -18,8 +18,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "", freq: "daily", pri: 1.0 },
     { path: "/tools/sb988-late-payment-calculator", freq: "weekly", pri: 0.9 },
     { path: "/tools/sb988-contract-generator", freq: "weekly", pri: 0.9 },
-    { path: "/tools/sb988-demand-letter-generator", freq: "weekly", pri: 0.9 },
     { path: "/tools/freelancer-contract-review", freq: "weekly", pri: 0.9 },
+    { path: "/tools/irs-20-point-checklist-for-independent-contractors", freq: "weekly", pri: 0.85 },
     { path: "/pricing", freq: "weekly", pri: 0.8 },
   ] as const;
 

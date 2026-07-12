@@ -55,6 +55,15 @@ export default function SB988LatePaymentCalculatorPage({ searchParams }: PagePro
             <p className="text-xs leading-relaxed text-slate-500">
               If the contract value totals $250 or more over a 12-month period, judges are legally required to award <strong className="text-slate-900 font-semibold">double damages (2x the unpaid invoice amount)</strong>, plus reasonable attorney fees and court costs, provided a written contract was established.
             </p>
+            {mode === 'business' && (
+              <p className="text-xs leading-relaxed text-slate-500">
+                If you&apos;re the hiring business running this number, it&apos;s worth confirming the underlying relationship is even a valid 1099 engagement in the first place — a misclassified worker carries exposure well beyond a single late invoice. Run our free{' '}
+                <Link href="/tools/irs-20-point-checklist-for-independent-contractors" className="text-slate-900 font-semibold underline hover:no-underline">
+                  IRS 20-Point Worker Classification Auditor
+                </Link>{' '}
+                to check.
+              </p>
+            )}
           </div>
 
           {/* 右侧：高转化下一步引导块（完美内链缝合） */}
