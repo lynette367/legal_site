@@ -21,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/tools/freelancer-contract-review", freq: "weekly", pri: 0.9 },
     { path: "/tools/irs-20-point-checklist-for-independent-contractors", freq: "weekly", pri: 0.85 },
     { path: "/pricing", freq: "weekly", pri: 0.8 },
+    { path: "/tools/california-independent-contractor-laws", freq: "weekly", pri: 0.85 },
   ] as const;
 
   // ── Original guide routes (unchanged) ────────────────────────────────────

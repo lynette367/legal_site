@@ -189,10 +189,46 @@ export default function HomePage() {
             </Link>
 
             <Link
-              href="/guides/sb988-small-claims-guide"
+              href="/tools/freelancer-contract-review"
+              className="group bg-white p-6 rounded-2xl border border-gray-200 hover:border-primary-lavender hover:-translate-y-0.5 hover:shadow-md transition-all text-left"
+            >
+              <span className="text-2xl">🔍</span>
+              <h3 className="font-bold text-gray-900 mt-3 group-hover:text-primary-lavender transition-colors">Contract Review</h3>
+              <p className="text-xs text-gray-500 mt-1 leading-relaxed">Paste an existing agreement and check it against SB 988&apos;s required clauses.</p>
+              <div className="text-xs font-bold text-primary-lavender mt-4 flex items-center gap-1">
+                Review My Contract <span>→</span>
+              </div>
+            </Link>
+
+            <Link
+              href="/tools/irs-20-point-checklist-for-independent-contractors"
+              className="group bg-white p-6 rounded-2xl border border-gray-200 hover:border-primary-lavender hover:-translate-y-0.5 hover:shadow-md transition-all text-left"
+            >
+              <span className="text-2xl">🧭</span>
+              <h3 className="font-bold text-gray-900 mt-3 group-hover:text-primary-lavender transition-colors">IRS Classification Check</h3>
+              <p className="text-xs text-gray-500 mt-1 leading-relaxed">3-minute self-audit against the IRS 20-factor 1099 vs. W-2 test.</p>
+              <div className="text-xs font-bold text-primary-lavender mt-4 flex items-center gap-1">
+                Run My Audit <span>→</span>
+              </div>
+            </Link>
+
+            <Link
+              href="/tools/california-independent-contractor-laws"
               className="group bg-white p-6 rounded-2xl border border-gray-200 hover:border-primary-lavender hover:-translate-y-0.5 hover:shadow-md transition-all text-left"
             >
               <span className="text-2xl">⚖️</span>
+              <h3 className="font-bold text-gray-900 mt-3 group-hover:text-primary-lavender transition-colors">ABC & Borello Test Audit</h3>
+              <p className="text-xs text-gray-500 mt-1 leading-relaxed">Check your California AB5 worker classification risk in 2 minutes.</p>
+              <div className="text-xs font-bold text-primary-lavender mt-4 flex items-center gap-1">
+                Check My Risk <span>→</span>
+              </div>
+            </Link>
+
+            <Link
+              href="/guides/sb988-small-claims-guide"
+              className="group bg-white p-6 rounded-2xl border border-gray-200 hover:border-primary-lavender hover:-translate-y-0.5 hover:shadow-md transition-all text-left"
+            >
+              <span className="text-2xl">📚</span>
               <h3 className="font-bold text-gray-900 mt-3 group-hover:text-primary-lavender transition-colors">Litigation Blueprint</h3>
               <p className="text-xs text-gray-500 mt-1 leading-relaxed">Step-by-step small claims roadmap to sue non-paying clients without a lawyer.</p>
               <div className="text-xs font-bold text-primary-lavender mt-4 flex items-center gap-1">

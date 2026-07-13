@@ -145,10 +145,16 @@ export default function IRS20PointChecklistPage() {
           </p>
           <p>
             Businesses that misclassify workers can face liability for unpaid employment taxes, penalties, and
-            interest — and in California, a separate and generally stricter &quot;ABC test&quot; governs
-            wage-and-hour classification on top of the federal common-law test. If your assessment above came back
-            medium or high risk, the fastest fix is usually tightening the written agreement and reducing day-to-day
-            behavioral control, not abandoning the contractor relationship entirely.
+            interest — and in California, a separate and generally stricter{" "}
+            <Link
+              href="/tools/california-independent-contractor-laws"
+              className="text-primary-lavender hover:underline font-semibold"
+            >
+              &quot;ABC test&quot;
+            </Link>{" "}
+            governs wage-and-hour classification on top of the federal common-law test. If your assessment above
+            came back medium or high risk, the fastest fix is usually tightening the written agreement and reducing
+            day-to-day behavioral control, not abandoning the contractor relationship entirely.
           </p>
           <p>
             For a formal determination, either party to the relationship can file{" "}
