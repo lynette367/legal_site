@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { professions } from "@/data/professions";
 import { allSeoSlugs } from "@/data/seoPages";
+import { allComplianceSlugs, stateOnlySlugPages } from "@/data/stateComplianceData";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Vercel's actual env var key is NEXT_PUBLIC_APP_URL (confirmed in dashboard).
@@ -31,7 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     pri: 0.8,
   }));
 
-  // ── NEW: Programmatic SEO hub + slug pages ────────────────────────────────
+  // ── Programmatic SEO hub + slug pages (SB 988 / California) ──────────────
   const seoHubRoute = {
     path: "/freelance-contract",
     freq: "weekly" as const,
@@ -46,11 +47,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
     pri: i < SEED_COUNT ? 0.75 : 0.6,
   }));
 
+  // ── NEW: Independent contractor law cluster (state × industry) ───────────
+  // Gated: only enters the sitemap once at least one state is published in
+  // stateComplianceData.ts. Prevents Google from indexing a near-empty hub
+  // page while content is still being verified.
+  const stateOnlySlugs = new Set(stateOnlySlugPages().map((p) => p.slug));
+
+  const complianceRoutes =
+    allComplianceSlugs.length > 0
+      ? [
+          { path: "/independent-contractor-laws", freq: "weekly" as const, pri: 0.75 },
+          ...allComplianceSlugs.map((slug) => ({
+            path: `/independent-contractor-laws/${slug}`,
+            freq: "monthly" as const,
+            // state-level overview pages outrank state×industry long-tail pages
+            pri: stateOnlySlugs.has(slug) ? 0.7 : 0.55,
+          })),
+        ]
+      : [];
+
   const allRoutes = [
     ...staticRoutes,
     ...guideRoutes,
     seoHubRoute,
     ...seoSlugRoutes,
+    ...complianceRoutes,
   ];
 
   return allRoutes.map(({ path, freq, pri }) => ({

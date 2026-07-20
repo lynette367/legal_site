@@ -347,6 +347,20 @@ export default function IndependentContractorLawPage() {
             </p>
           </Link>
         </div>
+
+        {/* Reverse link out to the new multi-state cluster — this page only
+            covers California; hiring elsewhere needs the state hub. */}
+        <div className="mt-4 bg-indigo-50 border border-indigo-200 rounded-2xl px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-indigo-900 font-semibold">
+            Hiring outside California? Check rules for other states.
+          </p>
+          <Link
+            href="/independent-contractor-laws"
+            className="shrink-0 inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm px-5 py-3 rounded-xl transition-all whitespace-nowrap"
+          >
+            Independent Contractor Laws by State →
+          </Link>
+        </div>
       </section>
 
       {/* ── Bottom CTA ── */}

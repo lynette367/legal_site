@@ -238,6 +238,23 @@ export default function IRS20PointChecklistPage() {
         </div>
       </section>
 
+      {/* Link to the state-by-state cluster — same federal test underlies
+          the "coming soon" states there, and California readers land here
+          from that cluster too, so this needs to be a two-way link. */}
+      <section className="max-w-4xl mx-auto px-6 mb-16">
+        <div className="bg-indigo-50 border border-indigo-200 rounded-2xl px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-indigo-900 font-semibold">
+            Want state-specific rules instead of the federal baseline?
+          </p>
+          <Link
+            href="/independent-contractor-laws"
+            className="shrink-0 inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm px-5 py-3 rounded-xl transition-all whitespace-nowrap"
+          >
+            Independent Contractor Laws by State →
+          </Link>
+        </div>
+      </section>
+
       {/* ── Bottom CTA ── */}
       <section className="max-w-4xl mx-auto px-6 mb-24">
         <div className="bg-primary-lavender/5 border border-primary-lavender/20 rounded-3xl px-8 py-10 text-center">

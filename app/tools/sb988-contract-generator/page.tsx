@@ -101,7 +101,10 @@ const FAQS = [
 
 export default function SB988ContractGeneratorPage() {
   return (
-    <div className="min-h-screen bg-bg-main">
+<div className="min-h-screen bg-bg-main">
+  <div className="max-w-4xl mx-auto mt-4 mb-2 px-6 text-center">
+    <Link href="/tools/california-independent-contractor-laws" className="text-primary-lavender hover:underline font-semibold">Hiring in California? The IRS test isn&apos;t enough. Use our 2026 California AB5 (ABC &amp; Borello) Compliance Tool to calculate your risk under SB 988.</Link>
+  </div>
 
       {/* ── Hero ── */}
       <section className="max-w-4xl mx-auto pt-14 pb-6 px-6 text-center">

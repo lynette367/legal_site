@@ -241,6 +241,34 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════════════
+          3.5 Independent Contractor Laws by State — entry point only
+          Deliberately NOT a full spotlight grid like section 4: only 2 states
+          exist right now (Washington verified, Oregon coming-soon), so this
+          stays a single compact card rather than implying a mature cluster.
+      ═══════════════════════════════════════════════════════════════════════ */}
+      <section className="max-w-6xl mx-auto px-6">
+        <Link
+          href="/independent-contractor-laws"
+          className="group flex flex-col sm:flex-row items-center justify-between gap-6 bg-indigo-50 border border-indigo-200 rounded-3xl px-8 py-8 hover:border-indigo-400 hover:shadow-md transition-all"
+        >
+          <div className="text-center sm:text-left">
+            <span className="text-[11px] font-extrabold uppercase tracking-wider text-indigo-600 bg-indigo-100 px-3 py-1 rounded-full">
+              Beyond California
+            </span>
+            <h2 className="text-2xl md:text-3xl font-black text-indigo-950 mt-3 tracking-tight">
+              Independent Contractor Laws by State
+            </h2>
+            <p className="text-sm text-indigo-900/70 mt-2 max-w-lg">
+              Free 1099 vs. W-2 classification and non-compete risk checks for Washington — with more states on the way.
+            </p>
+          </div>
+          <span className="shrink-0 inline-flex items-center gap-2 bg-indigo-600 text-white font-bold text-sm px-6 py-3 rounded-xl group-hover:bg-indigo-700 transition-colors whitespace-nowrap">
+            Check Your State →
+          </span>
+        </Link>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════════
           4. SB 988 Legal Guide Hub  ← NEW SECTION
           Purpose: pass PageRank from homepage to /freelance-contract cluster
           Google treats homepage links as highest-trust internal signals

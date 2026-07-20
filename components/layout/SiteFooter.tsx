@@ -14,6 +14,7 @@ export function SiteFooter() {
           <Link href="/tools/sb988-contract-generator" className="hover:text-primary-lavender transition-colors">Contract Generator</Link>
           <Link href="/tools/sb988-late-payment-calculator" className="hover:text-primary-lavender transition-colors">Penalty Calculator</Link>
           <Link href="/tools/irs-20-point-checklist-for-independent-contractors" className="hover:text-primary-lavender transition-colors">Worker Classification Quiz</Link>
+          <Link href="/independent-contractor-laws" className="hover:text-primary-lavender transition-colors">Contractor Laws by State</Link>
           <Link href="/guides" className="hover:text-primary-lavender transition-colors">All Guides</Link>
           <Link href="/pricing" className="hover:text-primary-lavender transition-colors">Pricing</Link>
         </div>
