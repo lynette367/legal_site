@@ -1,16 +1,17 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import ContractorAuditTool from '../../../components/tools/ContractorAuditTool';
+import MisclassificationCostCalculator from '../../../components/tools/MisclassificationCostCalculator';
 
 export const metadata: Metadata = {
   title: 'California Independent Contractor Law: ABC & Borello Test Guide',
   description:
-    'Audit your 1099 compliance instantly with our free California Independent Contractor Law tool. Test against AB5 ABC test, Borello test, and SB 988 rules for 2026.',
+    'Audit your 1099 compliance instantly with our free California Independent Contractor Law tool. Test against AB5 ABC test, Borello test, and SB 988 rules for 2026 — plus a 1099 vs. W-2 true cost calculator that shows misclassification penalty exposure.',
   alternates: { canonical: 'https://www.pancothink.com/tools/california-independent-contractor-laws' },
   openGraph: {
     title: 'California Independent Contractor Law: ABC & Borello Test Guide',
     description:
-      'Free 2-minute audit tool for AB5, the ABC Test, the Borello Test, and SB 988 payment compliance in California.',
+      'Free 2-minute audit tool for AB5, the ABC Test, the Borello Test, and SB 988 payment compliance in California — plus a 1099 vs. W-2 cost calculator.',
     url: 'https://www.pancothink.com/tools/california-independent-contractor-laws',
     type: 'website',
   },
@@ -47,8 +48,12 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
       <>
         The penalties are severe. Civil penalties range from $5,000 to $25,000 per violation for
         willful misclassification, plus retroactive payments for unpaid overtime, meal breaks, and
-        severe back taxes to the Employment Development Department (EDD). If your audit result
-        above flagged high risk, run the{' '}
+        severe back taxes to the Employment Development Department (EDD). See what that looks like
+        in dollars for your specific case with the{' '}
+        <Link href="#cost-calculator" className="text-primary-lavender hover:underline font-semibold">
+          1099 vs. W-2 true cost calculator
+        </Link>{' '}
+        above. If your audit result above flagged high risk, run the{' '}
         <Link
           href="/tools/irs-20-point-checklist-for-independent-contractors"
           className="text-primary-lavender hover:underline font-semibold"
@@ -131,6 +136,24 @@ export default function IndependentContractorLawPage() {
       {/* ── Audit tool ── */}
       <section className="max-w-4xl mx-auto px-6 mb-16">
         <ContractorAuditTool />
+      </section>
+
+      {/* ── Cost comparison: 1099 vs W-2 true cost + misclassification exposure ── */}
+      <section id="cost-calculator" className="max-w-4xl mx-auto px-6 mb-16">
+        <div className="mb-6">
+          <span className="text-xs font-bold uppercase tracking-widest text-primary-lavender bg-primary-lavender/10 px-3 py-1 rounded-full">
+            Now run the numbers
+          </span>
+          <h2 className="text-2xl font-black text-text-primary mt-3 tracking-tight">
+            What Does This Worker Actually Cost You in California?
+          </h2>
+          <p className="text-base text-text-primary/60 mt-2 max-w-2xl leading-relaxed">
+            A 1099 hire looks cheaper on paper. This calculator shows the real gap between 1099
+            and W-2 costs under 2026 California rates — and what that gap can turn into if the
+            audit above flagged high risk.
+          </p>
+        </div>
+        <MisclassificationCostCalculator />
       </section>
 
       {/* ── Cross-links: IRS check + Demand Letter Generator ── */}

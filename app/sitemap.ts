@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { professions } from "@/data/professions";
 import { allSeoSlugs } from "@/data/seoPages";
-import { allComplianceSlugs, stateOnlySlugPages } from "@/data/stateComplianceData";
+import { allComplianceSlugs } from "@/data/stateComplianceData";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Vercel's actual env var key is NEXT_PUBLIC_APP_URL (confirmed in dashboard).
@@ -20,9 +20,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/tools/sb988-late-payment-calculator", freq: "weekly", pri: 0.9 },
     { path: "/tools/sb988-contract-generator", freq: "weekly", pri: 0.9 },
     { path: "/tools/freelancer-contract-review", freq: "weekly", pri: 0.9 },
-    { path: "/tools/irs-20-point-checklist-for-independent-contractors", freq: "weekly", pri: 0.85 },
+    // Was missing entirely — confirmed via GSC "Page indexing" that Google had
+    // never discovered this URL (not in indexed OR not-indexed reports).
+    // It already has real query impressions (irs 20 point / classification
+    // rule 2026) and now carries the new 1099 vs W-2 cost calculator too.
+    { path: "/tools/california-independent-contractor-laws", freq: "weekly", pri: 0.9 },
     { path: "/pricing", freq: "weekly", pri: 0.8 },
-    { path: "/tools/california-independent-contractor-laws", freq: "weekly", pri: 0.85 },
   ] as const;
 
   // ── Original guide routes (unchanged) ────────────────────────────────────
@@ -32,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     pri: 0.8,
   }));
 
-  // ── Programmatic SEO hub + slug pages (SB 988 / California) ──────────────
+  // ── NEW: Programmatic SEO hub + slug pages ────────────────────────────────
   const seoHubRoute = {
     path: "/freelance-contract",
     freq: "weekly" as const,
@@ -47,31 +50,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
     pri: i < SEED_COUNT ? 0.75 : 0.6,
   }));
 
-  // ── NEW: Independent contractor law cluster (state × industry) ───────────
-  // Gated: only enters the sitemap once at least one state is published in
-  // stateComplianceData.ts. Prevents Google from indexing a near-empty hub
-  // page while content is still being verified.
-  const stateOnlySlugs = new Set(stateOnlySlugPages().map((p) => p.slug));
+  // ── Multi-state worker classification cluster ────────────────────────────
+  // Was missing entirely (no import from stateComplianceData.ts at all) —
+  // this is the other confirmed non-discovery gap: Washington/Oregon pages
+  // already have internal links but were never in the sitemap.
+  const complianceHubRoute = {
+    path: "/independent-contractor-laws",
+    freq: "weekly" as const,
+    pri: 0.8,
+  };
 
-  const complianceRoutes =
-    allComplianceSlugs.length > 0
-      ? [
-          { path: "/independent-contractor-laws", freq: "weekly" as const, pri: 0.75 },
-          ...allComplianceSlugs.map((slug) => ({
-            path: `/independent-contractor-laws/${slug}`,
-            freq: "monthly" as const,
-            // state-level overview pages outrank state×industry long-tail pages
-            pri: stateOnlySlugs.has(slug) ? 0.7 : 0.55,
-          })),
-        ]
-      : [];
+  const complianceSlugRoutes = allComplianceSlugs.map((slug) => ({
+    path: `/independent-contractor-laws/${slug}`,
+    freq: "monthly" as const,
+    pri: 0.7,
+  }));
 
   const allRoutes = [
     ...staticRoutes,
     ...guideRoutes,
     seoHubRoute,
     ...seoSlugRoutes,
-    ...complianceRoutes,
+    complianceHubRoute,
+    ...complianceSlugRoutes,
   ];
 
   return allRoutes.map(({ path, freq, pri }) => ({
