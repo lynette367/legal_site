@@ -1,4 +1,4 @@
-// app/tools/sb988-late-payment-calculator/page.tsx
+// app/tools/late-payment-calculator/page.tsx
 import Link from 'next/link';
 import SB988PenaltyCalculator from '@/components/tools/SB988PenaltyCalculator'; //
 
@@ -6,7 +6,7 @@ export const metadata = {
   title: 'California SB 988 Late Payment & Double Damages Calculator (2026)', //
   description: 'Calculate your statutory 2x double damages and attorney fees under the California Freelance Worker Protection Act (SB 988). Free compliance enforcement tool.', //[cite: 7]
   alternates: {
-    canonical: 'https://www.pancothink.com/tools/sb988-late-payment-calculator', //[cite: 7]
+    canonical: 'https://indielegalterms.com/tools/late-payment-calculator', //[cite: 7]
   },
 };
 
@@ -58,7 +58,7 @@ export default function SB988LatePaymentCalculatorPage({ searchParams }: PagePro
             {mode === 'business' && (
               <p className="text-xs leading-relaxed text-slate-500">
                 If you&apos;re the hiring business running this number, it&apos;s worth confirming the underlying relationship is even a valid 1099 engagement in the first place — a misclassified worker carries exposure well beyond a single late invoice. Run our free{' '}
-                <Link href="/tools/irs-20-point-checklist-for-independent-contractors" className="text-slate-900 font-semibold underline hover:no-underline">
+                <Link href="/tools/irs-20-point-checklist" className="text-slate-900 font-semibold underline hover:no-underline">
                   IRS 20-Point Worker Classification Auditor
                 </Link>{' '}
                 to check.
@@ -83,7 +83,7 @@ export default function SB988LatePaymentCalculatorPage({ searchParams }: PagePro
             {/* 指向新静态页面的高亮内链 */}
             <div className="mt-4 pt-2 border-t border-slate-700/60">
               <Link
-                href="/guides/sb988-small-claims-guide"
+                href="/guides/ca-contractor-small-claims"
                 className="inline-flex items-center text-xs font-bold text-red-400 hover:text-red-300 transition group"
               >
                 Get Small Claims Roadmap
@@ -96,7 +96,7 @@ export default function SB988LatePaymentCalculatorPage({ searchParams }: PagePro
 
         {/* 底部版权与合规免责 */}
         <div className="mt-8 text-center text-[10px] text-slate-400">
-          PancoLegal Calculator Engine v2.1.0 • Updated for {currentYear} Courthouse Compliance. <br />
+          IndieLegal Calculator Engine v2.1.0 • Updated for {currentYear} Courthouse Compliance. <br />
           Disclaimer: Calculations are estimates for informational purposes and do not constitute formal legal counsel.
         </div>
 

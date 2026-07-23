@@ -3,7 +3,7 @@ import { UserCenterPanel } from "../../components/common/UserCenterPanel";
 import { PageHero } from "../../components/ui/PageHero";
 
 export const metadata: Metadata = {
-  title: "Dashboard | Panco Legal Assistant",
+  title: "Dashboard | Indie Legal Assistant",
   description: "Review remaining credits, recharge options, and safety notices. Calls require paid credits.",
 };
 

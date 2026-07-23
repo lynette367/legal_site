@@ -1,5 +1,5 @@
 "use client";
-// app/tools/irs-20-point-checklist-for-independent-contractors/IRS20PointAuditor.tsx
+// app/tools/irs-20-point-checklist/IRS20PointAuditor.tsx
 // Free, credit-free lead-gen quiz. Pure client state — no API calls, no backend route.
 // Converts at the result screen into the SB 988 contract generator funnel.
 
@@ -561,13 +561,13 @@ export default function IRS20PointAuditor() {
         </p>
         <div className="flex flex-col sm:flex-row gap-3">
           <Link
-            href="/tools/sb988-contract-generator"
+            href="/contracts/generator"
             className="inline-flex items-center justify-center gap-2 bg-primary-lavender hover:bg-primary-lavender-dark text-white font-bold text-sm px-6 py-3 rounded-xl transition-all whitespace-nowrap"
           >
             Generate a Compliant 1099 Contract →
           </Link>
           <Link
-            href="/freelance-contract/california-freelance-worker-protection-act-checklist-employers"
+            href="/contracts/california-freelance-worker-protection-act-checklist-employers"
             className="inline-flex items-center justify-center border border-gray-300 hover:border-primary-lavender text-text-primary/70 hover:text-text-lavender font-semibold text-sm px-5 py-3 rounded-xl transition-all whitespace-nowrap"
           >
             Full Employer Compliance Checklist

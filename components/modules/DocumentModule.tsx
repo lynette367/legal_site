@@ -109,7 +109,7 @@ export function DocumentModule() {
               onChange={(event) => setVerified(event.target.checked)}
               disabled={isProcessing}
             />
-            I agree to deduct 3 credits to have Panco AI generate a {docType} draft.
+            I agree to deduct 3 credits to have Indie AI generate a {docType} draft.
           </label>
           <button
             onClick={handleGenerate}

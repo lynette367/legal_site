@@ -1,4 +1,4 @@
-// app/freelance-contract/[slug]/page.tsx
+// app/contracts/[slug]/page.tsx
 // "Scenario Engine" layout — pain empathy → interactive tool → conversion
 
 import { notFound } from "next/navigation";
@@ -26,12 +26,12 @@ export async function generateMetadata({
     title: page.metaTitle,
     description: page.metaDesc,
     alternates: {
-      canonical: `https://www.pancothink.com/freelance-contract/${page.slug}`,
+      canonical: `https://indielegalterms.com/contracts/${page.slug}`,
     },
     openGraph: {
       title: page.metaTitle,
       description: page.metaDesc,
-      url: `https://www.pancothink.com/freelance-contract/${page.slug}`,
+      url: `https://indielegalterms.com/contracts/${page.slug}`,
       type: "website",
     },
   };
@@ -65,21 +65,21 @@ const SCENARIO_COPY: Record<
     sub: "Paste your invoice or describe the situation. Our AI generates a formal California demand letter citing the 30-day rule and double-damage remedy — ready to send in minutes.",
     placeholder: "Describe your unpaid invoice situation…",
     ctaLabel: "Generate My Demand Letter →",
-    toolLink: "/tools/sb988-demand-letter-generator",
+    toolLink: "/tools/demand-letter-generator",
   },
   industry: {
     headline: "Get Your SB 988-Compliant Contract in 60 Seconds",
     sub: "Tell us about your project — scope, rate, timeline. Our AI generates a California-compliant contract with all mandatory clauses pre-filled.",
     placeholder: "Describe your project details…",
     ctaLabel: "Generate My Contract →",
-    toolLink: "/tools/sb988-contract-generator",
+    toolLink: "/contracts/generator",
   },
   faq: {
     headline: "Ask Your SB 988 Legal Question",
     sub: "Type your situation or question in plain English. Our AI gives you a clear legal analysis based on California SB 988 case law.",
     placeholder: "Ask your legal question…",
     ctaLabel: "Get Legal Analysis →",
-    toolLink: "/tools/sb988-contract-generator",
+    toolLink: "/contracts/generator",
   },
 };
 
@@ -159,7 +159,7 @@ export default function SeoLandingPage({
             <nav className="flex items-center gap-2 text-xs text-gray-400 mb-6 flex-wrap">
               <Link href="/" className="hover:text-primary-lavender transition-colors">Home</Link>
               <span>›</span>
-              <Link href="/freelance-contract" className="hover:text-primary-lavender transition-colors">
+              <Link href="/contracts" className="hover:text-primary-lavender transition-colors">
                 CA Legal Guides
               </Link>
               <span>›</span>
@@ -344,7 +344,7 @@ export default function SeoLandingPage({
                   </p>
                 </div>
                 <Link
-                  href="/tools/sb988-late-payment-calculator"
+                  href="/tools/late-payment-calculator"
                   className="shrink-0 inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold text-sm px-6 py-3.5 rounded-xl transition-all whitespace-nowrap"
                 >
                   Calculate My Double Damages →
@@ -370,7 +370,7 @@ export default function SeoLandingPage({
                 </p>
               </div>
               <Link
-                href="/tools/sb988-contract-generator"
+                href="/contracts/generator"
                 className="shrink-0 inline-flex items-center gap-2 bg-primary-lavender hover:bg-primary-lavender-dark text-white font-bold text-sm px-6 py-3 rounded-xl transition-all"
               >
                 Generate Full Version →
@@ -398,7 +398,7 @@ export default function SeoLandingPage({
                   </span>
                 </div>
                 <Link
-                  href="/tools/sb988-contract-generator"
+                  href="/contracts/generator"
                   className="inline-flex items-center gap-1.5 bg-primary-lavender hover:bg-primary-lavender-dark text-white font-bold text-xs px-4 py-2.5 rounded-lg transition-all"
                 >
                   Generate Complete Contract →
@@ -500,7 +500,7 @@ export default function SeoLandingPage({
                   </h2>
                 </div>
                 <Link
-                  href="/freelance-contract"
+                  href="/contracts"
                   className="text-sm font-bold text-primary-lavender hover:underline shrink-0"
                 >
                   All guides →
@@ -512,7 +512,7 @@ export default function SeoLandingPage({
                   return (
                     <Link
                       key={r.slug}
-                      href={`/freelance-contract/${r.slug}`}
+                      href={`/contracts/${r.slug}`}
                       className="group bg-white border border-gray-200 rounded-xl p-5 hover:border-primary-lavender hover:shadow-soft hover:-translate-y-0.5 transition-all flex flex-col gap-3"
                     >
                       <span
@@ -546,19 +546,19 @@ export default function SeoLandingPage({
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
               <Link
-                href="/tools/sb988-contract-generator"
+                href="/contracts/generator"
                 className="inline-flex items-center gap-2 bg-primary-lavender hover:bg-primary-lavender-dark text-white font-bold px-8 py-4 rounded-xl shadow-lg transition-all hover:-translate-y-0.5"
               >
                 {page.primaryCta} →
               </Link>
               <Link
-                href="/tools/sb988-demand-letter-generator"
+                href="/tools/demand-letter-generator"
                 className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-8 py-4 rounded-xl transition-all"
               >
                 ✉️ Generate Demand Letter
               </Link>
               <Link
-                href="/tools/sb988-late-payment-calculator"
+                href="/tools/late-payment-calculator"
                 className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-8 py-4 rounded-xl transition-all"
               >
                 Calculate Late Payment Damages

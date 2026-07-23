@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   
   if (!currentProfession) return {};
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.pancothink.com";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://indielegalterms.com";
   const pageUrl = `${siteUrl}/guides/${params.slug}`;
   const title = currentProfession.seoTitle || `Free CA SB 988 Contract Template for ${currentProfession.name}`;
   const description = currentProfession.seoDesc || `Get a California SB 988 compliant contract template tailored for ${currentProfession.name}. Protect your rights with mandatory 30-day payment & 2x penalty clauses.`;
@@ -122,7 +122,7 @@ export default function GuidePage({ params }: Props) {
             <div className="mt-4">
               <Link 
                 className="inline-block bg-blue-600 text-white px-5 py-2.5 rounded font-medium text-sm hover:bg-blue-700 transition" 
-                href={`/tools/sb988-contract-generator?role=${currentProfession.slug}`}
+                href={`/contracts/generator?role=${currentProfession.slug}`}
               >
                 Customize via Smart AI Generator (DeepSeek Powered) →
               </Link>
@@ -149,7 +149,7 @@ export default function GuidePage({ params }: Props) {
               Don&apos;t let clients violate your SB 988 rights. If your overdue invoice is $250 or more, use our specialized California Freelance Late Payment Calculator to generate a formal statutory demand letter.
             </p>
             <Link 
-              href="/tools/sb988-late-payment-calculator"
+              href="/tools/late-payment-calculator"
               className="inline-block bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-xs font-bold transition shadow-sm"
             >
               Demand 2x Double Damages Now →

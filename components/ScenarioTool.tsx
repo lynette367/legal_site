@@ -1,5 +1,5 @@
 "use client";
-// app/freelance-contract/[slug]/ScenarioTool.tsx
+// app/contracts/[slug]/ScenarioTool.tsx
 // Interactive AI scenario tool — the conversion engine of every slug page.
 // Calls the Anthropic API directly from the browser (no server route needed).
 
@@ -46,7 +46,7 @@ const SEVERITY_STYLE = {
 
 // ── System prompts per pipe type ──────────────────────────────────────────────
 function buildSystemPrompt(pipeType: SeoPage["painPipeType"]): string {
-  const base = `You are PancoLegal, a California SB 988 (Freelance Worker Protection Act) legal analysis AI.
+  const base = `You are IndieLegal, a California SB 988 (Freelance Worker Protection Act) legal analysis AI.
 Analyze the user's situation and respond ONLY with a valid JSON object — no markdown, no explanation outside the JSON.
 
 Required JSON structure:
@@ -62,7 +62,7 @@ Required JSON structure:
   ],
   "damageAmount": "string or null — only if calculable from the text (e.g. '$6,400 in double damages')",
   "nextStep": "The single most important action the user should take right now (1 sentence)",
-  "toolLink": "/tools/sb988-contract-generator" | "/tools/sb988-late-payment-calculator" | "/tools/freelancer-contract-review",
+  "toolLink": "/contracts/generator" | "/tools/late-payment-calculator" | "/tools/freelancer-contract-review",
   "toolLabel": "Short CTA for the tool button (max 6 words)",
   "urgency": "low" | "medium" | "high"
 }
@@ -159,7 +159,7 @@ export default function ScenarioTool({ pipeType, placeholder, ctaLabel }: Props)
         <div className="flex items-center gap-3 px-5 py-4 border-b border-gray-100 bg-gray-50">
           <span className="text-lg">🤖</span>
           <div>
-            <p className="text-sm font-bold text-text-primary leading-none">PancoLegal AI</p>
+            <p className="text-sm font-bold text-text-primary leading-none">IndieLegal AI</p>
             <p className="text-xs text-gray-400 mt-0.5">California SB 988 Specialist</p>
           </div>
           <span className="ml-auto flex items-center gap-1.5 text-xs text-emerald-600 font-medium">

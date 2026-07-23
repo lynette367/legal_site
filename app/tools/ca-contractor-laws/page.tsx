@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   title: 'California Independent Contractor Law: ABC & Borello Test Guide',
   description:
     'Audit your 1099 compliance instantly with our free California Independent Contractor Law tool. Test against AB5 ABC test, Borello test, and SB 988 rules for 2026 — plus a 1099 vs. W-2 true cost calculator that shows misclassification penalty exposure.',
-  alternates: { canonical: 'https://www.pancothink.com/tools/california-independent-contractor-laws' },
+  alternates: { canonical: 'https://indielegalterms.com/tools/ca-contractor-laws' },
   openGraph: {
     title: 'California Independent Contractor Law: ABC & Borello Test Guide',
     description:
       'Free 2-minute audit tool for AB5, the ABC Test, the Borello Test, and SB 988 payment compliance in California — plus a 1099 vs. W-2 cost calculator.',
-    url: 'https://www.pancothink.com/tools/california-independent-contractor-laws',
+    url: 'https://indielegalterms.com/tools/ca-contractor-laws',
     type: 'website',
   },
 };
@@ -29,7 +29,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
         stricter ABC test. Meeting IRS standards does not mean you are compliant with California
         AB5. If you want to check the federal side too, run our{' '}
         <Link
-          href="/tools/irs-20-point-checklist-for-independent-contractors"
+          href="/tools/irs-20-point-checklist"
           className="text-primary-lavender hover:underline font-semibold"
         >
           free IRS 20-point classification check
@@ -55,14 +55,14 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
         </Link>{' '}
         above. If your audit result above flagged high risk, run the{' '}
         <Link
-          href="/tools/irs-20-point-checklist-for-independent-contractors"
+          href="/tools/irs-20-point-checklist"
           className="text-primary-lavender hover:underline font-semibold"
         >
           IRS 20-point checklist
         </Link>{' '}
         next, then{' '}
         <Link
-          href="/tools/sb988-contract-generator#generator-form"
+          href="/contracts/generator#generator-form"
           className="text-primary-lavender hover:underline font-semibold"
         >
           generate a compliant written contract
@@ -170,7 +170,7 @@ export default function IndependentContractorLawPage() {
               </p>
             </div>
             <Link
-              href="/tools/irs-20-point-checklist-for-independent-contractors"
+              href="/tools/irs-20-point-checklist"
               className="shrink-0 inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm px-5 py-3 rounded-xl transition-all whitespace-nowrap w-fit"
             >
               🧭 Run Free IRS Classification Check →
@@ -188,7 +188,7 @@ export default function IndependentContractorLawPage() {
               </p>
             </div>
             <Link
-              href="/tools/sb988-demand-letter-generator"
+              href="/tools/demand-letter-generator"
               className="shrink-0 inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold text-sm px-5 py-3 rounded-xl transition-all whitespace-nowrap w-fit"
             >
               ✉️ Write Demand Letter →
@@ -289,7 +289,7 @@ export default function IndependentContractorLawPage() {
             The audit tool above automatically factors these SB 988 checklist criteria into your
             result. If it flagged missing contract terms, generate a{' '}
             <Link
-              href="/tools/sb988-contract-generator"
+              href="/contracts/generator"
               className="text-primary-lavender hover:underline font-semibold"
             >
               compliant contract now
@@ -343,7 +343,7 @@ export default function IndependentContractorLawPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <Link
-            href="/tools/sb988-contract-generator"
+            href="/contracts/generator"
             className="bg-white border border-gray-200 rounded-xl p-5 hover:border-primary-lavender hover:shadow-soft transition-all"
           >
             <p className="font-bold text-text-primary text-sm mb-1">Contract Generator</p>
@@ -352,7 +352,7 @@ export default function IndependentContractorLawPage() {
             </p>
           </Link>
           <Link
-            href="/tools/sb988-demand-letter-generator"
+            href="/tools/demand-letter-generator"
             className="bg-white border border-gray-200 rounded-xl p-5 hover:border-primary-lavender hover:shadow-soft transition-all"
           >
             <p className="font-bold text-text-primary text-sm mb-1">Demand Letter Generator</p>
@@ -361,7 +361,7 @@ export default function IndependentContractorLawPage() {
             </p>
           </Link>
           <Link
-            href="/tools/sb988-late-payment-calculator"
+            href="/tools/late-payment-calculator"
             className="bg-white border border-gray-200 rounded-xl p-5 hover:border-primary-lavender hover:shadow-soft transition-all"
           >
             <p className="font-bold text-text-primary text-sm mb-1">Penalty Calculator</p>
@@ -378,7 +378,7 @@ export default function IndependentContractorLawPage() {
             Hiring outside California? Check rules for other states.
           </p>
           <Link
-            href="/independent-contractor-laws"
+            href="/compliance"
             className="shrink-0 inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm px-5 py-3 rounded-xl transition-all whitespace-nowrap"
           >
             Independent Contractor Laws by State →

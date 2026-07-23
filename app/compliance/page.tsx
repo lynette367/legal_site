@@ -1,13 +1,13 @@
-// app/independent-contractor-laws/page.tsx
+// app/compliance/page.tsx
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { complianceSlugPages } from '@/data/stateComplianceData';
 
 export const metadata: Metadata = {
-  title: 'Independent Contractor Laws by State | PancoLegal',
+  title: 'Independent Contractor Laws by State | IndieLegal',
   description:
     'Free 1099 vs W-2 worker classification compliance tools by state and industry. Check non-compete rules, misclassification risk, and audit exposure.',
-  alternates: { canonical: 'https://www.pancothink.com/independent-contractor-laws' },
+  alternates: { canonical: 'https://indielegalterms.com/compliance' },
 };
 
 export default function ComplianceHubPage() {
@@ -28,7 +28,7 @@ export default function ComplianceHubPage() {
             Hiring in California? Use our dedicated ABC/Borello Test tool instead.
           </p>
           <Link
-            href="/tools/california-independent-contractor-laws"
+            href="/tools/ca-contractor-laws"
             className="shrink-0 inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm px-5 py-3 rounded-xl transition-all whitespace-nowrap"
           >
             California Compliance Tool →
@@ -41,7 +41,7 @@ export default function ComplianceHubPage() {
           {complianceSlugPages.map(({ slug, state, industry, kind }) => (
             <Link
               key={slug}
-              href={`/independent-contractor-laws/${slug}`}
+              href={`/compliance/${slug}`}
               className="bg-white border border-gray-200 rounded-xl px-5 py-4 hover:border-primary-lavender hover:shadow-soft transition-all"
             >
               <p className="font-bold text-text-primary text-sm">

@@ -7,13 +7,13 @@ export const metadata: Metadata = {
   description: "Instantly detect risky clauses in freelancer and independent contractor agreements. Protect your rights as a freelancer or client in California.",
   keywords: "freelancer contract review, independent contractor agreement, California AB5, contract risk detection, freelance legal protection",
   alternates: {
-    canonical: 'https://www.pancothink.com/tools/freelancer-contract-review',
+    canonical: 'https://indielegalterms.com/tools/freelancer-contract-review',
   },
   openGraph: {
     title: "Freelancer Contract Review | California Independent Contractor Tool",
     description: "Instantly detect risky clauses in freelancer and independent contractor agreements.",
-    url: 'https://www.pancothink.com/tools/freelancer-contract-review',
-    siteName: 'Panco',
+    url: 'https://indielegalterms.com/tools/freelancer-contract-review',
+    siteName: 'Indie',
     images: [{ url: '/og-image.png', width: 1200, height: 630 }],
     locale: 'en_US',
     type: 'website',
@@ -41,7 +41,7 @@ export default function FreelancerContractReviewPage() {
             </p>
           </div>
           <Link
-            href="/tools/irs-20-point-checklist-for-independent-contractors"
+            href="/tools/irs-20-point-checklist"
             className="shrink-0 inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm px-6 py-3 rounded-xl transition-all whitespace-nowrap"
           >
             🧭 Run Free IRS Classification Check →

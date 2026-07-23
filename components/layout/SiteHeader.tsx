@@ -7,9 +7,9 @@ import { useSession, signOut } from "next-auth/react";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/tools/sb988-contract-generator", label: "CA Contract Generator" },
-  { href: "/tools/sb988-late-payment-calculator", label: "Late Fee Calculator" },
-  { href: "/tools/sb988-demand-letter-generator", label: "Demand Letter Generator" },
+  { href: "/contracts/generator", label: "CA Contract Generator" },
+  { href: "/tools/late-payment-calculator", label: "Late Fee Calculator" },
+  { href: "/tools/demand-letter-generator", label: "Demand Letter Generator" },
   { href: "/pricing", label: "Pricing" },
 ];
 
@@ -34,7 +34,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border-lavender/70 bg-bg-main/80 backdrop-blur-lg">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link href="/" className="flex flex-col leading-tight">
-          <span className="text-xl font-bold text-text-lavender uppercase tracking-tight">Panco</span>
+          <span className="text-xl font-bold text-text-lavender uppercase tracking-tight">Indie</span>
           <span className="text-[10px] font-bold text-text-lavender/60 uppercase tracking-[0.2em]">CA FREELANCER CONTRACT AI</span>
         </Link>
         <nav className="hidden items-center gap-2 lg:flex">

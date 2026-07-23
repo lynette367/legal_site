@@ -91,21 +91,21 @@ export const authOptions: NextAuthOptions = {
           const result = await transport.sendMail({
             to: identifier,
             from: from,
-            subject: "Sign in to Panco Legal Assistant",
-            text: `Click the link below to sign in to Panco Legal Assistant:\n\n${url}\n\nIf you did not request this email, you can ignore it.`,
+            subject: "Sign in to Indie Legal Assistant",
+            text: `Click the link below to sign in to Indie Legal Assistant:\n\n${url}\n\nIf you did not request this email, you can ignore it.`,
             html: `
             <!DOCTYPE html>
             <html>
             <head>
               <meta charset="utf-8">
               <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <title>Sign in to Panco Legal Assistant</title>
+              <title>Sign in to Indie Legal Assistant</title>
             </head>
             <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f5f5f5;">
               <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
                 <tr>
                   <td style="padding: 40px 30px; text-align: center; background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);">
-                    <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 700;">Panco Legal Assistant</h1>
+                    <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 700;">Indie Legal Assistant</h1>
                   </td>
                 </tr>
                 <tr>
@@ -137,7 +137,7 @@ export const authOptions: NextAuthOptions = {
                       If you did not request this email, you can safely ignore it.
                     </p>
                     <p style="color: #9ca3af; margin: 10px 0 0; font-size: 12px;">
-                      © ${new Date().getFullYear()} Panco Legal Assistant
+                      © ${new Date().getFullYear()} Indie Legal Assistant
                     </p>
                   </td>
                 </tr>

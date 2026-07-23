@@ -1,4 +1,4 @@
-// app/freelance-contract/page.tsx  — Hub index page
+// app/contracts/page.tsx  — Hub index page
 // Scenario-driven navigation: users pick their situation, not a keyword
 
 import type { Metadata } from "next";
@@ -6,10 +6,10 @@ import Link from "next/link";
 import { allSeoPages, type SeoPage } from "@/data/seoPages";
 
 export const metadata: Metadata = {
-  title: "California Freelance Contract Hub | SB 988 Legal Tools | PancoLegal",
+  title: "California Freelance Contract Hub | SB 988 Legal Tools | IndieLegal",
   description:
     "Find the right California SB 988 legal guide for your situation — contract templates, late payment rights, demand letters, and employer compliance tools. 100+ guides.",
-  alternates: { canonical: "https://www.pancothink.com/freelance-contract" },
+  alternates: { canonical: "https://indielegalterms.com/contracts" },
 };
 
 // ── Scenario cards shown at top — high-intent entry points ──────────────────
@@ -18,7 +18,7 @@ const SCENARIOS = [
     emoji: "😤",
     title: "Client won't pay my invoice",
     sub: "Calculate your double damages and generate a formal demand letter.",
-    href: "/freelance-contract/client-refuses-to-pay-freelance-invoice-california",
+    href: "/contracts/client-refuses-to-pay-freelance-invoice-california",
     badge: "Freelancer",
     badgeBg: "bg-blue-50",
     badgeText: "text-blue-700",
@@ -28,7 +28,7 @@ const SCENARIOS = [
     emoji: "📝",
     title: "I need a California-compliant contract",
     sub: "Generate an SB 988 contract for your specific industry in 60 seconds.",
-    href: "/freelance-contract/california-tech-contractor-agreement-template",
+    href: "/contracts/california-tech-contractor-agreement-template",
     badge: "Industry",
     badgeBg: "bg-emerald-50",
     badgeText: "text-emerald-700",
@@ -38,7 +38,7 @@ const SCENARIOS = [
     emoji: "🏢",
     title: "I hire freelancers and need to stay compliant",
     sub: "Understand SB 988 obligations and avoid double-damage liability.",
-    href: "/freelance-contract/california-freelance-contract-requirements-2026",
+    href: "/contracts/california-freelance-contract-requirements-2026",
     badge: "Employer",
     badgeBg: "bg-orange-50",
     badgeText: "text-orange-700",
@@ -48,7 +48,7 @@ const SCENARIOS = [
     emoji: "❓",
     title: "I have a legal question about SB 988",
     sub: "Get plain-English answers to common California freelance law questions.",
-    href: "/freelance-contract/is-email-valid-contract-freelance-work-california",
+    href: "/contracts/is-email-valid-contract-freelance-work-california",
     badge: "Legal FAQ",
     badgeBg: "bg-purple-50",
     badgeText: "text-purple-700",
@@ -191,14 +191,14 @@ export default function FreelanceContractHub() {
                 icon: "📋",
                 title: "SB 988 Contract Generator",
                 sub: "Generate a California-compliant freelance contract in 60 seconds.",
-                href: "/tools/sb988-contract-generator",
+                href: "/contracts/generator",
                 cta: "Generate Contract",
               },
               {
                 icon: "💰",
                 title: "Late Payment Calculator",
                 sub: "Enter your invoice amount and days overdue — see your double damages.",
-                href: "/tools/sb988-late-payment-calculator",
+                href: "/tools/late-payment-calculator",
                 cta: "Calculate Damages",
               },
               {
@@ -255,7 +255,7 @@ export default function FreelanceContractHub() {
               {featured.map((page) => (
                 <Link
                   key={page.slug}
-                  href={`/freelance-contract/${page.slug}`}
+                  href={`/contracts/${page.slug}`}
                   className={`group bg-white border rounded-xl p-5 hover:border-primary-lavender hover:shadow-soft hover:-translate-y-0.5 transition-all flex flex-col gap-2 ${section.border}`}
                 >
                   <span className={`self-start text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${section.badgeBg} ${section.badgeText}`}>
@@ -281,7 +281,7 @@ export default function FreelanceContractHub() {
                   {rest.map((page) => (
                     <li key={page.slug}>
                       <Link
-                        href={`/freelance-contract/${page.slug}`}
+                        href={`/contracts/${page.slug}`}
                         className="text-sm text-gray-600 hover:text-primary-lavender transition-colors flex items-start gap-1.5 leading-snug"
                       >
                         <span className="text-gray-300 shrink-0 mt-0.5">›</span>
@@ -308,7 +308,7 @@ export default function FreelanceContractHub() {
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link
-              href="/tools/sb988-contract-generator"
+              href="/contracts/generator"
               className="inline-flex items-center gap-2 bg-primary-lavender hover:bg-primary-lavender-dark text-white font-bold px-8 py-4 rounded-xl shadow-lg transition-all hover:-translate-y-0.5"
             >
               Generate My Contract →

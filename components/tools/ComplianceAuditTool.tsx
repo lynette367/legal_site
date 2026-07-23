@@ -194,13 +194,13 @@ export default function ComplianceAuditTool({ state, industry }: Props) {
 
           <div className="mt-6 flex flex-col sm:flex-row gap-3">
             <Link
-              href="/tools/sb988-contract-generator"
+              href="/contracts/generator"
               className="flex-1 text-center rounded-xl bg-primary-lavender text-white font-bold px-5 py-3 shadow-soft transition-colors hover:bg-primary-lavender-dark text-sm"
             >
               Generate a Compliant Contract
             </Link>
             <Link
-              href="/tools/irs-20-point-checklist-for-independent-contractors"
+              href="/tools/irs-20-point-checklist"
               className="flex-1 text-center rounded-xl border border-primary-lavender/30 text-primary-lavender font-bold px-5 py-3 transition-colors hover:bg-primary-lavender/5 text-sm"
             >
               Run the Federal IRS Check

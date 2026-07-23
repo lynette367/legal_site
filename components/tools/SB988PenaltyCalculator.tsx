@@ -193,7 +193,7 @@ const SB988PenaltyCalculator: React.FC<PenaltyCalculatorProps> = ({ mode = 'free
             ) : (
               <>
                 <div className="mt-6">
-                  <Link href="/guides/sb988-small-claims-guide" className="inline-block w-full px-6 py-4 bg-red-600 text-white font-bold rounded-md text-center hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                  <Link href="/guides/ca-contractor-small-claims" className="inline-block w-full px-6 py-4 bg-red-600 text-white font-bold rounded-md text-center hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
                     🚨 What is your next legal step? Click here to view your 3-Step Small Claims Court Action Roadmap →
                   </Link>
                 </div>
@@ -204,7 +204,7 @@ const SB988PenaltyCalculator: React.FC<PenaltyCalculatorProps> = ({ mode = 'free
                     Use our SB 988 Contract Generator to create legally compliant contracts that include clear payment terms and penalty clauses.
                   </p>
                   <Link
-                    href="/tools/sb988-contract-generator"
+                    href="/contracts/generator"
                     className="inline-block px-6 py-3 bg-primary-lavender text-white font-medium rounded-md hover:bg-primary-lavender/90 focus:outline-none focus:ring-2 focus:ring-primary-lavender focus:ring-offset-2"
                   >
                     Create a Contract
@@ -218,7 +218,7 @@ const SB988PenaltyCalculator: React.FC<PenaltyCalculatorProps> = ({ mode = 'free
         {/* Brand Association */}
         <div className="pt-4 border-t border-gray-100 text-center">
           <p className="text-xs font-bold text-text-primary/40 uppercase tracking-widest">
-            Powered by PancoLegal - The only AI focused on CA Freelance Law.
+            Powered by IndieLegal - The only AI focused on CA Freelance Law.
           </p>
         </div>
       </form>

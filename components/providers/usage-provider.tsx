@@ -31,7 +31,7 @@ export function UsageProvider({ children }: { children: React.ReactNode }) {
 
   const consumeCredit = useCallback(() => {
     if (!isLoggedIn) {
-      return { success: false, message: "Please sign in to use Panco Legal Assistant." };
+      return { success: false, message: "Please sign in to use Indie Legal Assistant." };
     }
     if (credits <= 0) {
       return { success: false, message: "No credits available. Please purchase more on the pricing page." };

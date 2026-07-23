@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Generate a formal California SB 988 payment demand letter in minutes. Cite the 30-day payment rule and double damages, and get a ready-to-send letter for $4.99.",
   alternates: {
-    canonical: "https://www.pancothink.com/tools/sb988-demand-letter-generator",
+    canonical: "https://indielegalterms.com/tools/demand-letter-generator",
   },
 };
 
@@ -42,7 +42,7 @@ export default function DemandLetterGeneratorPage() {
             </p>
           </div>
           <Link
-            href="/tools/sb988-contract-generator"
+            href="/contracts/generator"
             className="shrink-0 inline-flex items-center gap-2 bg-primary-lavender hover:bg-primary-lavender-dark text-white font-bold text-sm px-6 py-3 rounded-xl transition-all whitespace-nowrap"
           >
             📝 Generate Contract →

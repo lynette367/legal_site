@@ -11,20 +11,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL ||
     process.env.NEXT_PUBLIC_APP_URL ||
-    "https://www.pancothink.com";
+    "https://indielegalterms.com";
   const now = new Date().toISOString();
 
   // ── Original static routes (unchanged) ───────────────────────────────────
   const staticRoutes = [
     { path: "", freq: "daily", pri: 1.0 },
-    { path: "/tools/sb988-late-payment-calculator", freq: "weekly", pri: 0.9 },
-    { path: "/tools/sb988-contract-generator", freq: "weekly", pri: 0.9 },
+    { path: "/tools/late-payment-calculator", freq: "weekly", pri: 0.9 },
+    { path: "/contracts/generator", freq: "weekly", pri: 0.9 },
     { path: "/tools/freelancer-contract-review", freq: "weekly", pri: 0.9 },
     // Was missing entirely — confirmed via GSC "Page indexing" that Google had
     // never discovered this URL (not in indexed OR not-indexed reports).
     // It already has real query impressions (irs 20 point / classification
     // rule 2026) and now carries the new 1099 vs W-2 cost calculator too.
-    { path: "/tools/california-independent-contractor-laws", freq: "weekly", pri: 0.9 },
+    { path: "/tools/ca-contractor-laws", freq: "weekly", pri: 0.9 },
     { path: "/pricing", freq: "weekly", pri: 0.8 },
   ] as const;
 
@@ -37,7 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // ── NEW: Programmatic SEO hub + slug pages ────────────────────────────────
   const seoHubRoute = {
-    path: "/freelance-contract",
+    path: "/contracts",
     freq: "weekly" as const,
     pri: 0.85,
   };
@@ -45,7 +45,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // First 20 slugs = hand-crafted seeds → higher priority
   const SEED_COUNT = 20;
   const seoSlugRoutes = allSeoSlugs.map((slug, i) => ({
-    path: `/freelance-contract/${slug}`,
+    path: `/contracts/${slug}`,
     freq: "monthly" as const,
     pri: i < SEED_COUNT ? 0.75 : 0.6,
   }));
@@ -55,13 +55,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // this is the other confirmed non-discovery gap: Washington/Oregon pages
   // already have internal links but were never in the sitemap.
   const complianceHubRoute = {
-    path: "/independent-contractor-laws",
+    path: "/compliance",
     freq: "weekly" as const,
     pri: 0.8,
   };
 
   const complianceSlugRoutes = allComplianceSlugs.map((slug) => ({
-    path: `/independent-contractor-laws/${slug}`,
+    path: `/compliance/${slug}`,
     freq: "monthly" as const,
     pri: 0.7,
   }));

@@ -8,12 +8,12 @@ import { Suspense } from "react";
 export const metadata = {
   title: "CA Freelance Worker Protection Act Contract Generator", // 56 characters
   description: "Create compliant contracts under the California Freelance Worker Protection Act (SB 988). Free tools for contracts over $250 and late fee calculation.", // 154 characters
-  alternates: { canonical: "https://www.pancothink.com" },
+  alternates: { canonical: "https://indielegalterms.com" },
   openGraph: {
     title: "CA Freelance Worker Protection Act Contract Generator",
     description: "Create compliant contracts under the California Freelance Worker Protection Act (SB 988). Free tools for contracts over $250 and late fee calculation.",
-    url: "https://www.pancothink.com",
-    siteName: "PancoLegal",
+    url: "https://indielegalterms.com",
+    siteName: "IndieLegal",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
     locale: "en-US",
     type: "website",
@@ -153,7 +153,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
             <Link
-              href="/tools/sb988-contract-generator"
+              href="/contracts/generator"
               className="group bg-white p-6 rounded-2xl border border-gray-200 hover:border-primary-lavender hover:-translate-y-0.5 hover:shadow-md transition-all text-left"
             >
               <span className="text-2xl">📝</span>
@@ -165,7 +165,7 @@ export default function HomePage() {
             </Link>
 
             <Link
-              href="/tools/sb988-late-payment-calculator"
+              href="/tools/late-payment-calculator"
               className="group bg-white p-6 rounded-2xl border border-gray-200 hover:border-primary-lavender hover:-translate-y-0.5 hover:shadow-md transition-all text-left"
             >
               <span className="text-2xl">🧮</span>
@@ -177,7 +177,7 @@ export default function HomePage() {
             </Link>
 
             <Link
-              href="/tools/sb988-demand-letter-generator"
+              href="/tools/demand-letter-generator"
               className="group bg-white p-6 rounded-2xl border border-gray-200 hover:border-primary-lavender hover:-translate-y-0.5 hover:shadow-md transition-all text-left"
             >
               <span className="text-2xl">✉️</span>
@@ -201,7 +201,7 @@ export default function HomePage() {
             </Link>
 
             <Link
-              href="/tools/irs-20-point-checklist-for-independent-contractors"
+              href="/tools/irs-20-point-checklist"
               className="group bg-white p-6 rounded-2xl border border-gray-200 hover:border-primary-lavender hover:-translate-y-0.5 hover:shadow-md transition-all text-left"
             >
               <span className="text-2xl">🧭</span>
@@ -213,7 +213,7 @@ export default function HomePage() {
             </Link>
 
             <Link
-              href="/tools/california-independent-contractor-laws"
+              href="/tools/ca-contractor-laws"
               className="group bg-white p-6 rounded-2xl border border-gray-200 hover:border-primary-lavender hover:-translate-y-0.5 hover:shadow-md transition-all text-left"
             >
               <span className="text-2xl">⚖️</span>
@@ -225,7 +225,7 @@ export default function HomePage() {
             </Link>
 
             <Link
-              href="/guides/sb988-small-claims-guide"
+              href="/guides/ca-contractor-small-claims"
               className="group bg-white p-6 rounded-2xl border border-gray-200 hover:border-primary-lavender hover:-translate-y-0.5 hover:shadow-md transition-all text-left"
             >
               <span className="text-2xl">📚</span>
@@ -248,7 +248,7 @@ export default function HomePage() {
       ═══════════════════════════════════════════════════════════════════════ */}
       <section className="max-w-6xl mx-auto px-6">
         <Link
-          href="/independent-contractor-laws"
+          href="/compliance"
           className="group flex flex-col sm:flex-row items-center justify-between gap-6 bg-indigo-50 border border-indigo-200 rounded-3xl px-8 py-8 hover:border-indigo-400 hover:shadow-md transition-all"
         >
           <div className="text-center sm:text-left">
@@ -270,7 +270,7 @@ export default function HomePage() {
 
       {/* ═══════════════════════════════════════════════════════════════════════
           4. SB 988 Legal Guide Hub  ← NEW SECTION
-          Purpose: pass PageRank from homepage to /freelance-contract cluster
+          Purpose: pass PageRank from homepage to /contracts cluster
           Google treats homepage links as highest-trust internal signals
       ═══════════════════════════════════════════════════════════════════════ */}
       <section className="max-w-6xl mx-auto px-6">
@@ -289,7 +289,7 @@ export default function HomePage() {
           </div>
           {/* Hub link — the most SEO-critical anchor on this page */}
           <Link
-            href="/freelance-contract"
+            href="/contracts"
             className="shrink-0 inline-flex items-center gap-1.5 text-sm font-bold text-primary-lavender border border-primary-lavender/30 rounded-xl px-5 py-2.5 hover:bg-primary-lavender/5 transition-colors"
           >
             Browse all guides
@@ -306,7 +306,7 @@ export default function HomePage() {
             return (
               <Link
                 key={page.slug}
-                href={`/freelance-contract/${page.slug}`}
+                href={`/contracts/${page.slug}`}
                 className="group flex flex-col gap-3 bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-gray-300 hover:-translate-y-0.5 transition-all duration-200"
               >
                 {/* Pipe label */}
@@ -343,7 +343,7 @@ export default function HomePage() {
             {browseMore.map((page) => (
               <li key={page.slug}>
                 <Link
-                  href={`/freelance-contract/${page.slug}`}
+                  href={`/contracts/${page.slug}`}
                   className="text-sm text-gray-700 hover:text-primary-lavender font-medium transition-colors leading-snug flex items-start gap-1.5"
                 >
                   <span className="text-gray-300 mt-0.5 shrink-0">›</span>
@@ -354,7 +354,7 @@ export default function HomePage() {
           </ul>
           <div className="mt-5 pt-4 border-t border-gray-200">
             <Link
-              href="/freelance-contract"
+              href="/contracts"
               className="text-sm font-bold text-primary-lavender hover:underline"
             >
               View all 100+ guides for California freelancers →

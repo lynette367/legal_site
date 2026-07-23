@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Verification Email Sent | Panco Legal Assistant",
+  title: "Verification Email Sent | Indie Legal Assistant",
   description: "Check your inbox to complete sign-in.",
 };
 

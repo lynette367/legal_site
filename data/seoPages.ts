@@ -1,6 +1,6 @@
 // data/seoPages.ts
 // Programmatic SEO pages for California freelance contract keywords
-// URL pattern: /freelance-contract/[slug]
+// URL pattern: /contracts/[slug]
 
 export interface CaseStudy {
     title: string;
@@ -44,7 +44,7 @@ const pipe1Seeds: SeoPage[] = [
     {
         slug: "california-freelance-contract-requirements-2026",
         h1: "California Freelance Contract Requirements 2026",
-        metaTitle: "California Freelance Contract Requirements 2026 | PancoLegal",
+        metaTitle: "California Freelance Contract Requirements 2026 | IndieLegal",
         metaDesc: "Stay compliant with California SB 988 in 2026. Understand mandatory written contract rules, the $250 threshold, and 30-day payment deadlines for 1099 contractors.",
         industry: "web-developers",
         painPipeType: "employer",
@@ -104,7 +104,7 @@ const pipe1Seeds: SeoPage[] = [
     {
         slug: "california-freelance-worker-protection-act-checklist-employers",
         h1: "California Freelance Worker Protection Act: Employer Compliance Checklist",
-        metaTitle: "CA SB 988 Employer Compliance Checklist | PancoLegal",
+        metaTitle: "CA SB 988 Employer Compliance Checklist | IndieLegal",
         metaDesc: "Free downloadable checklist for California employers. Ensure your freelance contracts meet every SB 988 requirement and avoid double-damage liability.",
         industry: "photographers",
         painPipeType: "employer",
@@ -125,7 +125,7 @@ const pipe2Seeds: SeoPage[] = [
     {
         slug: "california-tech-contractor-agreement-template",
         h1: "California Tech Contractor Agreement Template (SB 988 Compliant)",
-        metaTitle: "CA Tech Contractor Agreement Template | SB 988 | PancoLegal",
+        metaTitle: "CA Tech Contractor Agreement Template | SB 988 | IndieLegal",
         metaDesc: "Free California-compliant software contractor agreement template. Covers IP ownership, code handoff terms, and SB 988 double-damage payment protections.",
         industry: "web-developers",
         painPipeType: "industry",
@@ -145,7 +145,7 @@ const pipe2Seeds: SeoPage[] = [
     {
         slug: "freelance-copywriter-contract-template-california",
         h1: "Freelance Copywriter Contract Template (California SB 988 Compliant)",
-        metaTitle: "CA Freelance Copywriter Contract | SB 988 Compliance | PancoLegal",
+        metaTitle: "CA Freelance Copywriter Contract | SB 988 Compliance | IndieLegal",
         metaDesc: "Protect your copy with a California SB 988 compliant writing agreement. Suspend commercial usage rights for unpaid clients. Generate your contract in 60 seconds.",
         industry: "copywriters",
         painPipeType: "industry",
@@ -155,7 +155,7 @@ const pipe2Seeds: SeoPage[] = [
     {
         slug: "la-video-editor-freelance-contract-template",
         h1: "LA Video Editor Freelance Contract Template (California)",
-        metaTitle: "Los Angeles Video Editor Freelance Contract | SB 988 | PancoLegal",
+        metaTitle: "Los Angeles Video Editor Freelance Contract | SB 988 | IndieLegal",
         metaDesc: "Contract template for LA video editors and post-production freelancers. SB 988 compliant with RAW file ownership clauses and double-damage payment terms.",
         industry: "photographers",
         painPipeType: "industry",
@@ -165,7 +165,7 @@ const pipe2Seeds: SeoPage[] = [
     {
         slug: "bay-area-consulting-agreement-independent-contractor",
         h1: "Bay Area Independent Consulting Agreement (California SB 988)",
-        metaTitle: "Bay Area Consulting Agreement | CA SB 988 Compliant | PancoLegal",
+        metaTitle: "Bay Area Consulting Agreement | CA SB 988 Compliant | IndieLegal",
         metaDesc: "High-value consulting agreement for Bay Area independent contractors. California SB 988 mandates written contracts — protect your retainer and delivery fees.",
         industry: "web-developers",
         painPipeType: "industry",
@@ -287,7 +287,7 @@ const pipe4Seeds: SeoPage[] = [
             },
             takeaway:
                 "A signed contract — even a one-page email confirmation — would have prevented this dispute entirely. Always document scope, rate, and payment date in writing before starting work.",
-            toolLink: "/tools/sb988-contract-generator",
+            toolLink: "/contracts/generator",
             toolLabel: "Generate a Written Contract",
         },
     },
@@ -326,7 +326,7 @@ const pipe4Seeds: SeoPage[] = [
             },
             takeaway:
                 "Always add a specific payment date to your contract — 'Net 30 from invoice date' removes all ambiguity. If payment is already overdue, send a formal demand letter immediately; it often triggers same-week settlement.",
-            toolLink: "/tools/sb988-late-payment-calculator",
+            toolLink: "/tools/late-payment-calculator",
             toolLabel: "Calculate My Double Damages",
         },
     },
@@ -365,7 +365,7 @@ const pipe4Seeds: SeoPage[] = [
             },
             takeaway:
                 "If you work with the same client repeatedly, track your 120-day cumulative total. Once it hits $250, SB 988 applies retroactively to all those engagements. Get a written contract before you start — not after you've been underpaid.",
-            toolLink: "/tools/sb988-contract-generator",
+            toolLink: "/contracts/generator",
             toolLabel: "Generate a Compliant Contract",
         },
     },
@@ -404,7 +404,7 @@ const pipe4Seeds: SeoPage[] = [
             },
             takeaway:
                 "You have the legal right to stop work if a client hasn't paid. Document the pause in writing, reference the SB 988 30-day rule, and state the exact overdue amount. Any client threat after that is an additional violation — and makes your DLSE complaint stronger.",
-            toolLink: "/tools/sb988-late-payment-calculator",
+            toolLink: "/tools/late-payment-calculator",
             toolLabel: "Calculate My Overdue Damages",
         },
     },
@@ -443,7 +443,7 @@ const pipe4Seeds: SeoPage[] = [
             },
             takeaway:
                 "If you use email as your contract, make sure it explicitly states your name, the client's name, full service description, exact dollar amount, and a specific payment date. Missing any one of these makes it non-compliant and leaves you exposed.",
-            toolLink: "/tools/sb988-contract-generator",
+            toolLink: "/contracts/generator",
             toolLabel: "Generate a Compliant Contract",
         },
     },
@@ -625,7 +625,7 @@ export const formulaPages: SeoPage[] = formulaCombinations.map(({ industry, pain
     return {
         slug,
         h1: `${industryLabel} ${title} — ${locationLabel}`,
-        metaTitle: `${industryLabel} ${title} | ${locationLabel} | PancoLegal`,
+        metaTitle: `${industryLabel} ${title} | ${locationLabel} | IndieLegal`,
         metaDesc: `${industryLabel}s in ${locationLabel}: ${subtitle} SB 988 compliant tools built for California freelancers.`,
         industry: professionSlug,
         painPipeType: (["contract-template", "late-payment-protection"].includes(painpoint) ? "industry" : "freelancer") as SeoPage["painPipeType"],

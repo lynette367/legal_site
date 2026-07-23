@@ -9,18 +9,19 @@ import { GoogleAnalytics } from "../components/layout/GoogleAnalytics";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.pancothink.com"),
+  metadataBase: new URL('https://indielegalterms.com'),
   title: {
-    default: "Free AI Compliance Tools for Small Business & Emerging Tech | Panco",
-    template: "%s | Panco",
+    default: "Indie Legal | Contract for Service Generator & Freelancer Compliance Tools",
+    template: "%s | Indie Legal",
   },
-  description: "Instant AI legal & compliance tools for California small businesses. Get AI-generated content copyright filings, ESG checklists, freelancer contract reviews, custom AI use policies, metaverse IP trademark support, and CCPA data breach letters in minutes. No legal background needed.",
+  description: "Generate California SB 988 compliant contracts for service in minutes. Calculate freelancer true costs, audit agreement liability, and protect your hiring team from gig economy penalties.",
   openGraph: {
-    title: "Free AI Compliance Tools for Small Business & Emerging Tech | Panco",
-    description: "Instant AI legal & compliance tools for California small businesses. Get AI-generated content copyright filings, ESG checklists, freelancer contract reviews, custom AI use policies, metaverse IP trademark support, and CCPA data breach letters in minutes. No legal background needed.",
-    url: "https://www.pancothink.com",
-    siteName: "Panco",
+    title: "Indie Legal | Contract for Service Generator & Freelancer Compliance Tools",
+    description: "Generate California SB 988 compliant contracts for service in minutes. Calculate freelancer true costs, audit agreement liability, and protect your hiring team from gig economy penalties.",
+    url: "https://indielegalterms.com",
+    siteName: "Indie Legal",
     locale: "en_US",
+    type: "website",
   },
 };
 

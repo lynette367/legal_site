@@ -1,4 +1,4 @@
-# Panco 法律助手 - AI 法律 SaaS 平台
+# Indie 法律助手 - AI 法律 SaaS 平台
 
 > 一个完整的企业级 AI 法律助手平台，集成用户认证、支付、积分和 AI 服务
 
@@ -103,7 +103,7 @@ npm run dev
 ## 📁 项目结构
 
 ```
-panco.com/
+Indie.com/
 ├── app/                        # Next.js App Router 路由与页面
 │   ├── api/                    # API 路由 (auth, credits, paypal, ai 等)
 │   ├── dashboard/              # 用户控制中心
@@ -278,7 +278,7 @@ open http://localhost:3000
 
 ---
 
-**项目名称:** Panco 法律助手  
+**项目名称:** Indie 法律助手  
 **版本:** 1.0.0  
 **完成日期:** 2025-11-28  
 **技术栈:** Next.js + NextAuth + Prisma + PayPal + DeepSeek

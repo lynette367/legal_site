@@ -17,21 +17,21 @@ const SCENARIO_LINKS: ScenarioLink[] = [
     id: 'freelancer_a',
     path: 'freelancer',
     text: "Client hasn't paid my invoice for over 30 days.",
-    href: "/tools/sb988-late-payment-calculator?scenario=invoice-overdue-30",
+    href: "/tools/late-payment-calculator?scenario=invoice-overdue-30",
     badge: "Calculator"
   },
   {
     id: 'freelancer_b',
     path: 'freelancer',
     text: "Client wants to start work but refuses to sign a written contract.",
-    href: "/tools/sb988-contract-generator?scenario=refuses-written-contract",
+    href: "/contracts/generator?scenario=refuses-written-contract",
     badge: "Generator"
   },
   {
     id: 'freelancer_c',
     path: 'freelancer',
     text: "The project is over $250, am I fully protected by CA law?",
-    href: "/guides/sb988-small-claims-guide?scenario=fully-protected-250",
+    href: "/guides/ca-contractor-small-claims?scenario=fully-protected-250",
     badge: "Litigation Guide"
   },
   // Business Path
@@ -39,14 +39,14 @@ const SCENARIO_LINKS: ScenarioLink[] = [
     id: 'business_a',
     path: 'business',
     text: "I want to hire an independent contractor in CA safely.",
-    href: "/tools/sb988-contract-generator?scenario=hire-contractor-safely&mode=business",
+    href: "/contracts/generator?scenario=hire-contractor-safely&mode=business",
     badge: "Generator"
   },
   {
     id: 'business_b',
     path: 'business',
     text: "How to avoid the $250 threshold compliance trap?",
-    href: "/tools/sb988-late-payment-calculator?scenario=avoid-250-trap&mode=business",
+    href: "/tools/late-payment-calculator?scenario=avoid-250-trap&mode=business",
     badge: "Simulator"
   }
 ];

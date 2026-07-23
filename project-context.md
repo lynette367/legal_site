@@ -1,11 +1,11 @@
-# Panco.com Project Context (AI Helper Guide)
+# Indie.com Project Context (AI Helper Guide)
 
 > **For Web AI Assistants**: Read this file to instantly understand the workspace structure, integrations, schemas, and design constraints of this project.
 
 ---
 
 ## 1. Project Goal & Architecture
-Panco.com is a specialized AI-powered Legal SaaS platform tailored for California independent contractors and freelancers to protect themselves under the **California Freelance Worker Protection Act (SB 988)**.
+Indie.com is a specialized AI-powered Legal SaaS platform tailored for California independent contractors and freelancers to protect themselves under the **California Freelance Worker Protection Act (SB 988)**.
 - **Tech Stack**: Next.js 14 (App Router), NextAuth (v4 via custom prisma adapter), Prisma (ORM), Supabase (Postgres Database on Production), TailwindCSS, PayPal API, Nodemailer (SMTP Verification).
 - **Core Strategy**: Programmatic SEO. Uses local TS files containing metadata arrays to pre-render 125+ pages during build.
 
@@ -13,7 +13,7 @@ Panco.com is a specialized AI-powered Legal SaaS platform tailored for Californi
 
 ## 2. Directory Structure & Key Files
 ```
-panco.com/
+Indie.com/
 ├── app/                        # Next.js App Router Routes & Pages
 │   ├── api/                    # Backend API endpoints
 │   │   ├── ai/contract/        # AI contract generation endpoint (DeepSeek)
@@ -68,9 +68,9 @@ The database uses standard NextAuth models along with transaction-specific ones:
 ## 4. Key Logic & Rules
 
 ### Domain & Redirect Rules
-- **Canonical Domain**: Always include `www` (e.g. `https://www.pancothink.com/`).
-- **CDN Redirect**: Vercel is configured to handle `pancothink.com` -> `www.pancothink.com` redirect at the CDN edge level using a `308 Permanent Redirect`.
-- **next.config.js Redirect**: Legacy paths (e.g. `/tools/california-freelance-legal-templates` -> `/freelance-contract`) are mapped programmatically in `next.config.js` to prevent 404s.
+- **Canonical Domain**: Always include `www` (e.g. `https://indielegalterms.com/`).
+- **CDN Redirect**: Vercel is configured to handle `indielegalterms.com` -> `indielegalterms.com` redirect at the CDN edge level using a `308 Permanent Redirect`.
+- **next.config.js Redirect**: Legacy paths (e.g. `/tools/california-freelance-legal-templates` -> `/contracts`) are mapped programmatically in `next.config.js` to prevent 404s.
 
 ### Authentication & Credits Flow
 - **Authentication**: Done passwordlessly via SMTP email verification.
@@ -81,8 +81,8 @@ The database uses standard NextAuth models along with transaction-specific ones:
 
 ## 5. Deployment & Vercel Env Vars
 The deployment relies on the following key environment variables:
-- `NEXT_PUBLIC_SITE_URL` - Set to `https://www.pancothink.com` on Vercel.
-- `NEXTAUTH_URL` - Set to `https://www.pancothink.com` in production, and `http://localhost:3000` in local dev.
+- `NEXT_PUBLIC_SITE_URL` - Set to `https://indielegalterms.com` on Vercel.
+- `NEXTAUTH_URL` - Set to `https://indielegalterms.com` in production, and `http://localhost:3000` in local dev.
 - `DATABASE_URL` - Connection string to PostgreSQL (Supabase pooler).
 - `DEEPSEEK_API_KEY` - Token for AI generation client.
 - `EMAIL_SERVER` - SMTP URI string for sending magic links.

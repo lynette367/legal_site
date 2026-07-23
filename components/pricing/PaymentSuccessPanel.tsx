@@ -62,7 +62,7 @@ export function PaymentSuccessPanel({ contracts = 1 }: PaymentSuccessPanelProps)
           Go to Dashboard
         </Link>
         <Link
-          href="/tools/sb988-contract-generator"
+          href="/contracts/generator"
           className="w-full rounded-full bg-primary-lavender px-6 py-3 text-center text-sm font-semibold text-white hover:bg-primary-lavender-dark"
         >
           Generate Contract Now

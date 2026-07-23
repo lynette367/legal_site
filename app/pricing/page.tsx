@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { PricingContent } from "../../components/pricing/PricingContent";
 
 export const metadata: Metadata = {
-  title: "Pricing | Panco Legal Assistant",
+  title: "Pricing | Indie Legal Assistant",
   description: "No free quota. Pay per use or via credit bundles; successful payments automatically add calls.",
 };
 

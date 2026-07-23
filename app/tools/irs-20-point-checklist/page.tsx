@@ -4,17 +4,17 @@ import Link from "next/link";
 import IRS20PointAuditor from "./IRS20PointAuditor";
 
 export const metadata: Metadata = {
-  title: "Free IRS 20-Point Worker Classification Auditor (1099 vs W-2) | PancoLegal",
+  title: "Free IRS 20-Point Worker Classification Auditor (1099 vs W-2) | IndieLegal",
   description:
     "Self-check your 1099 independent contractor relationship against the IRS's behavioral control, financial control, and relationship factors in 3 minutes. Free, instant risk score — no account required.",
   alternates: {
-    canonical: "https://www.pancothink.com/tools/irs-20-point-checklist-for-independent-contractors",
+    canonical: "https://indielegalterms.com/tools/irs-20-point-checklist",
   },
   openGraph: {
     title: "Free IRS 20-Point Worker Classification Auditor (1099 vs W-2)",
     description:
       "Self-check your 1099 independent contractor relationship against IRS common-law rules in 3 minutes. Free, instant risk score.",
-    url: "https://www.pancothink.com/tools/irs-20-point-checklist-for-independent-contractors",
+    url: "https://indielegalterms.com/tools/irs-20-point-checklist",
     type: "website",
   },
 };
@@ -40,11 +40,11 @@ const RISK_FACTS = [
 ];
 
 const EMPLOYER_LINKS = [
-  { href: "/freelance-contract/california-freelance-contract-requirements-2026", label: "California Freelance Contract Requirements 2026", tag: "Compliance" },
-  { href: "/freelance-contract/california-freelance-worker-protection-act-checklist-employers", label: "SB 988 Employer Compliance Checklist", tag: "Compliance" },
-  { href: "/freelance-contract/penalty-for-not-paying-independent-contractor-ca", label: "CA Contractor Late Payment Penalties", tag: "Risk" },
-  { href: "/freelance-contract/ca-1099-contractor-30-day-payment-rule", label: "CA 1099 Contractor 30-Day Payment Rule", tag: "Compliance" },
-  { href: "/freelance-contract/do-i-need-written-contract-california-freelancers", label: "Do I Need a Written Contract for CA Freelancers?", tag: "FAQ" },
+  { href: "/contracts/california-freelance-contract-requirements-2026", label: "California Freelance Contract Requirements 2026", tag: "Compliance" },
+  { href: "/contracts/california-freelance-worker-protection-act-checklist-employers", label: "SB 988 Employer Compliance Checklist", tag: "Compliance" },
+  { href: "/contracts/penalty-for-not-paying-independent-contractor-ca", label: "CA Contractor Late Payment Penalties", tag: "Risk" },
+  { href: "/contracts/ca-1099-contractor-30-day-payment-rule", label: "CA 1099 Contractor 30-Day Payment Rule", tag: "Compliance" },
+  { href: "/contracts/do-i-need-written-contract-california-freelancers", label: "Do I Need a Written Contract for CA Freelancers?", tag: "FAQ" },
 ];
 
 const FAQS: { q: string; a: ReactNode }[] = [
@@ -74,7 +74,7 @@ const FAQS: { q: string; a: ReactNode }[] = [
   },
   {
     q: "How can I protect my business from IRS 1099 auditing?",
-    a: "A self-test is only the first step. The ultimate protection is a legally sound contract that mirrors these 20 factors. You can use Pancothink’s AI Contract Generator to instantly create dynamic, fully-compliant 1099 agreements tailored to latest state laws, ensuring your business stays 100% audit-proof.",
+    a: "A self-test is only the first step. The ultimate protection is a legally sound contract that mirrors these 20 factors. You can use Indiethink’s AI Contract Generator to instantly create dynamic, fully-compliant 1099 agreements tailored to latest state laws, ensuring your business stays 100% audit-proof.",
   }
 ];
 
@@ -147,7 +147,7 @@ export default function IRS20PointChecklistPage() {
             Businesses that misclassify workers can face liability for unpaid employment taxes, penalties, and
             interest — and in California, a separate and generally stricter{" "}
             <Link
-              href="/tools/california-independent-contractor-laws"
+              href="/tools/ca-contractor-laws"
               className="text-primary-lavender hover:underline font-semibold"
             >
               &quot;ABC test&quot;
@@ -182,7 +182,7 @@ export default function IRS20PointChecklistPage() {
             </p>
           </div>
           <Link
-            href="/freelance-contract"
+            href="/contracts"
             className="shrink-0 inline-flex items-center gap-1.5 text-sm font-bold text-primary-lavender border border-primary-lavender/30 rounded-xl px-5 py-2.5 hover:bg-primary-lavender/5 transition-colors"
           >
             Browse all 100+ guides →
@@ -247,7 +247,7 @@ export default function IRS20PointChecklistPage() {
             Want state-specific rules instead of the federal baseline?
           </p>
           <Link
-            href="/independent-contractor-laws"
+            href="/compliance"
             className="shrink-0 inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm px-5 py-3 rounded-xl transition-all whitespace-nowrap"
           >
             Independent Contractor Laws by State →
@@ -271,7 +271,7 @@ export default function IRS20PointChecklistPage() {
               Retake the Assessment ↑
             </a>
             <Link
-              href="/tools/sb988-contract-generator"
+              href="/contracts/generator"
               className="inline-flex items-center justify-center gap-2 bg-white border border-primary-lavender/30 text-primary-lavender font-bold px-6 py-3 rounded-xl hover:bg-primary-lavender/5 transition-colors text-sm"
             >
               Generate a Compliant Contract →

@@ -12,7 +12,7 @@ export default function WaitlistButton() {
       onClick={() => {
         if (!session) {
           // 🚨 Critical: after successful login, redirect back to the guide page
-          signIn("email", { callbackUrl: "/guides/sb988-small-claims-guide" });
+          signIn("email", { callbackUrl: "/guides/ca-contractor-small-claims" });
         } else {
           // No modal needed
         }

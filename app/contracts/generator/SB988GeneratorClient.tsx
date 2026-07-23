@@ -474,7 +474,7 @@ Requirements: Generate a comprehensive SB 988 compliant contract for a freelance
             {version === 'free' && isGenerated && (
               <div className="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-md">
                 <p className="text-sm font-medium mb-2">Your contract is now CA SB 988 compliant. But what if your client still refuses to pay?</p>
-                <Link href="/guides/sb988-small-claims-guide" className="inline-block w-full px-6 py-4 bg-red-600 text-white font-bold rounded-md text-center hover:bg-red-700">
+                <Link href="/guides/ca-contractor-small-claims" className="inline-block w-full px-6 py-4 bg-red-600 text-white font-bold rounded-md text-center hover:bg-red-700">
                   🚨 What is your next legal step? Click here to view your 3‑Step Small Claims Court Action Roadmap →
                 </Link>
               </div>

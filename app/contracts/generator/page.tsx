@@ -4,15 +4,15 @@ import SB988GeneratorClient from './SB988GeneratorClient';
 import { Suspense } from 'react';
 
 export const metadata: Metadata = {
-  title: 'Free SB 988 Contract Generator for California Freelancers (2026) | PancoLegal',
+  title: 'Free SB 988 Contract Generator for California Freelancers (2026) | IndieLegal',
   description:
     'Generate a California SB 988 compliant freelance contract in 60 seconds. Mandatory for $250+ projects — covers itemized services, 30-day payment deadlines, and 2x late payment penalties. Free, no account required.',
-  alternates: { canonical: 'https://www.pancothink.com/tools/sb988-contract-generator' },
+  alternates: { canonical: 'https://indielegalterms.com/contracts/generator' },
   openGraph: {
     title: 'Free SB 988 Contract Generator for California Freelancers (2026)',
     description:
       'Generate a California SB 988 compliant freelance contract in 60 seconds. Mandatory for $250+ projects — covers itemized services, 30-day payment deadlines, and 2x late payment penalties.',
-    url: 'https://www.pancothink.com/tools/sb988-contract-generator',
+    url: 'https://indielegalterms.com/contracts/generator',
     type: 'website',
   },
 };
@@ -47,14 +47,14 @@ const SB988_CLAUSES = [
 ];
 
 const INDUSTRY_LINKS = [
-  { href: '/freelance-contract/california-tech-contractor-agreement-template', label: 'Tech Contractor Agreement (California)', tag: 'Industry' },
-  { href: '/freelance-contract/freelance-copywriter-contract-template-california', label: 'Freelance Copywriter Contract Template', tag: 'Industry' },
-  { href: '/freelance-contract/graphic-designer-freelance-contract-late-payment-ca', label: 'Graphic Designer Late Payment Protection', tag: 'Industry' },
-  { href: '/freelance-contract/la-video-editor-freelance-contract-template', label: 'LA Video Editor Contract Template', tag: 'Industry' },
-  { href: '/freelance-contract/client-refuses-to-pay-freelance-invoice-california', label: 'Client Refuses to Pay? Your SB 988 Rights', tag: 'Rights' },
-  { href: '/freelance-contract/penalty-for-not-paying-independent-contractor-ca', label: 'CA Contractor Late Payment Penalties', tag: 'Rights' },
-  { href: '/freelance-contract/california-freelance-contract-requirements-2026', label: 'California Freelance Contract Requirements 2026', tag: 'Compliance' },
-  { href: '/freelance-contract/how-long-does-client-have-to-pay-freelancer-california', label: 'How Long Does a Client Have to Pay?', tag: 'FAQ' },
+  { href: '/contracts/california-tech-contractor-agreement-template', label: 'Tech Contractor Agreement (California)', tag: 'Industry' },
+  { href: '/contracts/freelance-copywriter-contract-template-california', label: 'Freelance Copywriter Contract Template', tag: 'Industry' },
+  { href: '/contracts/graphic-designer-freelance-contract-late-payment-ca', label: 'Graphic Designer Late Payment Protection', tag: 'Industry' },
+  { href: '/contracts/la-video-editor-freelance-contract-template', label: 'LA Video Editor Contract Template', tag: 'Industry' },
+  { href: '/contracts/client-refuses-to-pay-freelance-invoice-california', label: 'Client Refuses to Pay? Your SB 988 Rights', tag: 'Rights' },
+  { href: '/contracts/penalty-for-not-paying-independent-contractor-ca', label: 'CA Contractor Late Payment Penalties', tag: 'Rights' },
+  { href: '/contracts/california-freelance-contract-requirements-2026', label: 'California Freelance Contract Requirements 2026', tag: 'Compliance' },
+  { href: '/contracts/how-long-does-client-have-to-pay-freelancer-california', label: 'How Long Does a Client Have to Pay?', tag: 'FAQ' },
 ];
 
 const FAQS = [
@@ -62,7 +62,7 @@ const FAQS = [
     q: 'What should I do if a long-time client ghosted me and won\'t pay the final invoice in California?',
     a: (
       <>
-        Even with a long-term client, you have legal rights under the California SB 988 (Freelance Worker Protection Act). If the project value is $250 or more over 12 months, the law requires payment within 30 days of completing the work. If they ghost you, you can take them to small claims court or file a complaint with the Labor Commissioner. To prevent this, never rely on past trust—always use our <Link href="/tools/sb988-contract-generator#generator-form" className="text-primary-lavender hover:underline font-semibold">Free SB 988 Contract Generator</Link> to legally lock in your payment terms before the next milestone.
+        Even with a long-term client, you have legal rights under the California SB 988 (Freelance Worker Protection Act). If the project value is $250 or more over 12 months, the law requires payment within 30 days of completing the work. If they ghost you, you can take them to small claims court or file a complaint with the Labor Commissioner. To prevent this, never rely on past trust—always use our <Link href="/contracts/generator#generator-form" className="text-primary-lavender hover:underline font-semibold">Free SB 988 Contract Generator</Link> to legally lock in your payment terms before the next milestone.
       </>
     ),
   },
@@ -70,7 +70,7 @@ const FAQS = [
     q: 'Is an email or verbal agreement legally binding for freelance work in California?',
     a: (
       <>
-        While an email agreement can technically form a basic contract, California&apos;s SB 988 mandates that any freelance work worth $250 or more MUST have a written contract signed by both parties. If your client refuses to sign a formal contract and relies only on email, they are violating California law. Protect yourself instantly by pasting your email terms into our <Link href="/tools/sb988-contract-generator#generator-form" className="text-primary-lavender hover:underline font-semibold">SB 988 Compliant Contract Builder</Link> to generate a legal, print-ready PDF agreement in under 2 minutes.
+        While an email agreement can technically form a basic contract, California&apos;s SB 988 mandates that any freelance work worth $250 or more MUST have a written contract signed by both parties. If your client refuses to sign a formal contract and relies only on email, they are violating California law. Protect yourself instantly by pasting your email terms into our <Link href="/contracts/generator#generator-form" className="text-primary-lavender hover:underline font-semibold">SB 988 Compliant Contract Builder</Link> to generate a legal, print-ready PDF agreement in under 2 minutes.
       </>
     ),
   },
@@ -78,7 +78,7 @@ const FAQS = [
     q: 'What is the legal standard for "Net 30" payment terms for California freelancers?',
     a: (
       <>
-        In the freelance industry, clients often abuse &quot;Net 30&quot; to drag out payments. However, under California&apos;s Freelance Worker Protection Act, if no specific date is defined, payment is strictly due no later than 30 days after the completion of services. If a client triggers a late payment beyond this limit, they risk severe statutory penalties. Use our <Link href="/tools/sb988-late-payment-calculator" className="text-primary-lavender hover:underline font-semibold">SB 988 Late Fee Calculator</Link> to see exactly how much double damages they might owe you for missing the deadline.
+        In the freelance industry, clients often abuse &quot;Net 30&quot; to drag out payments. However, under California&apos;s Freelance Worker Protection Act, if no specific date is defined, payment is strictly due no later than 30 days after the completion of services. If a client triggers a late payment beyond this limit, they risk severe statutory penalties. Use our <Link href="/tools/late-payment-calculator" className="text-primary-lavender hover:underline font-semibold">SB 988 Late Fee Calculator</Link> to see exactly how much double damages they might owe you for missing the deadline.
       </>
     ),
   },
@@ -90,7 +90,7 @@ const FAQS = [
     q: 'How do I legally protect my work with a "Kill Fee" if a California client cancels the project mid-way?',
     a: (
       <>
-        A &quot;Kill Fee&quot; (or cancellation fee) protects your booked time from being wasted. Under California&apos;s SB 988, your written contract must clearly itemize all services provided and how the rate is calculated. If a client cancels, they are legally obligated to pay for all work completed up to that date based on the contract terms. Our <Link href="/tools/sb988-contract-generator#generator-form" className="text-primary-lavender hover:underline font-semibold">Contract AI Tool</Link> includes a specialized, customisable cancellation clause that ensures you get paid for your sweat and time, even if the client pulls the plug early.
+        A &quot;Kill Fee&quot; (or cancellation fee) protects your booked time from being wasted. Under California&apos;s SB 988, your written contract must clearly itemize all services provided and how the rate is calculated. If a client cancels, they are legally obligated to pay for all work completed up to that date based on the contract terms. Our <Link href="/contracts/generator#generator-form" className="text-primary-lavender hover:underline font-semibold">Contract AI Tool</Link> includes a specialized, customisable cancellation clause that ensures you get paid for your sweat and time, even if the client pulls the plug early.
       </>
     ),
   },
@@ -103,7 +103,7 @@ export default function SB988ContractGeneratorPage() {
   return (
 <div className="min-h-screen bg-bg-main">
   <div className="max-w-4xl mx-auto mt-4 mb-2 px-6 text-center">
-    <Link href="/tools/california-independent-contractor-laws" className="text-primary-lavender hover:underline font-semibold">Hiring in California? The IRS test isn&apos;t enough. Use our 2026 California AB5 (ABC &amp; Borello) Compliance Tool to calculate your risk under SB 988.</Link>
+    <Link href="/tools/ca-contractor-laws" className="text-primary-lavender hover:underline font-semibold">Hiring in California? The IRS test isn&apos;t enough. Use our 2026 California AB5 (ABC &amp; Borello) Compliance Tool to calculate your risk under SB 988.</Link>
   </div>
 
       {/* ── Hero ── */}
@@ -164,7 +164,7 @@ export default function SB988ContractGeneratorPage() {
               </p>
             </div>
             <Link
-              href="/tools/irs-20-point-checklist-for-independent-contractors"
+              href="/tools/irs-20-point-checklist"
               className="shrink-0 inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm px-5 py-3 rounded-xl transition-all whitespace-nowrap w-fit"
             >
               🧭 Run Free IRS Classification Check →
@@ -179,7 +179,7 @@ export default function SB988ContractGeneratorPage() {
               </p>
             </div>
             <Link
-              href="/tools/sb988-demand-letter-generator"
+              href="/tools/demand-letter-generator"
               className="shrink-0 inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold text-sm px-5 py-3 rounded-xl transition-all whitespace-nowrap w-fit"
             >
               ✉️ Write Demand Letter →
@@ -285,7 +285,7 @@ export default function SB988ContractGeneratorPage() {
             </p>
           </div>
           <Link
-            href="/freelance-contract"
+            href="/contracts"
             className="shrink-0 inline-flex items-center gap-1.5 text-sm font-bold text-primary-lavender border border-primary-lavender/30 rounded-xl px-5 py-2.5 hover:bg-primary-lavender/5 transition-colors"
           >
             Browse all 100+ guides →
@@ -363,7 +363,7 @@ export default function SB988ContractGeneratorPage() {
               Generate My Contract ↑
             </a>
             <Link
-              href="/tools/sb988-late-payment-calculator"
+              href="/tools/late-payment-calculator"
               className="inline-flex items-center justify-center gap-2 bg-white border border-primary-lavender/30 text-primary-lavender font-bold px-6 py-3 rounded-xl hover:bg-primary-lavender/5 transition-colors text-sm"
             >
               Calculate Late Penalties →

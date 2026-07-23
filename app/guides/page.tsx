@@ -6,7 +6,7 @@ export const metadata = {
   title: "California SB 988 Legal Guides & Verified Contract Templates (2026)",
   description: "Access industry-specific contract templates and small claims enforcement guides compliant with California's Freelance Worker Protection Act (SB 988).",
   alternates: {
-    canonical: 'https://www.pancothink.com/guides',
+    canonical: 'https://indielegalterms.com/guides',
   },
 };
 
@@ -21,7 +21,7 @@ export default function GuidesPage() {
     url: `/guides/${p.slug}`,
     description: p.seoDesc || `Download CA SB 988 compliant agreements for ${p.name.toLowerCase()}. Protect your $250+ projects with mandatory payment deadlines.`,
     isPinned: false,
-    displayUrl: `www.pancothink.com › guides › ${p.slug}`
+    displayUrl: `indielegalterms.com › guides › ${p.slug}`
   }));
 
   // 4. 置顶的重磅静态维权指南
@@ -29,10 +29,10 @@ export default function GuidesPage() {
     {
       title: "🚨 California Small Claims Court: The Ultimate SB 988 Sue & Enforcement Guide",
       slug: "sb988-small-claims-guide",
-      url: "/guides/sb988-small-claims-guide", // 精准命中接下来要建的静态文件夹
+      url: "/guides/ca-contractor-small-claims", // 精准命中接下来要建的静态文件夹
       description: "Did a client ghost your invoice? Learn how to file Form SC-100, trigger statutory 2x double damages penalties, and win your case in California small claims without an attorney.",
       isPinned: true,
-      displayUrl: "www.pancothink.com › guides › sb988-small-claims-guide"
+      displayUrl: "indielegalterms.com › guides › sb988-small-claims-guide"
     },
   ];
 
@@ -93,13 +93,13 @@ export default function GuidesPage() {
           </p>
           <div className="flex justify-center gap-3">
             <Link
-              href="/tools/sb988-contract-generator"
+              href="/contracts/generator"
               className="bg-gray-950 hover:bg-gray-800 text-white text-xs font-bold px-4 py-2 rounded transition"
             >
               Contract Generator
             </Link>
             <Link
-              href="/tools/sb988-late-payment-calculator"
+              href="/tools/late-payment-calculator"
               className="border border-gray-300 hover:bg-gray-100 text-gray-700 text-xs font-bold px-4 py-2 rounded transition"
             >
               Late Penalty Scanner

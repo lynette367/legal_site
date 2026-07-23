@@ -1,13 +1,13 @@
 // data/stateComplianceData.ts
 //
-// Single source of truth for the /independent-contractor-laws/[state]/[industry]
+// Single source of truth for the /compliance/[state]/[industry]
 // content cluster — WORKER CLASSIFICATION (1099 vs W-2 / ABC / economic realities /
 // non-compete) content, distinct from seoPages.ts (California-only SB 988
 // payment/contract content) and distinct from professions.ts (creative freelance
 // professions used for SB 988 templates).
 //
 // California is intentionally excluded here — it already lives at
-// /tools/california-independent-contractor-laws. Do not add a "california"
+// /tools/ca-contractor-laws. Do not add a "california"
 // entry to stateConfigs; link to the existing page instead.
 
 export interface LocalFaq {
@@ -187,7 +187,7 @@ export const industryBySlug = new Map(industryConfigs.map((i) => [i.slug, i]));
 
 // ─── Flat slug generation ───────────────────────────────────────────────────
 // Mirrors the proven pattern in data/seoPages.ts: one flat array, one slug
-// field, one page.tsx, one sitemap loop. Route: /independent-contractor-laws/[slug]
+// field, one page.tsx, one sitemap loop. Route: /compliance/[slug]
 //
 // State-only page:      washington-independent-contractor-laws
 // State+industry page:  washington-caregiver-independent-contractor-laws
@@ -207,7 +207,7 @@ export interface ComplianceSlugPage {
 export const complianceSlugPages: ComplianceSlugPage[] = [
   // state-only pages (hub-ish, rank for "[state] independent contractor law")
   // Parent path already says "independent-contractor-laws" — don't repeat it
-  // in the slug itself, keeps URLs short: /independent-contractor-laws/washington
+  // in the slug itself, keeps URLs short: /compliance/washington
   ...liveStates().map((state) => ({
     slug: state.slug,
     kind: "state" as const,
@@ -215,7 +215,7 @@ export const complianceSlugPages: ComplianceSlugPage[] = [
   })),
   // state x industry cross pages (long-tail) — only for verified states;
   // industry-specific claims need a verified state test to hang off of.
-  // e.g. /independent-contractor-laws/washington-caregiver
+  // e.g. /compliance/washington-caregiver
   ...verifiedStates().flatMap((state) =>
     publishedIndustries().map((industry) => ({
       slug: `${state.slug}-${industry.slug}`,

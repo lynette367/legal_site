@@ -63,8 +63,8 @@ function computeResult(industry: Industry, coreBusiness: CoreBusiness, location:
       headline: 'AB5 and SB 988 apply only to California work relationships.',
       explanation:
         "This audit checks California's ABC Test (AB5) and the Freelance Worker Protection Act (SB 988). Since this contractor is based outside California, these specific rules likely don't apply — but check your own state's worker classification and prompt-payment laws, since more states are adopting similar freelancer protections.",
-      primaryCta: { label: 'Generate a General Freelance Contract', href: '/tools/sb988-contract-generator' },
-      secondaryCta: { label: 'Browse All Contract Templates', href: '/freelance-contract' },
+      primaryCta: { label: 'Generate a General Freelance Contract', href: '/contracts/generator' },
+      secondaryCta: { label: 'Browse All Contract Templates', href: '/contracts' },
     };
   }
 
@@ -83,8 +83,8 @@ function computeResult(industry: Industry, coreBusiness: CoreBusiness, location:
       explanation:
         'Licensed professionals such as real estate agents, insurance brokers, attorneys, accountants, and certain financial services roles are carved out of the ABC Test and instead evaluated under the older, multi-factor Borello standard. That gives you more flexibility on classification — but it does NOT exempt you from SB 988. Any written agreement worth $250 or more still requires a compliant contract with clear payment terms.',
       localNote,
-      primaryCta: { label: 'Generate an SB 988 Compliant Contract', href: '/tools/sb988-contract-generator' },
-      secondaryCta: { label: 'Run the IRS 20-Point Check Too', href: '/tools/irs-20-point-checklist-for-independent-contractors' },
+      primaryCta: { label: 'Generate an SB 988 Compliant Contract', href: '/contracts/generator' },
+      secondaryCta: { label: 'Run the IRS 20-Point Check Too', href: '/tools/irs-20-point-checklist' },
     };
   }
 
@@ -96,8 +96,8 @@ function computeResult(industry: Industry, coreBusiness: CoreBusiness, location:
       explanation:
         'Because this worker performs tasks core to your usual course of business, you\'ll struggle to satisfy Prong B of the ABC Test ("the worker performs work outside the usual course of the hiring entity\'s business"). Under AB5, failing even one prong means the worker is presumed an employee, not a contractor. Misclassification penalties range from $5,000 to $25,000 per willful violation, plus back pay and EDD liability. If you intend to continue this as a contractor relationship, get a compliant written agreement in place immediately and talk to an employment attorney about the classification itself.',
       localNote,
-      primaryCta: { label: 'Generate an SB 988 Contract Now', href: '/tools/sb988-contract-generator' },
-      secondaryCta: { label: 'Run the Full IRS Classification Check', href: '/tools/irs-20-point-checklist-for-independent-contractors' },
+      primaryCta: { label: 'Generate an SB 988 Contract Now', href: '/contracts/generator' },
+      secondaryCta: { label: 'Run the Full IRS Classification Check', href: '/tools/irs-20-point-checklist' },
     };
   }
 
@@ -109,7 +109,7 @@ function computeResult(industry: Industry, coreBusiness: CoreBusiness, location:
       explanation:
         'Work outside your usual course of business clears Prong B, which is where most misclassification cases fail. You still need to confirm Prong A (the worker is free from your behavioral control) and Prong C (the worker runs an independently established business — a business license, other clients, their own tools). Regardless of the outcome, SB 988 requires a written contract for any freelance engagement worth $250 or more, with clear rate, scope, and payment-date terms.',
       localNote,
-      primaryCta: { label: 'Generate an SB 988 Compliant Contract', href: '/tools/sb988-contract-generator' },
+      primaryCta: { label: 'Generate an SB 988 Compliant Contract', href: '/contracts/generator' },
       secondaryCta: { label: 'Review an Existing Agreement', href: '/tools/freelancer-contract-review' },
     };
   }
@@ -119,8 +119,8 @@ function computeResult(industry: Industry, coreBusiness: CoreBusiness, location:
     applicableTest: 'ABC Test (AB5)',
     headline: 'Answer both questions above to see your compliance risk.',
     explanation: '',
-    primaryCta: { label: 'Generate a Contract', href: '/tools/sb988-contract-generator' },
-    secondaryCta: { label: 'See Late Payment Penalties', href: '/tools/sb988-late-payment-calculator' },
+    primaryCta: { label: 'Generate a Contract', href: '/contracts/generator' },
+    secondaryCta: { label: 'See Late Payment Penalties', href: '/tools/late-payment-calculator' },
   };
 }
 

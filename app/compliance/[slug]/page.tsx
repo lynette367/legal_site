@@ -1,4 +1,4 @@
-// app/independent-contractor-laws/[slug]/page.tsx
+// app/compliance/[slug]/page.tsx
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -22,10 +22,10 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const desc = industry
     ? `Free 1099 vs W-2 risk check for ${industry.industryName.toLowerCase()} employers in ${state.stateName}.`
     : `Audit your 1099 compliance risk in ${state.stateName}. Free, instant, no sign-up required.`;
-  const url = `https://www.pancothink.com/independent-contractor-laws/${params.slug}`;
+  const url = `https://indielegalterms.com/compliance/${params.slug}`;
 
   return {
-    title: `${title} | PancoLegal`,
+    title: `${title} | IndieLegal`,
     description: desc,
     alternates: { canonical: url },
     openGraph: { title, description: desc, url, type: 'website' },
@@ -129,7 +129,7 @@ export default function CompliancePage({ params }: { params: { slug: string } })
       <section className="max-w-4xl mx-auto px-6 mb-24">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Link
-            href="/independent-contractor-laws"
+            href="/compliance"
             className="bg-white border border-gray-200 rounded-xl p-5 hover:border-primary-lavender hover:shadow-soft transition-all"
           >
             <p className="font-bold text-text-primary text-sm mb-1">Browse all states →</p>
@@ -137,7 +137,7 @@ export default function CompliancePage({ params }: { params: { slug: string } })
           </Link>
           {kind === 'state-industry' && (
             <Link
-              href={`/independent-contractor-laws/${state.slug}`}
+              href={`/compliance/${state.slug}`}
               className="bg-white border border-gray-200 rounded-xl p-5 hover:border-primary-lavender hover:shadow-soft transition-all"
             >
               <p className="font-bold text-text-primary text-sm mb-1">All {state.stateName} rules →</p>
@@ -146,7 +146,7 @@ export default function CompliancePage({ params }: { params: { slug: string } })
           )}
           {state.slug !== 'california' && (
             <Link
-              href="/tools/california-independent-contractor-laws"
+              href="/tools/ca-contractor-laws"
               className="bg-white border border-gray-200 rounded-xl p-5 hover:border-primary-lavender hover:shadow-soft transition-all"
             >
               <p className="font-bold text-text-primary text-sm mb-1">California rules (ABC Test) →</p>

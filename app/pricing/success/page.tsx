@@ -3,7 +3,7 @@ import { PaymentSuccessPanel } from "../../../components/pricing/PaymentSuccessP
 import { PageHero } from "../../../components/ui/PageHero";
 
 export const metadata: Metadata = {
-  title: "Payment Success | Panco Legal Assistant",
+  title: "Payment Success | Indie Legal Assistant",
   description: "Payment successful - your contract credits have been added.",
 };
 
