@@ -78,6 +78,9 @@ export default function HomePage() {
             Under California SB 988
           </span>
         </h1>
+        <p className="mx-auto max-w-2xl text-lg sm:text-xl font-bold text-red-600/90 leading-snug mb-3">
+          Client ghosting you on a final invoice? California law may owe you double.
+        </p>
         <p className="mx-auto max-w-2xl text-lg text-text-primary/70 leading-relaxed mb-10">
           Draft legally mandated contracts, monitor pay deadlines, and estimate statutory double damages. Select your scenario below to access our standalone compliance tools.
         </p>

@@ -43,6 +43,13 @@ const SCENARIO_LINKS: ScenarioLink[] = [
     badge: "Generator"
   },
   {
+    id: 'business_c',
+    path: 'business',
+    text: "Am I at risk of misclassifying my 1099 contractor?",
+    href: "/tools/irs-20-point-checklist?scenario=classification-check&mode=business",
+    badge: "IRS Audit"
+  },
+  {
     id: 'business_b',
     path: 'business',
     text: "How to avoid the $250 threshold compliance trap?",
@@ -76,7 +83,7 @@ export default function LightweightScenarioEngine() {
             </span>
             <div>
               <h3 className="font-black text-gray-900 text-sm">California Freelancer</h3>
-              <p className="text-[11px] text-gray-500 mt-0.5">Protect your pay, IP rights & damages</p>
+              <p className="text-[11px] text-gray-500 mt-0.5">Client won&apos;t pay? Recover up to 2x what you&apos;re owed</p>
             </div>
           </div>
         </button>
@@ -98,7 +105,7 @@ export default function LightweightScenarioEngine() {
             </span>
             <div>
               <h3 className="font-black text-gray-900 text-sm">CA Business & Client</h3>
-              <p className="text-[11px] text-gray-500 mt-0.5">Avoid 2x damages & compliance audits</p>
+              <p className="text-[11px] text-gray-500 mt-0.5">Avoid 2x damages — check contractor classification first</p>
             </div>
           </div>
         </button>
