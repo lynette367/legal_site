@@ -17,6 +17,7 @@ export function SiteFooter() {
           <Link href="/compliance" className="hover:text-primary-lavender transition-colors">Contractor Laws by State</Link>
           <Link href="/guides" className="hover:text-primary-lavender transition-colors">All Guides</Link>
           <Link href="/pricing" className="hover:text-primary-lavender transition-colors">Pricing</Link>
+          <Link href="/privacy-policy">Privacy Policy</Link>
         </div>
       </div>
       <div className="border-t border-border-lavender/50 bg-bg-main/80 px-6 py-6 text-center text-xs text-text-primary/70">

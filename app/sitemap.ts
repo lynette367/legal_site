@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/tools/late-payment-calculator", freq: "weekly", pri: 0.9 },
     { path: "/contracts/generator", freq: "weekly", pri: 0.9 },
     { path: "/tools/freelancer-contract-review", freq: "weekly", pri: 0.9 },
+    { path: "/privacy-policy", freq: "yearly", pri: 0.3 },
     // Was missing entirely — confirmed via GSC "Page indexing" that Google had
     // never discovered this URL (not in indexed OR not-indexed reports).
     // It already has real query impressions (irs 20 point / classification
@@ -82,3 +83,4 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: pri,
   }));
 }
+
