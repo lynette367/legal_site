@@ -151,6 +151,10 @@ const pipe2Seeds: SeoPage[] = [
         painPipeType: "industry",
         heroSubtitle: "If your client published your copy but delayed your invoice, their commercial license is suspended under SB 988. Make it stick with a proper contract.",
         primaryCta: "Generate Copywriter Agreement",
+        faqItems: [
+            { q: "What should a copywriter agreement include in California?", a: "A California copywriter agreement should specify the scope of deliverables, total compensation, payment deadline (30 days maximum under SB 988), and a usage license clause stating when the client's right to publish the copy takes effect. Any agreement worth $250 or more must be in writing." },
+            { q: "Are terms and conditions the same as a copywriter contract?", a: "Not quite. A terms and conditions document is a one-way policy you present to clients; a copywriter agreement is a mutually signed contract. For SB 988 compliance, you need the latter — a written, agreed-upon contract with both parties' signatures, not just posted terms." },
+        ],
     },
     {
         slug: "la-video-editor-freelance-contract-template",

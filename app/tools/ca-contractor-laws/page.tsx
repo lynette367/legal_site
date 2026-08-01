@@ -243,6 +243,45 @@ export default function IndependentContractorLawPage() {
             salespersons). If your business doesn&apos;t fall under these rare exemptions, the
             strict ABC test rules your contract.
           </p>
+          <p className="font-bold text-text-primary pt-2">
+            Does the &quot;professional services&quot; exemption cover creative freelancers?
+          </p>
+          <p>
+            Under California Labor Code § 2778, several creative and consulting roles are
+            explicitly named as &quot;professional services&quot; — including{' '}
+            <Link href="/guides/graphic-designers" className="text-primary-lavender hover:underline font-semibold">
+              graphic design
+            </Link>
+            , marketing involving original creative content, fine art and photography,{' '}
+            <Link href="/guides/photographers" className="text-primary-lavender hover:underline font-semibold">
+              photography and videography
+            </Link>
+            , and freelance writing or{' '}
+            <Link href="/guides/copywriters" className="text-primary-lavender hover:underline font-semibold">
+              content creation
+            </Link>
+            . For these roles, the strict ABC test is replaced by the Borello test — but only if
+            the hiring entity can show the worker meets <em>all</em> of the following:
+          </p>
+          <ul className="space-y-2 list-disc list-inside">
+            <li>Maintains a business location separate from the hiring entity (a home office counts)</li>
+            <li>Holds a business license or tax registration, and any required professional license</li>
+            <li>Can set or negotiate their own rates</li>
+            <li>Can set their own hours, outside of project deadlines and reasonable business hours</li>
+            <li>Is customarily engaged in the same type of work for other clients</li>
+            <li>Regularly exercises discretion and independent judgment in performing the work</li>
+          </ul>
+          <p className="text-xs text-text-primary/50 pt-1">
+            Source: California Labor Code § 2778. This exemption list is amended periodically —
+            confirm current statutory language before relying on it for a specific engagement.
+          </p>
+          <p className="pt-2">
+            <strong className="text-text-primary">Important scope note:</strong> qualifying for the
+            Borello test only changes how a worker is <em>classified</em> — it has no bearing on
+            your payment obligations. Even a Borello-exempt professional service provider is still
+            entitled to full SB 988 protections: a written contract for $250+ engagements, a
+            30-day payment deadline, and double damages for late payment. See below.
+          </p>
         </div>
       </section>
 
