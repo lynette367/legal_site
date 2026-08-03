@@ -129,6 +129,13 @@ export default function CompliancePage({ params }: { params: { slug: string } })
       <section className="max-w-4xl mx-auto px-6 mb-24">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Link
+            href="/#states"
+            className="bg-white border border-gray-200 rounded-xl p-5 hover:border-primary-lavender hover:shadow-soft transition-all"
+          >
+            <p className="font-bold text-text-primary text-sm mb-1">Freelance Payment Laws by State →</p>
+            <p className="text-xs text-text-primary/60">Compare statewide freelance payment protection laws on our homepage map.</p>
+          </Link>
+          <Link
             href="/compliance"
             className="bg-white border border-gray-200 rounded-xl p-5 hover:border-primary-lavender hover:shadow-soft transition-all"
           >

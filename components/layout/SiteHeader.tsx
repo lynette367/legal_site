@@ -10,6 +10,7 @@ const navLinks = [
   { href: "/contracts/generator", label: "CA Contract Generator" },
   { href: "/tools/late-payment-calculator", label: "Late Fee Calculator" },
   { href: "/tools/demand-letter-generator", label: "Demand Letter Generator" },
+  { href: "/#states", label: "States" },
   { href: "/pricing", label: "Pricing" },
 ];
 
@@ -35,7 +36,7 @@ export function SiteHeader() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link href="/" className="flex flex-col leading-tight">
           <span className="text-xl font-bold text-text-lavender uppercase tracking-tight">Indie</span>
-          <span className="text-[10px] font-bold text-text-lavender/60 uppercase tracking-[0.2em]">CA FREELANCER CONTRACT AI</span>
+          <span className="text-[10px] font-bold text-text-lavender/60 uppercase tracking-[0.2em]">CONTRACT & COMPLIANCE AI</span>
         </Link>
         <nav className="hidden items-center gap-2 lg:flex">
           {navLinks.map((link) => (

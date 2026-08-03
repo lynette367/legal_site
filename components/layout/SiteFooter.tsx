@@ -6,11 +6,11 @@ export function SiteFooter() {
       <div className="mx-auto max-w-6xl px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex flex-col leading-tight text-center md:text-left">
           <span className="text-base font-bold text-text-lavender uppercase tracking-tight">Indie</span>
-          <span className="text-[9px] font-bold text-text-lavender/60 uppercase tracking-[0.2em] mt-0.5">CA FREELANCER LEGAL AI</span>
+          <span className="text-[9px] font-bold text-text-lavender/60 uppercase tracking-[0.2em] mt-0.5">CONTRACT & COMPLIANCE AI</span>
         </div>
         <div className="flex flex-wrap justify-center gap-6 text-xs font-semibold text-text-primary/80">
           <Link href="/" className="hover:text-primary-lavender transition-colors">Home</Link>
-          <Link href="/contracts" className="hover:text-primary-lavender transition-colors">SB 988 Legal Guide Index</Link>
+          <Link href="/contracts" className="hover:text-primary-lavender transition-colors">Freelance Legal Guide Index</Link>
           <Link href="/contracts/generator" className="hover:text-primary-lavender transition-colors">Contract Generator</Link>
           <Link href="/tools/late-payment-calculator" className="hover:text-primary-lavender transition-colors">Penalty Calculator</Link>
           <Link href="/tools/irs-20-point-checklist" className="hover:text-primary-lavender transition-colors">Worker Classification Quiz</Link>

@@ -29,8 +29,14 @@ const SB988PenaltyCalculator: React.FC<PenaltyCalculatorProps> = ({ mode = 'free
 
   const [showResult, setShowResult] = useState(false);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [selectedState, setSelectedState] = useState<string>('CA');
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
+    if (name === 'state') {
+      setSelectedState(value);
+      return;
+    }
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
@@ -42,9 +48,10 @@ const SB988PenaltyCalculator: React.FC<PenaltyCalculatorProps> = ({ mode = 'free
       const days = parseInt(formData.daysLate);
 
       if (!isNaN(amount) && !isNaN(days)) {
-        // Calculate penalties based on SB 988
-        const lateFee = amount * 0.01 * days; // 1% per day as a simple calculation
-        const doubleDamages = amount; // Double damages as per SB 988
+        const isCalifornia = selectedState === 'CA';
+        // Calculate penalties based on SB 988 for CA, vs standard interest/demand for non-CA
+        const lateFee = amount * 0.01 * days; // 1% per day standard estimate
+        const doubleDamages = isCalifornia ? amount : 0; // 2x statutory double damages only for California
         const totalAmount = amount + lateFee + doubleDamages;
 
         setCalculation({
@@ -70,6 +77,28 @@ const SB988PenaltyCalculator: React.FC<PenaltyCalculatorProps> = ({ mode = 'free
   return (
     <div className="bg-white rounded-lg shadow-lg p-8">
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Step 1: Select State */}
+        <div>
+          <label className="block text-sm font-bold text-slate-800 mb-1.5">
+            Step 1: Select Project State
+          </label>
+          <select
+            name="state"
+            value={selectedState}
+            onChange={handleInputChange}
+            className="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-slate-900 bg-white font-medium focus:ring-2 focus:ring-primary-lavender focus:border-primary-lavender"
+          >
+            <option value="CA">California (CA) — SB 988 Statutory 2x Protection</option>
+            <option value="IL">Illinois (IL) — Freelance Worker Protection Act</option>
+            <option value="NY">New York (NY) — Freelance Isn&apos;t Free Act</option>
+            <option value="OTHER">Other US State / General Demand Letter</option>
+          </select>
+          {selectedState !== 'CA' && (
+            <p className="mt-2 text-xs text-amber-700 bg-amber-50 p-2.5 rounded-lg border border-amber-200">
+              ℹ️ Standard demand letter & late interest route. CA SB 988 statutory 2x double damages apply specifically to California engagements.
+            </p>
+          )}
+        </div>
         {/* Context Banners */}
         {scenario === 'invoice-overdue-30' && (
           <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-md text-red-950 text-sm">

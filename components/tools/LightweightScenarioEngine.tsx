@@ -82,8 +82,8 @@ export default function LightweightScenarioEngine() {
               🧑‍💻
             </span>
             <div>
-              <h3 className="font-black text-gray-900 text-sm">California Freelancer</h3>
-              <p className="text-[11px] text-gray-500 mt-0.5">Client won&apos;t pay? Recover up to 2x what you&apos;re owed</p>
+              <h3 className="font-black text-gray-900 text-sm">I&apos;m Owed Money</h3>
+              <p className="text-[11px] text-gray-500 mt-0.5">Client won&apos;t pay? Calculate what you&apos;re owed — California freelancers may recover up to 2x</p>
             </div>
           </div>
         </button>
@@ -104,8 +104,8 @@ export default function LightweightScenarioEngine() {
               🏢
             </span>
             <div>
-              <h3 className="font-black text-gray-900 text-sm">CA Business & Client</h3>
-              <p className="text-[11px] text-gray-500 mt-0.5">Avoid 2x damages — check contractor classification first</p>
+              <h3 className="font-black text-gray-900 text-sm">I&apos;m Hiring a Freelancer</h3>
+              <p className="text-[11px] text-gray-500 mt-0.5">Avoid misclassification and payment disputes — extra protections apply in California</p>
             </div>
           </div>
         </button>

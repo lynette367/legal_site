@@ -2,16 +2,18 @@
 import Link from "next/link";
 import { professions } from "@/data/professions";
 import { allSeoPages } from "@/data/seoPages";
+import { freelanceLawsByState } from "@/data/freelanceLawsByState";
+import StateLawGrid from "@/components/tools/StateLawGrid";
 import LightweightScenarioEngine from "@/components/tools/LightweightScenarioEngine";
 import { Suspense } from "react";
 
 export const metadata = {
-  title: "CA Freelance Worker Protection Act Contract Generator", // 56 characters
-  description: "Create compliant contracts under the California Freelance Worker Protection Act (SB 988). Free tools for contracts over $250 and late fee calculation.", // 154 characters
+  title: "Freelance Contract Generator & Late Payment Tools", // 56 characters
+  description: "Generate freelance contracts, calculate late payment penalties, and send demand letters for unpaid invoices. Free tools built for freelancers and employers.", // 154 characters
   alternates: { canonical: "https://indielegalterms.com" },
   openGraph: {
-    title: "CA Freelance Worker Protection Act Contract Generator",
-    description: "Create compliant contracts under the California Freelance Worker Protection Act (SB 988). Free tools for contracts over $250 and late fee calculation.",
+    title: "Freelance Contract Generator & Late Payment Tools",
+    description: "Generate freelance contracts, calculate late payment penalties, and send demand letters for unpaid invoices. Free tools built for freelancers and employers.",
     url: "https://indielegalterms.com",
     siteName: "IndieLegal",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
@@ -61,6 +63,8 @@ export default function HomePage() {
     .filter((p) => p.painPipeType === "industry" || p.painPipeType === "freelancer")
     .slice(4, 10); // skip seeds already spotlighted
 
+  const todayDateStr = new Date().toISOString().split("T")[0];
+
   return (
     <div className="space-y-24 pb-24 bg-gray-50/50">
       {/* 1. Hero Section & Lightweight Scenario Engine */}
@@ -73,9 +77,9 @@ export default function HomePage() {
           California Freelance Legal Protection (2026 Legal Sync)
         </div>
         <h1 className="text-4xl font-black tracking-tight text-text-primary sm:text-6xl mb-6 leading-none">
-          Secure Your Freelance Business <br />
+          Contracts, Late Payment Demands & Compliance Tools <br />
           <span className="text-primary-lavender bg-gradient-to-r from-primary-lavender to-purple-600 bg-clip-text text-transparent">
-            Under California SB 988
+            For Freelancers and Small Businesses
           </span>
         </h1>
         <p className="mx-auto max-w-2xl text-lg sm:text-xl font-bold text-red-600/90 leading-snug mb-3">
@@ -243,12 +247,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════════════════
-          3.5 Independent Contractor Laws by State — entry point only
-          Deliberately NOT a full spotlight grid like section 4: only 2 states
-          exist right now (Washington verified, Oregon coming-soon), so this
-          stays a single compact card rather than implying a mature cluster.
-      ═══════════════════════════════════════════════════════════════════════ */}
+      {/* 3.5 Independent Contractor Laws by State */}
       <section className="max-w-6xl mx-auto px-6">
         <Link
           href="/compliance"
@@ -271,11 +270,7 @@ export default function HomePage() {
         </Link>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════════════════
-          4. SB 988 Legal Guide Hub  ← NEW SECTION
-          Purpose: pass PageRank from homepage to /contracts cluster
-          Google treats homepage links as highest-trust internal signals
-      ═══════════════════════════════════════════════════════════════════════ */}
+      {/* 4. SB 988 Legal Guide Hub */}
       <section className="max-w-6xl mx-auto px-6">
         {/* Section header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
@@ -290,7 +285,7 @@ export default function HomePage() {
               100+ guides for California freelancers and employers — covering contracts, late payments, demand letters, and more.
             </p>
           </div>
-          {/* Hub link — the most SEO-critical anchor on this page */}
+          {/* Hub link */}
           <Link
             href="/contracts"
             className="shrink-0 inline-flex items-center gap-1.5 text-sm font-bold text-primary-lavender border border-primary-lavender/30 rounded-xl px-5 py-2.5 hover:bg-primary-lavender/5 transition-colors"
@@ -319,7 +314,7 @@ export default function HomePage() {
                 >
                   {label}
                 </span>
-                {/* H1 of the target page — exact keyword match for Google */}
+                {/* H1 of the target page */}
                 <h3 className="text-base font-bold text-gray-900 group-hover:text-primary-lavender transition-colors leading-snug">
                   {page.h1}
                 </h3>
@@ -336,8 +331,7 @@ export default function HomePage() {
           })}
         </div>
 
-        {/* Secondary row: 6 formula pages as compact text links */}
-        {/* These give Google additional anchor text diversity from homepage */}
+        {/* Secondary row */}
         <div className="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-5">
           <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">
             More California Freelance Guides
@@ -363,6 +357,65 @@ export default function HomePage() {
               View all 100+ guides for California freelancers →
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* 5. Freelance Payment Protection Laws by State */}
+      <section id="states" className="max-w-6xl mx-auto px-6 scroll-mt-24">
+        {/* Structured Data: ItemList for verified-has-law and verified-no-law states */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ItemList",
+              "name": "Freelance Payment Protection Laws by State",
+              "description": "Statewide freelance payment protection laws and legal status by state.",
+              "itemListElement": freelanceLawsByState
+                .filter((s) => s.status === "verified-has-law" || s.status === "verified-no-law")
+                .map((s, idx) => ({
+                  "@type": "ListItem",
+                  "position": idx + 1,
+                  "item": {
+                    "@type": "GovernmentService",
+                    "name": `${s.state} Freelance Payment Protection Law Status`,
+                    "areaServed": {
+                      "@type": "AdministrativeArea",
+                      "name": s.state,
+                    },
+                    "description": s.status === "verified-has-law"
+                      ? `${s.lawName || "Freelance Payment Protection Law"}. Threshold: ${s.paymentThreshold || "N/A"}. Payment Deadline: ${s.paymentDeadline || "30 days"}.`
+                      : (s.note || "No statewide freelance payment protection law."),
+                  },
+                })),
+            }),
+          }}
+        />
+
+        <div className="text-center mb-10">
+          <span className="text-xs font-bold uppercase tracking-widest text-primary-lavender bg-primary-lavender/10 px-3 py-1 rounded-full">
+            Statewide Legal Map
+          </span>
+          <h2 className="text-3xl md:text-5xl font-black text-text-primary mt-3 tracking-tight">
+            Freelance Payment Protection Laws by State
+          </h2>
+          <p className="text-base text-text-primary/70 mt-2 max-w-xl mx-auto">
+            See which states have SB 988-style freelance payment laws — updated as we verify each state.
+          </p>
+          <p className="text-xs text-text-primary/50 mt-3 max-w-2xl mx-auto italic">
+            For informational purposes only, not legal advice. Laws change frequently — consult a licensed attorney before relying on this information.
+          </p>
+        </div>
+
+        <StateLawGrid states={freelanceLawsByState} todayDateStr={todayDateStr} />
+
+        <div className="mt-8 text-center">
+          <Link
+            href="/compliance"
+            className="text-sm font-bold text-text-lavender hover:text-primary-lavender-dark hover:underline transition-colors"
+          >
+            Hiring freelancers? Check worker classification rules by state →
+          </Link>
         </div>
       </section>
     </div>
