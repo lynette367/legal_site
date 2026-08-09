@@ -83,7 +83,7 @@ export default function LightweightScenarioEngine() {
             </span>
             <div>
               <h3 className="font-black text-gray-900 text-sm">I&apos;m Owed Money</h3>
-              <p className="text-[11px] text-gray-500 mt-0.5">Client won&apos;t pay? Calculate what you&apos;re owed — California freelancers may recover up to 2x</p>
+              <p className="text-[11px] text-gray-500 mt-0.5">Client won&apos;t pay? Calculate what you&apos;re owed — Check your state&apos;s legal limits &amp; penalty multipliers</p>
             </div>
           </div>
         </button>

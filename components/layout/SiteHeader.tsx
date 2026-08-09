@@ -7,7 +7,7 @@ import { useSession, signOut } from "next-auth/react";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/contracts/generator", label: "CA Contract Generator" },
+  { href: "/contracts/generator", label: "Contract Generator" },
   { href: "/tools/late-payment-calculator", label: "Late Fee Calculator" },
   { href: "/tools/demand-letter-generator", label: "Demand Letter Generator" },
   { href: "/#states", label: "States" },

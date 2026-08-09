@@ -291,7 +291,7 @@ const pipe4Seeds: SeoPage[] = [
             },
             takeaway:
                 "A signed contract — even a one-page email confirmation — would have prevented this dispute entirely. Always document scope, rate, and payment date in writing before starting work.",
-            toolLink: "/contracts/generator",
+            toolLink: "/contracts/california-independent-contractor-agreement-template",
             toolLabel: "Generate a Written Contract",
         },
     },
@@ -369,7 +369,7 @@ const pipe4Seeds: SeoPage[] = [
             },
             takeaway:
                 "If you work with the same client repeatedly, track your 120-day cumulative total. Once it hits $250, SB 988 applies retroactively to all those engagements. Get a written contract before you start — not after you've been underpaid.",
-            toolLink: "/contracts/generator",
+            toolLink: "/contracts/california-independent-contractor-agreement-template",
             toolLabel: "Generate a Compliant Contract",
         },
     },
@@ -447,7 +447,7 @@ const pipe4Seeds: SeoPage[] = [
             },
             takeaway:
                 "If you use email as your contract, make sure it explicitly states your name, the client's name, full service description, exact dollar amount, and a specific payment date. Missing any one of these makes it non-compliant and leaves you exposed.",
-            toolLink: "/contracts/generator",
+            toolLink: "/contracts/california-independent-contractor-agreement-template",
             toolLabel: "Generate a Compliant Contract",
         },
     },

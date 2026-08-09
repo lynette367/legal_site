@@ -19,12 +19,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "", freq: "daily", pri: 1.0 },
     { path: "/tools/late-payment-calculator", freq: "weekly", pri: 0.9 },
     { path: "/contracts/generator", freq: "weekly", pri: 0.9 },
+    { path: "/contracts/california-independent-contractor-agreement-template", freq: "weekly", pri: 0.9 },
     { path: "/tools/freelancer-contract-review", freq: "weekly", pri: 0.9 },
     { path: "/privacy-policy", freq: "yearly", pri: 0.3 },
-    // Was missing entirely — confirmed via GSC "Page indexing" that Google had
-    // never discovered this URL (not in indexed OR not-indexed reports).
-    // It already has real query impressions (irs 20 point / classification
-    // rule 2026) and now carries the new 1099 vs W-2 cost calculator too.
     { path: "/tools/ca-contractor-laws", freq: "weekly", pri: 0.9 },
     { path: "/pricing", freq: "weekly", pri: 0.8 },
   ] as const;

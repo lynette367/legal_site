@@ -74,19 +74,19 @@ export default function HomePage() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-lavender opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-lavender"></span>
           </span>
-          California Freelance Legal Protection (2026 Legal Sync)
+          National &amp; State Freelance Compliance (2026 Legal Sync)
         </div>
         <h1 className="text-4xl font-black tracking-tight text-text-primary sm:text-6xl mb-6 leading-none">
-          Contracts, Late Payment Demands & Compliance Tools <br />
-          <span className="text-primary-lavender bg-gradient-to-r from-primary-lavender to-purple-600 bg-clip-text text-transparent">
+          Contracts, Late Payment Demands &amp; Compliance Tools <br />
+          <span className="text-2xl text-primary-lavender">
             For Freelancers and Small Businesses
           </span>
         </h1>
         <p className="mx-auto max-w-2xl text-lg sm:text-xl font-bold text-red-600/90 leading-snug mb-3">
-          Client ghosting you on a final invoice? California law may owe you double.
+          Client ghosting you on an invoice? Claim your statutory late fees &amp; penalties nationwide.
         </p>
         <p className="mx-auto max-w-2xl text-lg text-text-primary/70 leading-relaxed mb-10">
-          Draft legally mandated contracts, monitor pay deadlines, and estimate statutory double damages. Select your scenario below to access our standalone compliance tools.
+          Draft legally compliant contracts, monitor payment deadlines, and estimate statutory late fees &amp; penalties across all 50 states. Select your scenario below to access our standalone compliance tools.
         </p>
 
         <Suspense fallback={<div className="text-center py-8 text-slate-500">Loading Scenario Selector...</div>}>
