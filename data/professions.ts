@@ -18,10 +18,38 @@ export interface Profession {
 
 export const professions: Profession[] = [
   {
+    slug: "copywriters",
+    name: "Copywriter & Content Strategist",
+    ctaTitle: "Writing Agreement",
+    nextSlug: "graphic-designers",
+    keywords: ["freelance writing contract", "copywriting agreement template CA", "copywriting contract CA", "freelance writer late payment"],
+    seoTitle: "Free Freelance Copywriter Contract Template | CA SB 988 Legal Hub",
+    seoDesc: "Stop client ghosting. Get legally compliant contract templates for freelance writers and copywriters in California. Learn how to draft a formal SB 988 Demand Letter.",
+    painPoint: "Clients love to launch your marketing copy while delaying your final check. Use this template to declare that the license to use your copy is suspended until paid.",
+    painPointNotice: "Did your client publish your copy on their live site but 'forgot' to pay your invoice? Establish your publishing leverage under California SB 988. This template suspends their commercial rights until they settle your bill.",
+    shortDesc: "Ensure copywriters get paid.",
+    icon: "✍️",
+    contractSnippet: "FREELANCE COPYWRITING & CONTENT AGREEMENT\n" +
+"==================================================\n" +
+"This Content Creation Agreement is fully subject to California SB 988 regulations for independent contractors.\n\n" +
+"1. PARTIES:\n" +
+"   - Writer: [Your Name / Copywriter Brand]\n" +
+"   - Client: [Client Name / Company]\n\n" +
+"2. DELIVERABLES & COMMERCIAL USAGE:\n" +
+"   - Scope: SEO Articles, Copywriting, Marketing Collateral, and Scriptwriting.\n" +
+"   - Usage License: Writer grants Client a conditional license to publish and distribute the copy. This license is automatically suspended if payment is delayed beyond the statutory limit.\n\n" +
+"3. FINANCIAL TERMS:\n" +
+"   - Total Compensation: $[Enter Amount]\n" +
+"   - Payment Window: Payment must be finalized on or before the 30th day following invoicing.\n\n" +
+"4. CA CIVIL CODE PENALTIES:\n" +
+"   - Late payments trigger statutory double damages under CA SB 988. Client explicitly acknowledges that unauthorized usage of copy during a payment default may incur additional copyright infringement liabilities.",
+    specificScopePlaceholder: "SEO copywriting, brand messaging, website content, and marketing scripts."
+  },
+  {
     slug: "graphic-designers",
     name: "Graphic Designer",
     ctaTitle: "Design Contract",
-    nextSlug: "copywriters",
+    nextSlug: "web-developers",
     keywords: ["freelance design agreement", "graphic design contract template california", "designer contract template", "SB 988 demand letter"],
     seoTitle: "Free Graphic Designer Contract Template & CA SB 988 Demand Letter Tool",
     seoDesc: "Download California SB 988 compliant contract templates for freelance graphic designers. Calculate double damages and generate formal late payment demand letters instantly.",
@@ -77,38 +105,10 @@ export const professions: Profession[] = [
     specificScopePlaceholder: "Software development, code deployment, and API integration services."
   },
   {
-    slug: "copywriters",
-    name: "Copywriter & Content Strategist",
-    ctaTitle: "Writing Agreement",
-    nextSlug: "web-developers",
-    keywords: ["freelance writing contract", "copywriting agreement template CA", "copywriting contract CA", "freelance writer late payment"],
-    seoTitle: "Free Freelance Copywriter Contract Template | CA SB 988 Legal Hub",
-    seoDesc: "Stop client ghosting. Get legally compliant contract templates for freelance writers and copywriters in California. Learn how to draft a formal SB 988 Demand Letter.",
-    painPoint: "Clients love to launch your marketing copy while delaying your final check. Use this template to declare that the license to use your copy is suspended until paid.",
-    painPointNotice: "Did your client publish your copy on their live site but 'forgot' to pay your invoice? Establish your publishing leverage under California SB 988. This template suspends their commercial rights until they settle your bill.",
-    shortDesc: "Ensure copywriters get paid.",
-    icon: "✍️",
-    contractSnippet: "FREELANCE COPYWRITING & CONTENT AGREEMENT\n" +
-"==================================================\n" +
-"This Content Creation Agreement is fully subject to California SB 988 regulations for independent contractors.\n\n" +
-"1. PARTIES:\n" +
-"   - Writer: [Your Name / Copywriter Brand]\n" +
-"   - Client: [Client Name / Company]\n\n" +
-"2. DELIVERABLES & COMMERCIAL USAGE:\n" +
-"   - Scope: SEO Articles, Copywriting, Marketing Collateral, and Scriptwriting.\n" +
-"   - Usage License: Writer grants Client a conditional license to publish and distribute the copy. This license is automatically suspended if payment is delayed beyond the statutory limit.\n\n" +
-"3. FINANCIAL TERMS:\n" +
-"   - Total Compensation: $[Enter Amount]\n" +
-"   - Payment Window: Payment must be finalized on or before the 30th day following invoicing.\n\n" +
-"4. CA CIVIL CODE PENALTIES:\n" +
-"   - Late payments trigger statutory double damages under CA SB 988. Client explicitly acknowledges that unauthorized usage of copy during a payment default may incur additional copyright infringement liabilities.",
-    specificScopePlaceholder: "SEO copywriting, brand messaging, website content, and marketing scripts."
-  },
-  {
     slug: "photographers",
     name: "Photographer & Videographer",
     ctaTitle: "Photography Services Contract",
-    nextSlug: "graphic-designers",
+    nextSlug: "copywriters",
     keywords: ["freelance photography contract", "commercial photography agreement CA", "photography commercial agreement", "small claims court CA"],
     seoTitle: "Commercial Photography Contract Template (California SB 988 Compliant)",
     seoDesc: "Protect your creative assets. Download freelance photography contract templates built for California SB 988 compliance. Calculate penalties for overdue commercial invoices.",

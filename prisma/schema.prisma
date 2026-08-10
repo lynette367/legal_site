@@ -7,7 +7,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  
+  directUrl = env("DIRECT_URL")
 }
 
 // 用户模型（集成 NextAuth）
@@ -91,3 +91,26 @@ model Order {
   @@index([createdAt])
 }
 
+// Lead Magnet Subscriptions
+model EmailSubscriber {
+  id        String   @id @default(cuid())
+  email     String
+  name      String?
+  source    String   @default("hero_lead_magnet")
+  createdAt DateTime @default(now())
+
+  @@index([email])
+  @@index([createdAt])
+}
+
+// 旧联系表单记录（保留该表以防数据库删表）
+model contact_submissions {
+  id         String   @id @default(uuid())
+  name       String?
+  email      String?
+  message    String?
+  type       String?
+  created_at DateTime @default(now())
+
+  @@map("contact_submissions")
+}

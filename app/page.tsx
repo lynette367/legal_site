@@ -5,15 +5,20 @@ import { allSeoPages } from "@/data/seoPages";
 import { freelanceLawsByState } from "@/data/freelanceLawsByState";
 import StateLawGrid from "@/components/tools/StateLawGrid";
 import LightweightScenarioEngine from "@/components/tools/LightweightScenarioEngine";
+import { HeroButtons } from "@/components/marketing/HeroButtons";
+import { HowToWhyUsSection } from "@/components/marketing/HowToWhyUsSection";
+import { EmailCaptureSection } from "@/components/marketing/EmailCaptureModal";
 import { Suspense } from "react";
 
 export const metadata = {
-  title: "Freelance Contract Generator & Late Payment Tools", // 56 characters
-  description: "Generate freelance contracts, calculate late payment penalties, and send demand letters for unpaid invoices. Free tools built for freelancers and employers.", // 154 characters
+  title: "Free Independent Contractor & Service Agreement Templates",
+  description:
+    "Generate independent contractor and service agreement templates, calculate late payment penalties, and send demand letters for unpaid invoices. Free tools for freelancers and employers.",
   alternates: { canonical: "https://indielegalterms.com" },
   openGraph: {
-    title: "Freelance Contract Generator & Late Payment Tools",
-    description: "Generate freelance contracts, calculate late payment penalties, and send demand letters for unpaid invoices. Free tools built for freelancers and employers.",
+    title: "Free Independent Contractor & Service Agreement Templates",
+    description:
+      "Generate independent contractor and service agreement templates, calculate late payment penalties, and send demand letters for unpaid invoices. Free tools for freelancers and employers.",
     url: "https://indielegalterms.com",
     siteName: "IndieLegal",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
@@ -22,20 +27,31 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "CA Freelance Worker Protection Act Contract Generator",
+    title: "Free Independent Contractor & Service Agreement Templates",
+    description:
+      "Generate independent contractor and service agreement templates, calculate late payment penalties, and send demand letters for unpaid invoices. Free tools for freelancers and employers.",
     images: ["/og-image.png"],
   },
 };
 
 export const viewport = { width: "device-width", initialScale: 1 };
 
-// Pick representative seed pages for homepage spotlight
-// 4 pipes × 1 each = 4 cards, nicely balanced
+// GSC Top-Impression Spotlight Slugs (Aug 10, 2026 export)
 const PIPE_SPOTLIGHTS = [
-  "california-freelance-contract-requirements-2026",   // employer
-  "california-tech-contractor-agreement-template",     // industry
-  "client-refuses-to-pay-freelance-invoice-california",// freelancer
-  "is-email-valid-contract-freelance-work-california", // faq
+  "freelance-late-fee-calculator-california",              // 42 impressions
+  "how-long-does-client-have-to-pay-freelancer-california", // 31 impressions, position 11.71
+  "client-refuses-to-pay-freelance-invoice-california",     // 18 impressions
+  "penalty-for-not-paying-independent-contractor-ca",       // 12 impressions, position 7 — best-ranked page on the site
+] as const;
+
+// GSC Next-Tier Browse More Slugs (ordered by impressions)
+const BROWSE_MORE_SLUGS = [
+  "california-tech-contractor-agreement-template",
+  "how-to-sue-client-nonpayment-independent-contractor-ca",
+  "ca-1099-contractor-30-day-payment-rule",
+  "can-client-change-payment-terms-after-freelance-work-done-ca",
+  "california-freelance-worker-protection-act-checklist-employers",
+  "can-freelancer-stop-working-if-not-paid-on-time-ca",
 ] as const;
 
 const PIPE_COLORS: Record<string, string> = {
@@ -56,12 +72,23 @@ export default function HomePage() {
   // Resolve spotlight pages at build time (server component)
   const spotlightPages = PIPE_SPOTLIGHTS
     .map((slug) => allSeoPages.find((p) => p.slug === slug))
-    .filter(Boolean);
+    .filter((p): p is NonNullable<typeof p> => Boolean(p));
 
-  // For the "browse all" row: pick 6 formula pages (diverse industry × painpoint)
-  const browseMore = allSeoPages
-    .filter((p) => p.painPipeType === "industry" || p.painPipeType === "freelancer")
-    .slice(4, 10); // skip seeds already spotlighted
+  // Resolve browseMore pages: map GSC confirmed slugs, fall back to filter if needed
+  const confirmedBrowsePages = BROWSE_MORE_SLUGS
+    .map((slug) => allSeoPages.find((p) => p.slug === slug))
+    .filter((p): p is NonNullable<typeof p> => Boolean(p));
+
+  const fallbackBrowsePages = allSeoPages.filter(
+    (p) =>
+      (p.painPipeType === "industry" || p.painPipeType === "freelancer") &&
+      !PIPE_SPOTLIGHTS.includes(p.slug as (typeof PIPE_SPOTLIGHTS)[number]) &&
+      !BROWSE_MORE_SLUGS.includes(p.slug as (typeof BROWSE_MORE_SLUGS)[number])
+  );
+
+  const browseMore = [...confirmedBrowsePages, ...fallbackBrowsePages]
+    .filter((p): p is NonNullable<typeof p> => Boolean(p))
+    .slice(0, 6);
 
   const todayDateStr = new Date().toISOString().split("T")[0];
 
@@ -85,16 +112,25 @@ export default function HomePage() {
         <p className="mx-auto max-w-2xl text-lg sm:text-xl font-bold text-red-600/90 leading-snug mb-3">
           Client ghosting you on an invoice? Claim your statutory late fees &amp; penalties nationwide.
         </p>
-        <p className="mx-auto max-w-2xl text-lg text-text-primary/70 leading-relaxed mb-10">
+        <p className="mx-auto max-w-2xl text-lg text-text-primary/70 leading-relaxed mb-8">
           Draft legally compliant contracts, monitor payment deadlines, and estimate statutory late fees &amp; penalties across all 50 states. Select your scenario below to access our standalone compliance tools.
         </p>
 
-        <Suspense fallback={<div className="text-center py-8 text-slate-500">Loading Scenario Selector...</div>}>
-          <LightweightScenarioEngine />
-        </Suspense>
+        {/* 3 Explicit Hero CTAs */}
+        <HeroButtons />
+
+        {/* Embedded Scenario Engine */}
+        <div id="scenario-engine" className="scroll-mt-24">
+          <Suspense fallback={<div className="text-center py-8 text-slate-500">Loading Scenario Selector...</div>}>
+            <LightweightScenarioEngine />
+          </Suspense>
+        </div>
       </section>
 
-      {/* 2. Industry Cards — unchanged */}
+      {/* 3-Step How-To + Why-Us Section */}
+      <HowToWhyUsSection />
+
+      {/* 2. Industry Cards */}
       <section className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-12">
           <span className="text-xs font-bold uppercase tracking-widest text-primary-lavender bg-primary-lavender/10 px-3 py-1 rounded-full">
@@ -152,10 +188,10 @@ export default function HomePage() {
             Standalone Compliance Suite
           </span>
           <h2 className="text-3xl font-black text-slate-900 mt-3 tracking-tight">
-            SB 988 Central Enforcement Hub
+            Freelance Compliance Tools
           </h2>
           <p className="text-sm text-slate-500 mt-2 max-w-lg mx-auto leading-relaxed">
-            Direct access to our standalone interactive utilities built for California Freelance Worker Protection Act standards.
+            Direct access to our standalone interactive utilities built for California and nationwide freelance compliance standards.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
@@ -165,7 +201,7 @@ export default function HomePage() {
             >
               <span className="text-2xl">📝</span>
               <h3 className="font-bold text-gray-900 mt-3 group-hover:text-primary-lavender transition-colors">Contract Generator</h3>
-              <p className="text-xs text-gray-500 mt-1 leading-relaxed">Generate ironclad, SB 988-compliant freelance agreements in 30 seconds.</p>
+              <p className="text-xs text-gray-500 mt-1 leading-relaxed">Generate an independent contractor or service agreement in 30 seconds — free, all 50 states.</p>
               <div className="text-xs font-bold text-primary-lavender mt-4 flex items-center gap-1">
                 Open Generator <span>→</span>
               </div>
@@ -224,7 +260,7 @@ export default function HomePage() {
               className="group bg-white p-6 rounded-2xl border border-gray-200 hover:border-primary-lavender hover:-translate-y-0.5 hover:shadow-md transition-all text-left"
             >
               <span className="text-2xl">⚖️</span>
-              <h3 className="font-bold text-gray-900 mt-3 group-hover:text-primary-lavender transition-colors">ABC & Borello Test Audit</h3>
+              <h3 className="font-bold text-gray-900 mt-3 group-hover:text-primary-lavender transition-colors">ABC &amp; Borello Test Audit</h3>
               <p className="text-xs text-gray-500 mt-1 leading-relaxed">Check your California AB5 worker classification risk in 2 minutes.</p>
               <div className="text-xs font-bold text-primary-lavender mt-4 flex items-center gap-1">
                 Check My Risk <span>→</span>
@@ -244,6 +280,16 @@ export default function HomePage() {
             </Link>
           </div>
 
+          {/* Pricing CTA Button below tool cards grid */}
+          <div className="mt-10 pt-8 border-t border-slate-200 flex justify-center">
+            <Link
+              href="/pricing"
+              className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-md transition-all hover:shadow-lg hover:-translate-y-0.5"
+            >
+              <span>View Features &amp; Pricing</span>
+              <span>→</span>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -276,7 +322,7 @@ export default function HomePage() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
           <div>
             <span className="text-xs font-bold uppercase tracking-widest text-primary-lavender bg-primary-lavender/10 px-3 py-1 rounded-full">
-              California SB 988 Legal Guides
+              California Freelancer Legal Guides
             </span>
             <h2 className="text-3xl md:text-4xl font-black text-text-primary mt-3 tracking-tight">
               Know Your Rights. Get Paid.
@@ -295,7 +341,7 @@ export default function HomePage() {
           </Link>
         </div>
 
-        {/* 4 spotlight cards — one per pipe type */}
+        {/* 4 spotlight cards — GSC top impression pages */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
           {spotlightPages.map((page) => {
             if (!page) return null;
@@ -331,7 +377,7 @@ export default function HomePage() {
           })}
         </div>
 
-        {/* Secondary row */}
+        {/* Secondary row — GSC confirmed next-tier pages */}
         <div className="bg-gray-50 border border-gray-200 rounded-2xl px-6 py-5">
           <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">
             More California Freelance Guides
@@ -360,6 +406,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Part 6 Bottom Email Lead Magnet Capture */}
+      <EmailCaptureSection />
+
       {/* 5. Freelance Payment Protection Laws by State */}
       <section id="states" className="max-w-6xl mx-auto px-6 scroll-mt-24">
         {/* Structured Data: ItemList for verified-has-law and verified-no-law states */}
@@ -383,9 +432,10 @@ export default function HomePage() {
                       "@type": "AdministrativeArea",
                       "name": s.state,
                     },
-                    "description": s.status === "verified-has-law"
-                      ? `${s.lawName || "Freelance Payment Protection Law"}. Threshold: ${s.paymentThreshold || "N/A"}. Payment Deadline: ${s.paymentDeadline || "30 days"}.`
-                      : (s.note || "No statewide freelance payment protection law."),
+                    "description":
+                      s.status === "verified-has-law"
+                        ? `${s.lawName || "Freelance Payment Protection Law"}. Threshold: ${s.paymentThreshold || "N/A"}. Payment Deadline: ${s.paymentDeadline || "30 days"}.`
+                        : s.note || "No statewide freelance payment protection law.",
                   },
                 })),
             }),

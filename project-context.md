@@ -17,15 +17,12 @@ This repository implements an AI-assisted legal SaaS aimed at helping California
 indielegalterms.com/ (repo root)
 ├── app/                            # Next.js App Router routes & pages
 │   ├── api/                        # Server API endpoints
-│   │   ├── ai/                     # AI endpoints
-│   │   │   ├── contract/           # Contract generation endpoint
-│   │   │   ├── demand-letter/      # Demand letter generation endpoint
-│   │   │   └── README.md           # API usage notes
+│   │   ├── ai/                     # AI endpoints (contract/, demand-letter/)
 │   │   ├── auth/                   # NextAuth handlers
 │   │   ├── ccpa-paid/              # CCPA paid feature endpoint
 │   │   ├── credits/                # Credits status (me/) & deduction (use/) endpoints
 │   │   ├── paypal/                 # PayPal order create/capture/query/test endpoints
-│   │   │   └── README.md           # PayPal integration notes
+│   │   ├── subscribe/              # Lead magnet email subscriber POST endpoint
 │   │   └── subscription/           # Subscription status check endpoint (check/)
 │   ├── compliance/                 # Compliance / laws landing pages [slug] + index
 │   ├── contracts/                  # Contract engine: index, [slug] (100+ slugs), generator/
@@ -41,7 +38,7 @@ indielegalterms.com/ (repo root)
 │   │   ├── irs-20-point-checklist/
 │   │   └── late-payment-calculator/
 │   ├── layout.tsx                  # Root HTML wrapper
-│   ├── page.tsx                    # Homepage
+│   ├── page.tsx                    # Restructured 6-screen homepage (Hero 3-CTA, How-To/Why-Us, Tools, GSC Hub, Lead Magnet, #states)
 │   ├── providers.tsx               # NextAuth / payment providers & contexts
 │   ├── robots.ts                   # Auto-generated robots.txt
 │   └── sitemap.ts                  # Auto-generated sitemap.xml
@@ -52,17 +49,18 @@ indielegalterms.com/ (repo root)
 │   ├── common/                     # Shared UI primitives
 │   ├── guides/                     # Guide-specific components
 │   ├── layout/                     # SiteHeader.tsx, SiteFooter.tsx, GoogleAnalytics.tsx
+│   ├── marketing/                  # Marketing & Lead Magnet (EmailCaptureModal.tsx, HeroButtons.tsx, HowToWhyUsSection.tsx)
 │   ├── modules/                    # Feature module components
 │   ├── pricing/                    # Pricing UI components
 │   ├── providers/                  # React context providers
-│   ├── tools/                      # Tool-specific components
+│   ├── tools/                      # Tool-specific components (LightweightScenarioEngine, StateLawGrid)
 │   └── ui/                         # Base UI components
 ├── data/                           # SSG data files
 │   ├── exampleData.ts              # Example / demo data
 │   ├── freelanceLawsByState.ts     # State-level freelance law data
 │   ├── moduleExamples.ts           # Module example content
 │   ├── plans.ts                    # Pricing plan definitions
-│   ├── professions.ts              # Profession-specific content
+│   ├── professions.ts              # Profession-specific content & GSC large card weighting (copywriters, graphic-designers, etc.)
 │   ├── seoPages.ts                 # Programmatic SEO page data (main, ~52 KB)
 │   └── stateComplianceData.ts      # State compliance details
 ├── lib/                            # Singletons & wrappers
@@ -74,6 +72,7 @@ indielegalterms.com/ (repo root)
 ├── models/
 │   └── order.ts                    # Order model / type definitions
 ├── prisma/                         # Prisma schema and migrations
+│   └── schema.prisma              # Data models (User, Order, EmailSubscriber, etc.)
 ├── styles/
 │   └── globals.css                 # Global CSS
 ├── types/
@@ -82,23 +81,36 @@ indielegalterms.com/ (repo root)
 ├── package.json                    # project metadata & scripts
 ├── next.config.js                  # Next.js config & permanent redirects
 ├── tailwind.config.js / .ts        # Tailwind CSS configuration (two files coexist)
-├── env.example                     # Canonical env vars template (see §5)
-└── .env.example                    # Legacy / shorter env template
+└── env.example                     # Canonical env vars template (see §5)
 ```
-
-Notes from the codebase:
-- The `contracts` and `compliance` directories replace older `freelance-contract` and `independent-contractor-laws` names (permanent redirects configured in `next.config.js`).
-- Data files for programmatic pages live in `data/`. `seoPages.ts` is the largest at ~52 KB.
-- The DeepSeek wrapper at `lib/ai/deepseek.ts` uses lazy initialization — the OpenAI client is created only at call time, never at build time.
-- `middleware.ts` handles a second layer of redirects at the edge for deprecated tool paths, all pointing to `/tools/freelancer-contract-review`.
 
 ---
 
 ## 3. Database Schema (Prisma)
-The Prisma schema (`prisma/schema.prisma`) follows NextAuth models plus order tracking:
+The Prisma schema (`prisma/schema.prisma`) follows NextAuth models plus order tracking and lead magnet subscriptions:
 - **User**: standard NextAuth fields plus `remainingContracts Int @default(0)` (the credits balance for AI calls), and optional `password String?`.
 - **Order**: tracks purchases with `paypalOrderId String? @unique`, `amount Float`, `status String` ("pending", "completed", "failed"), `createdAt`, and relation to User. Indexed on `userId`, `paypalOrderId`, `status`, and `createdAt`.
+- **EmailSubscriber**: stores lead magnet email capture details (`id`, `email`, `name`, `source`, `createdAt`). Indexed on `email` and `createdAt`.
 - **Account**, **Session**, **VerificationToken**: standard NextAuth models linked to User.
+
+---
+
+## 4. Key Logic & Rules
+
+### Lead Magnet Subscriptions & Lead Flow
+- Hero button 3 and bottom CTA trigger the lead magnet (`EmailCaptureModal` / `EmailCaptureSection`).
+- Submits to `POST /api/subscribe` saving email, optional name, and source (`hero_lead_magnet` vs `bottom_lead_magnet`).
+- On successful submission, unlocks direct access link to `/tools/irs-20-point-checklist`.
+
+### Homepage Structure & GSC Signals
+- Homepage (`app/page.tsx`) follows rentlatefee.com 6-screen architecture:
+  1. Hero with 3 CTAs (`Generate My Agreement Now`, `Calculate Late Payment Penalties`, `Get the Free Payment Protection Checklist`) + `LightweightScenarioEngine`.
+  2. 3-step how-to + 6-reason why-us grid (`HowToWhyUsSection`).
+  3. Industry Contract Template cards: `professions.ts` weighted so GSC query drivers (`copywriters` and `photographers`) receive large-card styling (`index % 3 === 0`).
+  4. Compliance Tools suite: includes universal 50-state contract generator card description + `"View Features & Pricing →"` CTA button to `/pricing`.
+  5. California Freelance Legal Guide Hub: `PIPE_SPOTLIGHTS` driven by actual GSC top-impression slugs (`freelance-late-fee-calculator-california`, `how-long-does-client-have-to-pay-freelancer-california`, `client-refuses-to-pay-freelance-invoice-california`, `penalty-for-not-paying-independent-contractor-ca`).
+  6. Email lead magnet capture section + Statewide legal map (`#states`).
+
 
 Implementation notes:
 - `remainingContracts` is the single source of truth for available AI credits. Deductions are persisted atomically **before** making external AI requests to avoid race conditions.
