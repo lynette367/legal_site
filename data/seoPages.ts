@@ -330,7 +330,7 @@ const pipe4Seeds: SeoPage[] = [
             },
             takeaway:
                 "Always add a specific payment date to your contract — 'Net 30 from invoice date' removes all ambiguity. If payment is already overdue, send a formal demand letter immediately; it often triggers same-week settlement.",
-            toolLink: "/tools/late-payment-calculator",
+            toolLink: "/tools/ca-late-payment-calculator",
             toolLabel: "Calculate My Double Damages",
         },
     },
@@ -408,7 +408,7 @@ const pipe4Seeds: SeoPage[] = [
             },
             takeaway:
                 "You have the legal right to stop work if a client hasn't paid. Document the pause in writing, reference the SB 988 30-day rule, and state the exact overdue amount. Any client threat after that is an additional violation — and makes your DLSE complaint stronger.",
-            toolLink: "/tools/late-payment-calculator",
+            toolLink: "/tools/ca-late-payment-calculator",
             toolLabel: "Calculate My Overdue Damages",
         },
     },

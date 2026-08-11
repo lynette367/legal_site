@@ -149,7 +149,7 @@ export default function GuidePage({ params }: Props) {
               Don&apos;t let clients violate your SB 988 rights. If your overdue invoice is $250 or more, use our specialized California Freelance Late Payment Calculator to generate a formal statutory demand letter.
             </p>
             <Link 
-              href="/tools/late-payment-calculator"
+              href="/tools/ca-late-payment-calculator"
               className="inline-block bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-xs font-bold transition shadow-sm"
             >
               Demand 2x Double Damages Now →

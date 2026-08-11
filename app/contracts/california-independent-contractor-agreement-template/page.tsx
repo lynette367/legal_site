@@ -76,7 +76,7 @@ const FAQS = [
     q: 'What is the legal standard for "Net 30" payment terms for California freelancers?',
     a: (
       <>
-        In the freelance industry, clients often abuse &quot;Net 30&quot; to drag out payments. However, under California&apos;s Freelance Worker Protection Act, if no specific date is defined, payment is strictly due no later than 30 days after the completion of services. If a client triggers a late payment beyond this limit, they risk severe statutory penalties. Use our <Link href="/tools/late-payment-calculator" className="text-primary-lavender hover:underline font-semibold">SB 988 Late Fee Calculator</Link> to see exactly how much double damages they might owe you for missing the deadline.
+        In the freelance industry, clients often abuse &quot;Net 30&quot; to drag out payments. However, under California&apos;s Freelance Worker Protection Act, if no specific date is defined, payment is strictly due no later than 30 days after the completion of services. If a client triggers a late payment beyond this limit, they risk severe statutory penalties. Use our <Link href="/tools/ca-late-payment-calculator" className="text-primary-lavender hover:underline font-semibold">SB 988 Late Fee Calculator</Link> to see exactly how much double damages they might owe you for missing the deadline.
       </>
     ),
   },
@@ -194,7 +194,7 @@ export default function CaliforniaContractGeneratorPage() {
               </p>
             </div>
             <Link
-              href="/tools/demand-letter-generator"
+              href="/tools/ca-demand-letter-template"
               className="shrink-0 inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold text-sm px-5 py-3 rounded-xl transition-all whitespace-nowrap w-fit"
             >
               ✉️ Write Demand Letter →
@@ -377,7 +377,7 @@ export default function CaliforniaContractGeneratorPage() {
               Generate My Contract ↑
             </a>
             <Link
-              href="/tools/late-payment-calculator"
+              href="/tools/ca-late-payment-calculator"
               className="inline-flex items-center justify-center gap-2 bg-white border border-primary-lavender/30 text-primary-lavender font-bold px-6 py-3 rounded-xl hover:bg-primary-lavender/5 transition-colors text-sm"
             >
               Calculate Late Penalties →

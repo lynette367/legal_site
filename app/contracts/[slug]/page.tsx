@@ -65,7 +65,7 @@ const SCENARIO_COPY: Record<
     sub: "Paste your invoice or describe the situation. Our AI generates a formal California demand letter citing the 30-day rule and double-damage remedy — ready to send in minutes.",
     placeholder: "Describe your unpaid invoice situation…",
     ctaLabel: "Generate My Demand Letter →",
-    toolLink: "/tools/demand-letter-generator",
+    toolLink: "/tools/ca-demand-letter-template",
   },
   industry: {
     headline: "Get Your SB 988-Compliant Contract in 60 Seconds",

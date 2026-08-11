@@ -18,11 +18,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     { path: "", freq: "daily", pri: 1.0 },
     { path: "/tools/late-payment-calculator", freq: "weekly", pri: 0.9 },
+    { path: "/tools/ca-late-payment-calculator", freq: "weekly", pri: 0.9 },
     { path: "/contracts/generator", freq: "weekly", pri: 0.9 },
     { path: "/contracts/california-independent-contractor-agreement-template", freq: "weekly", pri: 0.9 },
     { path: "/tools/freelancer-contract-review", freq: "weekly", pri: 0.9 },
     { path: "/privacy-policy", freq: "yearly", pri: 0.3 },
     { path: "/tools/ca-contractor-laws", freq: "weekly", pri: 0.9 },
+    { path: "/tools/ca-demand-letter-template", freq: "weekly", pri: 0.9 },
     { path: "/pricing", freq: "weekly", pri: 0.8 },
   ] as const;
 

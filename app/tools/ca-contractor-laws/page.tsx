@@ -4,12 +4,12 @@ import ContractorAuditTool from '../../../components/tools/ContractorAuditTool';
 import MisclassificationCostCalculator from '../../../components/tools/MisclassificationCostCalculator';
 
 export const metadata: Metadata = {
-  title: 'California Independent Contractor Law: ABC & Borello Test Guide',
+  title: 'California ABC Test & Borello Test: Free Compliance Checker (2026)',
   description:
     'Audit your 1099 compliance instantly with our free California Independent Contractor Law tool. Test against AB5 ABC test, Borello test, and SB 988 rules for 2026 — plus a 1099 vs. W-2 true cost calculator that shows misclassification penalty exposure.',
   alternates: { canonical: 'https://indielegalterms.com/tools/ca-contractor-laws' },
   openGraph: {
-    title: 'California Independent Contractor Law: ABC & Borello Test Guide',
+    title: 'California ABC Test & Borello Test: Free Compliance Checker (2026)',
     description:
       'Free 2-minute audit tool for AB5, the ABC Test, the Borello Test, and SB 988 payment compliance in California — plus a 1099 vs. W-2 cost calculator.',
     url: 'https://indielegalterms.com/tools/ca-contractor-laws',
@@ -20,6 +20,45 @@ export const metadata: Metadata = {
 // ─── Static data ──────────────────────────────────────────────────────────────
 
 const FAQS: { q: string; a: React.ReactNode }[] = [
+  {
+    q: 'What is the ABC Test in California?',
+    a: (
+      <>
+        <p className="mb-2">
+          The ABC Test is a strict three-prong standard used in California to determine whether a worker
+          is an employee or an independent contractor. To classify a worker as an contractor,
+          the hiring entity must prove <strong>all three</strong> of the following:
+        </p>
+        <ul className="list-disc list-inside space-y-1">
+          <li><strong>A.</strong> The worker is free from the control and direction of the hiring entity in connection with the performance of the work.</li>
+          <li><strong>B.</strong> The worker performs work that is outside the usual course of the hiring entity’s business.</li>
+          <li><strong>C.</strong> The worker is customarily engaged in an independently established trade, occupation, or business of the same nature as the work performed.</li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    q: 'What is the Borello Test?',
+    a: (
+      <>
+        <p className="mb-2">
+          The Borello Test is California&apos;s traditional common-law test used for occupations exempted from the ABC Test.
+          Unlike the rigid ABC test, it relies on a <strong>&quot;total of the circumstances&quot;</strong> approach.
+        </p>
+        <p className="mb-2">
+          The primary factor is whether the hiring entity has the <strong>right to control</strong> the manner and means of accomplishing the result desired.
+          It also considers secondary factors such as:
+        </p>
+        <ul className="list-disc list-inside space-y-1">
+          <li>Whether the worker is engaged in a distinct occupation or business.</li>
+          <li>Whether the work is usually done under the direction of a principal or by a specialist without supervision.</li>
+          <li>The skill required in the particular occupation.</li>
+          <li>Whether the principal or the worker supplies the instrumentalities, tools, and the place of work.</li>
+          <li>The length of time for which the services are to be performed.</li>
+        </ul>
+      </>
+    ),
+  },
   {
     q: 'Does California still use the IRS 20-point checklist?',
     a: (
@@ -120,10 +159,10 @@ export default function IndependentContractorLawPage() {
         </div>
 
         <h1 className="text-4xl md:text-5xl font-black text-text-primary tracking-tight leading-tight mb-4">
-          California Independent Contractor
+          California ABC Test & Borello Test Checker
           <br />
           <span className="text-2xl md:text-3xl font-bold text-text-primary/60">
-            &amp; Employee (AB5) Compliance Tool
+            AB5 Independent Contractor Compliance Tool
           </span>
         </h1>
 
@@ -188,7 +227,7 @@ export default function IndependentContractorLawPage() {
               </p>
             </div>
             <Link
-              href="/tools/demand-letter-generator"
+              href="/tools/ca-demand-letter-template"
               className="shrink-0 inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold text-sm px-5 py-3 rounded-xl transition-all whitespace-nowrap w-fit"
             >
               ✉️ Write Demand Letter →
@@ -287,6 +326,31 @@ export default function IndependentContractorLawPage() {
 
       {/* ── SEO content: SB 988 payment rules ── */}
       <section className="max-w-4xl mx-auto px-6 mb-20">
+        <div className="mb-8">
+          <span className="text-xs font-bold uppercase tracking-widest text-primary-lavender bg-primary-lavender/10 px-3 py-1 rounded-full">
+            Payment compliance
+          </span>
+          <h2 className="text-2xl font-black text-text-primary mt-3 tracking-tight">
+            How to Avoid AB5 Penalties in California
+          </h2>
+          {/* 简洁的引言：开门见山点出核心与风险 */}
+          <p className="text-base text-text-primary/60 mt-2 max-w-2xl leading-relaxed">
+            Avoiding costly AB5 penalties in California centers on one rule: <strong>correct worker classification</strong>. Misclassification under AB5 and the Freelance Worker Protection Act (SB 988) can trigger devastating fines, including back taxes, wage violations, and statutory damages.
+          </p>
+          {/* 将核心行动点抽离成清晰的短列表，让用户一眼抓到怎么做 */}
+          <div className="mt-4 max-w-2xl text-base text-text-primary/70 space-y-2 leading-relaxed">
+            <p className="font-semibold text-text-primary">To ensure total compliance, your business must:</p>
+            <ul className="list-disc list-inside space-y-1 pl-1">
+              <li>Pass all three prongs of the <strong>ABC Test</strong>, or qualify for a valid <strong>Borello exemption</strong>.</li>
+              <li>Execute <strong>written contracts</strong> for any contractor engagement valued at <strong>$250 or more</strong>.</li>
+              <li>Issue full payments <strong>within 30 days</strong> of completion to satisfy SB 988 requirements.</li>
+            </ul>
+            <p className="text-sm italic text-text-primary/50 mt-2">
+              * Given the complexity of California labor law, always consult a legal professional to review your specific classification decisions.
+            </p>
+          </div>
+        </div>
+
         <div className="mb-8">
           <span className="text-xs font-bold uppercase tracking-widest text-primary-lavender bg-primary-lavender/10 px-3 py-1 rounded-full">
             Payment compliance
@@ -391,7 +455,7 @@ export default function IndependentContractorLawPage() {
             </p>
           </Link>
           <Link
-            href="/tools/demand-letter-generator"
+            href="/tools/ca-demand-letter-template"
             className="bg-white border border-gray-200 rounded-xl p-5 hover:border-primary-lavender hover:shadow-soft transition-all"
           >
             <p className="font-bold text-text-primary text-sm mb-1">Demand Letter Generator</p>
@@ -400,7 +464,7 @@ export default function IndependentContractorLawPage() {
             </p>
           </Link>
           <Link
-            href="/tools/late-payment-calculator"
+            href="/tools/ca-late-payment-calculator"
             className="bg-white border border-gray-200 rounded-xl p-5 hover:border-primary-lavender hover:shadow-soft transition-all"
           >
             <p className="font-bold text-text-primary text-sm mb-1">Penalty Calculator</p>

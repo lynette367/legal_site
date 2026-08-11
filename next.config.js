@@ -38,12 +38,12 @@ const nextConfig = {
       },
       {
         source: '/tools/sb988-demand-letter-generator',
-        destination: '/tools/demand-letter-generator',
+        destination: '/tools/ca-demand-letter-template',
         permanent: true,
       },
       {
         source: '/tools/sb988-late-payment-calculator',
-        destination: '/tools/late-payment-calculator',
+        destination: '/tools/ca-late-payment-calculator',
         permanent: true,
       },
     

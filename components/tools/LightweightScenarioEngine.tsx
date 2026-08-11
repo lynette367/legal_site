@@ -53,7 +53,7 @@ const SCENARIO_LINKS: ScenarioLink[] = [
     id: 'business_b',
     path: 'business',
     text: "How to avoid the $250 threshold compliance trap?",
-    href: "/tools/late-payment-calculator?scenario=avoid-250-trap&mode=business",
+    href: "/tools/ca-late-payment-calculator?scenario=avoid-250-trap&mode=business",
     badge: "Simulator"
   }
 ];
