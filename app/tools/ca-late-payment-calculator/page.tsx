@@ -40,7 +40,7 @@ export default function CALatePaymentCalculatorPage({ searchParams }: PageProps)
             href="/tools/late-payment-calculator"
             className="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-bold ml-2 transition-colors"
           >
-            Use our national late payment calculator →
+            Use our all-states late payment calculator →
           </Link>
         </div>
 

@@ -46,6 +46,11 @@ const nextConfig = {
         destination: '/tools/ca-late-payment-calculator',
         permanent: true,
       },
+      {
+        source: '/contracts/freelance-copywriter-contract-template-california',
+        destination: '/contracts/freelance-copywriter-contract-template',
+        permanent: true,
+      },
     
     ]
   },

@@ -46,7 +46,7 @@ const SB988_CLAUSES = [
 
 const INDUSTRY_LINKS = [
   { href: '/contracts/california-tech-contractor-agreement-template', label: 'Tech Contractor Agreement (California)', tag: 'Industry' },
-  { href: '/contracts/freelance-copywriter-contract-template-california', label: 'Freelance Copywriter Contract Template', tag: 'Industry' },
+  { href: '/contracts/freelance-copywriter-contract-template', label: 'Freelance Copywriter Contract Template', tag: 'Industry' },
   { href: '/contracts/graphic-designer-freelance-contract-late-payment-ca', label: 'Graphic Designer Late Payment Protection', tag: 'Industry' },
   { href: '/contracts/la-video-editor-freelance-contract-template', label: 'LA Video Editor Contract Template', tag: 'Industry' },
   { href: '/contracts/client-refuses-to-pay-freelance-invoice-california', label: 'Client Refuses to Pay? Your SB 988 Rights', tag: 'Rights' },

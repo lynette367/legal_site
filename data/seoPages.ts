@@ -143,7 +143,7 @@ const pipe2Seeds: SeoPage[] = [
         primaryCta: "Generate Designer Contract",
     },
     {
-        slug: "freelance-copywriter-contract-template-california",
+        slug: "freelance-copywriter-contract-template",
         h1: "Freelance Copywriter Contract Template (California SB 988 Compliant)",
         metaTitle: "CA Freelance Copywriter Contract | SB 988 Compliance | IndieLegal",
         metaDesc: "Protect your copy with a California SB 988 compliant writing agreement. Suspend commercial usage rights for unpaid clients. Generate your contract in 60 seconds.",
@@ -484,7 +484,6 @@ const formulaCombinations: FormulaPage[] = [
     { industry: "graphic-designer", painpoint: "invoice-dispute", location: "san-diego", professionSlug: "graphic-designers" },
     { industry: "graphic-designer", painpoint: "double-damages", location: "bay-area", professionSlug: "graphic-designers" },
     // Copywriter × all painpoints
-    { industry: "copywriter", painpoint: "contract-template", location: "california", professionSlug: "copywriters" },
     { industry: "copywriter", painpoint: "late-payment-protection", location: "los-angeles", professionSlug: "copywriters" },
     { industry: "copywriter", painpoint: "demand-letter", location: "bay-area", professionSlug: "copywriters" },
     { industry: "copywriter", painpoint: "invoice-dispute", location: "san-francisco", professionSlug: "copywriters" },
