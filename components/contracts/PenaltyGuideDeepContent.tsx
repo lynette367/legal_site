@@ -295,7 +295,7 @@ export default function PenaltyGuideDeepContent() {
                   href="/tools/ca-contractor-laws"
                   className="text-primary-lavender hover:underline"
                 >
-                  → California Contractor Laws Compliance Checker
+                  California Contractor Laws Compliance Checker
                 </Link>
               </div>
             </div>
@@ -312,3 +312,4 @@ export default function PenaltyGuideDeepContent() {
     </section>
   );
 }
+

@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import ContractorAuditTool from '../../../components/tools/ContractorAuditTool';
 import MisclassificationCostCalculator from '../../../components/tools/MisclassificationCostCalculator';
+import CaContractorLawLegalDepth from '../../../components/tools/CaContractorLawLegalDepth';
 
 export const metadata: Metadata = {
   title: 'California ABC Test & Borello Test: Free Compliance Checker (2026)',
@@ -85,10 +86,13 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
     q: 'What happens if I misclassify a worker in California?',
     a: (
       <>
-        The penalties are severe. Civil penalties range from $5,000 to $25,000 per violation for
-        willful misclassification, plus retroactive payments for unpaid overtime, meal breaks, and
-        severe back taxes to the Employment Development Department (EDD). See what that looks like
-        in dollars for your specific case with the{' '}
+        The penalties are severe. Civil penalties range from $5,000 to $15,000 per violation under
+        California Labor Code § 226.8 for willful misclassification; if the employer is found to have
+        engaged in a pattern or practice (模式性或惯常性违规) of violations, civil penalties increase up to
+        $25,000 per violation. In addition, employers face retroactive liability for unpaid overtime,
+        meal breaks, and statutory tax deficiencies, penalties, and interest to the Employment
+        Development Department (EDD). See what that looks like in dollars for your specific case with
+        the{' '}
         <Link href="#cost-calculator" className="text-primary-lavender hover:underline font-semibold">
           1099 vs. W-2 true cost calculator
         </Link>{' '}
@@ -104,7 +108,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
           href="/contracts/generator#generator-form"
           className="text-primary-lavender hover:underline font-semibold"
         >
-          generate a compliant written contract
+          generate an SB 988 compliant contract
         </Link>{' '}
         before continuing the engagement.
       </>
@@ -115,6 +119,14 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
 // Plain-text mirror of FAQS for the FAQPage JSON-LD (schema requires plain text, not JSX)
 const FAQS_PLAIN = [
   {
+    q: 'What is the ABC Test in California?',
+    a: "The ABC Test is a strict three-prong standard used in California to determine whether a worker is an employee or an independent contractor. Under California Labor Code § 2775, to classify a worker as an independent contractor, the hiring entity must prove all three of the following: A. The worker is free from the control and direction of the hiring entity in connection with the performance of the work. B. The worker performs work that is outside the usual course of the hiring entity's business. C. The worker is customarily engaged in an independently established trade, occupation, or business of the same nature as the work performed.",
+  },
+  {
+    q: 'What is the Borello Test?',
+    a: "The Borello Test is California's traditional common-law test established in S.G. Borello & Sons, Inc. v. Department of Industrial Relations (1989) 48 Cal.3d 341, applied to statutory exemptions from the ABC test (such as professional services under Labor Code § 2778 or B2B contracts under § 2776). The primary factor is whether the hiring entity has the right to control the manner and means of accomplishing the result desired, balanced against secondary factors including distinct occupation, supervision, skill, tool provision, and duration.",
+  },
+  {
     q: 'Does California still use the IRS 20-point checklist?',
     a: "The IRS 20-factor test is still used for federal tax auditing. However, for state labor laws, payroll taxes (EDD), and worker's compensation, California mandates the much stricter ABC test. Meeting IRS standards does not mean you are compliant with California AB5.",
   },
@@ -124,9 +136,26 @@ const FAQS_PLAIN = [
   },
   {
     q: 'What happens if I misclassify a worker in California?',
-    a: "The penalties are severe. Civil penalties range from $5,000 to $25,000 per violation for willful misclassification, plus retroactive payments for unpaid overtime, meal breaks, and severe back taxes to the Employment Development Department (EDD).",
+    a: "The penalties are severe. Civil penalties range from $5,000 to $15,000 per violation under California Labor Code § 226.8 for willful misclassification; if the employer is found to have engaged in a pattern or practice (模式性或惯常性违规) of violations, civil penalties increase up to $25,000 per violation. In addition, employers face retroactive liability for unpaid overtime, meal breaks, and statutory tax deficiencies, penalties, and interest to the Employment Development Department (EDD).",
   },
 ];
+
+const webAppJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'California ABC Test & Borello Test Compliance Checker',
+  url: 'https://indielegalterms.com/tools/ca-contractor-laws',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'All',
+  browserRequirements: 'Requires JavaScript. Requires HTML5.',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  description:
+    'Free interactive compliance tool auditing California AB5 ABC test, Borello test, and SB 988 freelance worker rules, including misclassification penalty calculation.',
+};
 
 const faqJsonLd = {
   '@context': 'https://schema.org',
@@ -145,7 +174,7 @@ export default function IndependentContractorLawPage() {
     <div id="top" className="min-h-screen bg-bg-main">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([webAppJsonLd, faqJsonLd]) }}
       />
 
       {/* ── Hero + interactive tool ── */}
@@ -236,180 +265,9 @@ export default function IndependentContractorLawPage() {
         </div>
       </section>
 
-      {/* ── SEO content: ABC vs Borello ── */}
+      {/* ── Statutory analysis: ABC vs Borello, § 2778, EDD Audits, and SB 988 ── */}
       <section className="max-w-4xl mx-auto px-6 mb-20">
-        <div className="mb-8">
-          <span className="text-xs font-bold uppercase tracking-widest text-primary-lavender bg-primary-lavender/10 px-3 py-1 rounded-full">
-            The legal standard
-          </span>
-          <h2 className="text-2xl font-black text-text-primary mt-3 tracking-tight">
-            ABC Test vs. Borello Test: Which Applies to Your California Contractors?
-          </h2>
-        </div>
-
-        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 md:p-8 text-sm text-text-primary/70 leading-relaxed space-y-4">
-          <p>
-            In California, worker classification is no longer a guessing game. While the IRS uses
-            a 20-point checklist, California strictly enforces the ABC Test established by
-            Assembly Bill 5 (AB5) for most industries.
-          </p>
-          <p>
-            To classify a worker legally as an independent contractor, a hiring entity must prove
-            all three of the following conditions:
-          </p>
-          <ul className="space-y-2 list-none">
-            <li>
-              <strong className="text-text-primary">A (Behavioral Control):</strong> The worker is
-              free from the control and direction of the hiring organization in connection with
-              the performance of the work.
-            </li>
-            <li>
-              <strong className="text-text-primary">B (Core Business):</strong> The worker
-              performs work that is outside the usual course of the hiring entity&apos;s business.
-              (This is where most businesses fail compliance.)
-            </li>
-            <li>
-              <strong className="text-text-primary">C (Independent Trade):</strong> The worker is
-              customarily engaged in an independently established trade, occupation, or business
-              of the same nature as that involved in the work performed.
-            </li>
-          </ul>
-          <p className="font-bold text-text-primary pt-2">What about the Borello Test?</p>
-          <p>
-            The older Borello standard relies on a multi-factor balancing test (similar to the IRS
-            20 factors). Today, it only applies to specific statutory exemptions in California
-            (such as licensed real estate agents, certain professional services, or direct
-            salespersons). If your business doesn&apos;t fall under these rare exemptions, the
-            strict ABC test rules your contract.
-          </p>
-          <p className="font-bold text-text-primary pt-2">
-            Does the &quot;professional services&quot; exemption cover creative freelancers?
-          </p>
-          <p>
-            Under California Labor Code § 2778, several creative and consulting roles are
-            explicitly named as &quot;professional services&quot; — including{' '}
-            <Link href="/contracts/graphic-designer-freelance-contract-late-payment-ca" className="text-primary-lavender hover:underline font-semibold">
-              graphic design contracts
-            </Link>
-            ,{' '}
-            <Link href="/contracts/bay-area-consulting-agreement-independent-contractor" className="text-primary-lavender hover:underline font-semibold">
-              independent consulting agreements
-            </Link>
-            , marketing involving original creative content, fine art and photography,{' '}
-            <Link href="/guides/photographers" className="text-primary-lavender hover:underline font-semibold">
-              photography and videography
-            </Link>
-            , and freelance writing or{' '}
-            <Link href="/guides/copywriters" className="text-primary-lavender hover:underline font-semibold">
-              content creation
-            </Link>
-            . For these roles, the strict ABC test is replaced by the Borello test — but only if
-            the hiring entity can show the worker meets <em>all</em> of the following:
-          </p>
-          <ul className="space-y-2 list-disc list-inside">
-            <li>Maintains a business location separate from the hiring entity (a home office counts)</li>
-            <li>Holds a business license or tax registration, and any required professional license</li>
-            <li>Can set or negotiate their own rates</li>
-            <li>Can set their own hours, outside of project deadlines and reasonable business hours</li>
-            <li>Is customarily engaged in the same type of work for other clients</li>
-            <li>Regularly exercises discretion and independent judgment in performing the work</li>
-          </ul>
-          <p className="text-xs text-text-primary/50 pt-1">
-            Source: California Labor Code § 2778. This exemption list is amended periodically —
-            confirm current statutory language before relying on it for a specific engagement.
-          </p>
-          <p className="pt-2">
-            <strong className="text-text-primary">Important scope note:</strong> qualifying for the
-            Borello test only changes how a worker is <em>classified</em> — it has no bearing on
-            your payment obligations. Even a Borello-exempt professional service provider is still
-            entitled to full SB 988 protections: a written contract for $250+ engagements, a
-            30-day payment deadline, and double damages for late payment. See below.
-          </p>
-        </div>
-      </section>
-
-      {/* ── SEO content: SB 988 payment rules ── */}
-      <section className="max-w-4xl mx-auto px-6 mb-20">
-        <div className="mb-8">
-          <span className="text-xs font-bold uppercase tracking-widest text-primary-lavender bg-primary-lavender/10 px-3 py-1 rounded-full">
-            Payment compliance
-          </span>
-          <h2 className="text-2xl font-black text-text-primary mt-3 tracking-tight">
-            How to Avoid AB5 Penalties in California
-          </h2>
-          {/* 简洁的引言：开门见山点出核心与风险 */}
-          <p className="text-base text-text-primary/60 mt-2 max-w-2xl leading-relaxed">
-            Avoiding costly AB5 penalties in California centers on one rule: <strong>correct worker classification</strong>. Misclassification under AB5 and the Freelance Worker Protection Act (SB 988) can trigger devastating fines, including back taxes, wage violations, and statutory damages.
-          </p>
-          {/* 将核心行动点抽离成清晰的短列表，让用户一眼抓到怎么做 */}
-          <div className="mt-4 max-w-2xl text-base text-text-primary/70 space-y-2 leading-relaxed">
-            <p className="font-semibold text-text-primary">To ensure total compliance, your business must:</p>
-            <ul className="list-disc list-inside space-y-1 pl-1">
-              <li>Pass all three prongs of the <strong>ABC Test</strong>, or qualify for a valid <strong>Borello exemption</strong>.</li>
-              <li>Execute <strong>written contracts</strong> for any contractor engagement valued at <strong>$250 or more</strong>.</li>
-              <li>Issue full payments <strong>within 30 days</strong> of completion to satisfy SB 988 requirements.</li>
-            </ul>
-            <p className="text-sm italic text-text-primary/50 mt-2">
-              * Given the complexity of California labor law, always consult a legal professional to review your specific classification decisions.
-            </p>
-          </div>
-        </div>
-
-        <div className="mb-8">
-          <span className="text-xs font-bold uppercase tracking-widest text-primary-lavender bg-primary-lavender/10 px-3 py-1 rounded-full">
-            Payment compliance
-          </span>
-          <h2 className="text-2xl font-black text-text-primary mt-3 tracking-tight">
-            California Independent Contractor Payment Laws &amp; SB 988
-          </h2>
-          <p className="text-base text-text-primary/60 mt-2 max-w-2xl leading-relaxed">
-            Ensuring your workers are classified correctly is only half the battle; paying them
-            according to California law is the other. Under the Freelance Worker Protection Act
-            (SB 988), California has introduced steep penalties for delayed payments to
-            independent contractors.
-          </p>
-        </div>
-
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 text-sm text-text-primary/70 leading-relaxed">
-          <p className="mb-4">
-            If you hire freelance workers in California, you must adhere to these strict
-            guardrails:
-          </p>
-          <ol className="space-y-3 list-decimal list-inside">
-            <li>
-              <strong className="text-text-primary">Mandatory Written Contracts:</strong> Any
-              contract valued at $250 or more must be in writing, specifying the rate, method, and
-              date of payment.
-            </li>
-            <li>
-              <strong className="text-text-primary">30-Day Payment Deadline:</strong> Payments
-              must be made on or before the date specified in the contract, or no later than 30
-              days after the completion of services if no date is specified.
-            </li>
-            <li>
-              <strong className="text-text-primary">Late Payment Penalties:</strong> Hiring
-              entities that fail to pay on time can face{' '}
-              <Link
-                href="/contracts/penalty-for-not-paying-independent-contractor-ca"
-                className="text-primary-lavender hover:underline font-semibold"
-              >
-                California contractor late payment penalties and double damages
-              </Link>{' '}
-              (up to twice the unpaid amount) plus attorney fees and statutory interest under SB 988.
-            </li>
-          </ol>
-          <p className="mt-4">
-            The audit tool above automatically factors these SB 988 checklist criteria into your
-            result. If it flagged missing contract terms, generate a{' '}
-            <Link
-              href="/contracts/generator"
-              className="text-primary-lavender hover:underline font-semibold"
-            >
-              compliant contract now
-            </Link>
-            .
-          </p>
-        </div>
+        <CaContractorLawLegalDepth />
       </section>
 
       {/* ── FAQ ── */}
