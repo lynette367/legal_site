@@ -127,6 +127,18 @@ export default function GuidePage({ params }: Props) {
                 Customize via Smart AI Generator (DeepSeek Powered) →
               </Link>
             </div>
+
+            {currentProfession.slug === "graphic-designers" && (
+              <div className="mt-4 p-4 rounded-lg bg-blue-50/60 border border-blue-100 text-sm text-blue-900">
+                <span className="font-semibold">Need enforceable late payment protection?</span> View our dedicated{" "}
+                <Link
+                  href="/contracts/graphic-designer-freelance-contract-late-payment-ca"
+                  className="font-bold underline text-blue-700 hover:text-blue-900"
+                >
+                  Graphic Designer Late Payment Contract Template (California SB 988)
+                </Link>.
+              </div>
+            )}
           </section>
 
           {/* FAQ 展现层：满足 YMYL 的用户可读性要求 */}

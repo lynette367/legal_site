@@ -4,6 +4,10 @@ import { LoginPageContent } from "../../components/common/LoginPageContent";
 export const metadata: Metadata = {
   title: "Log In | Indie Legal Assistant",
   description: "Sign in to use Indie Legal Assistant. All calls are billed with no free quota.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function LoginPage() {

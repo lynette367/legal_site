@@ -288,8 +288,12 @@ export default function IndependentContractorLawPage() {
           <p>
             Under California Labor Code § 2778, several creative and consulting roles are
             explicitly named as &quot;professional services&quot; — including{' '}
-            <Link href="/guides/graphic-designers" className="text-primary-lavender hover:underline font-semibold">
-              graphic design
+            <Link href="/contracts/graphic-designer-freelance-contract-late-payment-ca" className="text-primary-lavender hover:underline font-semibold">
+              graphic design contracts
+            </Link>
+            ,{' '}
+            <Link href="/contracts/bay-area-consulting-agreement-independent-contractor" className="text-primary-lavender hover:underline font-semibold">
+              independent consulting agreements
             </Link>
             , marketing involving original creative content, fine art and photography,{' '}
             <Link href="/guides/photographers" className="text-primary-lavender hover:underline font-semibold">
