@@ -106,8 +106,6 @@ export default function FreelanceContractHub() {
     {} as Record<SeoPage["painPipeType"], SeoPage[]>
   );
 
-  const totalPages = allSeoPages.length;
-
   return (
     <div className="bg-bg-main min-h-screen">
 
@@ -126,7 +124,7 @@ export default function FreelanceContractHub() {
             California Freelance<br className="hidden md:block" /> Contract Guides
           </h1>
           <p className="text-lg text-gray-600 leading-relaxed max-w-2xl mb-8">
-            {totalPages}+ guides covering everything California freelancers and employers
+            20+ curated guides covering everything California freelancers and employers
             need under <strong>SB 988</strong> — the Freelance Worker Protection Act.
             Find your situation below.
           </p>
@@ -137,7 +135,7 @@ export default function FreelanceContractHub() {
               { v: "$250+", l: "triggers written contract" },
               { v: "30 days", l: "max payment window" },
               { v: "2×",  l: "late payment damages" },
-              { v: `${totalPages}+`, l: "legal guides" },
+              { v: "20+", l: "curated guides" },
             ].map((s) => (
               <div key={s.l} className="bg-gray-50 border border-gray-200 rounded-xl px-5 py-3 text-center min-w-[110px]">
                 <div className="text-xl font-black text-primary-lavender">{s.v}</div>

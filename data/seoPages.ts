@@ -618,8 +618,41 @@ const locationLabels: Record<Location, string> = {
     "silicon-valley": "Silicon Valley",
 };
 
-// Generate the 80 formula pages
-export const formulaPages: SeoPage[] = formulaCombinations.map(({ industry, painpoint, location, professionSlug }) => {
+// ─── Retained Formula Slugs (PR-01) ──────────────────────────────────────────
+// 55 unindexed programmatic pages removed (33 redirected via next.config.js, 22 removed as 404)
+// 25 pages retained: 23 GSC confirmed indexed + 2 gray observation
+const retainedFormulaSlugs = new Set<string>([
+    "tech-contractor-demand-letter-silicon-valley",
+    "tech-contractor-invoice-dispute-bay-area",
+    "tech-contractor-double-damages-los-angeles",
+    "tech-contractor-contract-template-sacramento",
+    "tech-contractor-double-damages-bay-area",
+    "graphic-designer-contract-template-california",
+    "graphic-designer-late-payment-protection-los-angeles",
+    "graphic-designer-double-damages-bay-area",
+    "graphic-designer-contract-template-sacramento",
+    "copywriter-double-damages-silicon-valley",
+    "copywriter-late-payment-protection-san-diego",
+    "photographer-double-damages-orange-county",
+    "photographer-contract-template-sacramento",
+    "photographer-demand-letter-bay-area",
+    "photographer-late-payment-protection-sacramento",
+    "video-editor-contract-template-san-diego",
+    "consultant-contract-template-bay-area",
+    "consultant-invoice-dispute-california",
+    "consultant-double-damages-bay-area",
+    "consultant-invoice-dispute-orange-county",
+    "ux-designer-invoice-dispute-sacramento",
+    "marketing-freelancer-invoice-dispute-orange-county",
+    "marketing-freelancer-double-damages-san-diego",
+    "marketing-freelancer-invoice-dispute-silicon-valley",
+    "marketing-freelancer-late-payment-protection-bay-area",
+]);
+
+// Generate the retained formula pages (25 pages: 23 indexed + 2 gray observation)
+export const formulaPages: SeoPage[] = formulaCombinations
+    .filter(({ industry, painpoint, location }) => retainedFormulaSlugs.has(`${industry}-${painpoint}-${location}`))
+    .map(({ industry, painpoint, location, professionSlug }) => {
     const industryLabel = industryLabels[industry];
     const { title, subtitle, cta } = painpointLabels[painpoint];
     const locationLabel = locationLabels[location];

@@ -42,7 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     pri: 0.85,
   };
 
-  // First 20 slugs = hand-crafted seeds → higher priority
+  // PR-01: 20 hand-crafted seeds (pri 0.75) + 25 retained formula pages under observation (pri 0.6)
   const SEED_COUNT = 20;
   const seoSlugRoutes = allSeoSlugs.map((slug, i) => ({
     path: `/contracts/${slug}`,
