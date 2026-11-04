@@ -3,16 +3,16 @@ import Link from "next/link";
 import DemandLetterGenerator from "@/components/tools/DemandLetterGenerator";
 
 export const metadata: Metadata = {
-  title: "Free Independent Contractor Demand Letter Template — Past Due Invoice",
+  title: "Contractor Invoice Demand Letter Generator",
   description:
-    "Create a professional past-due invoice demand letter for freelance work. Give your client formal notice before taking further action. Free, no account required.",
+    "Generate a formal payment demand letter for past-due freelance invoices. Give non-paying clients formal legal notice and collect outstanding fees today.",
   alternates: {
     canonical: "https://indielegalterms.com/tools/demand-letter-generator",
   },
   openGraph: {
-    title: "Free Independent Contractor Demand Letter Template — Past Due Invoice",
+    title: "Contractor Invoice Demand Letter Generator",
     description:
-      "Create a professional past-due invoice demand letter for freelance work. Give your client formal notice before taking further action. Free, no account required.",
+      "Generate a formal payment demand letter for past-due freelance invoices. Give non-paying clients formal legal notice and collect outstanding fees today.",
     url: "https://indielegalterms.com/tools/demand-letter-generator",
   },
 };

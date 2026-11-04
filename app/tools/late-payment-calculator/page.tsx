@@ -3,14 +3,14 @@ import Link from 'next/link';
 import LatePaymentCalculator from '@/components/tools/LatePaymentCalculator';
 
 export const metadata = {
-  title: 'Late Payment Calculator | Independent Contractor Invoice Fees',
-  description: 'Calculate standard late payment interest and overdue invoice fees for freelance work. Compatible with standard commercial net terms across all US states.',
+  title: 'Freelance Late Payment Interest Calculator',
+  description: 'Calculate commercial late payment interest, overdue fees, and grace period terms on freelance invoices across US states. Calculate your total claim today.',
   alternates: {
     canonical: 'https://indielegalterms.com/tools/late-payment-calculator',
   },
   openGraph: {
-    title: 'Late Payment Calculator | Independent Contractor Invoice Fees',
-    description: 'Calculate standard late payment interest and overdue invoice fees for freelance work. Compatible with standard commercial net terms across all US states.',
+    title: 'Freelance Late Payment Interest Calculator',
+    description: 'Calculate commercial late payment interest, overdue fees, and grace period terms on freelance invoices across US states. Calculate your total claim today.',
     url: 'https://indielegalterms.com/tools/late-payment-calculator',
   },
 };

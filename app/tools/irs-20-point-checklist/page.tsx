@@ -4,16 +4,16 @@ import Link from "next/link";
 import IRS20PointAuditor from "./IRS20PointAuditor";
 
 export const metadata: Metadata = {
-  title: "Free IRS 20-Point Worker Classification Auditor (1099 vs W-2) | IndieLegal",
+  title: "IRS 20-Point Worker Classification Auditor",
   description:
-    "Self-check your 1099 independent contractor relationship against the IRS's behavioral control, financial control, and relationship factors in 3 minutes. Free, instant risk score — no account required.",
+    "Audit 1099 vs. W-2 worker status against IRS behavioral, financial, and relationship factors. Get your free misclassification risk score in 3 minutes.",
   alternates: {
     canonical: "https://indielegalterms.com/tools/irs-20-point-checklist",
   },
   openGraph: {
-    title: "Free IRS 20-Point Worker Classification Auditor (1099 vs W-2)",
+    title: "IRS 20-Point Worker Classification Auditor",
     description:
-      "Self-check your 1099 independent contractor relationship against IRS common-law rules in 3 minutes. Free, instant risk score.",
+      "Audit 1099 vs. W-2 worker status against IRS behavioral, financial, and relationship factors. Get your free misclassification risk score in 3 minutes.",
     url: "https://indielegalterms.com/tools/irs-20-point-checklist",
     type: "website",
   },

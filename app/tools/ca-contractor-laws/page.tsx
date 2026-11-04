@@ -5,14 +5,14 @@ import MisclassificationCostCalculator from '../../../components/tools/Misclassi
 import CaContractorLawLegalDepth from '../../../components/tools/CaContractorLawLegalDepth';
 
 export const metadata: Metadata = {
-  title: 'California ABC Test & Borello Test: Free Compliance Checker (2026)',
+  title: 'California ABC Test & Borello 1099 Checker',
   description:
-    'Audit your 1099 compliance instantly with our free California Independent Contractor Law tool. Test against AB5 ABC test, Borello test, and SB 988 rules for 2026 — plus a 1099 vs. W-2 true cost calculator that shows misclassification penalty exposure.',
+    'Audit 1099 contractor compliance under California AB5 ABC test, Borello factors, and SB 988 rules. Calculate misclassification risk exposure in 2 minutes.',
   alternates: { canonical: 'https://indielegalterms.com/tools/ca-contractor-laws' },
   openGraph: {
-    title: 'California ABC Test & Borello Test: Free Compliance Checker (2026)',
+    title: 'California ABC Test & Borello 1099 Checker',
     description:
-      'Free 2-minute audit tool for AB5, the ABC Test, the Borello Test, and SB 988 payment compliance in California — plus a 1099 vs. W-2 cost calculator.',
+      'Audit 1099 contractor compliance under California AB5 ABC test, Borello factors, and SB 988 rules. Calculate misclassification risk exposure in 2 minutes.',
     url: 'https://indielegalterms.com/tools/ca-contractor-laws',
     type: 'website',
   },

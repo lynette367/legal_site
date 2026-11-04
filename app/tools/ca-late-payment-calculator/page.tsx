@@ -3,14 +3,14 @@ import Link from 'next/link';
 import SB988PenaltyCalculator from '@/components/tools/SB988PenaltyCalculator';
 
 export const metadata = {
-  title: 'California SB 988 Late Payment & Double Damages Calculator (2026)',
-  description: 'Calculate your statutory 2x double damages and attorney fees under the California Freelance Worker Protection Act (SB 988). Free compliance enforcement tool.',
+  title: 'California SB 988 Late Payment Calculator',
+  description: 'Calculate statutory double damages and legal fee recovery under the California Freelance Worker Protection Act (SB 988). Run your free damage estimate now.',
   alternates: {
     canonical: 'https://indielegalterms.com/tools/ca-late-payment-calculator',
   },
   openGraph: {
-    title: 'California SB 988 Late Payment & Double Damages Calculator (2026)',
-    description: 'Calculate your statutory 2x double damages and attorney fees under the California Freelance Worker Protection Act (SB 988). Free compliance enforcement tool.',
+    title: 'California SB 988 Late Payment Calculator',
+    description: 'Calculate statutory double damages and legal fee recovery under the California Freelance Worker Protection Act (SB 988). Run your free damage estimate now.',
     url: 'https://indielegalterms.com/tools/ca-late-payment-calculator',
   },
 };

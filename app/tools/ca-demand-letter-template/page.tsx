@@ -3,16 +3,16 @@ import Link from "next/link";
 import DemandLetterGenerator from "@/components/tools/DemandLetterGenerator";
 
 export const metadata: Metadata = {
-  title: "Free SB 988 California Freelance Demand Letter Template (2026)",
+  title: "CA SB 988 Freelance Demand Letter Template",
   description:
-    "Generate a formal California SB 988 payment demand letter in minutes. Cite the 30-day payment rule and double damages remedy. Ready-to-send letter template.",
+    "Draft a formal California SB 988 demand letter for unpaid freelance invoices. Enforce 30-day statutory payment and double damages with our free tool.",
   alternates: {
     canonical: "https://indielegalterms.com/tools/ca-demand-letter-template",
   },
   openGraph: {
-    title: "Free SB 988 California Freelance Demand Letter Template (2026)",
+    title: "CA SB 988 Freelance Demand Letter Template",
     description:
-      "Generate a formal California SB 988 payment demand letter in minutes. Cite the 30-day payment rule and double damages remedy. Ready-to-send letter template.",
+      "Draft a formal California SB 988 demand letter for unpaid freelance invoices. Enforce 30-day statutory payment and double damages with our free tool.",
     url: "https://indielegalterms.com/tools/ca-demand-letter-template",
   },
 };
