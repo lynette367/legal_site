@@ -3,14 +3,14 @@ import Link from 'next/link';
 import FreelancerContractReviewClient from './ClientComponent';
 
 export const metadata: Metadata = {
-  title: "Freelancer Contract Review & Risk Detector",
+  title: "Freelance Contract Checklist & Risk Guide",
   description: "Check freelancer and independent contractor agreements for hidden risks, unfair indemnity, and missing payment terms. Get a compliance checklist free.",
-  keywords: "freelancer contract review, independent contractor agreement, California AB5, contract risk detection, freelance legal protection",
+  keywords: "freelancer contract checklist, independent contractor agreement, California AB5, contract risk detection, freelance legal protection",
   alternates: {
     canonical: 'https://indielegalterms.com/tools/freelancer-contract-review',
   },
   openGraph: {
-    title: "Freelancer Contract Review & Risk Detector",
+    title: "Freelance Contract Checklist & Risk Guide",
     description: "Check freelancer and independent contractor agreements for hidden risks, unfair indemnity, and missing payment terms. Get a compliance checklist free.",
     url: 'https://indielegalterms.com/tools/freelancer-contract-review',
     siteName: 'Indie Legal',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Freelancer Contract Review & Risk Detector",
+    title: "Freelance Contract Checklist & Risk Guide",
     description: "Check freelancer and independent contractor agreements for hidden risks, unfair indemnity, and missing payment terms. Get a compliance checklist free.",
     images: ['/og-image.png'],
   },
@@ -30,7 +30,7 @@ export default function FreelancerContractReviewPage() {
   const webAppSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name: 'Freelancer Contract Review Tool',
+    name: 'Freelance Contract Checklist & Risk Guide',
     url: 'https://indielegalterms.com/tools/freelancer-contract-review',
     applicationCategory: 'LegalApplication',
     operatingSystem: 'All',
@@ -39,7 +39,7 @@ export default function FreelancerContractReviewPage() {
       price: '0',
       priceCurrency: 'USD',
     },
-    description: 'Instantly detect risky clauses, missing payment protections, and liability issues in freelancer contracts.',
+    description: 'Self-check independent contractor agreements for common liability risks, unfair indemnity, and missing payment terms.',
   };
 
   return (
