@@ -1,8 +1,9 @@
 // app/tools/ca-late-payment-calculator/page.tsx
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import SB988PenaltyCalculator from '@/components/tools/SB988PenaltyCalculator';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'California SB 988 Late Payment Calculator',
   description: 'Calculate statutory double damages and legal fee recovery under the California Freelance Worker Protection Act (SB 988). Run your free damage estimate now.',
   alternates: {

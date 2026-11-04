@@ -1,8 +1,9 @@
 // app/tools/late-payment-calculator/page.tsx
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import LatePaymentCalculator from '@/components/tools/LatePaymentCalculator';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Freelance Late Payment Interest Calculator',
   description: 'Calculate commercial late payment interest, overdue fees, and grace period terms on freelance invoices across US states. Calculate your total claim today.',
   alternates: {
