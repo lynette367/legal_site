@@ -8,6 +8,7 @@ import { seoPageBySlug, allSeoSlugs, type SeoPage } from "@/data/seoPages";
 import { professions } from "@/data/professions";
 import { plans, creditsNote } from "@/data/plans";
 import CaseStudyPanel from "@/components/CaseStudyPanel";
+import PenaltyGuideDeepContent from "@/components/contracts/PenaltyGuideDeepContent";
 
 // ── Static generation ──────────────────────────────────────────────────────
 export async function generateStaticParams() {
@@ -291,121 +292,128 @@ export default function SeoLandingPage({
         )}
 
 
-        {/* ══ 3. SB 988 PLAIN-ENGLISH EXPLAINER ══════════════════════════════ */}
-        <section className="bg-white border-y border-gray-100">
-          <div className="max-w-5xl mx-auto px-6 py-14">
-            <p className="text-xs font-bold uppercase tracking-widest text-primary-lavender mb-2">
-              Know the Law
-            </p>
-            <h2 className="text-2xl md:text-3xl font-black text-text-primary mb-10">
-              California SB 988 — Plain English
-            </h2>
-
-            <div className="grid md:grid-cols-3 gap-6">
-              {[
-                {
-                  icon: "📋",
-                  title: "Written contract is mandatory",
-                  body: "Any California freelance engagement worth $250 or more — individually or cumulative within 120 days — must have a written contract. An email chain counts only if it specifies parties, services, rate, and payment date.",
-                },
-                {
-                  icon: "📅",
-                  title: "30 days to pay, no excuses",
-                  body: "Once you submit an invoice, the client has 30 calendar days to pay — unless your written contract specifies a different date. There is no grace period. Day 31 onwards, double damages begin accruing.",
-                },
-                {
-                  icon: "💰",
-                  title: "Late? You owe double.",
-                  body: "If payment is late, the contractor is entitled to damages equal to the full unpaid amount — effectively doubling what the client owes. Plus reasonable attorney fees and court costs. This right cannot be waived by contract.",
-                },
-              ].map((card) => (
-                <div
-                  key={card.title}
-                  className="bg-gray-50 border border-gray-200 rounded-xl p-6"
-                >
-                  <span className="text-3xl mb-4 block">{card.icon}</span>
-                  <h3 className="text-base font-bold text-text-primary mb-2">{card.title}</h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">{card.body}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Demand letter flow */}
-            <div className="mt-10 bg-orange-50 border border-orange-200 rounded-2xl p-7">
-              <div className="flex flex-col md:flex-row md:items-center gap-6">
-                <div className="flex-1">
-                  <h3 className="text-base font-bold text-orange-900 mb-2">
-                    🔥 If they&apos;re 30+ days late, this is your move
-                  </h3>
-                  <p className="text-sm text-orange-800 leading-relaxed">
-                    Step 1 → Generate a formal SB 988 demand letter (states exact double-damage amount + 10-day response window).<br />
-                    Step 2 → If no response, file in California Small Claims Court (up to $12,500, no lawyer needed).<br />
-                    Step 3 → Present the demand letter as evidence — judge awards double damages automatically under SB 988.
-                  </p>
-                </div>
-                <Link
-                  href="/tools/late-payment-calculator"
-                  className="shrink-0 inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold text-sm px-6 py-3.5 rounded-xl transition-all whitespace-nowrap"
-                >
-                  Calculate My Double Damages →
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ══ 4. CONTRACT SNIPPET PREVIEW ════════════════════════════════════ */}
-        {profession && (
-          <section className="max-w-5xl mx-auto px-6 py-14">
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-7">
-              <div>
+        {/* ══ 3 & 4. DEEP CONTENT OR STANDARD EXPLAINER ══════════════════════ */}
+        {page.slug === "penalty-for-not-paying-independent-contractor-ca" ? (
+          <PenaltyGuideDeepContent />
+        ) : (
+          <>
+            {/* ══ 3. SB 988 PLAIN-ENGLISH EXPLAINER ══════════════════════════════ */}
+            <section className="bg-white border-y border-gray-100">
+              <div className="max-w-5xl mx-auto px-6 py-14">
                 <p className="text-xs font-bold uppercase tracking-widest text-primary-lavender mb-2">
-                  Sample Language
+                  Know the Law
                 </p>
-                <h2 className="text-2xl md:text-3xl font-black text-text-primary">
-                  {profession.ctaTitle} Template Preview
+                <h2 className="text-2xl md:text-3xl font-black text-text-primary mb-10">
+                  California SB 988 — Plain English
                 </h2>
-                <p className="text-sm text-gray-500 mt-1 max-w-lg leading-relaxed">
-                  {profession.painPoint}
-                </p>
-              </div>
-              <Link
-                href="/contracts/generator"
-                className="shrink-0 inline-flex items-center gap-2 bg-primary-lavender hover:bg-primary-lavender-dark text-white font-bold text-sm px-6 py-3 rounded-xl transition-all"
-              >
-                Generate Full Version →
-              </Link>
-            </div>
 
-            {/* Code card */}
-            <div className="rounded-2xl border border-gray-200 overflow-hidden shadow-soft bg-white">
-              <div className="flex items-center gap-2 px-4 py-3 bg-gray-50 border-b border-gray-200">
-                <span className="w-3 h-3 rounded-full bg-red-400" />
-                <span className="w-3 h-3 rounded-full bg-yellow-400" />
-                <span className="w-3 h-3 rounded-full bg-green-400" />
-                <span className="ml-3 text-xs font-mono text-gray-400">
-                  {profession.ctaTitle.toLowerCase().replace(/\s+/g, "-")}-sb988.txt
-                  <span className="ml-3 text-emerald-500 font-bold">● SB 988 Compliant</span>
-                </span>
-              </div>
-              <pre className="font-mono text-[11px] leading-relaxed text-gray-600 p-5 overflow-x-auto max-h-64 whitespace-pre-wrap break-words bg-white">
-                {profession.contractSnippet}
-              </pre>
-              <div className="px-5 py-4 bg-gray-50 border-t border-gray-200 flex flex-wrap items-center justify-between gap-3">
-                <div className="flex items-center gap-4">
-                  <span className="text-xs text-gray-400">
-                    ↑ Preview only — full contract includes 12+ clauses
-                  </span>
+                <div className="grid md:grid-cols-3 gap-6">
+                  {[
+                    {
+                      icon: "📋",
+                      title: "Written contract is mandatory",
+                      body: "Any California freelance engagement worth $250 or more — individually or cumulative within 120 days — must have a written contract. An email chain counts only if it specifies parties, services, rate, and payment date.",
+                    },
+                    {
+                      icon: "📅",
+                      title: "30 days to pay, no excuses",
+                      body: "Once you submit an invoice, the client has 30 calendar days to pay — unless your written contract specifies a different date. There is no grace period. Day 31 onwards, double damages begin accruing.",
+                    },
+                    {
+                      icon: "💰",
+                      title: "Late? You owe double.",
+                      body: "If payment is late, the contractor is entitled to damages equal to the full unpaid amount — effectively doubling what the client owes. Plus reasonable attorney fees and court costs. This right cannot be waived by contract.",
+                    },
+                  ].map((card) => (
+                    <div
+                      key={card.title}
+                      className="bg-gray-50 border border-gray-200 rounded-xl p-6"
+                    >
+                      <span className="text-3xl mb-4 block">{card.icon}</span>
+                      <h3 className="text-base font-bold text-text-primary mb-2">{card.title}</h3>
+                      <p className="text-sm text-gray-600 leading-relaxed">{card.body}</p>
+                    </div>
+                  ))}
                 </div>
-                <Link
-                  href="/contracts/generator"
-                  className="inline-flex items-center gap-1.5 bg-primary-lavender hover:bg-primary-lavender-dark text-white font-bold text-xs px-4 py-2.5 rounded-lg transition-all"
-                >
-                  Generate Complete Contract →
-                </Link>
+
+                {/* Demand letter flow */}
+                <div className="mt-10 bg-orange-50 border border-orange-200 rounded-2xl p-7">
+                  <div className="flex flex-col md:flex-row md:items-center gap-6">
+                    <div className="flex-1">
+                      <h3 className="text-base font-bold text-orange-900 mb-2">
+                        🔥 If they&apos;re 30+ days late, this is your move
+                      </h3>
+                      <p className="text-sm text-orange-800 leading-relaxed">
+                        Step 1 → Generate a formal SB 988 demand letter (states exact double-damage amount + 10-day response window).<br />
+                        Step 2 → If no response, file in California Small Claims Court (up to $12,500, no lawyer needed).<br />
+                        Step 3 → Present the demand letter as evidence — judge awards double damages automatically under SB 988.
+                      </p>
+                    </div>
+                    <Link
+                      href="/tools/late-payment-calculator"
+                      className="shrink-0 inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold text-sm px-6 py-3.5 rounded-xl transition-all whitespace-nowrap"
+                    >
+                      Calculate My Double Damages →
+                    </Link>
+                  </div>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
+
+            {/* ══ 4. CONTRACT SNIPPET PREVIEW ════════════════════════════════════ */}
+            {profession && (
+              <section className="max-w-5xl mx-auto px-6 py-14">
+                <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-7">
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary-lavender mb-2">
+                      Sample Language
+                    </p>
+                    <h2 className="text-2xl md:text-3xl font-black text-text-primary">
+                      {profession.ctaTitle} Template Preview
+                    </h2>
+                    <p className="text-sm text-gray-500 mt-1 max-w-lg leading-relaxed">
+                      {profession.painPoint}
+                    </p>
+                  </div>
+                  <Link
+                    href="/contracts/generator"
+                    className="shrink-0 inline-flex items-center gap-2 bg-primary-lavender hover:bg-primary-lavender-dark text-white font-bold text-sm px-6 py-3 rounded-xl transition-all"
+                  >
+                    Generate Full Version →
+                  </Link>
+                </div>
+
+                {/* Code card */}
+                <div className="rounded-2xl border border-gray-200 overflow-hidden shadow-soft bg-white">
+                  <div className="flex items-center gap-2 px-4 py-3 bg-gray-50 border-b border-gray-200">
+                    <span className="w-3 h-3 rounded-full bg-red-400" />
+                    <span className="w-3 h-3 rounded-full bg-yellow-400" />
+                    <span className="w-3 h-3 rounded-full bg-green-400" />
+                    <span className="ml-3 text-xs font-mono text-gray-400">
+                      {profession.ctaTitle.toLowerCase().replace(/\s+/g, "-")}-sb988.txt
+                      <span className="ml-3 text-emerald-500 font-bold">● SB 988 Compliant</span>
+                    </span>
+                  </div>
+                  <pre className="font-mono text-[11px] leading-relaxed text-gray-600 p-5 overflow-x-auto max-h-64 whitespace-pre-wrap break-words bg-white">
+                    {profession.contractSnippet}
+                  </pre>
+                  <div className="px-5 py-4 bg-gray-50 border-t border-gray-200 flex flex-wrap items-center justify-between gap-3">
+                    <div className="flex items-center gap-4">
+                      <span className="text-xs text-gray-400">
+                        ↑ Preview only — full contract includes 12+ clauses
+                      </span>
+                    </div>
+                    <Link
+                      href="/contracts/generator"
+                      className="inline-flex items-center gap-1.5 bg-primary-lavender hover:bg-primary-lavender-dark text-white font-bold text-xs px-4 py-2.5 rounded-lg transition-all"
+                    >
+                      Generate Complete Contract →
+                    </Link>
+                  </div>
+                </div>
+              </section>
+            )}
+          </>
         )}
 
         {/* ══ 5. PRICING — Credits Packs ══════════════════════════════════════ */}

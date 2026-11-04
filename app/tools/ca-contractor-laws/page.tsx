@@ -388,8 +388,14 @@ export default function IndependentContractorLawPage() {
             </li>
             <li>
               <strong className="text-text-primary">Late Payment Penalties:</strong> Hiring
-              entities that fail to pay on time can face double damages (2x late payment penalty)
-              plus attorney fees under SB 988.
+              entities that fail to pay on time can face{' '}
+              <Link
+                href="/contracts/penalty-for-not-paying-independent-contractor-ca"
+                className="text-primary-lavender hover:underline font-semibold"
+              >
+                California contractor late payment penalties and double damages
+              </Link>{' '}
+              (up to twice the unpaid amount) plus attorney fees and statutory interest under SB 988.
             </li>
           </ol>
           <p className="mt-4">
