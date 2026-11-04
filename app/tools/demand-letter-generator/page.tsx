@@ -17,9 +17,37 @@ export const metadata: Metadata = {
   },
 };
 
+const howToJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Write a Past-Due Invoice Demand Letter for Freelancers",
+  "description": "Step-by-step process for generating and serving an enforceable commercial demand letter for unpaid independent contractor invoices nationwide.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Establish Contractual Payment Terms",
+      "text": "Document the agreed Net 30 or Net 60 payment terms, invoice date, and project completion proof."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Draft Formal Notice of Breach",
+      "text": "State the exact outstanding balance, applicable late payment fees, and payment deadline."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Deliver via Tracked Method",
+      "text": "Send the formal demand letter with delivery confirmation before escalating to collections or small claims litigation."
+    }
+  ]
+};
+
 export default function DemandLetterGeneratorPage() {
   return (
     <main className="bg-bg-main min-h-screen py-12 px-4">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+      />
       <div className="max-w-3xl mx-auto mb-8">
 
         {/* 跨链提示横幅：加州客户专项指引 */}
@@ -47,9 +75,16 @@ export default function DemandLetterGeneratorPage() {
 
       <DemandLetterGenerator />
 
-      <p className="max-w-3xl mx-auto text-xs text-text-lavender mt-6 text-center">
+      <p className="max-w-3xl mx-auto text-xs text-text-lavender mt-6 text-center leading-relaxed">
         This tool generates a draft letter for informational purposes and is not a substitute for
-        advice from a licensed attorney.
+        advice from a licensed attorney. Review our compliance guide on{' '}
+        <Link
+          href="/contracts/california-freelance-contract-requirements-2026"
+          className="text-primary-lavender hover:underline font-semibold"
+        >
+          California freelance contract requirements
+        </Link>{' '}
+        to protect future engagements.
       </p>
 
       {/* ── Cross-link: Contract Generator ── */}

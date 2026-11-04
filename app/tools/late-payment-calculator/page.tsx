@@ -18,8 +18,27 @@ export const metadata = {
 export default function UniversalLatePaymentCalculatorPage() {
   const currentYear = "2026";
 
+  const webAppSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Independent Contractor Late Payment Calculator',
+    url: 'https://indielegalterms.com/tools/late-payment-calculator',
+    applicationCategory: 'LegalApplication',
+    operatingSystem: 'All',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    description: 'Calculate standard commercial late payment interest, grace periods, and overdue invoice fees for freelance contracts across US states.',
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
       <div className="max-w-4xl mx-auto px-4 py-8 md:py-12">
 
         {/* 跨链提示横幅：加州客户专项指引 */}
@@ -63,6 +82,12 @@ export default function UniversalLatePaymentCalculatorPage() {
             </p>
             <p className="text-xs leading-relaxed text-slate-500">
               To legally enforce late fee interest on client invoices, contract terms should explicitly state the grace period, monthly interest rate, and right to recover collection costs. Ensure your contract includes clear late payment provisions before starting client engagements.
+            </p>
+            <p className="text-xs leading-relaxed text-slate-500">
+              Operating in California? State statutory law supersedes generic commercial grace periods under the{' '}
+              <Link href="/contracts/ca-1099-contractor-30-day-payment-rule" className="text-indigo-600 font-semibold underline hover:no-underline">
+                California 30-day contractor payment rule
+              </Link>.
             </p>
             <p className="text-xs leading-relaxed text-slate-500">
               Need a fully compliant, enforceable agreement for your freelance work? Generate a custom agreement with our{' '}

@@ -27,9 +27,41 @@ export const metadata: Metadata = {
 };
 
 export default function FreelancerContractReviewPage() {
+  const webAppSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Freelancer Contract Review Tool',
+    url: 'https://indielegalterms.com/tools/freelancer-contract-review',
+    applicationCategory: 'LegalApplication',
+    operatingSystem: 'All',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    description: 'Instantly detect risky clauses, missing payment protections, and liability issues in freelancer contracts.',
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
       <FreelancerContractReviewClient />
+
+      {/* ── Related template cross-link ── */}
+      <section className="max-w-4xl mx-auto px-6 pb-8">
+        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-sm text-slate-700">
+          <p className="font-semibold text-slate-900 mb-1">Need a battle-tested agreement template that avoids common contractual pitfalls?</p>
+          <p className="text-slate-600 leading-relaxed">
+            Protect both parties from day one using our vetted{' '}
+            <Link href="/contracts/california-independent-contractor-agreement-template" className="text-indigo-600 font-semibold underline hover:no-underline">
+              California independent contractor agreement template
+            </Link>, designed to satisfy mandatory statutory disclosures and fair payment terms.
+          </p>
+        </div>
+      </section>
 
       {/* ── Related tool cross-link ── */}
       <section className="max-w-4xl mx-auto px-6 pb-16">

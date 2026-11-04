@@ -25,6 +25,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/privacy-policy", freq: "yearly", pri: 0.3 },
     { path: "/tools/ca-contractor-laws", freq: "weekly", pri: 0.9 },
     { path: "/tools/ca-demand-letter-template", freq: "weekly", pri: 0.9 },
+    { path: "/tools/demand-letter-generator", freq: "weekly", pri: 0.9 },
+    { path: "/tools/irs-20-point-checklist", freq: "weekly", pri: 0.9 },
     { path: "/pricing", freq: "weekly", pri: 0.8 },
   ] as const;
 

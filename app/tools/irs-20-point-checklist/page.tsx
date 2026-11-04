@@ -81,8 +81,44 @@ const FAQS: { q: string; a: ReactNode }[] = [
 // ─── Page ────────────────────────────────────────────────────────────────────
 
 export default function IRS20PointChecklistPage() {
+  const webAppSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'IRS 20-Point Worker Classification Auditor',
+    url: 'https://indielegalterms.com/tools/irs-20-point-checklist',
+    applicationCategory: 'LegalApplication',
+    operatingSystem: 'All',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    description: 'Audit 1099 independent contractor classification against IRS common-law behavioral, financial, and relationship factors.',
+  };
+
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQS.map((faq) => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: typeof faq.a === 'string' ? faq.a : '',
+      },
+    })),
+  };
+
   return (
     <div className="min-h-screen bg-bg-main" id="top">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       {/* ── Hero ── */}
       <section className="max-w-4xl mx-auto pt-14 pb-8 px-6 text-center">
         <div className="inline-flex items-center gap-2 rounded-full bg-primary-lavender/10 px-4 py-1.5 text-sm font-semibold text-text-lavender mb-6 border border-primary-lavender/20">

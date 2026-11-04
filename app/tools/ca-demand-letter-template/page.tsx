@@ -17,9 +17,37 @@ export const metadata: Metadata = {
   },
 };
 
+const howToJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Send a California SB 988 Demand Letter for Unpaid Freelance Invoices",
+  "description": "Step-by-step guide to drafting and serving a formal California SB 988 payment demand letter to collect past-due freelance compensation and statutory damages.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Verify 30-Day Payment Deadline",
+      "text": "Confirm that your invoice is at least 31 days overdue under California Business and Professions Code § 18102 or past the agreed contractual payment date."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Calculate Principal and Statutory Penalties",
+      "text": "Itemize the unpaid invoice principal, 10% statutory interest under Civil Code § 3289(b), and statutory damages up to twice the unpaid amount under Business and Professions Code § 18106."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Serve the 10-Day Formal Demand",
+      "text": "Serve the demand letter via certified mail or tracked electronic delivery providing the client a 10-day cure period before filing in Small Claims Court."
+    }
+  ]
+};
+
 export default function CADemandLetterTemplatePage() {
   return (
     <main className="bg-bg-main min-h-screen py-12 px-4">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+      />
       <div className="max-w-3xl mx-auto mb-8">
 
         {/* 跨链提示横幅：引导非加州用户跳转到通用版模板 */}
@@ -49,9 +77,16 @@ export default function CADemandLetterTemplatePage() {
 
       <DemandLetterGenerator />
 
-      <p className="max-w-3xl mx-auto text-xs text-text-lavender mt-6 text-center">
+      <p className="max-w-3xl mx-auto text-xs text-text-lavender mt-6 text-center leading-relaxed">
         This tool generates a draft letter for informational purposes and is not a substitute for
-        advice from a licensed attorney.
+        advice from a licensed attorney. Review our step-by-step guidance on{' '}
+        <Link
+          href="/contracts/client-refuses-to-pay-freelance-invoice-california"
+          className="text-primary-lavender hover:underline font-semibold"
+        >
+          what to do when a client refuses to pay
+        </Link>{' '}
+        under California SB 988.
       </p>
 
       {/* ── Cross-link: Contract Generator ── */}

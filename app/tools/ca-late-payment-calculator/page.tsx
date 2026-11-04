@@ -27,8 +27,27 @@ export default function CALatePaymentCalculatorPage({ searchParams }: PageProps)
   const scenario = searchParams?.scenario;
   const mode = searchParams?.mode === 'business' || scenario === 'avoid-250-trap' ? 'business' : 'freelancer';
 
+  const webAppSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'California SB 988 Statutory Penalty Calculator',
+    url: 'https://indielegalterms.com/tools/ca-late-payment-calculator',
+    applicationCategory: 'LegalApplication',
+    operatingSystem: 'All',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    description: 'Calculate statutory double damages and attorney fee recovery under the California Freelance Worker Protection Act (SB 988).',
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
       <div className="max-w-4xl mx-auto px-4 py-8 md:py-12">
 
         {/* 跨链提示横幅：引导非加州用户跳转到全美通用计算器 */}
@@ -72,6 +91,12 @@ export default function CALatePaymentCalculatorPage({ searchParams }: PageProps)
             </p>
             <p className="text-xs leading-relaxed text-slate-500">
               If the contract value totals $250 or more over a 12-month period, judges are legally required to award <strong className="text-slate-900 font-semibold">double damages (2x the unpaid invoice amount)</strong>, plus reasonable attorney fees and court costs, provided a written contract was established.
+            </p>
+            <p className="text-xs leading-relaxed text-slate-500">
+              For a comprehensive breakdown of statutory interest rates, Labor Commissioner filing rules, and court claim strategies, consult our{' '}
+              <Link href="/contracts/penalty-for-not-paying-independent-contractor-ca" className="text-indigo-600 hover:text-indigo-800 underline font-medium">
+                California contractor late payment penalties guide
+              </Link>.
             </p>
             {mode === 'business' && (
               <p className="text-xs leading-relaxed text-slate-500">
