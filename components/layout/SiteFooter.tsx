@@ -12,12 +12,14 @@ export function SiteFooter() {
           <Link href="/" className="hover:text-primary-lavender transition-colors">Home</Link>
           <Link href="/contracts" className="hover:text-primary-lavender transition-colors">Freelance Legal Guide Index</Link>
           <Link href="/contracts/generator" className="hover:text-primary-lavender transition-colors">Contract Generator</Link>
+          <Link href="/tools/freelancer-contract-review" className="hover:text-primary-lavender transition-colors">Contract Review</Link>
           <Link href="/tools/late-payment-calculator" className="hover:text-primary-lavender transition-colors">Penalty Calculator</Link>
           <Link href="/tools/irs-20-point-checklist" className="hover:text-primary-lavender transition-colors">Worker Classification Quiz</Link>
           <Link href="/compliance" className="hover:text-primary-lavender transition-colors">Contractor Laws by State</Link>
+          <Link href="/#states" className="hover:text-primary-lavender transition-colors">States</Link>
           <Link href="/guides" className="hover:text-primary-lavender transition-colors">All Guides</Link>
           <Link href="/pricing" className="hover:text-primary-lavender transition-colors">Pricing</Link>
-          <Link href="/privacy-policy">Privacy Policy</Link>
+          <Link href="/privacy-policy" className="hover:text-primary-lavender transition-colors">Privacy Policy</Link>
         </div>
       </div>
       <div className="border-t border-border-lavender/50 bg-bg-main/80 px-6 py-6 text-center text-xs text-text-primary/70">
