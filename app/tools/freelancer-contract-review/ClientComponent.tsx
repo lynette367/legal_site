@@ -1,126 +1,59 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-
-interface Tool {
-    id: number;
-    title: string;
-    seoDesc: string;
-    longTail: string;
-    steps: string[];
-    riskPoints: string[];
-}
+import AiContractReviewTool from '@/components/tools/AiContractReviewTool';
+import ComplianceStepper from './ComplianceStepper';
 
 export default function FreelancerContractReviewClient() {
-    const router = useRouter();
-    const [step, setStep] = useState(1);
-    const [isLoading, setIsLoading] = useState(false);
-    const [result, setResult] = useState<string[] | null>(null);
-
-    const tool: Tool = {
-        id: 3,
-        title: 'Freelance Contract Checklist & Risk Guide',
-        seoDesc: 'Self-check your independent contractor agreement against common California compliance risks, IP ownership pitfalls, and payment terms.',
-        longTail: 'California independent contractor contract checklist',
-        steps: [
-            'Work State: California / Remote / Other',
-            'Payment Mode: Fixed / Hourly / Milestone',
-            'IP Ownership: Client / Shared / Freelancer'
-        ],
-        riskPoints: ['Misclassification risks under California AB5 ABC test', 'Ambiguous IP transfer and copyright assignment clauses', 'Uncapped indemnification and liability terms']
-    };
-
-    const handleSelect = () => {
-        if (step < 3) {
-            setStep(step + 1);
-        } else {
-            setIsLoading(true);
-            setTimeout(() => {
-                setIsLoading(false);
-                setResult(tool.riskPoints);
-            }, 800);
-        }
-    };
-
     return (
         <section className="space-y-6 pt-6">
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary-lavender/10 px-4 py-1.5 text-xs font-bold text-text-lavender uppercase tracking-widest mx-auto">
-                Contract Compliance Checklist
+            <div className="flex justify-center">
+                <div className="inline-flex items-center gap-2 rounded-full bg-primary-lavender/10 px-4 py-1.5 text-xs font-bold text-text-lavender uppercase tracking-widest">
+                    Contract Compliance Checklist
+                </div>
             </div>
-            
+
             <h1 className="text-4xl md:text-5xl font-extrabold text-text-primary tracking-tight text-center">
                 Freelance Contract Checklist &amp; Risk Guide
             </h1>
-            
+
             <p className="max-w-2xl mx-auto text-lg text-text-primary/60 text-center">
                 Self-check your independent contractor agreement against common California compliance risks, IP ownership pitfalls, and missing payment protections.
             </p>
 
-            <div className="max-w-xl mx-auto mt-12 p-8 rounded-3xl bg-white border border-border-lavender shadow-soft relative overflow-hidden">
-                <button onClick={() => router.back()} className="text-sm text-gray-400 mb-4">← Back</button>
-
-                {isLoading ? (
-                    <div className="py-12 text-center">
-                        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary-lavender mx-auto"></div>
-                        <p className="mt-4 text-primary-lavender font-medium">Evaluating Contract Risk Factors...</p>
-                    </div>
-                ) : result ? (
-                    <div className="space-y-4">
-                        <h4 className="text-xl font-bold text-green-700 text-center">✅ Checklist Evaluation Complete</h4>
-                        <div className="bg-white p-6 rounded-xl border border-green-100 shadow-sm">
-                            <p className="font-bold text-gray-800 mb-3">Key Risk Factors to Review:</p>
-                            <ul className="space-y-2">
-                                {result.map((point: string, i: number) => (
-                                    <li key={i} className="text-sm text-red-600 flex items-start">
-                                        <span className="mr-2">⚠️</span> {point}
-                                    </li>
-                                ))}
-                            </ul>
-                            <button 
-                                onClick={() => router.push(`/contracts/generator`)}
-                                className="w-full mt-6 py-4 bg-primary-lavender text-white rounded-xl font-bold shadow-lg hover:bg-primary-lavender-dark transition-colors"
-                            >
-                                Generate a Compliant Agreement →
-                            </button>
-                        </div>
-                    </div>
-                ) : (
-                    <div>
-                        <p className="text-xs font-bold text-primary-lavender uppercase tracking-wider mb-2">Step {step} of 3</p>
-                        <h4 className="text-lg font-medium mb-6">
-                            {tool.steps[step - 1].includes(':') 
-                                ? tool.steps[step - 1].split(':')[0] 
-                                : 'Question'}
-                        </h4>
-                        <div className="grid grid-cols-1 gap-3">
-                            {(() => {
-                                const stepContent = tool.steps[step - 1];
-                                if (!stepContent) return null;
-                                
-                                const optionsPart = stepContent.includes(':') 
-                                    ? stepContent.split(':')[1] 
-                                    : stepContent;
-                                const options = optionsPart.split('/');
-                                
-                                return options.map((opt: string) => (
-                                    <button
-                                        key={opt}
-                                        onClick={() => handleSelect()}
-                                        className="py-4 px-6 bg-white border border-gray-200 rounded-xl hover:border-primary-lavender hover:bg-primary-lavender/5 text-left font-medium transition-all"
-                                    >
-                                        {opt.trim()}
-                                    </button>
-                                ));
-                            })()}
-                        </div>
-                    </div>
-                )}
+            {/* ── Free AI Contract Review (hero tool) ── */}
+            <div className="px-4 mt-12 space-y-4">
+                <div className="text-center space-y-2">
+                    <h2 className="text-2xl md:text-3xl font-bold text-text-primary">Free AI Contract Review</h2>
+                    <p className="max-w-2xl mx-auto text-text-primary/60">
+                        Paste your agreement and get an AI risk report in under a minute.
+                    </p>
+                </div>
+                <AiContractReviewTool />
+                <p className="max-w-2xl mx-auto text-xs text-text-primary/50 text-center">
+                    Your first review is free, no sign-up required. Contract text is used only to generate your report and is not stored.
+                </p>
             </div>
 
             {/* SEO Content Section */}
-            <div className="max-w-3xl mx-auto mt-20 space-y-12">
+            <div className="max-w-3xl mx-auto mt-20 space-y-12 px-4">
+                <section className="space-y-6">
+                    <h2 className="text-3xl font-bold text-text-primary">How the AI contract review works</h2>
+                    <ol className="list-decimal pl-8 space-y-2 text-text-primary/80">
+                        <li><strong>Paste your contract:</strong> Copy the full agreement text from your PDF, Word file or email into the review box.</li>
+                        <li><strong>AI flags risky clauses:</strong> Payment terms, IP ownership, indemnification, termination and non-competes are ranked by severity, along with missing protections.</li>
+                        <li><strong>Get suggested edits:</strong> Each flagged clause comes with replacement wording you can send back to your client, or start fresh with our <Link href="/contracts/generator" className="text-primary-lavender font-semibold hover:underline">contract generator</Link>.</li>
+                    </ol>
+                </section>
+
+                <section className="space-y-6">
+                    <h2 className="text-3xl font-bold text-text-primary">Quick Compliance Self-Check</h2>
+                    <p className="text-text-primary/80">
+                        No contract text yet? Answer three quick questions to see the key risk factors to look for.
+                    </p>
+                    <ComplianceStepper />
+                </section>
+
                 <section className="space-y-6">
                     <h2 className="text-3xl font-bold text-text-primary">What is a Freelance Contract Checklist?</h2>
                     <p className="text-text-primary/80">
@@ -138,23 +71,10 @@ export default function FreelancerContractReviewClient() {
                     </p>
                     <ul className="list-disc pl-8 space-y-2 text-text-primary/80">
                         <li><strong>Assembly Bill 5 (AB5) / Labor Code § 2775:</strong> Establishes the three-prong ABC test for determining independent contractor status versus statutory employee classification.</li>
-                        <li><strong>Senate Bill 988 (Civil Code § 18100+):</strong> The Freelance Worker Protection Act mandates written contracts for engagements over $250 and statutory 30-day payment deadlines.</li>
+                        <li><strong>Senate Bill 988 (Business &amp; Professions Code § 18100+):</strong> The Freelance Worker Protection Act mandates written contracts for engagements over $250 and statutory 30-day payment deadlines.</li>
                         <li><strong>Civil Code § 3289(b):</strong> Grants 10% statutory simple interest per annum on past-due commercial balances when contracts lack agreed interest rates.</li>
                         <li><strong>IP Assignment Protections:</strong> Standard work-for-hire clauses must clarify whether rights transfer upon contract execution or only upon full invoice payment.</li>
                     </ul>
-                </section>
-
-                <section className="space-y-6">
-                    <h2 className="text-3xl font-bold text-text-primary">How Our Contract Checklist &amp; Risk Guide Works</h2>
-                    <p className="text-text-primary/80">
-                        Use this 3-step self-assessment guide to audit key contract terms:
-                    </p>
-                    <ol className="list-decimal pl-8 space-y-2 text-text-primary/80">
-                        <li><strong>Select jurisdiction and location:</strong> Check whether California statutory protections apply to your client relationship.</li>
-                        <li><strong>Audit payment schedule terms:</strong> Verify milestone deadlines against statutory Net-30 limits.</li>
-                        <li><strong>Review intellectual property ownership:</strong> Confirm that work product rights transfer only after payment clearance.</li>
-                        <li><strong>Take corrective action:</strong> Update agreement language using our compliant contract generator.</li>
-                    </ol>
                 </section>
 
                 <section className="space-y-6">
@@ -188,8 +108,8 @@ export default function FreelancerContractReviewClient() {
                     <h2 className="text-3xl font-bold text-text-primary">Related Compliance Tools</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <Link href="/contracts/generator" className="p-4 rounded-xl border border-border-lavender hover:border-primary-lavender hover:bg-primary-lavender/5 transition-all block">
-                            <h3 className="font-bold text-text-primary">California Contractor Agreement Generator</h3>
-                            <p className="text-sm text-text-primary/70 mt-1">Generate a legally compliant, customizable independent contractor agreement in minutes.</p>
+                            <h3 className="font-bold text-text-primary">Independent Contractor Agreement Generator</h3>
+                            <p className="text-sm text-text-primary/70 mt-1">Generate a customizable independent contractor agreement in minutes.</p>
                         </Link>
                         <Link href="/tools/ca-contractor-laws" className="p-4 rounded-xl border border-border-lavender hover:border-primary-lavender hover:bg-primary-lavender/5 transition-all block">
                             <h3 className="font-bold text-text-primary">California ABC Test &amp; Borello Checker</h3>
@@ -200,7 +120,7 @@ export default function FreelancerContractReviewClient() {
 
                 <div className="bg-gray-50 rounded-2xl p-6 text-left">
                     <p className="text-sm text-text-primary/60">
-                        <strong>Disclaimer:</strong> This self-assessment checklist and compliance guide is provided for informational purposes only and does not constitute formal legal counsel. Always consult a licensed California attorney for binding legal agreements.
+                        <strong>Disclaimer:</strong> This self-assessment checklist and compliance guide is provided for informational purposes only and does not constitute formal legal counsel. Always consult a licensed California attorney for binding legal agreements. The AI contract review may miss issues or misread context and is not a substitute for legal advice.
                     </p>
                 </div>
             </div>

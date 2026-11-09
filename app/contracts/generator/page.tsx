@@ -4,14 +4,14 @@ import UniversalContractGeneratorClient from './UniversalContractGeneratorClient
 import { Suspense } from 'react';
 
 export const metadata: Metadata = {
-  title: 'Free Independent Contractor Agreement Template — Generate & Download Instantly',
+  title: 'Free Independent Contractor Agreement Generator — Create & Download',
   description:
-    'Create a professional independent contractor agreement in minutes. Covers scope of work, payment terms, IP ownership, and cancellation. Free, no account required.',
+    'Generate a custom independent contractor agreement online in minutes. Tailor scope of work, payment terms, late fees, IP ownership, and cancellation for any US state. Free, no account required.',
   alternates: { canonical: 'https://indielegalterms.com/contracts/generator' },
   openGraph: {
-    title: 'Free Independent Contractor Agreement Template — Generate & Download Instantly',
+    title: 'Free Independent Contractor Agreement Generator — Create & Download',
     description:
-      'Create a professional independent contractor agreement in minutes. Covers scope of work, payment terms, IP ownership, and cancellation. Free, no account required.',
+      'Generate a custom independent contractor agreement online in minutes. Tailor scope of work, payment terms, late fees, IP ownership, and cancellation for any US state. Free, no account required.',
     url: 'https://indielegalterms.com/contracts/generator',
     type: 'website',
   },
@@ -31,7 +31,7 @@ const HOW_IT_WORKS = [
   {
     step: '3',
     title: 'Generate & download instantly',
-    desc: 'Our tool generates a clean, enforceable independent contractor agreement ready to print or sign electronically.',
+    desc: 'Our tool generates a clean, enforceable independent contractor agreement ready to download and print.',
   },
 ];
 
@@ -99,7 +99,7 @@ export default function UniversalContractGeneratorPage() {
         </div>
 
         <h1 className="text-4xl md:text-5xl font-black text-text-primary tracking-tight leading-tight mb-4">
-          Free Independent Contractor Agreement Template
+          Free Independent Contractor Agreement Generator
         </h1>
 
         <p className="text-lg text-text-primary/70 max-w-2xl mx-auto mb-10 leading-relaxed">

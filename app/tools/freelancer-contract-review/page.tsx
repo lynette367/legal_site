@@ -39,7 +39,7 @@ export default function FreelancerContractReviewPage() {
       price: '0',
       priceCurrency: 'USD',
     },
-    description: 'Self-check independent contractor agreements for common liability risks, unfair indemnity, and missing payment terms.',
+    description: 'Self-check independent contractor agreements for common liability risks, unfair indemnity, and missing payment terms, with an optional free AI contract review.',
   };
 
   return (
