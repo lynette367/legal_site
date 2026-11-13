@@ -15,6 +15,7 @@
 | **PR-04 (P1-1)** | 规范化 `/tools/*` 真实工具页的索引、Sitemap 与 Schema 策略 | `app/sitemap.ts`, `app/tools/*/page.tsx` | 低（元数据规范） | PR-01 完成 |
 | **PR-05 (P1-2)** | 补齐数据监控缺口与 GSC 90 天监控归档 | `docs/seo/data-archive.md`, `data/seoKeywords.ts` | 无代码风险 | 持续跟进 |
 | **PR-06 (P2)** | AI 真实功能门禁治理：明确产品承接边界，防误导降权 | `app/tools/freelancer-contract-review/*`, `docs/seo/` | 低（产品定位修正） | 业务产品功能排期 |
+| **PR-07 (下一批)** | 首页瘦身：移除 45 个空状态州卡片，仅保留已核实 4 州 | `components/tools/StateLawGrid.tsx`, `app/page.tsx` | 低（DOM 瘦身） | 首页 TDK 批次上线后 |
 
 ---
 
@@ -206,6 +207,19 @@
 - **验收标准**：
   - 站内不存在未实现功能却承诺“Free AI Review”的误导性页面与 TDK。
 - **预计 PR 拆分**：**PR-06: Align contract review copy with actual capabilities and hold AI landing pages behind functional gate**。
+
+---
+
+### 下一批（独立于首页 TDK 批次）：首页 `StateLawGrid` 45 个空状态州卡片清理
+
+- **问题诊断**：
+  - 首页从 `Independent Contractor Laws by State` 往下，`StateLawGrid` 在 DOM 中直出全部 50 个州卡片（超出前 6 个仅用 `hidden` class 隐藏），其中 45 个州全部重复渲染同一句 `Not yet verified as of YYYY-MM-DD.`，占掉全页 11,001 字符中的大量篇幅，且每日仅变动日期字符串，稀释首页核心权重。
+- **核心动作（放到首页 TDK 上线后的下一批执行）**：
+  1. **仅保留有实际核实数据的 4 个州**：`CA`、`IL`、`NY`、`WA`（即 `status === "verified-has-law" || status === "verified-no-law"`），彻底从首页 DOM 中移除其余 `coming-soon` / `not-yet-verified` 的空状态卡片及 `todayDateStr` 动态日期渲染；
+  2. **折叠按钮改为跳转链接**：将原展开按钮替换为 `<Link href="/compliance">View All 45 More States →</Link>`。
+- **涉及文件路径**：
+  - [components/tools/StateLawGrid.tsx](file:///Users/lynnyee/Downloads/indielegalterms.com/components/tools/StateLawGrid.tsx#L12-L119)
+  - [app/page.tsx](file:///Users/lynnyee/Downloads/indielegalterms.com/app/page.tsx#L93-L460)
 
 ---
 

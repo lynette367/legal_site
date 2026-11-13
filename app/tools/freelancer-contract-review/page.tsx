@@ -3,15 +3,15 @@ import Link from 'next/link';
 import FreelancerContractReviewClient from './ClientComponent';
 
 export const metadata: Metadata = {
-  title: "Freelance Contract Checklist & Risk Guide",
-  description: "Check freelancer and independent contractor agreements for hidden risks, unfair indemnity, and missing payment terms. Get a compliance checklist free.",
-  keywords: "freelancer contract checklist, independent contractor agreement, California AB5, contract risk detection, freelance legal protection",
+  title: "Free AI Contract Review for Freelancers",
+  description: "Paste a freelance or contractor agreement and get an AI risk report: unfair indemnity, IP traps, non-competes, missing payment terms. 1 free review.",
+  keywords: "freelancer contract review, ai contract review, independent contractor agreement, California AB5, contract risk detection, freelance legal protection",
   alternates: {
     canonical: 'https://indielegalterms.com/tools/freelancer-contract-review',
   },
   openGraph: {
-    title: "Freelance Contract Checklist & Risk Guide",
-    description: "Check freelancer and independent contractor agreements for hidden risks, unfair indemnity, and missing payment terms. Get a compliance checklist free.",
+    title: "Free AI Contract Review for Freelancers | Indie Legal",
+    description: "Paste a freelance or contractor agreement and get an AI risk report: unfair indemnity, IP traps, non-competes, missing payment terms. 1 free review.",
     url: 'https://indielegalterms.com/tools/freelancer-contract-review',
     siteName: 'Indie Legal',
     images: [{ url: '/og-image.png', width: 1200, height: 630 }],
@@ -20,8 +20,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Freelance Contract Checklist & Risk Guide",
-    description: "Check freelancer and independent contractor agreements for hidden risks, unfair indemnity, and missing payment terms. Get a compliance checklist free.",
+    title: "Free AI Contract Review for Freelancers | Indie Legal",
+    description: "Paste a freelance or contractor agreement and get an AI risk report: unfair indemnity, IP traps, non-competes, missing payment terms. 1 free review.",
     images: ['/og-image.png'],
   },
 };
@@ -30,7 +30,7 @@ export default function FreelancerContractReviewPage() {
   const webAppSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name: 'Freelance Contract Checklist & Risk Guide',
+    name: 'Free AI Contract Review for Freelancers',
     url: 'https://indielegalterms.com/tools/freelancer-contract-review',
     applicationCategory: 'LegalApplication',
     operatingSystem: 'All',
@@ -39,7 +39,7 @@ export default function FreelancerContractReviewPage() {
       price: '0',
       priceCurrency: 'USD',
     },
-    description: 'Self-check independent contractor agreements for common liability risks, unfair indemnity, and missing payment terms, with an optional free AI contract review.',
+    description: 'Paste a freelance or contractor agreement and get an AI risk report: unfair indemnity, IP traps, non-competes, missing payment terms. 1 free review.',
   };
 
   return (

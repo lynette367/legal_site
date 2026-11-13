@@ -6,7 +6,7 @@ export function HeroButtons() {
   return (
     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
       <Link
-        href="#scenario-engine"
+        href="/contracts/generator"
         className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-primary-lavender text-white font-bold text-base shadow-md hover:bg-primary-lavender-dark transition-all text-center flex items-center justify-center gap-2 group"
       >
         <span>Generate My Agreement Now</span>
@@ -18,13 +18,6 @@ export function HeroButtons() {
         className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white border border-gray-300 text-gray-800 font-bold text-base shadow-xs hover:border-primary-lavender hover:text-primary-lavender transition-all text-center flex items-center justify-center gap-2"
       >
         <span>🧮 Calculate Late Payment Penalties</span>
-      </Link>
-
-      <Link
-        href="/tools/freelancer-contract-review"
-        className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold text-base shadow-xs hover:bg-emerald-100 hover:border-emerald-300 transition-all text-center flex items-center justify-center gap-2"
-      >
-        <span>Free AI Contract Review</span>
       </Link>
     </div>
   );

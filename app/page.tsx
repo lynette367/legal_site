@@ -11,14 +11,14 @@ import { EmailCaptureSection } from "@/components/marketing/EmailCaptureModal";
 import { Suspense } from "react";
 
 export const metadata = {
-  title: "Free Independent Contractor & Service Agreement Templates",
+  title: "Free Freelancer Contract & Late Payment Tools | Indie Legal",
   description:
-    "Generate independent contractor and service agreement templates, calculate late payment penalties, and send demand letters for unpaid invoices. Free tools for freelancers and employers.",
+    "Free contract generator and templates, late fee calculator and demand letters for freelancers. All 50 states, California SB 988, no account needed.",
   alternates: { canonical: "https://indielegalterms.com" },
   openGraph: {
-    title: "Free Independent Contractor & Service Agreement Templates",
+    title: "Free Freelancer Contract & Late Payment Tools | Indie Legal",
     description:
-      "Generate independent contractor and service agreement templates, calculate late payment penalties, and send demand letters for unpaid invoices. Free tools for freelancers and employers.",
+      "Free contract generator and templates, late fee calculator and demand letters for freelancers. All 50 states, California SB 988, no account needed.",
     url: "https://indielegalterms.com",
     siteName: "IndieLegal",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
@@ -27,9 +27,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Independent Contractor & Service Agreement Templates",
+    title: "Free Freelancer Contract & Late Payment Tools | Indie Legal",
     description:
-      "Generate independent contractor and service agreement templates, calculate late payment penalties, and send demand letters for unpaid invoices. Free tools for freelancers and employers.",
+      "Free contract generator and templates, late fee calculator and demand letters for freelancers. All 50 states, California SB 988, no account needed.",
     images: ["/og-image.png"],
   },
 };
@@ -104,19 +104,16 @@ export default function HomePage() {
           National &amp; State Freelance Compliance (2026 Legal Sync)
         </div>
         <h1 className="text-4xl font-black tracking-tight text-text-primary sm:text-6xl mb-6 leading-none">
-          Contracts, Late Payment Demands &amp; Compliance Tools <br />
+          Free Contract &amp; Late Payment Tools <br />
           <span className="text-2xl text-primary-lavender">
-            For Freelancers and Small Businesses
+            for Freelancers and Small Businesses
           </span>
         </h1>
-        <p className="mx-auto max-w-2xl text-lg sm:text-xl font-bold text-red-600/90 leading-snug mb-3">
-          Client ghosting you on an invoice? Claim your statutory late fees &amp; penalties nationwide.
-        </p>
-        <p className="mx-auto max-w-2xl text-lg text-text-primary/70 leading-relaxed mb-8">
-          Draft legally compliant contracts, monitor payment deadlines, and estimate statutory late fees &amp; penalties across all 50 states. Select your scenario below to access our standalone compliance tools.
+        <p className="mx-auto max-w-2xl text-lg sm:text-xl font-bold text-red-600/90 leading-snug mb-8">
+          Client ghosting you on an invoice? Free contract, late-fee and demand-letter tools for all 50 states — no account needed.
         </p>
 
-        {/* 3 Explicit Hero CTAs */}
+        {/* 2 Explicit Hero CTAs */}
         <HeroButtons />
 
         {/* Embedded Scenario Engine */}
@@ -137,7 +134,7 @@ export default function HomePage() {
             Tailored Legal Blueprints
           </span>
           <h2 className="text-3xl md:text-5xl font-black text-text-primary mt-3 tracking-tight">
-            Find Your Industry Contract Template
+            Find Your Industry Guide
           </h2>
           <p className="text-base text-text-primary/70 mt-2 max-w-xl mx-auto">
             Don&apos;t use generic, uninspired agreements. Select your field to access 100% compliant, industry‑specific contractual blueprints.
@@ -160,7 +157,7 @@ export default function HomePage() {
                     {prof.icon}
                   </div>
                   <h3 className={`font-black text-gray-900 group-hover:text-primary-lavender transition-colors tracking-tight ${isLargeCard ? "text-2xl" : "text-lg"}`}>
-                    {prof.name} Contract Template
+                    {prof.name} Guide
                   </h3>
                   <p className={`text-text-primary/70 mt-2 leading-relaxed ${isLargeCard ? "text-sm max-w-xl" : "text-xs"}`}>
                     {prof.shortDesc}
@@ -236,7 +233,7 @@ export default function HomePage() {
               className="group bg-white p-6 rounded-2xl border border-gray-200 hover:border-primary-lavender hover:-translate-y-0.5 hover:shadow-md transition-all text-left"
             >
               <span className="text-2xl">🔍</span>
-              <h3 className="font-bold text-gray-900 mt-3 group-hover:text-primary-lavender transition-colors">Contract Review</h3>
+              <h3 className="font-bold text-gray-900 mt-3 group-hover:text-primary-lavender transition-colors">Free AI contract review</h3>
               <p className="text-xs text-gray-500 mt-1 leading-relaxed">Paste an existing agreement and check it against SB 988&apos;s required clauses.</p>
               <div className="text-xs font-bold text-primary-lavender mt-4 flex items-center gap-1">
                 Review My Contract <span>→</span>

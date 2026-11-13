@@ -9,26 +9,20 @@ export default function FreelancerContractReviewClient() {
         <section className="space-y-6 pt-6">
             <div className="flex justify-center">
                 <div className="inline-flex items-center gap-2 rounded-full bg-primary-lavender/10 px-4 py-1.5 text-xs font-bold text-text-lavender uppercase tracking-widest">
-                    Contract Compliance Checklist
+                    AI Contract Review
                 </div>
             </div>
 
             <h1 className="text-4xl md:text-5xl font-extrabold text-text-primary tracking-tight text-center">
-                Freelance Contract Checklist &amp; Risk Guide
+                Free AI Contract Review for Freelancers
             </h1>
 
             <p className="max-w-2xl mx-auto text-lg text-text-primary/60 text-center">
-                Self-check your independent contractor agreement against common California compliance risks, IP ownership pitfalls, and missing payment protections.
+                Paste a freelance or contractor agreement and get an AI risk report: unfair indemnity, IP traps, non-competes, missing payment terms. 1 free review.
             </p>
 
             {/* ── Free AI Contract Review (hero tool) ── */}
-            <div className="px-4 mt-12 space-y-4">
-                <div className="text-center space-y-2">
-                    <h2 className="text-2xl md:text-3xl font-bold text-text-primary">Free AI Contract Review</h2>
-                    <p className="max-w-2xl mx-auto text-text-primary/60">
-                        Paste your agreement and get an AI risk report in under a minute.
-                    </p>
-                </div>
+            <div className="px-4 mt-8 space-y-4">
                 <AiContractReviewTool />
                 <p className="max-w-2xl mx-auto text-xs text-text-primary/50 text-center">
                     Your first review is free, no sign-up required. Contract text is used only to generate your report and is not stored.
@@ -47,9 +41,9 @@ export default function FreelancerContractReviewClient() {
                 </section>
 
                 <section className="space-y-6">
-                    <h2 className="text-3xl font-bold text-text-primary">Quick Compliance Self-Check</h2>
+                    <h2 className="text-3xl font-bold text-text-primary">Freelance Contract Checklist &amp; Risk Guide</h2>
                     <p className="text-text-primary/80">
-                        No contract text yet? Answer three quick questions to see the key risk factors to look for.
+                        Self-check your independent contractor agreement against common California compliance risks, IP ownership pitfalls, and missing payment protections. No contract text yet? Answer three quick questions to see the key risk factors to look for.
                     </p>
                     <ComplianceStepper />
                 </section>
