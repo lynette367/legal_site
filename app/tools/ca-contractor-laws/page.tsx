@@ -5,14 +5,14 @@ import MisclassificationCostCalculator from '../../../components/tools/Misclassi
 import CaContractorLawLegalDepth from '../../../components/tools/CaContractorLawLegalDepth';
 
 export const metadata: Metadata = {
-  title: 'California ABC Test & Borello 1099 Checker',
+  title: 'California ABC Test & Borello Test Checker',
   description:
-    'Audit 1099 contractor compliance under California AB5 ABC test, Borello factors, and SB 988 rules. Calculate misclassification risk exposure in 2 minutes.',
+    "Understand California's ABC Test, when a statutory exception may allow the Borello Test, and review key independent contractor classification factors.",
   alternates: { canonical: 'https://indielegalterms.com/tools/ca-contractor-laws' },
   openGraph: {
-    title: 'California ABC Test & Borello 1099 Checker',
+    title: 'California ABC Test & Borello Test Checker | Indie Legal',
     description:
-      'Audit 1099 contractor compliance under California AB5 ABC test, Borello factors, and SB 988 rules. Calculate misclassification risk exposure in 2 minutes.',
+      "Understand California's ABC Test, when a statutory exception may allow the Borello Test, and review key independent contractor classification factors.",
     url: 'https://indielegalterms.com/tools/ca-contractor-laws',
     type: 'website',
   },
@@ -293,9 +293,9 @@ export default function IndependentContractorLawPage() {
                   +
                 </span>
               </summary>
-              <div className="px-6 pb-5 pt-1">
-                <p className="text-sm text-text-primary/65 leading-relaxed">{a}</p>
-              </div>
+                <div className="px-6 pb-5 pt-1 text-sm text-text-primary/65 leading-relaxed">
+                  {a}
+                </div>
             </details>
           ))}
         </div>

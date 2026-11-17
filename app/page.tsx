@@ -90,8 +90,6 @@ export default function HomePage() {
     .filter((p): p is NonNullable<typeof p> => Boolean(p))
     .slice(0, 6);
 
-  const todayDateStr = new Date().toISOString().split("T")[0];
-
   return (
     <div className="space-y-24 pb-24 bg-gray-50/50">
       {/* 1. Hero Section & Lightweight Scenario Engine */}
@@ -454,7 +452,7 @@ export default function HomePage() {
           </p>
         </div>
 
-        <StateLawGrid states={freelanceLawsByState} todayDateStr={todayDateStr} />
+        <StateLawGrid states={freelanceLawsByState} />
 
         <div className="mt-8 text-center">
           <Link
