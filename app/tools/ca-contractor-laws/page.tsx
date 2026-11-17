@@ -27,7 +27,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
       <>
         <p className="mb-2">
           Under California Labor Code § 2775(b)(1), the ABC Test applies for purposes of the Labor Code,
-           the Unemployment Insurance Code, and Industrial Welfare Commission (IWC) wage orders, subject
+          the Unemployment Insurance Code, and Industrial Welfare Commission (IWC) wage orders, subject
           to statutory exceptions and other applicable rules. Under this framework, a worker is
           considered an employee rather than an independent contractor unless the hiring entity
           demonstrates <strong>all three</strong> of the following conditions:
@@ -166,7 +166,7 @@ const webAppJsonLd = {
     priceCurrency: 'USD',
   },
   description:
-    'Educational screening tool for reviewing California ABC Test and Borello Test worker-classification factors and SB 988 freelance contract requirements.',
+  'Educational screening tool for reviewing California ABC Test and Borello Test worker-classification factors and SB 988 freelance contract requirements.',
 };
 
 const faqJsonLd = {
@@ -207,15 +207,15 @@ export default function IndependentContractorLawPage() {
           </span>
         </h1>
 
-        <p className="text-lg text-text-primary/70 max-w-2xl mx-auto mb-4 leading-relaxed">
-          Review key California worker-classification factors under the ABC Test and Borello Test,
-          plus separate written-contract rules under the Freelance Worker Protection Act (SB 988).
-        </p>
-        <p className="text-xs text-text-primary/55 max-w-2xl mx-auto mb-10 leading-relaxed">
-          <strong>Educational Screening Notice:</strong> This tool is a preliminary educational
-          screening aid. It does not determine legal worker status, identify every statutory
-          exception, or provide a legal opinion.
-        </p>
+          <p className="text-lg text-text-primary/70 max-w-2xl mx-auto mb-4 leading-relaxed">
+            Review key California worker-classification factors under the ABC Test and Borello Test,
+            plus separate written-contract rules under the Freelance Worker Protection Act (SB 988).
+          </p>
+          <p className="text-xs text-text-primary/55 max-w-2xl mx-auto mb-10 leading-relaxed">
+            <strong>Educational Screening Notice:</strong> This tool is a preliminary educational
+            screening aid. It does not determine legal worker status, identify every statutory
+            exception, or provide a legal opinion.
+          </p>
       </section>
 
       {/* ── Audit tool ── */}
@@ -310,9 +310,9 @@ export default function IndependentContractorLawPage() {
                   +
                 </span>
               </summary>
-                <div className="px-6 pb-5 pt-1 text-sm text-text-primary/65 leading-relaxed">
-                  {a}
-                </div>
+              <div className="px-6 pb-5 pt-1 text-sm text-text-primary/65 leading-relaxed">
+                {a}
+              </div>
             </details>
           ))}
         </div>
