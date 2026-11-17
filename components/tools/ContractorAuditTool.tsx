@@ -50,19 +50,29 @@ interface Result {
   applicableTest: string;
   headline: string;
   explanation: string;
+  sb988Note?: string;
   localNote?: string;
   primaryCta: { label: string; href: string };
   secondaryCta: { label: string; href: string };
+}
+
+function getSb988Note(industry: Industry): string {
+  const isLikelyProfessionalService =
+    industry === 'creative' || industry === 'licensed-professional';
+  if (isLikelyProfessionalService) {
+    return 'Separate from worker classification, if the individual is retained as a bona fide independent contractor meeting the definition of a "freelance worker" under SB 988 (Cal. Bus. & Prof. Code § 18101 — an individual or one-person entity providing § 2778(b)(2) professional services for $250+ in one contract or aggregated over the prior 120 days with a covered hiring party), a written contract and timely payment rules under §§ 18102–18103 apply.';
+  }
+  return 'Separate from worker classification, SB 988 (Cal. Bus. & Prof. Code §§ 18100–18107) is a payment-protection law—not a classification test—that applies only when a bona fide independent contractor meets the § 18101 definition of a "freelance worker" providing § 2778(b)(2) professional services for $250+ (single or 120-day aggregated with the same covered hiring party).';
 }
 
 function computeResult(industry: Industry, coreBusiness: CoreBusiness, location: Location): Result {
   if (location === 'outside-ca') {
     return {
       riskLevel: 'Low',
-      applicableTest: 'Not applicable (California-specific)',
+      applicableTest: 'Not applicable (Outside California)',
       headline: 'California Labor Code § 2775 and SB 988 focus on California work relationships.',
       explanation:
-        "This preliminary educational screening tool reviews California's ABC Test / Borello framework (Labor Code §§ 2775–2778) and separate written-contract requirements under the Freelance Worker Protection Act (SB 988). For engagements performed outside California, check the applicable state and federal classification and payment rules.",
+        'This preliminary educational screening tool reviews California worker-classification standards (Labor Code §§ 2775–2787) and separate SB 988 payment protections. For work performed outside California, check the applicable state and federal classification and payment rules.',
       primaryCta: { label: 'Generate a General Freelance Contract', href: '/contracts/generator' },
       secondaryCta: { label: 'Browse All Contract Templates', href: '/contracts' },
     };
@@ -72,18 +82,68 @@ function computeResult(industry: Industry, coreBusiness: CoreBusiness, location:
     location === 'san-francisco' || location === 'los-angeles' || location === 'san-diego'
       ? `${
           location === 'san-francisco' ? 'San Francisco' : location === 'los-angeles' ? 'Los Angeles' : 'San Diego'
-        } also maintains local labor standards enforcement, and under state law (Cal. Bus. & Prof. Code § 18106), a public prosecutor or an aggrieved freelance worker may bring a civil action to enforce SB 988 payment protections.`
+        } also maintains local labor standards enforcement; under Cal. Bus. & Prof. Code § 18106, an aggrieved freelance worker or a public prosecutor may bring a civil action to enforce SB 988.`
       : undefined;
+
+  const sb988Note = getSb988Note(industry);
 
   if (industry === 'licensed-professional') {
     return {
       riskLevel: 'Moderate',
-      applicableTest: 'Potential Borello Multifactor Test (if statutory exemption criteria are met)',
-      headline: 'Certain licensed professionals may be evaluated under Borello if statutory conditions are met.',
+      applicableTest: 'Potential Borello Multifactor Test via Labor Code § 2783 (if statutory criteria are met); otherwise ABC Test (§ 2775)',
+      headline:
+        coreBusiness === 'yes'
+          ? 'Core-business role: check whether Labor Code § 2783 statutory exemption criteria are strictly satisfied.'
+          : 'Non-core role: check whether Labor Code § 2783 or the ABC Test governs.',
       explanation:
-        'Certain licensed occupations enumerated in California Labor Code § 2783 (such as qualifying licensed insurance agents, physicians, attorneys, accountants, real estate licensees, or securities broker-dealers) may be governed by the multifactor Borello test rather than the ABC Test when statutory criteria are satisfied. Separately, if the individual is retained as a bona fide independent contractor meeting the definition of a "freelance worker" under Cal. Bus. & Prof. Code § 18101 (an individual or one-person organization providing professional services for at least $250 in a single contract or aggregated over 120 days), SB 988 requires a written contract with specified payment terms.',
+        coreBusiness === 'yes'
+          ? 'Certain licensed professions enumerated in Cal. Lab. Code § 2783 (such as qualifying licensed insurance agents, real estate licensees, attorneys, accountants, architects, engineers, or securities broker-dealers) may be evaluated under the multifactor Borello test if all statutory criteria are met. However, if the role or arrangement does not satisfy § 2783, the ABC Test (§ 2775) applies—and performing core-business work creates elevated risk under Prong B.'
+          : 'Certain licensed professions enumerated in Cal. Lab. Code § 2783 may be evaluated under the multifactor Borello test when statutory criteria are met. If § 2783 does not apply, the ABC Test (§ 2775) governs, requiring the hiring entity to establish all three prongs (A, B, and C).',
+      sb988Note,
       localNote,
-      primaryCta: { label: 'Generate an SB 988 Written Contract', href: '/contracts/generator' },
+      primaryCta: { label: 'Draft a Written Contract', href: '/contracts/generator' },
+      secondaryCta: { label: 'Review Federal IRS Factors', href: '/tools/irs-20-point-checklist' },
+    };
+  }
+
+  if (industry === 'creative') {
+    return {
+      riskLevel: coreBusiness === 'yes' ? 'High' : 'Moderate',
+      applicableTest: 'ABC Test (§ 2775), unless all Cal. Lab. Code § 2778 professional-services conditions are met',
+      headline:
+        coreBusiness === 'yes'
+          ? 'Elevated Prong B risk unless the engagement satisfies every Labor Code § 2778 condition.'
+          : 'Creative/marketing role: review ABC Test Prongs A & C and whether § 2778 applies.',
+      explanation:
+        coreBusiness === 'yes'
+          ? 'Performing work within the hiring entity\'s usual course of business raises significant risk under Prong B of the ABC Test (§ 2775). Creative, marketing, design, photography, and writing roles do NOT automatically qualify for the Borello test: § 2778 applies only if the service is enumerated in § 2778(b)(2), satisfies all 6 general conditions in § 2778(a), and meets any occupation-specific requirements (such as § 2778(b)(2)(I) or (J)). If § 2778 is not fully satisfied, failing Prong B results in employee status under § 2775.'
+          : 'Work outside the usual course of business aligns with Prong B, but the hiring entity must still satisfy Prong A (freedom from control) and Prong C (independently established business) under § 2775—unless the engagement falls within an enumerated § 2778(b)(2) category and meets all 6 § 2778(a) conditions plus any occupation-specific rules, in which case the Borello multifactor test applies.',
+      sb988Note,
+      localNote,
+      primaryCta: { label: 'Draft an SB 988 Written Contract', href: '/contracts/generator' },
+      secondaryCta: { label: 'Review Federal IRS Factors', href: '/tools/irs-20-point-checklist' },
+    };
+  }
+
+  if (industry === 'construction' || industry === 'healthcare') {
+    const statuteRef =
+      industry === 'construction'
+        ? 'construction subcontractor rules under Cal. Lab. Code § 2781'
+        : 'enumerated licensed medical professions under Cal. Lab. Code § 2783 (e.g., physicians, surgeons, dentists, podiatrists, psychologists, veterinarians)';
+    return {
+      riskLevel: coreBusiness === 'yes' ? 'High' : 'Moderate',
+      applicableTest: `ABC Test (§ 2775), unless a statutory exception applies (${industry === 'construction' ? '§ 2781' : '§ 2783'})`,
+      headline:
+        coreBusiness === 'yes'
+          ? 'Elevated Prong B risk unless a specific statutory exception is satisfied.'
+          : 'Non-core role: verify Prongs A & C or whether a statutory exception applies.',
+      explanation:
+        coreBusiness === 'yes'
+          ? `Performing core-business work creates significant risk under Prong B of the ABC Test (§ 2775). Check with California employment counsel whether ${statuteRef} or a B2B exception (§ 2776) applies; if no statutory exception is fully satisfied, all three ABC prongs must be met.`
+          : `Work outside the usual course of business aligns with Prong B, but Prong A (control) and Prong C (independent business) must still be established under § 2775 unless ${statuteRef} directs the analysis to the Borello multifactor test.`,
+      sb988Note,
+      localNote,
+      primaryCta: { label: 'Draft a Written Contract', href: '/contracts/generator' },
       secondaryCta: { label: 'Review Federal IRS Factors', href: '/tools/irs-20-point-checklist' },
     };
   }
@@ -91,36 +151,27 @@ function computeResult(industry: Industry, coreBusiness: CoreBusiness, location:
   if (coreBusiness === 'yes') {
     return {
       riskLevel: 'High',
-      applicableTest: 'ABC Test (Cal. Lab. Code § 2775) — unless a statutory exception applies',
+      applicableTest: 'ABC Test (Cal. Lab. Code § 2775) — unless a statutory exception (e.g., § 2776 B2B) applies',
       headline: 'Elevated classification risk under Prong B of the ABC Test.',
       explanation:
-        'When the ABC Test applies and no statutory exception (such as a qualifying B2B arrangement under § 2776 or professional services exception under § 2778) is satisfied, performing work within the hiring entity\'s usual course of business raises significant risk under Prong B ("the person performs work that is outside the usual course of the hiring entity\'s business"). Under Labor Code § 2775, all three prongs (A, B, and C) must be established unless an exception directs the analysis to the multifactor Borello test. Under Labor Code § 226.8 (effective Jan. 1, 2026), if the LWDA or a court determines that an employer engaged in willful misclassification, civil penalties are $5,000–$15,000 per violation, or $10,000–$25,000 per violation for a pattern or practice. Consult a California employment attorney to evaluate whether a statutory exception applies before treating the role as an independent contractor.',
+        'When the ABC Test applies and no statutory exception (such as a qualifying B2B arrangement under § 2776 or referral agency under § 2777) is satisfied, performing work within the hiring entity\'s usual course of business raises significant risk under Prong B ("the person performs work that is outside the usual course of the hiring entity\'s business"). Under Labor Code § 2775, all three prongs (A, B, and C) must be established. Under Labor Code § 226.8 (effective Jan. 1, 2026), if the LWDA or a court determines that an employer engaged in willful misclassification, civil penalties are $5,000–$15,000 per violation (§ 226.8(b)), or $10,000–$25,000 per violation for a pattern or practice (§ 226.8(c)). Consult a California employment attorney before treating the role as an independent contractor.',
+      sb988Note,
       localNote,
-      primaryCta: { label: 'Draft an SB 988 Written Contract', href: '/contracts/generator' },
+      primaryCta: { label: 'Draft a Written Contract', href: '/contracts/generator' },
       secondaryCta: { label: 'Review Federal IRS Factors', href: '/tools/irs-20-point-checklist' },
     };
   }
 
-  if (coreBusiness === 'no') {
-    return {
-      riskLevel: 'Moderate',
-      applicableTest: 'ABC Test (Cal. Lab. Code § 2775) or applicable statutory exception',
-      headline: 'Work outside the usual course of business aligns with Prong B, but Prongs A and C must also be met.',
-      explanation:
-        'Under the ABC Test, performing work outside the hiring entity\'s usual course of business addresses Prong B, but the hiring entity must still establish Prong A (freedom from control and direction both under the contract and in fact) and Prong C (the worker is customarily engaged in an independently established trade, occupation, or business of the same nature). Separately, for a bona fide independent contractor who qualifies as a "freelance worker" under SB 988 (Cal. Bus. & Prof. Code § 18101 — an individual or single-person entity providing professional services for $250 or more in a single contract or aggregated over the prior 120 days with a covered hiring party), a written contract specifying itemized services, rates, and payment dates is required.',
-      localNote,
-      primaryCta: { label: 'Generate an SB 988 Written Contract', href: '/contracts/generator' },
-      secondaryCta: { label: 'Review an Existing Agreement', href: '/tools/freelancer-contract-review' },
-    };
-  }
-
   return {
-    riskLevel: 'Low',
-    applicableTest: 'ABC Test (Cal. Lab. Code § 2775)',
-    headline: 'Answer the questions above to review preliminary classification factors.',
-    explanation: '',
-    primaryCta: { label: 'Generate a Contract', href: '/contracts/generator' },
-    secondaryCta: { label: 'See Late Payment Penalties', href: '/tools/late-payment-calculator' },
+    riskLevel: 'Moderate',
+    applicableTest: 'ABC Test (Cal. Lab. Code § 2775) or applicable statutory exception',
+    headline: 'Work outside the usual course of business aligns with Prong B, but Prongs A and C must also be met.',
+    explanation:
+      'Under the ABC Test, performing work outside the hiring entity\'s usual course of business addresses Prong B, but the hiring entity must still establish Prong A (freedom from control and direction both under the contract and in fact) and Prong C (the worker is customarily engaged in an independently established trade, occupation, or business of the same nature), unless a statutory exception directs the analysis to the Borello multifactor test.',
+    sb988Note,
+    localNote,
+    primaryCta: { label: 'Draft a Written Contract', href: '/contracts/generator' },
+    secondaryCta: { label: 'Review an Existing Agreement', href: '/tools/freelancer-contract-review' },
   };
 }
 
@@ -235,6 +286,12 @@ export default function ContractorAuditTool() {
             Applicable standard: {result.applicableTest}
           </p>
           <p className="text-sm leading-relaxed text-text-primary/70">{result.explanation}</p>
+          {result.sb988Note && (
+            <div className="mt-3 rounded-xl bg-slate-50 border border-slate-200 p-3.5 text-xs leading-relaxed text-text-primary/75">
+              <strong className="text-text-primary">SB 988 Payment Protections (Separate Statute):</strong>{' '}
+              {result.sb988Note}
+            </div>
+          )}
           {result.localNote && (
             <p className="text-sm leading-relaxed text-text-lavender mt-3 italic">{result.localNote}</p>
           )}

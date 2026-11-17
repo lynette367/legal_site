@@ -90,11 +90,10 @@ export default function CaContractorLawLegalDepth() {
               <p className="font-bold text-text-primary text-sm">Cal. Lab. Code § 2775(b)(1)(B)</p>
               <p className="text-xs text-gray-600 leading-relaxed">
                 The worker performs work that is outside the usual course of the hiring entity&apos;s
-                business. Under the California ABC test, Prong B requires that the worker performs work
-                that is outside the usual course of the hiring entity&apos;s business. A tech company
-                outsourcing core product code to an individual contractor represents the quintessential
-                scenario where businesses fail this prong. If any single prong fails, the worker is
-                conclusively presumed to be an employee.
+                business. When the ABC Test applies under Cal. Lab. Code § 2775(b)(1), the hiring
+                entity must demonstrate that all three conditions (A, B, and C) are satisfied; if
+                any single prong is not established and no statutory exception applies, the worker
+                is classified as an employee.
               </p>
             </div>
             <div className="bg-white border border-gray-200 rounded-xl p-5 space-y-2">
