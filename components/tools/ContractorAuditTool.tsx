@@ -60,9 +60,9 @@ function computeResult(industry: Industry, coreBusiness: CoreBusiness, location:
     return {
       riskLevel: 'Low',
       applicableTest: 'Not applicable (California-specific)',
-      headline: 'AB5 and SB 988 apply only to California work relationships.',
+      headline: 'California Labor Code § 2775 and SB 988 focus on California work relationships.',
       explanation:
-        "This audit checks California's ABC Test (AB5) and the Freelance Worker Protection Act (SB 988). Since this contractor is based outside California, these specific rules likely don't apply — but check your own state's worker classification and prompt-payment laws, since more states are adopting similar freelancer protections.",
+        "This preliminary educational screening tool reviews California's ABC Test / Borello framework (Labor Code §§ 2775–2778) and separate written-contract requirements under the Freelance Worker Protection Act (SB 988). For engagements performed outside California, check the applicable state and federal classification and payment rules.",
       primaryCta: { label: 'Generate a General Freelance Contract', href: '/contracts/generator' },
       secondaryCta: { label: 'Browse All Contract Templates', href: '/contracts' },
     };
@@ -72,52 +72,52 @@ function computeResult(industry: Industry, coreBusiness: CoreBusiness, location:
     location === 'san-francisco' || location === 'los-angeles' || location === 'san-diego'
       ? `${
           location === 'san-francisco' ? 'San Francisco' : location === 'los-angeles' ? 'Los Angeles' : 'San Diego'
-        } layers its own local wage enforcement office on top of state SB 988 penalties, so late-payment complaints in this city tend to move faster and get scrutinized more closely.`
+        } also maintains local labor standards enforcement, and under state law (Cal. Bus. & Prof. Code § 18106), a public prosecutor or an aggrieved freelance worker may bring a civil action to enforce SB 988 payment protections.`
       : undefined;
 
   if (industry === 'licensed-professional') {
     return {
       riskLevel: 'Moderate',
-      applicableTest: 'Borello Test (statutory exemption)',
-      headline: 'This role likely falls under a Borello exemption, not the strict ABC Test.',
+      applicableTest: 'Potential Borello Multifactor Test (if statutory exemption criteria are met)',
+      headline: 'Certain licensed professionals may be evaluated under Borello if statutory conditions are met.',
       explanation:
-        'Licensed professionals such as real estate agents, insurance brokers, attorneys, accountants, and certain financial services roles are carved out of the ABC Test and instead evaluated under the older, multi-factor Borello standard. That gives you more flexibility on classification — but it does NOT exempt you from SB 988. Any written agreement worth $250 or more still requires a compliant contract with clear payment terms.',
+        'Certain licensed occupations enumerated in California Labor Code § 2783 (such as qualifying licensed insurance agents, physicians, attorneys, accountants, real estate licensees, or securities broker-dealers) may be governed by the multifactor Borello test rather than the ABC Test when statutory criteria are satisfied. Separately, if the individual is retained as a bona fide independent contractor meeting the definition of a "freelance worker" under Cal. Bus. & Prof. Code § 18101 (an individual or one-person organization providing professional services for at least $250 in a single contract or aggregated over 120 days), SB 988 requires a written contract with specified payment terms.',
       localNote,
-      primaryCta: { label: 'Generate an SB 988 Compliant Contract', href: '/contracts/generator' },
-      secondaryCta: { label: 'Run the IRS 20-Point Check Too', href: '/tools/irs-20-point-checklist' },
+      primaryCta: { label: 'Generate an SB 988 Written Contract', href: '/contracts/generator' },
+      secondaryCta: { label: 'Review Federal IRS Factors', href: '/tools/irs-20-point-checklist' },
     };
   }
 
   if (coreBusiness === 'yes') {
     return {
       riskLevel: 'High',
-      applicableTest: 'ABC Test (AB5)',
-      headline: 'High misclassification risk — this worker likely fails Prong B.',
+      applicableTest: 'ABC Test (Cal. Lab. Code § 2775) — unless a statutory exception applies',
+      headline: 'Elevated classification risk under Prong B of the ABC Test.',
       explanation:
-        'Because this worker performs tasks core to your usual course of business, you\'ll struggle to satisfy Prong B of the ABC Test ("the worker performs work outside the usual course of the hiring entity\'s business"). Under AB5, failing even one prong means the worker is presumed an employee, not a contractor. Misclassification penalties range from $5,000 to $25,000 per willful violation, plus back pay and EDD liability. If you intend to continue this as a contractor relationship, get a compliant written agreement in place immediately and talk to an employment attorney about the classification itself.',
+        'When the ABC Test applies and no statutory exception (such as a qualifying B2B arrangement under § 2776 or professional services exception under § 2778) is satisfied, performing work within the hiring entity\'s usual course of business raises significant risk under Prong B ("the person performs work that is outside the usual course of the hiring entity\'s business"). Under Labor Code § 2775, all three prongs (A, B, and C) must be established unless an exception directs the analysis to the multifactor Borello test. Under Labor Code § 226.8 (effective Jan. 1, 2026), if the LWDA or a court determines that an employer engaged in willful misclassification, civil penalties are $5,000–$15,000 per violation, or $10,000–$25,000 per violation for a pattern or practice. Consult a California employment attorney to evaluate whether a statutory exception applies before treating the role as an independent contractor.',
       localNote,
-      primaryCta: { label: 'Generate an SB 988 Contract Now', href: '/contracts/generator' },
-      secondaryCta: { label: 'Run the Full IRS Classification Check', href: '/tools/irs-20-point-checklist' },
+      primaryCta: { label: 'Draft an SB 988 Written Contract', href: '/contracts/generator' },
+      secondaryCta: { label: 'Review Federal IRS Factors', href: '/tools/irs-20-point-checklist' },
     };
   }
 
   if (coreBusiness === 'no') {
     return {
       riskLevel: 'Moderate',
-      applicableTest: 'ABC Test (AB5)',
-      headline: 'Likely passes Prong B — but Prongs A and C still need to hold up.',
+      applicableTest: 'ABC Test (Cal. Lab. Code § 2775) or applicable statutory exception',
+      headline: 'Work outside the usual course of business aligns with Prong B, but Prongs A and C must also be met.',
       explanation:
-        'Work outside your usual course of business clears Prong B, which is where most misclassification cases fail. You still need to confirm Prong A (the worker is free from your behavioral control) and Prong C (the worker runs an independently established business — a business license, other clients, their own tools). Regardless of the outcome, SB 988 requires a written contract for any freelance engagement worth $250 or more, with clear rate, scope, and payment-date terms.',
+        'Under the ABC Test, performing work outside the hiring entity\'s usual course of business addresses Prong B, but the hiring entity must still establish Prong A (freedom from control and direction both under the contract and in fact) and Prong C (the worker is customarily engaged in an independently established trade, occupation, or business of the same nature). Separately, for a bona fide independent contractor who qualifies as a "freelance worker" under SB 988 (Cal. Bus. & Prof. Code § 18101 — an individual or single-person entity providing professional services for $250 or more in a single contract or aggregated over the prior 120 days with a covered hiring party), a written contract specifying itemized services, rates, and payment dates is required.',
       localNote,
-      primaryCta: { label: 'Generate an SB 988 Compliant Contract', href: '/contracts/generator' },
+      primaryCta: { label: 'Generate an SB 988 Written Contract', href: '/contracts/generator' },
       secondaryCta: { label: 'Review an Existing Agreement', href: '/tools/freelancer-contract-review' },
     };
   }
 
   return {
     riskLevel: 'Low',
-    applicableTest: 'ABC Test (AB5)',
-    headline: 'Answer both questions above to see your compliance risk.',
+    applicableTest: 'ABC Test (Cal. Lab. Code § 2775)',
+    headline: 'Answer the questions above to review preliminary classification factors.',
     explanation: '',
     primaryCta: { label: 'Generate a Contract', href: '/contracts/generator' },
     secondaryCta: { label: 'See Late Payment Penalties', href: '/tools/late-payment-calculator' },
@@ -215,14 +215,20 @@ export default function ContractorAuditTool() {
           onClick={() => setShowResult(true)}
           className="w-full rounded-xl bg-primary-lavender text-white font-bold px-6 py-3 shadow-soft transition-colors hover:bg-primary-lavender-dark disabled:opacity-40 disabled:cursor-not-allowed"
         >
-          Free Compliance Audit →
+          Review Classification Factors →
         </button>
+
+        <p className="text-xs text-text-primary/50 leading-relaxed">
+          <strong>Preliminary Educational Screening:</strong> This checker provides general educational
+          information only. It does not determine legal worker classification status, evaluate every
+          statutory exception under California Labor Code §§ 2776–2784, or constitute a legal opinion.
+        </p>
       </div>
 
       {showResult && result && (
         <div className="mt-8 border-t border-gray-100 pt-6 animate-in">
           <span className={`inline-block rounded-full border px-3 py-1 text-xs font-bold mb-3 ${RISK_STYLES[result.riskLevel]}`}>
-            {result.riskLevel} Risk
+            {result.riskLevel} Risk (Preliminary Screening)
           </span>
           <h3 className="text-lg font-black text-text-primary mb-2 leading-snug">{result.headline}</h3>
           <p className="text-xs font-semibold text-text-primary/50 uppercase tracking-wide mb-3">
@@ -248,9 +254,10 @@ export default function ContractorAuditTool() {
             </Link>
           </div>
 
-          <p className="mt-4 text-xs text-text-primary/40">
-            This tool provides general information only and is not a substitute for advice from a licensed
-            California employment attorney.
+          <p className="mt-4 text-xs text-text-primary/50 leading-relaxed">
+            <strong>Disclaimer:</strong> This preliminary screening output is for educational purposes
+            only, does not determine legal status or trigger statutory penalties, and is not a
+            substitute for advice from a licensed California employment attorney.
           </p>
         </div>
       )}

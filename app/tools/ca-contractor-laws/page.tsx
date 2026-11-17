@@ -26,14 +26,16 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
     a: (
       <>
         <p className="mb-2">
-          The ABC Test is a strict three-prong standard used in California to determine whether a worker
-          is an employee or an independent contractor. To classify a worker as an contractor,
-          the hiring entity must prove <strong>all three</strong> of the following:
+          Under California Labor Code § 2775(b)(1), the ABC Test applies for purposes of the Labor Code,
+           the Unemployment Insurance Code, and Industrial Welfare Commission (IWC) wage orders, subject
+          to statutory exceptions and other applicable rules. Under this framework, a worker is
+          considered an employee rather than an independent contractor unless the hiring entity
+          demonstrates <strong>all three</strong> of the following conditions:
         </p>
         <ul className="list-disc list-inside space-y-1">
-          <li><strong>A.</strong> The worker is free from the control and direction of the hiring entity in connection with the performance of the work.</li>
-          <li><strong>B.</strong> The worker performs work that is outside the usual course of the hiring entity’s business.</li>
-          <li><strong>C.</strong> The worker is customarily engaged in an independently established trade, occupation, or business of the same nature as the work performed.</li>
+          <li><strong>A.</strong> The person is free from the control and direction of the hiring entity in connection with the performance of the work, both under the contract for the performance of the work and in fact.</li>
+          <li><strong>B.</strong> The person performs work that is outside the usual course of the hiring entity’s business.</li>
+          <li><strong>C.</strong> The person is customarily engaged in an independently established trade, occupation, or business of the same nature as that involved in the work performed.</li>
         </ul>
       </>
     ),
@@ -43,74 +45,84 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
     a: (
       <>
         <p className="mb-2">
-          The Borello Test is California&apos;s traditional common-law test used for occupations exempted from the ABC Test.
-          Unlike the rigid ABC test, it relies on a <strong>&quot;total of the circumstances&quot;</strong> approach.
+          The Borello Test comes from the California Supreme Court&apos;s decision in{' '}
+          <em>S.G. Borello &amp; Sons, Inc. v. Department of Industrial Relations</em> (1989) 48 Cal.3d 341.
+          It applies when a specific statutory exception to the ABC Test (such as qualifying professional
+          services under Labor Code § 2778, business-to-business contracting under § 2776, or referral
+          agencies under § 2777) or another legally recognized rule directs classification to the
+          common-law test.
         </p>
         <p className="mb-2">
-          The primary factor is whether the hiring entity has the <strong>right to control</strong> the manner and means of accomplishing the result desired.
-          It also considers secondary factors such as:
+          Borello is a fact-specific <strong>multifactor test</strong> in which no single factor is
+          controlling. The principal factor is whether the hiring entity has the <strong>right to control</strong>{' '}
+          the manner and means of accomplishing the result desired, evaluated alongside additional factors such as:
         </p>
         <ul className="list-disc list-inside space-y-1">
           <li>Whether the worker is engaged in a distinct occupation or business.</li>
-          <li>Whether the work is usually done under the direction of a principal or by a specialist without supervision.</li>
-          <li>The skill required in the particular occupation.</li>
+          <li>Whether the work is an integral or regular part of the hiring entity&apos;s business.</li>
           <li>Whether the principal or the worker supplies the instrumentalities, tools, and the place of work.</li>
-          <li>The length of time for which the services are to be performed.</li>
+          <li>The worker&apos;s investment in the equipment or materials required by their task or their employment of helpers/employees.</li>
+          <li>Whether the service rendered requires a special skill, and whether the work is usually done under the direction of the principal or by a specialist without supervision.</li>
+          <li>The worker&apos;s opportunity for profit or loss depending on their managerial skill.</li>
+          <li>The length of time for which the services are to be performed and the degree of permanence of the working relationship.</li>
+          <li>The method of payment, whether by time or by the job.</li>
+          <li>The hiring entity&apos;s right to terminate at will, and whether the parties believe they are creating an employer-employee relationship (which may be relevant but is not dispositive).</li>
         </ul>
       </>
     ),
   },
   {
-    q: 'Does California still use the IRS 20-point checklist?',
+    q: 'How does federal IRS classification compare to California law?',
     a: (
       <>
-        The IRS 20-factor test is still used for federal tax auditing. However, for state labor
-        laws, payroll taxes (EDD), and worker&apos;s compensation, California mandates the much
-        stricter ABC test. Meeting IRS standards does not mean you are compliant with California
-        AB5. If you want to check the federal side too, run our{' '}
+        For federal tax purposes, the IRS does not use a standalone 20-point numerical score as a
+        conclusive worker-classification test. Instead, the IRS applies common-law rules organized
+        into three main categories of evidence: <strong>behavioral control</strong>,{' '}
+        <strong>financial control</strong>, and the <strong>type of relationship</strong> between the
+        parties (with the historical 20-factor revenue ruling serving as analytical background rather
+        than a mechanical scoring formula). Even if an arrangement satisfies federal common-law
+        standards, California state labor laws, EDD payroll taxes, and wage orders generally apply
+        the stricter ABC Test unless a statutory exception applies. You can also review federal common-law
+        factors using our{' '}
         <Link
           href="/tools/irs-20-point-checklist"
           className="text-primary-lavender hover:underline font-semibold"
         >
-          free IRS 20-point classification check
+          educational IRS classification factor guide
         </Link>
         .
       </>
     ),
   },
   {
-    q: 'Can a contract waive California AB5 rules?',
-    a: "No. You cannot contract your way out of California labor laws. Even if a contractor signs an agreement stating they want to be a 1099 independent worker, the State of California will look past the contract and audit the actual economic reality of the working relationship.",
+    q: 'Can a written contract or 1099 form waive California classification rules?',
+    a: "No. A contract label, a 1099 tax form, or the parties' stated agreement to an independent contractor relationship does not by itself establish independent contractor status under California law. Courts and state agencies examine the actual statutory requirements and the real-world facts of the working relationship.",
   },
   {
-    q: 'What happens if I misclassify a worker in California?',
+    q: 'What are the statutory penalties for willful misclassification in California?',
     a: (
       <>
-        The penalties are severe. Civil penalties range from $5,000 to $15,000 per violation under
-        California Labor Code § 226.8 for willful misclassification; if the employer is found to have
-        engaged in a pattern or practice (模式性或惯常性违规) of violations, civil penalties increase up to
-        $25,000 per violation. In addition, employers face retroactive liability for unpaid overtime,
-        meal breaks, and statutory tax deficiencies, penalties, and interest to the Employment
-        Development Department (EDD). See what that looks like in dollars for your specific case with
-        the{' '}
+        Under California Labor Code § 226.8 (as amended effective January 1, 2026), if the Labor and
+        Workforce Development Agency (LWDA) or a court determines that a person or employer has
+        engaged in an enumerated violation—such as willful misclassification of an individual as an
+        independent contractor—civil penalties range from <strong>$5,000 to $15,000 per violation</strong>{' '}
+        (§ 226.8(b)), or from <strong>$10,000 to $25,000 per violation</strong> if the agency or court
+        determines there is a pattern or practice of these violations (§ 226.8(c)). These statutory
+        penalties require a formal agency or court determination and are not automatically triggered
+        by an educational screening tool. Employers may also face liability for unpaid wages,
+        overtime, meal and rest premiums, and Employment Development Department (EDD) tax
+        assessments. You can explore illustrative cost differences in the{' '}
         <Link href="#cost-calculator" className="text-primary-lavender hover:underline font-semibold">
-          1099 vs. W-2 true cost calculator
+          1099 vs. W-2 cost comparison calculator
         </Link>{' '}
-        above. If your audit result above flagged high risk, run the{' '}
-        <Link
-          href="/tools/irs-20-point-checklist"
-          className="text-primary-lavender hover:underline font-semibold"
-        >
-          IRS 20-point checklist
-        </Link>{' '}
-        next, then{' '}
+        above, or{' '}
         <Link
           href="/contracts/generator#generator-form"
           className="text-primary-lavender hover:underline font-semibold"
         >
-          generate an SB 988 compliant contract
+          draft a written freelance agreement
         </Link>{' '}
-        before continuing the engagement.
+        for qualifying independent contractor engagements.
       </>
     ),
   },
@@ -120,30 +132,30 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
 const FAQS_PLAIN = [
   {
     q: 'What is the ABC Test in California?',
-    a: "The ABC Test is a strict three-prong standard used in California to determine whether a worker is an employee or an independent contractor. Under California Labor Code § 2775, to classify a worker as an independent contractor, the hiring entity must prove all three of the following: A. The worker is free from the control and direction of the hiring entity in connection with the performance of the work. B. The worker performs work that is outside the usual course of the hiring entity's business. C. The worker is customarily engaged in an independently established trade, occupation, or business of the same nature as the work performed.",
+    a: "Under California Labor Code § 2775(b)(1), the ABC Test applies for purposes of the Labor Code, the Unemployment Insurance Code, and IWC wage orders, subject to statutory exceptions and other applicable rules. Under this framework, a worker is considered an employee unless the hiring entity demonstrates all three conditions: (A) the person is free from the control and direction of the hiring entity in connection with the performance of the work, both under the contract and in fact; (B) the person performs work that is outside the usual course of the hiring entity's business; and (C) the person is customarily engaged in an independently established trade, occupation, or business of the same nature as that involved in the work performed.",
   },
   {
     q: 'What is the Borello Test?',
-    a: "The Borello Test is California's traditional common-law test established in S.G. Borello & Sons, Inc. v. Department of Industrial Relations (1989) 48 Cal.3d 341, applied to statutory exemptions from the ABC test (such as professional services under Labor Code § 2778 or B2B contracts under § 2776). The primary factor is whether the hiring entity has the right to control the manner and means of accomplishing the result desired, balanced against secondary factors including distinct occupation, supervision, skill, tool provision, and duration.",
+    a: "The Borello Test comes from S.G. Borello & Sons, Inc. v. Department of Industrial Relations (1989) 48 Cal.3d 341 and applies when a statutory exception to the ABC Test (such as under Labor Code §§ 2776, 2777, or 2778) or another recognized rule directs classification to the common-law standard. It is a fact-specific multifactor test where no single factor controls. The principal factor is whether the hiring entity has the right to control the manner and means of accomplishing the result desired, considered alongside secondary factors including distinct occupation, whether the work is an integral or regular part of the hiring entity's business, who supplies tools and place of work, investment and hiring of helpers, skill required, supervision, opportunity for profit or loss, duration and permanence, method of payment, right to terminate, and the parties' understanding.",
   },
   {
-    q: 'Does California still use the IRS 20-point checklist?',
-    a: "The IRS 20-factor test is still used for federal tax auditing. However, for state labor laws, payroll taxes (EDD), and worker's compensation, California mandates the much stricter ABC test. Meeting IRS standards does not mean you are compliant with California AB5.",
+    q: 'How does federal IRS classification compare to California law?',
+    a: "For federal tax purposes, the IRS does not use a standalone 20-point numerical score as a conclusive worker-classification test. Instead, the IRS evaluates common-law rules across three categories: behavioral control, financial control, and the type of relationship (with historical 20-factor guidance serving as analytical background). Satisfying federal standards does not establish compliance with California's ABC Test under Labor Code § 2775.",
   },
   {
-    q: 'Can a contract waive California AB5 rules?',
-    a: "No. You cannot contract your way out of California labor laws. Even if a contractor signs an agreement stating they want to be a 1099 independent worker, the State of California will look past the contract and audit the actual economic reality of the working relationship.",
+    q: 'Can a written contract or 1099 form waive California classification rules?',
+    a: "No. A contract label, a 1099 form, or the parties' stated intention does not by itself establish independent contractor status under California law. Agencies and courts evaluate the applicable statutory requirements and actual working relationship.",
   },
   {
-    q: 'What happens if I misclassify a worker in California?',
-    a: "The penalties are severe. Civil penalties range from $5,000 to $15,000 per violation under California Labor Code § 226.8 for willful misclassification; if the employer is found to have engaged in a pattern or practice (模式性或惯常性违规) of violations, civil penalties increase up to $25,000 per violation. In addition, employers face retroactive liability for unpaid overtime, meal breaks, and statutory tax deficiencies, penalties, and interest to the Employment Development Department (EDD).",
+    q: 'What are the statutory penalties for willful misclassification in California?',
+    a: "Under California Labor Code § 226.8 (effective January 1, 2026), if the Labor and Workforce Development Agency or a court determines that a person or employer has committed an enumerated violation, including willful misclassification, civil penalties are $5,000 to $15,000 per violation under § 226.8(b), or $10,000 to $25,000 per violation under § 226.8(c) when there is a determination of a pattern or practice of violations. In addition, employers may face liability for unpaid wages, overtime, meal and rest break premiums, and EDD payroll tax assessments.",
   },
 ];
 
 const webAppJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'California ABC Test & Borello Test Compliance Checker',
+  name: 'California ABC Test & Borello Test Checker',
   url: 'https://indielegalterms.com/tools/ca-contractor-laws',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'All',
@@ -154,7 +166,7 @@ const webAppJsonLd = {
     priceCurrency: 'USD',
   },
   description:
-    'Free interactive compliance tool auditing California AB5 ABC test, Borello test, and SB 988 freelance worker rules, including misclassification penalty calculation.',
+    'Educational screening tool for reviewing California ABC Test and Borello Test worker-classification factors and SB 988 freelance contract requirements.',
 };
 
 const faqJsonLd = {
@@ -188,16 +200,21 @@ export default function IndependentContractorLawPage() {
         </div>
 
         <h1 className="text-4xl md:text-5xl font-black text-text-primary tracking-tight leading-tight mb-4">
-          California ABC Test & Borello Test Checker
+          California ABC Test &amp; Borello Test Checker
           <br />
           <span className="text-2xl md:text-3xl font-bold text-text-primary/60">
-            AB5 Independent Contractor Compliance Tool
+            Independent Contractor Classification Screening Tool
           </span>
         </h1>
 
-        <p className="text-lg text-text-primary/70 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Check your audit risk in 2 minutes under California AB5 &amp; SB 988. Free &amp; no
-          sign-up required.
+        <p className="text-lg text-text-primary/70 max-w-2xl mx-auto mb-4 leading-relaxed">
+          Review key California worker-classification factors under the ABC Test and Borello Test,
+          plus separate written-contract rules under the Freelance Worker Protection Act (SB 988).
+        </p>
+        <p className="text-xs text-text-primary/55 max-w-2xl mx-auto mb-10 leading-relaxed">
+          <strong>Educational Screening Notice:</strong> This tool is a preliminary educational
+          screening aid. It does not determine legal worker status, identify every statutory
+          exception, or provide a legal opinion.
         </p>
       </section>
 
@@ -216,9 +233,9 @@ export default function IndependentContractorLawPage() {
             What Does This Worker Actually Cost You in California?
           </h2>
           <p className="text-base text-text-primary/60 mt-2 max-w-2xl leading-relaxed">
-            A 1099 hire looks cheaper on paper. This calculator shows the real gap between 1099
-            and W-2 costs under 2026 California rates — and what that gap can turn into if the
-            audit above flagged high risk.
+            A 1099 hire looks cheaper on paper. This calculator compares illustrative 1099 and W-2
+            costs under 2026 California payroll tax rates and outlines potential statutory penalty
+            ranges if an agency or court later determines a worker was willfully misclassified.
           </p>
         </div>
         <MisclassificationCostCalculator />
@@ -230,18 +247,18 @@ export default function IndependentContractorLawPage() {
           <div className="flex flex-col justify-between gap-4 bg-indigo-50 border border-indigo-200 rounded-2xl px-6 py-5">
             <div>
               <p className="text-xs font-bold uppercase tracking-widest text-indigo-600 mb-1">
-                Want the federal check too?
+                Want to review federal factors too?
               </p>
               <p className="text-sm text-indigo-900 font-semibold leading-snug">
-                California&apos;s ABC test is stricter than the IRS 20-point checklist. Run both
-                before you finalize classification.
+                Federal IRS classification uses common-law control categories rather than
+                California&apos;s ABC Test. Review both federal and state factors.
               </p>
             </div>
             <Link
               href="/tools/irs-20-point-checklist"
               className="shrink-0 inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm px-5 py-3 rounded-xl transition-all whitespace-nowrap w-fit"
             >
-              🧭 Run Free IRS Classification Check →
+              🧭 Review Federal IRS Factors →
             </Link>
           </div>
 
@@ -251,8 +268,8 @@ export default function IndependentContractorLawPage() {
                 Already did the work and still haven&apos;t been paid?
               </p>
               <p className="text-sm text-orange-900 font-semibold leading-snug">
-                Generate a formal SB 988 demand letter — cites the 30-day rule &amp; double
-                damages — and send it today.
+                Generate a formal SB 988 payment demand letter for qualifying freelance engagements
+                under Cal. Bus. &amp; Prof. Code §§ 18100–18107.
               </p>
             </div>
             <Link
@@ -361,17 +378,17 @@ export default function IndependentContractorLawPage() {
       <section className="max-w-4xl mx-auto px-6 mb-24">
         <div className="bg-primary-lavender/5 border border-primary-lavender/20 rounded-3xl px-8 py-10 text-center">
           <h2 className="text-2xl font-black text-text-primary mb-3">
-            Not sure yet? Run the audit above.
+            Want to review the classification factors again?
           </h2>
           <p className="text-sm text-text-primary/60 mb-6 max-w-md mx-auto leading-relaxed">
-            Two minutes tells you which test applies and whether your contract is exposed — before
-            it becomes a $25,000 problem.
+            Use the preliminary educational screening tool above to review ABC Test and Borello Test
+            considerations, along with separate SB 988 written-contract requirements.
           </p>
           <a
             href="#top"
             className="inline-flex items-center justify-center gap-2 bg-primary-lavender text-white font-bold px-6 py-3 rounded-xl hover:bg-primary-lavender-dark transition-colors text-sm"
           >
-            Run My Compliance Audit ↑
+            Return to Screening Tool ↑
           </a>
         </div>
       </section>

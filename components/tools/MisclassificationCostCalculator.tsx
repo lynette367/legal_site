@@ -238,15 +238,17 @@ const MisclassificationCostCalculator: React.FC<MisclassificationCostCalculatorP
               {/* Misclassification exposure */}
               <div className="bg-red-50 border border-red-300 rounded-xl p-5">
                 <p className="text-xs font-bold uppercase tracking-wide text-red-700 mb-2">
-                  If 1099 is later reclassified
+                  If determined to be willfully misclassified
                 </p>
                 <p className="text-2xl font-black text-red-800 mb-1">
                   {fmt(result.exposureLow)} – {fmt(result.exposureHigh)}
                 </p>
                 <p className="text-xs text-red-700/70">
-                  On top of the {fmt(result.cost1099)} already paid: {fmt(result.penaltyLow)}–
-                  {fmt(result.penaltyHigh)} statutory penalty (Labor Code § 226.8) + ~{fmt(result.backTaxExposure)}{' '}
-                  in unpaid employer payroll taxes owed retroactively.
+                  On top of the {fmt(result.cost1099)} already paid: {fmt(result.penaltyLow)}–$15,000
+                  per violation under Labor Code § 226.8(b) (or $10,000–{fmt(result.penaltyHigh)} per
+                  violation for a pattern or practice under § 226.8(c), effective Jan. 1, 2026,
+                  requiring an LWDA or court determination) + ~{fmt(result.backTaxExposure)} in
+                  estimated employer payroll taxes.
                 </p>
               </div>
             </div>
