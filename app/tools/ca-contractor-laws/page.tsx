@@ -126,6 +126,21 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
       </>
     ),
   },
+  {
+    q: 'What essential terms must be in a covered California freelance contract under SB 988?',
+    a: (
+      <>
+        For engagements covered by California&apos;s Freelance Worker Protection Act (SB 988, Cal. Bus. &amp;
+        Prof. Code §§ 18100–18107)—meaning a qualifying freelance worker providing § 2778(b)(2)
+        professional services for at least $250 in a single contract or aggregated over the preceding
+        120 days with a covered hiring party—§ 18103 requires a written contract specifying the names
+        and mailing addresses of both parties, an itemized list of services and their value, the
+        rate and method of compensation, the date on which payment is due (or the mechanism by which
+        that date is determined), and the date by which the freelance worker must submit a list of
+        services rendered to meet internal processing deadlines.
+      </>
+    ),
+  },
 ];
 
 // Plain-text mirror of FAQS for the FAQPage JSON-LD (schema requires plain text, not JSX)
@@ -149,6 +164,10 @@ const FAQS_PLAIN = [
   {
     q: 'What are the statutory penalties for willful misclassification in California?',
     a: "Under California Labor Code § 226.8 (effective January 1, 2026), if the Labor and Workforce Development Agency or a court determines that a person or employer has committed an enumerated violation, including willful misclassification, civil penalties are $5,000 to $15,000 per violation under § 226.8(b), or $10,000 to $25,000 per violation under § 226.8(c) when there is a determination of a pattern or practice of violations. In addition, employers may face liability for unpaid wages, overtime, meal and rest break premiums, and EDD payroll tax assessments.",
+  },
+  {
+    q: 'What essential terms must be in a covered California freelance contract under SB 988?',
+    a: "For engagements covered by California's Freelance Worker Protection Act (SB 988, Cal. Bus. & Prof. Code §§ 18100–18107)—a qualifying freelance worker providing Labor Code § 2778(b)(2) professional services for at least $250 in one contract or aggregated over the preceding 120 days with a covered hiring party—§ 18103 requires a written contract specifying the names and mailing addresses of both parties, an itemized list of services and their value, the rate and method of compensation, the payment due date or mechanism for determining it, and the date by which the freelance worker must submit a list of services rendered for processing.",
   },
 ];
 
@@ -325,7 +344,7 @@ export default function IndependentContractorLawPage() {
             Related tools
           </span>
           <h2 className="text-2xl font-black text-text-primary mt-3 tracking-tight">
-            Next steps once you know your risk level
+            Related tools for your next step
           </h2>
         </div>
 

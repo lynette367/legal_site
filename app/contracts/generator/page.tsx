@@ -128,6 +128,15 @@ export default function UniversalContractGeneratorPage() {
         }>
           <UniversalContractGeneratorClient />
         </Suspense>
+        <p className="mt-4 text-center text-sm text-text-primary/70">
+          Have a draft or client-sent contract in hand?{' '}
+          <Link
+            href="/tools/freelancer-contract-review"
+            className="text-primary-lavender font-semibold hover:underline"
+          >
+            Run a free AI risk check before you sign →
+          </Link>
+        </p>
       </section>
 
       {/* ── How it works ── */}

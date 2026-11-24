@@ -341,22 +341,28 @@ export default function CaContractorLawLegalDepth() {
 
           <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-2">
             <span className="text-xs font-mono font-bold text-primary-lavender">
-              2026 Statutory Update · AB 1514 (Cal. Lab. Code §§ 2778 &amp; 2783)
+              2026 Statutory Update · AB 1514 (Cal. Lab. Code §§ 2778 &amp; 2783) &amp; § 2785(d)
             </span>
             <p className="font-semibold text-text-primary text-sm">
-              Additional Enumerated Categories, Conditions &amp; Sunset Dates
+              Additional Enumerated Categories, Conditions &amp; Effective Periods
             </p>
             <p className="text-xs text-gray-600 leading-relaxed">
               Other categories enumerated in § 2778(b)(2)—such as licensed estheticians,
               electrologists, barbers, cosmetologists, manicurists, real estate appraisers,
               specialized performers, and home inspectors—carry their own statutory conditions in
               addition to § 2778(a). Effective January 1, 2026, <strong>AB 1514</strong> (Stats.
-              2025, ch. 305) amended Labor Code §§ 2778 and 2783 to extend the sunset date for{' '}
-              <strong>licensed manicurists</strong> under § 2778(b)(2) until{' '}
-              <strong>January 1, 2029</strong> (subject to strict statutory conditions including
-              setting own rates, controlling hours, and receiving client payments directly) and to
-              extend the separate exemption for <strong>commercial fishers</strong> working on
-              American vessels under § 2783 until <strong>January 1, 2031</strong>.
+              2025, ch. 305) amended two distinct statutes: (1) under <strong>Labor Code § 2778</strong>{' '}
+              (professional services), it extended the exception for <strong>licensed manicurists</strong>{' '}
+              for the period <strong>2026-01-01 through 2028-12-31</strong> (becoming inoperative on
+              January 1, 2029), subject to strict statutory conditions including setting own rates,
+              controlling hours, and receiving client payments directly, alongside EDD and DLSE
+              reporting requirements; and (2) under <strong>Labor Code § 2783</strong> (specific
+              designated occupations separate from § 2778), it extended the exception for{' '}
+              <strong>commercial fishers</strong> working on an American vessel{' '}
+              <strong>through 2030-12-31</strong> (becoming inoperative on January 1, 2031). Under{' '}
+              <strong>Labor Code § 2785(d)</strong>, the Borello test governs only if the hiring
+              entity demonstrates compliance with <strong>all</strong> conditions of an applicable
+              exception in §§ 2776–2784.
             </p>
           </div>
         </div>

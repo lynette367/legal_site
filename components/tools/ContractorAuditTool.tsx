@@ -2,26 +2,16 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-
-type Industry =
-  | 'tech'
-  | 'creative'
-  | 'delivery'
-  | 'construction'
-  | 'healthcare'
-  | 'licensed-professional'
-  | 'other';
-
-type CoreBusiness = 'yes' | 'no' | '';
-
-type Location =
-  | 'san-francisco'
-  | 'los-angeles'
-  | 'san-diego'
-  | 'sacramento'
-  | 'other-ca'
-  | 'outside-ca'
-  | '';
+import {
+  computeResult,
+  getSb988Note,
+  type ContractorLocation,
+  type CoreBusiness,
+  type HiringPartyLocation,
+  type Industry,
+  type ScreeningTone,
+  type WorkLocation,
+} from '../../lib/contractorScreening';
 
 const INDUSTRY_OPTIONS: { value: Industry; label: string }[] = [
   { value: 'tech', label: 'Technology / Software' },
@@ -36,7 +26,7 @@ const INDUSTRY_OPTIONS: { value: Industry; label: string }[] = [
   { value: 'other', label: 'Other' },
 ];
 
-const LOCATION_OPTIONS: { value: Location; label: string }[] = [
+const CONTRACTOR_LOCATION_OPTIONS: { value: ContractorLocation; label: string }[] = [
   { value: 'san-francisco', label: 'San Francisco, CA' },
   { value: 'los-angeles', label: 'Los Angeles, CA' },
   { value: 'san-diego', label: 'San Diego, CA' },
@@ -45,150 +35,59 @@ const LOCATION_OPTIONS: { value: Location; label: string }[] = [
   { value: 'outside-ca', label: 'Outside California' },
 ];
 
-interface Result {
-  riskLevel: 'Low' | 'Moderate' | 'High';
-  applicableTest: string;
-  headline: string;
-  explanation: string;
-  sb988Note?: string;
-  localNote?: string;
-  primaryCta: { label: string; href: string };
-  secondaryCta: { label: string; href: string };
-}
+const WORK_LOCATION_OPTIONS: { value: WorkLocation; label: string }[] = [
+  { value: 'in-ca', label: 'In California' },
+  { value: 'outside-ca', label: 'Entirely outside California' },
+  { value: 'mixed', label: 'Partly in and partly outside California' },
+  { value: 'unknown', label: 'Not sure' },
+];
 
-function getSb988Note(industry: Industry): string {
-  const isLikelyProfessionalService =
-    industry === 'creative' || industry === 'licensed-professional';
-  if (isLikelyProfessionalService) {
-    return 'Separate from worker classification, if the individual is retained as a bona fide independent contractor meeting the definition of a "freelance worker" under SB 988 (Cal. Bus. & Prof. Code § 18101 — an individual or one-person entity providing § 2778(b)(2) professional services for $250+ in one contract or aggregated over the prior 120 days with a covered hiring party), a written contract and timely payment rules under §§ 18102–18103 apply.';
-  }
-  return 'Separate from worker classification, SB 988 (Cal. Bus. & Prof. Code §§ 18100–18107) is a payment-protection law—not a classification test—that applies only when a bona fide independent contractor meets the § 18101 definition of a "freelance worker" providing § 2778(b)(2) professional services for $250+ (single or 120-day aggregated with the same covered hiring party).';
-}
+const HIRING_PARTY_OPTIONS: { value: HiringPartyLocation; label: string }[] = [
+  { value: 'in-ca', label: 'In California' },
+  { value: 'outside-ca', label: 'Outside California' },
+  { value: 'unknown', label: 'Not sure' },
+];
 
-function computeResult(industry: Industry, coreBusiness: CoreBusiness, location: Location): Result {
-  if (location === 'outside-ca') {
-    return {
-      riskLevel: 'Low',
-      applicableTest: 'Not applicable (Outside California)',
-      headline: 'California Labor Code § 2775 and SB 988 focus on California work relationships.',
-      explanation:
-        'This preliminary educational screening tool reviews California worker-classification standards (Labor Code §§ 2775–2787) and separate SB 988 payment protections. For work performed outside California, check the applicable state and federal classification and payment rules.',
-      primaryCta: { label: 'Generate a General Freelance Contract', href: '/contracts/generator' },
-      secondaryCta: { label: 'Browse All Contract Templates', href: '/contracts' },
-    };
-  }
-
-  const localNote =
-    location === 'san-francisco' || location === 'los-angeles' || location === 'san-diego'
-      ? `${
-          location === 'san-francisco' ? 'San Francisco' : location === 'los-angeles' ? 'Los Angeles' : 'San Diego'
-        } also maintains local labor standards enforcement; under Cal. Bus. & Prof. Code § 18106, an aggrieved freelance worker or a public prosecutor may bring a civil action to enforce SB 988.`
-      : undefined;
-
-  const sb988Note = getSb988Note(industry);
-
-  if (industry === 'licensed-professional') {
-    return {
-      riskLevel: 'Moderate',
-      applicableTest: 'Potential Borello Multifactor Test via Labor Code § 2783 (if statutory criteria are met); otherwise ABC Test (§ 2775)',
-      headline:
-        coreBusiness === 'yes'
-          ? 'Core-business role: check whether Labor Code § 2783 statutory exemption criteria are strictly satisfied.'
-          : 'Non-core role: check whether Labor Code § 2783 or the ABC Test governs.',
-      explanation:
-        coreBusiness === 'yes'
-          ? 'Certain licensed professions enumerated in Cal. Lab. Code § 2783 (such as qualifying licensed insurance agents, real estate licensees, attorneys, accountants, architects, engineers, or securities broker-dealers) may be evaluated under the multifactor Borello test if all statutory criteria are met. However, if the role or arrangement does not satisfy § 2783, the ABC Test (§ 2775) applies—and performing core-business work creates elevated risk under Prong B.'
-          : 'Certain licensed professions enumerated in Cal. Lab. Code § 2783 may be evaluated under the multifactor Borello test when statutory criteria are met. If § 2783 does not apply, the ABC Test (§ 2775) governs, requiring the hiring entity to establish all three prongs (A, B, and C).',
-      sb988Note,
-      localNote,
-      primaryCta: { label: 'Draft a Written Contract', href: '/contracts/generator' },
-      secondaryCta: { label: 'Review Federal IRS Factors', href: '/tools/irs-20-point-checklist' },
-    };
-  }
-
-  if (industry === 'creative') {
-    return {
-      riskLevel: coreBusiness === 'yes' ? 'High' : 'Moderate',
-      applicableTest: 'ABC Test (§ 2775), unless all Cal. Lab. Code § 2778 professional-services conditions are met',
-      headline:
-        coreBusiness === 'yes'
-          ? 'Elevated Prong B risk unless the engagement satisfies every Labor Code § 2778 condition.'
-          : 'Creative/marketing role: review ABC Test Prongs A & C and whether § 2778 applies.',
-      explanation:
-        coreBusiness === 'yes'
-          ? 'Performing work within the hiring entity\'s usual course of business raises significant risk under Prong B of the ABC Test (§ 2775). Creative, marketing, design, photography, and writing roles do NOT automatically qualify for the Borello test: § 2778 applies only if the service is enumerated in § 2778(b)(2), satisfies all 6 general conditions in § 2778(a), and meets any occupation-specific requirements (such as § 2778(b)(2)(I) or (J)). If § 2778 is not fully satisfied, failing Prong B results in employee status under § 2775.'
-          : 'Work outside the usual course of business aligns with Prong B, but the hiring entity must still satisfy Prong A (freedom from control) and Prong C (independently established business) under § 2775—unless the engagement falls within an enumerated § 2778(b)(2) category and meets all 6 § 2778(a) conditions plus any occupation-specific rules, in which case the Borello multifactor test applies.',
-      sb988Note,
-      localNote,
-      primaryCta: { label: 'Draft an SB 988 Written Contract', href: '/contracts/generator' },
-      secondaryCta: { label: 'Review Federal IRS Factors', href: '/tools/irs-20-point-checklist' },
-    };
-  }
-
-  if (industry === 'construction' || industry === 'healthcare') {
-    const statuteRef =
-      industry === 'construction'
-        ? 'construction subcontractor rules under Cal. Lab. Code § 2781'
-        : 'enumerated licensed medical professions under Cal. Lab. Code § 2783 (e.g., physicians, surgeons, dentists, podiatrists, psychologists, veterinarians)';
-    return {
-      riskLevel: coreBusiness === 'yes' ? 'High' : 'Moderate',
-      applicableTest: `ABC Test (§ 2775), unless a statutory exception applies (${industry === 'construction' ? '§ 2781' : '§ 2783'})`,
-      headline:
-        coreBusiness === 'yes'
-          ? 'Elevated Prong B risk unless a specific statutory exception is satisfied.'
-          : 'Non-core role: verify Prongs A & C or whether a statutory exception applies.',
-      explanation:
-        coreBusiness === 'yes'
-          ? `Performing core-business work creates significant risk under Prong B of the ABC Test (§ 2775). Check with California employment counsel whether ${statuteRef} or a B2B exception (§ 2776) applies; if no statutory exception is fully satisfied, all three ABC prongs must be met.`
-          : `Work outside the usual course of business aligns with Prong B, but Prong A (control) and Prong C (independent business) must still be established under § 2775 unless ${statuteRef} directs the analysis to the Borello multifactor test.`,
-      sb988Note,
-      localNote,
-      primaryCta: { label: 'Draft a Written Contract', href: '/contracts/generator' },
-      secondaryCta: { label: 'Review Federal IRS Factors', href: '/tools/irs-20-point-checklist' },
-    };
-  }
-
-  if (coreBusiness === 'yes') {
-    return {
-      riskLevel: 'High',
-      applicableTest: 'ABC Test (Cal. Lab. Code § 2775) — unless a statutory exception (e.g., § 2776 B2B) applies',
-      headline: 'Elevated classification risk under Prong B of the ABC Test.',
-      explanation:
-        'When the ABC Test applies and no statutory exception (such as a qualifying B2B arrangement under § 2776 or referral agency under § 2777) is satisfied, performing work within the hiring entity\'s usual course of business raises significant risk under Prong B ("the person performs work that is outside the usual course of the hiring entity\'s business"). Under Labor Code § 2775, all three prongs (A, B, and C) must be established. Under Labor Code § 226.8 (effective Jan. 1, 2026), if the LWDA or a court determines that an employer engaged in willful misclassification, civil penalties are $5,000–$15,000 per violation (§ 226.8(b)), or $10,000–$25,000 per violation for a pattern or practice (§ 226.8(c)). Consult a California employment attorney before treating the role as an independent contractor.',
-      sb988Note,
-      localNote,
-      primaryCta: { label: 'Draft a Written Contract', href: '/contracts/generator' },
-      secondaryCta: { label: 'Review Federal IRS Factors', href: '/tools/irs-20-point-checklist' },
-    };
-  }
-
-  return {
-    riskLevel: 'Moderate',
-    applicableTest: 'ABC Test (Cal. Lab. Code § 2775) or applicable statutory exception',
-    headline: 'Work outside the usual course of business aligns with Prong B, but Prongs A and C must also be met.',
-    explanation:
-      'Under the ABC Test, performing work outside the hiring entity\'s usual course of business addresses Prong B, but the hiring entity must still establish Prong A (freedom from control and direction both under the contract and in fact) and Prong C (the worker is customarily engaged in an independently established trade, occupation, or business of the same nature), unless a statutory exception directs the analysis to the Borello multifactor test.',
-    sb988Note,
-    localNote,
-    primaryCta: { label: 'Draft a Written Contract', href: '/contracts/generator' },
-    secondaryCta: { label: 'Review an Existing Agreement', href: '/tools/freelancer-contract-review' },
-  };
-}
-
-const RISK_STYLES: Record<Result['riskLevel'], string> = {
-  Low: 'bg-green-50 text-green-700 border-green-200',
-  Moderate: 'bg-amber-50 text-amber-700 border-amber-200',
-  High: 'bg-red-50 text-red-700 border-red-200',
+const TONE_STYLES: Record<ScreeningTone, string> = {
+  elevated: 'bg-amber-50 text-amber-800 border-amber-200',
+  lower: 'bg-sky-50 text-sky-800 border-sky-200',
+  unknown: 'bg-gray-50 text-gray-700 border-gray-200',
 };
+
+const SELECT_CLASS =
+  'w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-primary-lavender';
 
 export default function ContractorAuditTool() {
   const [industry, setIndustry] = useState<Industry | ''>('');
-  const [coreBusiness, setCoreBusiness] = useState<CoreBusiness>('');
-  const [location, setLocation] = useState<Location>('');
+  const [coreBusiness, setCoreBusiness] = useState<CoreBusiness | ''>('');
+  const [contractorLocation, setContractorLocation] = useState<ContractorLocation | ''>('');
+  const [workLocation, setWorkLocation] = useState<WorkLocation | ''>('');
+  const [hiringPartyLocation, setHiringPartyLocation] = useState<HiringPartyLocation | ''>('');
   const [showResult, setShowResult] = useState(false);
 
-  const canSubmit = industry !== '' && coreBusiness !== '' && location !== '';
-  const result = canSubmit ? computeResult(industry as Industry, coreBusiness, location) : null;
+  const canSubmit =
+    industry !== '' &&
+    coreBusiness !== '' &&
+    contractorLocation !== '' &&
+    workLocation !== '' &&
+    hiringPartyLocation !== '';
+
+  const result = canSubmit
+    ? computeResult({
+        industry: industry as Industry,
+        coreBusiness: coreBusiness as CoreBusiness,
+        contractorLocation: contractorLocation as ContractorLocation,
+        workLocation: workLocation as WorkLocation,
+        hiringPartyLocation: hiringPartyLocation as HiringPartyLocation,
+      })
+    : null;
+
+  const sb988 = canSubmit
+    ? getSb988Note({
+        industry: industry as Industry,
+        hiringPartyLocation: hiringPartyLocation as HiringPartyLocation,
+      })
+    : null;
 
   return (
     <div className="bg-white border border-gray-200 rounded-2xl shadow-soft p-6 md:p-8 max-w-2xl mx-auto">
@@ -196,7 +95,7 @@ export default function ContractorAuditTool() {
         <div>
           <label className="block text-sm font-bold text-text-primary mb-2">Worker&apos;s Industry</label>
           <select
-            className="w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-primary-lavender"
+            className={SELECT_CLASS}
             value={industry}
             onChange={(e) => {
               setIndustry(e.target.value as Industry);
@@ -216,7 +115,7 @@ export default function ContractorAuditTool() {
 
         <div>
           <span className="block text-sm font-bold text-text-primary mb-2">
-            Does this worker perform tasks core to your primary business?
+            Is this work within the usual course of the hiring entity&apos;s business? (Prong B)
           </span>
           <div className="flex gap-3">
             {(['yes', 'no'] as const).map((val) => (
@@ -240,19 +139,67 @@ export default function ContractorAuditTool() {
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-text-primary mb-2">Contractor&apos;s Location</label>
+          <label className="block text-sm font-bold text-text-primary mb-2">
+            Contractor&apos;s Residence / Business Location
+          </label>
           <select
-            className="w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-primary-lavender"
-            value={location}
+            className={SELECT_CLASS}
+            value={contractorLocation}
             onChange={(e) => {
-              setLocation(e.target.value as Location);
+              setContractorLocation(e.target.value as ContractorLocation);
               setShowResult(false);
             }}
           >
             <option value="" disabled>
               Select a location…
             </option>
-            {LOCATION_OPTIONS.map((opt) => (
+            {CONTRACTOR_LOCATION_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-bold text-text-primary mb-2">
+            Where Is the Work Actually Performed?
+          </label>
+          <select
+            className={SELECT_CLASS}
+            value={workLocation}
+            onChange={(e) => {
+              setWorkLocation(e.target.value as WorkLocation);
+              setShowResult(false);
+            }}
+          >
+            <option value="" disabled>
+              Select place of performance…
+            </option>
+            {WORK_LOCATION_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-bold text-text-primary mb-2">
+            Where Is the Hiring Party Located?
+          </label>
+          <select
+            className={SELECT_CLASS}
+            value={hiringPartyLocation}
+            onChange={(e) => {
+              setHiringPartyLocation(e.target.value as HiringPartyLocation);
+              setShowResult(false);
+            }}
+          >
+            <option value="" disabled>
+              Select hiring party location…
+            </option>
+            {HIRING_PARTY_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>
                 {opt.label}
               </option>
@@ -271,27 +218,48 @@ export default function ContractorAuditTool() {
 
         <p className="text-xs text-text-primary/50 leading-relaxed">
           <strong>Preliminary Educational Screening:</strong> This checker provides general educational
-          information only. It does not determine legal worker classification status, evaluate every
-          statutory exception under California Labor Code §§ 2776–2784, or constitute a legal opinion.
+          information only. It does not determine legal worker classification status, decide whether the
+          ABC Test or the Borello test ultimately applies, evaluate every statutory exception under
+          California Labor Code §§ 2776–2787, or constitute a legal opinion.
         </p>
       </div>
 
-      {showResult && result && (
+      {showResult && result && sb988 && (
         <div className="mt-8 border-t border-gray-100 pt-6 animate-in">
-          <span className={`inline-block rounded-full border px-3 py-1 text-xs font-bold mb-3 ${RISK_STYLES[result.riskLevel]}`}>
-            {result.riskLevel} Risk (Preliminary Screening)
+          <span
+            className={`inline-block rounded-full border px-3 py-1 text-xs font-bold mb-3 ${TONE_STYLES[result.tone]}`}
+          >
+            {result.screeningLabel} (Preliminary Screening)
           </span>
           <h3 className="text-lg font-black text-text-primary mb-2 leading-snug">{result.headline}</h3>
+          <p className="text-xs font-semibold text-text-primary/50 uppercase tracking-wide mb-1">
+            Jurisdiction: {result.jurisdictionStatus}
+          </p>
           <p className="text-xs font-semibold text-text-primary/50 uppercase tracking-wide mb-3">
-            Applicable standard: {result.applicableTest}
+            Framework to verify: {result.frameworkToVerify}
           </p>
           <p className="text-sm leading-relaxed text-text-primary/70">{result.explanation}</p>
-          {result.sb988Note && (
-            <div className="mt-3 rounded-xl bg-slate-50 border border-slate-200 p-3.5 text-xs leading-relaxed text-text-primary/75">
+          <p className="text-sm leading-relaxed text-text-primary/70 mt-3">{result.jurisdictionNote}</p>
+
+          <div className="mt-3 rounded-xl bg-white border border-gray-200 p-3.5 text-xs leading-relaxed text-text-primary/75">
+            <strong className="text-text-primary">Statutory exception to verify (not applied automatically):</strong>{' '}
+            {result.statutoryExceptionNote}
+          </div>
+
+          <div className="mt-3 rounded-xl bg-slate-50 border border-slate-200 p-3.5 text-xs leading-relaxed text-text-primary/75 space-y-2">
+            <p>
               <strong className="text-text-primary">SB 988 Payment Protections (Separate Statute):</strong>{' '}
-              {result.sb988Note}
-            </div>
-          )}
+              <span className="font-semibold">{sb988.status}.</span> {sb988.summary}
+            </p>
+            <ul className="list-disc list-inside space-y-1">
+              {sb988.checklist.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            <p>{sb988.paymentRule}</p>
+            <p>{sb988.remedies}</p>
+          </div>
+
           {result.localNote && (
             <p className="text-sm leading-relaxed text-text-lavender mt-3 italic">{result.localNote}</p>
           )}
@@ -313,8 +281,9 @@ export default function ContractorAuditTool() {
 
           <p className="mt-4 text-xs text-text-primary/50 leading-relaxed">
             <strong>Disclaimer:</strong> This preliminary screening output is for educational purposes
-            only, does not determine legal status or trigger statutory penalties, and is not a
-            substitute for advice from a licensed California employment attorney.
+            only. It is not a legal classification conclusion, does not determine legal status or
+            trigger statutory penalties, and is not a substitute for advice from a licensed California
+            employment attorney.
           </p>
         </div>
       )}

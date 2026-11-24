@@ -256,8 +256,9 @@ const MisclassificationCostCalculator: React.FC<MisclassificationCostCalculatorP
             <div className="p-4 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800">
               <p className="text-sm">
                 The apparent 1099 savings here is <strong>{fmt(result.apparentSavings)}/year</strong>.
-                If this worker fails the ABC test above, that savings can flip into a five-figure
-                liability — often more than the W-2 cost would have been in the first place.
+                If an agency or court later determines this worker was misclassified, that savings
+                can turn into a significant liability — sometimes more than the W-2 cost would have
+                been in the first place.
               </p>
             </div>
 
@@ -276,7 +277,7 @@ const MisclassificationCostCalculator: React.FC<MisclassificationCostCalculatorP
                 href={auditAnchorId}
                 className="flex-1 text-center px-6 py-3 border border-primary-lavender text-primary-lavender font-bold rounded-md hover:bg-primary-lavender/5 transition-colors"
               >
-                ↑ Re-check the ABC Test Result Above
+                ↑ Back to the Screening Tool Above
               </a>
               <Link
                 href="/contracts/generator"
